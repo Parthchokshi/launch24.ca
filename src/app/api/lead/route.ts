@@ -17,11 +17,16 @@ export async function POST(request: Request) {
 
     const phone = String(form.get("phone") ?? "").trim();
     const name = String(form.get("name") ?? "").trim();
+    const email = String(form.get("email") ?? "").trim();
     const message = String(form.get("message") ?? "").trim();
     const audio = form.get("audio");
 
     if (!phone) {
       return NextResponse.json({ error: "Phone is required." }, { status: 400 });
+    }
+
+    if (!email) {
+      return NextResponse.json({ error: "Email is required." }, { status: 400 });
     }
 
     const hasAudio = audio instanceof File && audio.size > 0;
@@ -46,6 +51,7 @@ export async function POST(request: Request) {
       ``,
       `Phone: ${phone}`,
       `Name: ${name || "(not provided)"}`,
+      `Email: ${email || "(not provided)"}`,
       `Message: ${message || "(voice memo only)"}`,
       `Audio: ${hasAudio ? audio.name : "none"}`,
     ].join("\n");
@@ -76,6 +82,7 @@ export async function POST(request: Request) {
     const { error } = await resend.emails.send({
       from,
       to: [contact.email],
+      replyTo: email || undefined,
       subject,
       text,
       attachments,

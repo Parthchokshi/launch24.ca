@@ -11,11 +11,11 @@ export default function TermsPage() {
     <main className="mx-auto max-w-2xl px-5 py-16 sm:px-8">
       <Link
         href="/"
-        className="text-xs font-bold uppercase tracking-wider text-[color:var(--gold)]"
+        className="text-xs font-bold uppercase tracking-wider text-[color:var(--accent)]"
       >
         ← Launch24
       </Link>
-      <h1 className="font-display mt-6 text-4xl font-bold tracking-tight">
+      <h1 className="mt-6 text-4xl font-bold tracking-tight text-[color:var(--ink)]">
         Terms
       </h1>
       <p className="mt-2 text-sm text-[color:var(--muted)]">
@@ -23,20 +23,20 @@ export default function TermsPage() {
         for a formal contract.
       </p>
 
-      <div className="prose-invert mt-10 space-y-8 text-sm leading-relaxed text-[color:var(--muted)]">
+      <div className="mt-10 space-y-8 text-sm leading-relaxed text-[color:var(--muted)]">
         <section>
-          <h2 className="font-display text-lg font-bold text-[color:var(--ivory)]">
+          <h2 className="text-lg font-bold text-[color:var(--ink)]">
             The offer
           </h2>
           <p className="mt-2">
-            Launch24 delivers the first version of an agreed starter one-page
-            website within 24 hours of clock start. If we miss that window, the
+            Launch24 delivers the first version of an agreed starter website
+            within 24 hours of clock start. If we miss that window, the
             project is free — your deposit is refunded.
           </p>
         </section>
 
         <section>
-          <h2 className="font-display text-lg font-bold text-[color:var(--ivory)]">
+          <h2 className="text-lg font-bold text-[color:var(--ink)]">
             When the 24-hour clock starts
           </h2>
           <p className="mt-2">All of the following must be true:</p>
@@ -54,8 +54,8 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="font-display text-lg font-bold text-[color:var(--ivory)]">
-            What is not counted toward 24 hours
+          <h2 className="text-lg font-bold text-[color:var(--ink)]">
+            What is not counted toward the 24 hours
           </h2>
           <ul className="mt-2 list-disc space-y-1 pl-5">
             <li>Client delays responding or sending content</li>
@@ -70,19 +70,20 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="font-display text-lg font-bold text-[color:var(--ivory)]">
+          <h2 className="text-lg font-bold text-[color:var(--ink)]">
             Included vs not included
           </h2>
           <p className="mt-2">
-            Included: one-page responsive site, mobile layout, contact/lead form,
-            basic SEO (title/meta), launch-ready homepage. Not included by
-            default: multi-page sites, e-commerce, advanced booking, custom
-            photography, ads, ongoing maintenance (quoted separately).
+            Included: a responsive website, mobile-first layout, contact/lead
+            form, basic SEO (title/meta), and launch-ready homepage copy. Not
+            included by default: multi-page sites, e-commerce, advanced
+            booking, custom photography, ads, ongoing maintenance (quoted
+            separately).
           </p>
         </section>
 
         <section>
-          <h2 className="font-display text-lg font-bold text-[color:var(--ivory)]">
+          <h2 className="text-lg font-bold text-[color:var(--ink)]">
             Revisions
           </h2>
           <p className="mt-2">
@@ -92,14 +93,14 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="font-display text-lg font-bold text-[color:var(--ivory)]">
+          <h2 className="text-lg font-bold text-[color:var(--ink)]">
             Contact
           </h2>
           <p className="mt-2">
             Questions:{" "}
             <a
               href="mailto:hi@launch24.ca"
-              className="text-[color:var(--gold)] underline underline-offset-2"
+              className="text-[color:var(--accent)] underline underline-offset-2"
             >
               hi@launch24.ca
             </a>

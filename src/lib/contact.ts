@@ -2,8 +2,8 @@
  * Single source of truth for contact details.
  * Swap the phone when you buy your number, or set env vars.
  */
-const DEFAULT_PHONE_DISPLAY = "+1 (416) 555-0124";
-const DEFAULT_PHONE_E164 = "14165550124";
+const DEFAULT_PHONE_DISPLAY = "437-365-2475";
+const DEFAULT_PHONE_E164 = "14373652475";
 const DEFAULT_EMAIL = "hi@launch24.ca";
 
 export const contact = {

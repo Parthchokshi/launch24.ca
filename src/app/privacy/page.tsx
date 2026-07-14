@@ -12,11 +12,11 @@ export default function PrivacyPage() {
     <main className="mx-auto max-w-2xl px-5 py-16 sm:px-8">
       <Link
         href="/"
-        className="text-xs font-bold uppercase tracking-wider text-[color:var(--gold)]"
+        className="text-xs font-bold uppercase tracking-wider text-[color:var(--accent)]"
       >
         ← Launch24
       </Link>
-      <h1 className="font-display mt-6 text-4xl font-bold tracking-tight">
+      <h1 className="mt-6 text-4xl font-bold tracking-tight text-[color:var(--ink)]">
         Privacy
       </h1>
       <p className="mt-2 text-sm text-[color:var(--muted)]">
@@ -25,19 +25,19 @@ export default function PrivacyPage() {
 
       <div className="mt-10 space-y-8 text-sm leading-relaxed text-[color:var(--muted)]">
         <section>
-          <h2 className="font-display text-lg font-bold text-[color:var(--ivory)]">
+          <h2 className="text-lg font-bold text-[color:var(--ink)]">
             What we collect
           </h2>
           <p className="mt-2">
             When you contact us through the site, we may receive your phone
-            number, optional name, optional message, and optional voice memo.
+            number, and optional name, email, message, and voice memo.
             Direct WhatsApp, call, SMS, or email uses those platforms’ own
             systems.
           </p>
         </section>
 
         <section>
-          <h2 className="font-display text-lg font-bold text-[color:var(--ivory)]">
+          <h2 className="text-lg font-bold text-[color:var(--ink)]">
             How we use it
           </h2>
           <p className="mt-2">
@@ -47,7 +47,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="font-display text-lg font-bold text-[color:var(--ivory)]">
+          <h2 className="text-lg font-bold text-[color:var(--ink)]">
             Voice memos
           </h2>
           <p className="mt-2">
@@ -58,14 +58,14 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="font-display text-lg font-bold text-[color:var(--ivory)]">
+          <h2 className="text-lg font-bold text-[color:var(--ink)]">
             Contact
           </h2>
           <p className="mt-2">
             Privacy questions:{" "}
             <a
               href={`mailto:${contact.email}`}
-              className="text-[color:var(--gold)] underline underline-offset-2"
+              className="text-[color:var(--accent)] underline underline-offset-2"
             >
               {contact.email}
             </a>

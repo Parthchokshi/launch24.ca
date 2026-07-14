@@ -7,6 +7,7 @@ const MAX_SECONDS = 120;
 export function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [honeypot, setHoneypot] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">(
@@ -103,6 +104,10 @@ export function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
       setError("Phone number is required.");
       return;
     }
+    if (!email.trim()) {
+      setError("Email is required.");
+      return;
+    }
     if (!message.trim() && !audioBlob) {
       setError("Add a short note or a voice memo.");
       return;
@@ -113,6 +118,7 @@ export function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
       const form = new FormData();
       form.set("phone", phone.trim());
       form.set("name", name.trim());
+      form.set("email", email.trim());
       form.set("message", message.trim());
       form.set("company", honeypot);
       if (audioBlob) {
@@ -130,6 +136,7 @@ export function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
       setStatus("ok");
       setName("");
       setPhone("");
+      setEmail("");
       setMessage("");
       clearAudio();
     } catch (err) {
@@ -140,8 +147,8 @@ export function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
 
   if (status === "ok") {
     return (
-      <div className="rounded-2xl border border-[color:var(--gold)]/30 bg-[color:var(--gold)]/[0.06] p-10 text-center">
-        <p className="font-display text-3xl font-semibold italic gold-text">
+      <div className="rounded-[18px] border border-[color:var(--accent)]/25 bg-[color:var(--panel-mint)]/40 p-10 text-center">
+        <p className="accent-serif text-3xl text-[color:var(--ink)]">
           Consider it started.
         </p>
         <p className="mt-3 text-sm text-[color:var(--muted)]">
@@ -150,7 +157,7 @@ export function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
         <button
           type="button"
           onClick={() => setStatus("idle")}
-          className="mt-8 text-xs font-semibold uppercase tracking-widest text-[color:var(--gold)] underline-offset-4 hover:underline"
+          className="mt-8 text-xs font-semibold uppercase tracking-widest text-[color:var(--accent)] underline-offset-4 hover:underline"
         >
           Send another
         </button>
@@ -172,13 +179,13 @@ export function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
         aria-hidden
       />
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-3.5 sm:grid-cols-2">
         <div>
           <label
             htmlFor={`${idPrefix}-phone`}
             className="text-[11px] font-bold uppercase tracking-[0.18em] text-[color:var(--muted)]"
           >
-            Phone <span className="text-[color:var(--gold)]">*</span>
+            Phone
           </label>
           <input
             id={`${idPrefix}-phone`}
@@ -189,29 +196,46 @@ export function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             placeholder="Your number"
-            className="input-lux mt-2 w-full rounded-xl border border-[color:var(--line-soft)] bg-white/[0.03] px-4 py-3.5 text-[color:var(--ivory)] outline-none placeholder:text-[color:var(--muted)]/50"
+            className="mt-2 w-full rounded-[11px] border border-black/[0.12] bg-white px-[15px] py-[13px] text-sm text-[color:var(--ink)] outline-none transition-colors focus-visible:border-[color:var(--accent)] placeholder:text-[color:var(--muted-2)]"
           />
         </div>
         <div>
           <label
-            htmlFor={`${idPrefix}-name`}
+            htmlFor={`${idPrefix}-email`}
             className="text-[11px] font-bold uppercase tracking-[0.18em] text-[color:var(--muted)]"
           >
-            Name{" "}
-            <span className="font-medium normal-case tracking-normal opacity-70">
-              (optional)
-            </span>
+            Email
           </label>
           <input
-            id={`${idPrefix}-name`}
-            type="text"
-            autoComplete="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="What should we call you?"
-            className="input-lux mt-2 w-full rounded-xl border border-[color:var(--line-soft)] bg-white/[0.03] px-4 py-3.5 text-[color:var(--ivory)] outline-none placeholder:text-[color:var(--muted)]/50"
+            id={`${idPrefix}-email`}
+            type="email"
+            inputMode="email"
+            autoComplete="email"
+            value={email}
+            required
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="you@business.com"
+            className="mt-2 w-full rounded-[11px] border border-black/[0.12] bg-white px-[15px] py-[13px] text-sm text-[color:var(--ink)] outline-none transition-colors focus-visible:border-[color:var(--accent)] placeholder:text-[color:var(--muted-2)]"
           />
         </div>
+      </div>
+
+      <div>
+        <label
+          htmlFor={`${idPrefix}-name`}
+          className="text-[11px] font-bold uppercase tracking-[0.18em] text-[color:var(--muted)]"
+        >
+          Name
+        </label>
+        <input
+          id={`${idPrefix}-name`}
+          type="text"
+          autoComplete="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="What should we call you?"
+          className="mt-2 w-full rounded-[11px] border border-black/[0.12] bg-white px-[15px] py-[13px] text-sm text-[color:var(--ink)] outline-none transition-colors focus-visible:border-[color:var(--accent)] placeholder:text-[color:var(--muted-2)]"
+        />
       </div>
 
       <div>
@@ -230,27 +254,26 @@ export function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="e.g. “Website for my salon — services, prices, booking button.”"
-          className="input-lux mt-2 w-full resize-none rounded-xl border border-[color:var(--line-soft)] bg-white/[0.03] px-4 py-3.5 text-[color:var(--ivory)] outline-none placeholder:text-[color:var(--muted)]/50"
+          className="mt-2 w-full resize-none rounded-[11px] border border-black/[0.12] bg-white px-[15px] py-[13px] text-sm text-[color:var(--ink)] outline-none transition-colors focus-visible:border-[color:var(--accent)] placeholder:text-[color:var(--muted-2)]"
         />
       </div>
 
-      <div className="flex flex-wrap items-center gap-3 rounded-xl border border-dashed border-[color:var(--line)] bg-[color:var(--gold)]/[0.03] p-4">
+      <div className="flex flex-wrap items-center gap-3 rounded-[11px] border border-dashed border-black/[0.22] bg-[color:var(--surface)] p-4">
         {!recording ? (
           <button
             type="button"
             onClick={startRecording}
-            className="btn-ghost inline-flex items-center gap-2.5 rounded-full border border-[color:var(--line)] px-5 py-2.5 text-xs font-bold uppercase tracking-widest text-[color:var(--gold)]"
+            className="inline-flex items-center gap-2.5 rounded-[11px] px-5 py-3 text-[13.5px] font-semibold text-[color:var(--ink)] transition-colors hover:text-[color:var(--accent)]"
           >
-            <span className="h-2 w-2 rounded-full bg-[color:var(--gold)]" />
             Record a voice note
           </button>
         ) : (
           <button
             type="button"
             onClick={stopRecording}
-            className="inline-flex items-center gap-2.5 rounded-full bg-red-500/90 px-5 py-2.5 text-xs font-bold uppercase tracking-widest text-white"
+            className="inline-flex items-center gap-2.5 rounded-[11px] bg-[color:var(--danger)] px-5 py-3 text-[13.5px] font-semibold text-white"
           >
-            <span className="h-2 w-2 animate-pulse rounded-sm bg-white" />
+            <span className="pulse-dot h-[9px] w-[9px] rounded-full bg-white" />
             Stop · {seconds}s
           </button>
         )}
@@ -269,14 +292,14 @@ export function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
         )}
 
         {!audioUrl && !recording && (
-          <span className="text-xs text-[color:var(--muted)]/70">
+          <span className="text-xs text-[color:var(--muted-2)]">
             Faster than typing — max 2 min.
           </span>
         )}
       </div>
 
       {error && (
-        <p className="text-sm text-red-400" role="alert">
+        <p className="text-sm text-[color:var(--danger)]" role="alert">
           {error}
         </p>
       )}
@@ -284,7 +307,7 @@ export function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="btn-gold w-full rounded-full px-6 py-4 text-sm font-bold uppercase tracking-widest disabled:opacity-60"
+        className="btn-dark w-full rounded-[11px] px-6 py-4 text-sm font-bold disabled:opacity-60"
       >
         {status === "sending" ? "Sending…" : "Get my website started"}
       </button>

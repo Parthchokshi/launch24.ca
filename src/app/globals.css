@@ -1,26 +1,39 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #0c0a08;
-  --surface: #14110d;
-  --surface-2: #1a1611;
-  --ivory: #f4efe6;
-  --muted: #9c9284;
-  --gold: #d9b878;
-  --gold-bright: #f0d9a8;
-  --gold-deep: #b8934a;
-  --line: rgba(217, 184, 120, 0.14);
-  --line-soft: rgba(244, 239, 230, 0.08);
+  --bg: #ffffff;
+  --surface: #f7f6f3;
+  --ink: #191817;
+  --ink-soft: #3a3833;
+  --ink-inverse: #ffffff;
+  --muted: #5b5952;
+  --muted-2: #8b887f;
+  --line: rgba(0, 0, 0, 0.09);
+  --line-soft: rgba(0, 0, 0, 0.06);
+  --accent: #2f7d54;
+  --accent-warm: #d97706;
+  --danger: #d64545;
+
+  --panel-lavender: #eceafd;
+  --panel-lavender-2: #8d84e8;
+  --panel-lavender-3: #b3abf0;
+  --panel-yellow: #fdf3d8;
+  --panel-blue: #e3f0fb;
+  --panel-mint: #d9f2e4;
+
+  --radius-btn: 11px;
+  --radius-card: 18px;
+  --radius-panel: 28px;
 }
 
 @theme inline {
   --color-bg: var(--bg);
   --color-surface: var(--surface);
-  --color-ivory: var(--ivory);
+  --color-ink: var(--ink);
   --color-muted: var(--muted);
-  --color-gold: var(--gold);
-  --font-display: var(--font-fraunces);
-  --font-body: var(--font-manrope);
+  --color-accent: var(--accent);
+  --font-serif: var(--font-instrument);
+  --font-sans: var(--font-hanken);
 }
 
 html {
@@ -29,61 +42,70 @@ html {
 
 body {
   background: var(--bg);
-  color: var(--ivory);
-  font-family: var(--font-body), system-ui, sans-serif;
-  overflow-x: hidden;
+  color: var(--ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
-  background: var(--gold);
-  color: var(--bg);
+  background: var(--accent);
+  color: var(--ink-inverse);
 }
 
-.font-display {
-  font-family: var(--font-display), Georgia, serif;
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
-/* ---------- texture & atmosphere ---------- */
+/* ---------- accent word treatment ---------- */
 
-.grain::before {
-  content: "";
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  opacity: 0.25;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
-  mix-blend-mode: soft-light;
+.accent-serif {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
 }
 
-.gold-text {
-  background: linear-gradient(120deg, var(--gold-bright), var(--gold) 45%, var(--gold-deep));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+.mark-mint {
+  background: var(--panel-mint);
+  border-radius: 12px;
+  padding: 0 14px;
 }
 
-.hairline {
-  border-color: var(--line);
+/* ---------- shared buttons ---------- */
+
+.btn-dark {
+  background: var(--ink);
+  color: var(--ink-inverse);
+  transition: background 0.2s;
 }
 
-/* ---------- floating orbs ---------- */
-
-.orb {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(90px);
-  opacity: 0.5;
-  pointer-events: none;
-  animation: orb-drift 18s ease-in-out infinite alternate;
+.btn-dark:hover {
+  background: var(--ink-soft);
 }
 
-@keyframes orb-drift {
-  from {
-    transform: translate3d(0, 0, 0) scale(1);
+.btn-light {
+  background: #fff;
+  color: var(--ink);
+  transition: color 0.2s;
+}
+
+.btn-light:hover {
+  color: var(--accent);
+}
+
+/* ---------- pulse (status dot / recording indicator) ---------- */
+
+.pulse-dot {
+  animation: l24pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes l24pulse {
+  0%,
+  100% {
+    opacity: 1;
   }
-  to {
-    transform: translate3d(4vw, -3vh, 0) scale(1.12);
+  50% {
+    opacity: 0.25;
   }
 }
 
@@ -91,10 +113,10 @@ body {
 
 .reveal {
   opacity: 0;
-  transform: translateY(26px);
+  transform: translateY(22px);
   transition:
-    opacity 0.9s cubic-bezier(0.2, 0.65, 0.3, 1),
-    transform 0.9s cubic-bezier(0.2, 0.65, 0.3, 1);
+    opacity 0.7s cubic-bezier(0.2, 0.65, 0.3, 1),
+    transform 0.7s cubic-bezier(0.2, 0.65, 0.3, 1);
   will-change: opacity, transform;
 }
 
@@ -106,18 +128,26 @@ body {
 /* ---------- hero entrance ---------- */
 
 .enter {
-  animation: enter 1s cubic-bezier(0.2, 0.65, 0.3, 1) both;
+  animation: enter 0.8s cubic-bezier(0.2, 0.65, 0.3, 1) both;
 }
 
-.enter-1 { animation-delay: 0.08s; }
-.enter-2 { animation-delay: 0.2s; }
-.enter-3 { animation-delay: 0.34s; }
-.enter-4 { animation-delay: 0.48s; }
+.enter-1 {
+  animation-delay: 0.06s;
+}
+.enter-2 {
+  animation-delay: 0.14s;
+}
+.enter-3 {
+  animation-delay: 0.24s;
+}
+.enter-4 {
+  animation-delay: 0.34s;
+}
 
 @keyframes enter {
   from {
     opacity: 0;
-    transform: translateY(22px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -125,105 +155,10 @@ body {
   }
 }
 
-/* ---------- button shine ---------- */
-
-.btn-gold {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, var(--gold-bright), var(--gold) 55%, var(--gold-deep));
-  color: #17120a;
-  transition: transform 0.35s cubic-bezier(0.2, 0.65, 0.3, 1), box-shadow 0.35s;
-}
-
-.btn-gold::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -80%;
-  height: 100%;
-  width: 50%;
-  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
-  transform: skewX(-20deg);
-  transition: left 0.6s ease;
-}
-
-.btn-gold:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(217, 184, 120, 0.28);
-}
-
-.btn-gold:hover::after {
-  left: 130%;
-}
-
-.btn-ghost {
-  transition: border-color 0.3s, background 0.3s, transform 0.35s cubic-bezier(0.2, 0.65, 0.3, 1);
-}
-
-.btn-ghost:hover {
-  border-color: rgba(217, 184, 120, 0.5);
-  background: rgba(217, 184, 120, 0.06);
-  transform: translateY(-2px);
-}
-
-/* ---------- cards ---------- */
-
-.card-lift {
-  transition:
-    transform 0.45s cubic-bezier(0.2, 0.65, 0.3, 1),
-    border-color 0.45s,
-    box-shadow 0.45s;
-}
-
-.card-lift:hover {
-  transform: translateY(-6px);
-  border-color: rgba(217, 184, 120, 0.35);
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
-}
-
-/* ---------- marquee ---------- */
-
-.marquee {
-  display: flex;
-  gap: 3rem;
-  width: max-content;
-  animation: marquee 32s linear infinite;
-}
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-/* ---------- inputs ---------- */
-
-.input-lux {
-  transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
-}
-
-.input-lux:focus {
-  border-color: rgba(217, 184, 120, 0.55);
-  box-shadow: 0 0 0 3px rgba(217, 184, 120, 0.12);
-  background: rgba(244, 239, 230, 0.05);
-}
-
-/* ---------- misc ---------- */
-
-.tick {
-  animation: tick 2.4s ease-in-out infinite;
-}
-
-@keyframes tick {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.35; }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .enter,
   .reveal,
-  .orb,
-  .marquee,
-  .tick {
+  .pulse-dot {
     animation: none !important;
     transition: none !important;
     opacity: 1 !important;

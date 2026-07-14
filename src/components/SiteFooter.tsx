@@ -1,38 +1,51 @@
-import { contact } from "@/lib/contact";
+import { PhoneBrand } from "@/components/PhoneBrand";
+import { contact, links } from "@/lib/contact";
 import Link from "next/link";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-[color:var(--line-soft)] px-5 pb-32 pt-14 sm:px-8">
-      <div className="mx-auto flex max-w-6xl flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <p className="font-display text-2xl font-semibold tracking-tight">
-            Launch<span className="gold-text">24</span>
-          </p>
-          <p className="mt-2 text-sm text-[color:var(--muted)]">
-            {contact.domain} · {contact.email}
-          </p>
+    <footer className="border-t border-[color:var(--line-soft)] px-5 py-9 sm:px-8">
+      <div className="mx-auto max-w-6xl">
+        <div className="flex flex-wrap items-center justify-between gap-4 text-[12.5px] text-[color:var(--muted-2)]">
+          <div className="flex items-center gap-2">
+            <span className="flex h-6 w-6 items-center justify-center rounded-[7px] bg-[color:var(--ink)] text-[11px] font-extrabold text-white">
+              24
+            </span>
+            <span className="text-sm font-bold text-[color:var(--ink)]">
+              {contact.brand}
+            </span>
+            <a
+              href={links.tel}
+              className="ml-2 text-sm font-semibold text-[color:var(--ink)] hover:underline"
+            >
+              <PhoneBrand />
+            </a>
+          </div>
+          <div>
+            © {new Date().getFullYear()} {contact.brand} · Our
+            24-hours-or-it&apos;s-free guarantee applies to every build.
+          </div>
+          <div className="flex gap-[18px]">
+            <Link href="/terms" className="hover:text-[color:var(--ink)]">
+              Terms
+            </Link>
+            <Link href="/privacy" className="hover:text-[color:var(--ink)]">
+              Privacy
+            </Link>
+            <a href="#contact" className="hover:text-[color:var(--ink)]">
+              Contact
+            </a>
+          </div>
         </div>
-        <div className="flex gap-6 text-xs font-semibold uppercase tracking-widest text-[color:var(--muted)]">
-          <Link href="/terms" className="transition-colors hover:text-[color:var(--gold)]">
+        <p className="mt-4 text-[11.5px] leading-relaxed text-[color:var(--muted-2)]">
+          Guarantee applies to the starter package after deposit and intake
+          are complete. Details in{" "}
+          <Link href="/terms" className="underline underline-offset-2">
             Terms
           </Link>
-          <Link href="/privacy" className="transition-colors hover:text-[color:var(--gold)]">
-            Privacy
-          </Link>
-          <a href="#start" className="transition-colors hover:text-[color:var(--gold)]">
-            Contact
-          </a>
-        </div>
+          .
+        </p>
       </div>
-      <p className="mx-auto mt-10 max-w-6xl text-xs leading-relaxed text-[color:var(--muted)]/60">
-        Guarantee applies to the starter package after deposit and intake are
-        complete. Details in{" "}
-        <Link href="/terms" className="underline underline-offset-2">
-          Terms
-        </Link>
-        . © {new Date().getFullYear()} Launch24.
-      </p>
     </footer>
   );
 }

@@ -21,8 +21,8 @@ Open [http://localhost:3000](http://localhost:3000).
 Edit `src/lib/contact.ts`, or set env vars (preferred for production):
 
 ```bash
-NEXT_PUBLIC_PHONE=14165550124
-NEXT_PUBLIC_PHONE_DISPLAY="+1 (416) 555-0124"
+NEXT_PUBLIC_PHONE=14373652475
+NEXT_PUBLIC_PHONE_DISPLAY="437-365-2475"
 NEXT_PUBLIC_EMAIL=hi@launch24.ca
 ```
 
