@@ -1,75 +1,27 @@
-const startsWhen = [
-  "Deposit (or full payment) received",
-  "Completed intake (business name, contact, services, goals)",
-  "Required content received — or you opt into “we write the copy”",
-  "Starter package scope locked",
-];
-
-const exclusions = [
-  "Client delays responding or sending content",
-  "Revision rounds after first delivery",
-  "Domain purchase, DNS, or hosting connection delays",
-  "Third-party platform delays (registrars, Google, payment apps)",
-  "Scope changes after lock (extra pages, e-commerce, custom features)",
-];
+import { Reveal } from "@/components/Reveal";
 
 export function Guarantee() {
   return (
-    <section id="guarantee" className="border-t border-[color:var(--line)] px-5 py-20 sm:px-8">
-      <div className="mx-auto max-w-5xl">
-        <p className="font-display text-xs font-bold uppercase tracking-[0.28em] text-[color:var(--signal)]">
-          The guarantee
+    <section id="guarantee" className="relative overflow-hidden border-t border-[color:var(--line-soft)] px-5 py-24 text-center sm:px-8 sm:py-32">
+      <div className="orb left-1/2 top-1/2 h-[40vh] w-[60vw] -translate-x-1/2 -translate-y-1/2 bg-[#d9b878]/15" />
+      <Reveal className="relative">
+        <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[color:var(--gold)]">
+          The promise
         </p>
-        <h2 className="font-display mt-3 max-w-2xl text-3xl font-bold tracking-tight sm:text-4xl">
-          24 hours — or it&apos;s free.
+        <h2 className="font-display mx-auto mt-5 max-w-3xl text-balance text-[clamp(2.2rem,7vw,4.5rem)] font-semibold leading-[1.05] tracking-tight">
+          If we&apos;re late,
+          <br />
+          <span className="gold-text italic">you don&apos;t pay.</span>
         </h2>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-[color:var(--muted)]">
-          First version of the agreed starter package is delivered within 24 hours
-          of clock start. If Launch24 misses that window, the project is free
-          (your deposit is refunded).
-        </p>
-
-        <div className="mt-12 grid gap-10 sm:grid-cols-2">
-          <div>
-            <h3 className="font-display text-lg font-bold">
-              Clock starts when all are true
-            </h3>
-            <ul className="mt-4 space-y-3">
-              {startsWhen.map((item) => (
-                <li key={item} className="flex gap-3 text-sm text-[color:var(--foam)]">
-                  <span className="mt-0.5 text-[color:var(--signal)]" aria-hidden>
-                    →
-                  </span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-display text-lg font-bold">
-              Not counted in the 24 hours
-            </h3>
-            <ul className="mt-4 space-y-3">
-              {exclusions.map((item) => (
-                <li key={item} className="flex gap-3 text-sm text-[color:var(--muted)]">
-                  <span className="mt-0.5" aria-hidden>
-                    ×
-                  </span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <p className="mt-8 text-sm text-[color:var(--muted)]">
-          Full wording in{" "}
-          <a href="/terms" className="text-[color:var(--signal)] underline underline-offset-2">
-            Terms
+        <p className="mx-auto mt-6 max-w-md text-balance text-base leading-relaxed text-[color:var(--muted)]">
+          24 hours from kickoff to your first live version. Simple as that.
+          The fine print lives in the{" "}
+          <a href="#faq" className="text-[color:var(--gold)] underline underline-offset-4">
+            FAQ
           </a>
           .
         </p>
-      </div>
+      </Reveal>
     </section>
   );
 }

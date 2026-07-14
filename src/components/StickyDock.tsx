@@ -52,7 +52,7 @@ export function StickyDock() {
       aria-label="Quick contact"
       className="fixed inset-x-0 bottom-0 z-50 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-2"
     >
-      <div className="mx-auto flex max-w-lg items-stretch gap-1 rounded-2xl border border-white/10 bg-[color:var(--ink)]/90 p-1.5 shadow-[0_-8px_40px_rgba(0,0,0,0.45)] backdrop-blur-xl">
+      <div className="mx-auto flex max-w-md items-stretch gap-1 rounded-2xl border border-[color:var(--line)] bg-[#14110d]/85 p-1.5 shadow-[0_-12px_48px_rgba(0,0,0,0.6)] backdrop-blur-2xl">
         {items.map((item) => (
           <a
             key={item.label}
@@ -60,23 +60,23 @@ export function StickyDock() {
             {...(item.external
               ? { target: "_blank", rel: "noopener noreferrer" }
               : {})}
-            className="flex flex-1 flex-col items-center gap-0.5 rounded-xl px-2 py-2.5 text-[color:var(--foam)] transition hover:bg-[color:var(--signal)]/15 hover:text-[color:var(--signal)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--signal)]"
+            className="flex flex-1 flex-col items-center gap-1 rounded-xl px-1 py-2.5 text-[color:var(--muted)] transition-all duration-300 hover:-translate-y-0.5 hover:text-[color:var(--gold)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--gold)]"
           >
             {item.icon}
-            <span className="text-[10px] font-semibold uppercase tracking-wider">
+            <span className="text-[9px] font-bold uppercase tracking-wider">
               {item.label}
             </span>
           </a>
         ))}
         <a
-          href="#reach"
-          className="flex flex-1 flex-col items-center justify-center gap-0.5 rounded-xl bg-[color:var(--signal)] px-2 py-2.5 text-[color:var(--ink)] transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--signal)]"
+          href="#start"
+          className="btn-gold flex flex-1 flex-col items-center justify-center gap-1 rounded-xl px-1 py-2.5"
         >
           <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden>
             <path d="M12 19V5M5 12l7-7 7 7" />
           </svg>
-          <span className="text-[10px] font-bold uppercase tracking-wider">
-            Send
+          <span className="text-[9px] font-bold uppercase tracking-wider">
+            Start
           </span>
         </a>
       </div>

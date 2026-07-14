@@ -12,7 +12,7 @@ export default function PrivacyPage() {
     <main className="mx-auto max-w-2xl px-5 py-16 sm:px-8">
       <Link
         href="/"
-        className="text-xs font-bold uppercase tracking-wider text-[color:var(--signal)]"
+        className="text-xs font-bold uppercase tracking-wider text-[color:var(--gold)]"
       >
         ← Launch24
       </Link>
@@ -25,7 +25,7 @@ export default function PrivacyPage() {
 
       <div className="mt-10 space-y-8 text-sm leading-relaxed text-[color:var(--muted)]">
         <section>
-          <h2 className="font-display text-lg font-bold text-[color:var(--foam)]">
+          <h2 className="font-display text-lg font-bold text-[color:var(--ivory)]">
             What we collect
           </h2>
           <p className="mt-2">
@@ -37,7 +37,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="font-display text-lg font-bold text-[color:var(--foam)]">
+          <h2 className="font-display text-lg font-bold text-[color:var(--ivory)]">
             How we use it
           </h2>
           <p className="mt-2">
@@ -47,7 +47,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="font-display text-lg font-bold text-[color:var(--foam)]">
+          <h2 className="font-display text-lg font-bold text-[color:var(--ivory)]">
             Voice memos
           </h2>
           <p className="mt-2">
@@ -58,14 +58,14 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="font-display text-lg font-bold text-[color:var(--foam)]">
+          <h2 className="font-display text-lg font-bold text-[color:var(--ivory)]">
             Contact
           </h2>
           <p className="mt-2">
             Privacy questions:{" "}
             <a
               href={`mailto:${contact.email}`}
-              className="text-[color:var(--signal)] underline underline-offset-2"
+              className="text-[color:var(--gold)] underline underline-offset-2"
             >
               {contact.email}
             </a>

@@ -2,73 +2,84 @@ import { links } from "@/lib/contact";
 
 export function Hero() {
   return (
-    <header className="hero-glow grain relative min-h-[100svh] overflow-hidden pb-28 pt-8">
-      <div className="pointer-events-none absolute -right-16 top-24 h-64 w-64 rounded-full border border-[color:var(--signal)]/20 pulse-ring" />
-      <div className="pointer-events-none absolute -right-8 top-32 h-48 w-48 rounded-full border border-[color:var(--signal)]/30" />
+    <header className="relative flex min-h-[100svh] flex-col overflow-hidden">
+      <div className="orb left-[-15%] top-[-10%] h-[45vh] w-[45vh] bg-[#d9b878]/25" />
+      <div
+        className="orb bottom-[-20%] right-[-10%] h-[50vh] w-[50vh] bg-[#8a5a2b]/30"
+        style={{ animationDelay: "-9s" }}
+      />
 
-      <div className="relative mx-auto flex min-h-[calc(100svh-7rem)] max-w-5xl flex-col justify-between px-5 sm:px-8">
-        <div className="flex items-center justify-between">
-          <p className="font-display text-sm font-bold uppercase tracking-[0.28em] text-[color:var(--signal)] fade-up">
-            Launch24
-          </p>
+      <nav className="relative z-10 mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-6 sm:px-8">
+        <p className="font-display text-lg font-semibold tracking-tight enter">
+          Launch<span className="gold-text">24</span>
+        </p>
+        <a
+          href={links.tel}
+          className="btn-ghost rounded-full border border-[color:var(--line)] px-4 py-2 text-xs font-semibold uppercase tracking-widest text-[color:var(--muted)] enter enter-1"
+        >
+          Call us
+        </a>
+      </nav>
+
+      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col items-center justify-center px-5 pb-24 pt-8 text-center sm:px-8">
+        <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-[color:var(--line)] bg-white/[0.03] px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-[color:var(--gold)] enter enter-1">
+          <span className="tick h-1.5 w-1.5 rounded-full bg-[color:var(--gold)]" />
+          Now booking
+        </p>
+
+        <h1 className="font-display max-w-4xl text-balance text-[clamp(2.6rem,9vw,6rem)] font-semibold leading-[1.02] tracking-tight enter enter-2">
+          Your website.
+          <br />
+          <span className="gold-text italic">Live in 24 hours.</span>
+          <br />
+          Or it&apos;s free.
+        </h1>
+
+        <p className="mt-6 max-w-md text-balance text-base leading-relaxed text-[color:var(--muted)] sm:text-lg enter enter-3">
+          Polished websites for local businesses — restaurants, salons, trades,
+          clinics. One message is all it takes.
+        </p>
+
+        <div className="mt-10 flex w-full max-w-md flex-col items-center gap-3 sm:flex-row sm:justify-center enter enter-4">
           <a
-            href="#reach"
-            className="text-xs font-semibold uppercase tracking-wider text-[color:var(--muted)] transition hover:text-[color:var(--foam)] fade-up fade-up-delay-1"
+            href="#start"
+            className="btn-gold w-full rounded-full px-8 py-4 text-center text-sm font-bold uppercase tracking-widest sm:w-auto"
           >
-            Get a proposal
+            Start mine now
+          </a>
+          <a
+            href={links.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-ghost w-full rounded-full border border-[color:var(--line)] px-8 py-4 text-center text-sm font-bold uppercase tracking-widest text-[color:var(--ivory)] sm:w-auto"
+          >
+            WhatsApp
           </a>
         </div>
+      </div>
 
-        <div className="my-auto max-w-3xl py-16">
-          <p className="font-display mb-4 text-[clamp(2.75rem,12vw,6.5rem)] font-extrabold leading-[0.9] tracking-tight text-[color:var(--foam)] fade-up">
-            LAUNCH
-            <span className="text-[color:var(--signal)]">24</span>
-            <span className="block text-[clamp(1rem,3.5vw,1.5rem)] font-semibold tracking-[0.35em] text-[color:var(--muted)]">
-              .CA
+      <div className="relative z-10 w-full overflow-hidden border-t border-[color:var(--line-soft)] py-4">
+        <div className="marquee text-[11px] font-semibold uppercase tracking-[0.3em] text-[color:var(--muted)]/70">
+          {[0, 1].map((i) => (
+            <span key={i} className="flex shrink-0 gap-12">
+              {[
+                "Restaurants",
+                "Salons",
+                "Contractors",
+                "Clinics",
+                "Realtors",
+                "Cafés",
+                "Trades",
+                "Studios",
+                "Coaches",
+              ].map((t) => (
+                <span key={t} className="flex items-center gap-12">
+                  {t} <span className="text-[color:var(--gold)]">·</span>
+                </span>
+              ))}
             </span>
-          </p>
-
-          <h1 className="font-display mt-8 max-w-xl text-[clamp(1.75rem,5vw,3rem)] font-bold leading-[1.1] tracking-tight fade-up fade-up-delay-1">
-            Website in 24 hours.
-            <span className="block text-[color:var(--signal)]">
-              Or it&apos;s free.
-            </span>
-          </h1>
-
-          <p className="mt-5 max-w-md text-base leading-relaxed text-[color:var(--muted)] sm:text-lg fade-up fade-up-delay-2">
-            For local businesses that need to look sharp online — fast. One call,
-            one deposit, one live site.
-          </p>
-
-          <div className="mt-8 flex flex-wrap items-center gap-3 fade-up fade-up-delay-3">
-            <a
-              href={links.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full bg-[color:var(--signal)] px-6 py-3.5 text-sm font-bold uppercase tracking-wide text-[color:var(--ink)] transition hover:brightness-110"
-            >
-              WhatsApp me
-            </a>
-            <a
-              href={links.tel}
-              className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/5 px-6 py-3.5 text-sm font-bold uppercase tracking-wide text-[color:var(--foam)] backdrop-blur transition hover:border-[color:var(--signal)]/50 hover:bg-white/10"
-            >
-              Call now
-            </a>
-          </div>
-
-          <p className="mt-5 max-w-sm text-xs leading-relaxed text-[color:var(--muted)]/80 fade-up fade-up-delay-3">
-            Clock starts after deposit and your content/intake are in.{" "}
-            <a href="#guarantee" className="underline underline-offset-2 hover:text-[color:var(--foam)]">
-              See guarantee
-            </a>
-            .
-          </p>
+          ))}
         </div>
-
-        <p className="pb-2 text-[10px] uppercase tracking-[0.3em] text-[color:var(--muted)]/60">
-          Scroll · How it works
-        </p>
       </div>
     </header>
   );

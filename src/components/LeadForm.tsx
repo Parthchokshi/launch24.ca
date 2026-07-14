@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 const MAX_SECONDS = 120;
 
-export function LeadForm() {
+export function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
@@ -140,17 +140,17 @@ export function LeadForm() {
 
   if (status === "ok") {
     return (
-      <div className="rounded-2xl border border-[color:var(--signal)]/40 bg-[color:var(--signal)]/10 p-8 text-center">
-        <p className="font-display text-2xl font-bold text-[color:var(--signal)]">
-          Got it.
+      <div className="rounded-2xl border border-[color:var(--gold)]/30 bg-[color:var(--gold)]/[0.06] p-10 text-center">
+        <p className="font-display text-3xl font-semibold italic gold-text">
+          Consider it started.
         </p>
-        <p className="mt-2 text-sm text-[color:var(--muted)]">
-          We’ll reach out ASAP — usually the same day.
+        <p className="mt-3 text-sm text-[color:var(--muted)]">
+          We&apos;ll reach out today — keep your phone close.
         </p>
         <button
           type="button"
           onClick={() => setStatus("idle")}
-          className="mt-6 text-sm font-semibold text-[color:var(--foam)] underline underline-offset-2"
+          className="mt-8 text-xs font-semibold uppercase tracking-widest text-[color:var(--gold)] underline-offset-4 hover:underline"
         >
           Send another
         </button>
@@ -172,94 +172,107 @@ export function LeadForm() {
         aria-hidden
       />
 
-      <div>
-        <label htmlFor="phone" className="text-xs font-bold uppercase tracking-wider text-[color:var(--muted)]">
-          Phone <span className="text-[color:var(--signal)]">*</span>
-        </label>
-        <input
-          id="phone"
-          type="tel"
-          inputMode="tel"
-          autoComplete="tel"
-          required
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          placeholder="Your number"
-          className="mt-1.5 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-[color:var(--foam)] outline-none placeholder:text-[color:var(--muted)]/50 focus:border-[color:var(--signal)]/50"
-        />
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label
+            htmlFor={`${idPrefix}-phone`}
+            className="text-[11px] font-bold uppercase tracking-[0.18em] text-[color:var(--muted)]"
+          >
+            Phone <span className="text-[color:var(--gold)]">*</span>
+          </label>
+          <input
+            id={`${idPrefix}-phone`}
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
+            required
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="Your number"
+            className="input-lux mt-2 w-full rounded-xl border border-[color:var(--line-soft)] bg-white/[0.03] px-4 py-3.5 text-[color:var(--ivory)] outline-none placeholder:text-[color:var(--muted)]/50"
+          />
+        </div>
+        <div>
+          <label
+            htmlFor={`${idPrefix}-name`}
+            className="text-[11px] font-bold uppercase tracking-[0.18em] text-[color:var(--muted)]"
+          >
+            Name{" "}
+            <span className="font-medium normal-case tracking-normal opacity-70">
+              (optional)
+            </span>
+          </label>
+          <input
+            id={`${idPrefix}-name`}
+            type="text"
+            autoComplete="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="What should we call you?"
+            className="input-lux mt-2 w-full rounded-xl border border-[color:var(--line-soft)] bg-white/[0.03] px-4 py-3.5 text-[color:var(--ivory)] outline-none placeholder:text-[color:var(--muted)]/50"
+          />
+        </div>
       </div>
 
       <div>
-        <label htmlFor="name" className="text-xs font-bold uppercase tracking-wider text-[color:var(--muted)]">
-          Name <span className="font-normal normal-case tracking-normal">(optional)</span>
-        </label>
-        <input
-          id="name"
-          type="text"
-          autoComplete="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="What should we call you?"
-          className="mt-1.5 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-[color:var(--foam)] outline-none placeholder:text-[color:var(--muted)]/50 focus:border-[color:var(--signal)]/50"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="message" className="text-xs font-bold uppercase tracking-wider text-[color:var(--muted)]">
-          Short note <span className="font-normal normal-case tracking-normal">(or use voice)</span>
+        <label
+          htmlFor={`${idPrefix}-message`}
+          className="text-[11px] font-bold uppercase tracking-[0.18em] text-[color:var(--muted)]"
+        >
+          What do you need?{" "}
+          <span className="font-medium normal-case tracking-normal opacity-70">
+            (type it — or record it below)
+          </span>
         </label>
         <textarea
-          id="message"
+          id={`${idPrefix}-message`}
           rows={3}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="What do you need? e.g. restaurant site, salon booking CTA…"
-          className="mt-1.5 w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-[color:var(--foam)] outline-none placeholder:text-[color:var(--muted)]/50 focus:border-[color:var(--signal)]/50"
+          placeholder="e.g. “Website for my salon — services, prices, booking button.”"
+          className="input-lux mt-2 w-full resize-none rounded-xl border border-[color:var(--line-soft)] bg-white/[0.03] px-4 py-3.5 text-[color:var(--ivory)] outline-none placeholder:text-[color:var(--muted)]/50"
         />
       </div>
 
-      <div className="rounded-xl border border-dashed border-white/15 bg-white/[0.03] p-4">
-        <p className="text-xs font-bold uppercase tracking-wider text-[color:var(--muted)]">
-          Voice memo
-        </p>
-        <p className="mt-1 text-xs text-[color:var(--muted)]">
-          Tap record, say what you need (max 2 min), then send.
-        </p>
+      <div className="flex flex-wrap items-center gap-3 rounded-xl border border-dashed border-[color:var(--line)] bg-[color:var(--gold)]/[0.03] p-4">
+        {!recording ? (
+          <button
+            type="button"
+            onClick={startRecording}
+            className="btn-ghost inline-flex items-center gap-2.5 rounded-full border border-[color:var(--line)] px-5 py-2.5 text-xs font-bold uppercase tracking-widest text-[color:var(--gold)]"
+          >
+            <span className="h-2 w-2 rounded-full bg-[color:var(--gold)]" />
+            Record a voice note
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={stopRecording}
+            className="inline-flex items-center gap-2.5 rounded-full bg-red-500/90 px-5 py-2.5 text-xs font-bold uppercase tracking-widest text-white"
+          >
+            <span className="h-2 w-2 animate-pulse rounded-sm bg-white" />
+            Stop · {seconds}s
+          </button>
+        )}
 
-        <div className="mt-3 flex flex-wrap items-center gap-3">
-          {!recording ? (
+        {audioUrl && !recording && (
+          <>
+            <audio controls src={audioUrl} className="h-9 min-w-0 max-w-full flex-1" />
             <button
               type="button"
-              onClick={startRecording}
-              className="inline-flex items-center gap-2 rounded-full bg-[color:var(--amber)] px-4 py-2.5 text-sm font-bold text-[color:var(--ink)]"
+              onClick={clearAudio}
+              className="text-[11px] font-semibold uppercase tracking-widest text-[color:var(--muted)] underline-offset-4 hover:underline"
             >
-              <span className="h-2.5 w-2.5 rounded-full bg-[color:var(--ink)]" />
-              Record
+              Delete
             </button>
-          ) : (
-            <button
-              type="button"
-              onClick={stopRecording}
-              className="inline-flex items-center gap-2 rounded-full bg-red-500 px-4 py-2.5 text-sm font-bold text-white"
-            >
-              <span className="h-2.5 w-2.5 animate-pulse rounded-sm bg-white" />
-              Stop · {seconds}s
-            </button>
-          )}
+          </>
+        )}
 
-          {audioUrl && !recording && (
-            <>
-              <audio controls src={audioUrl} className="h-10 max-w-full" />
-              <button
-                type="button"
-                onClick={clearAudio}
-                className="text-xs font-semibold text-[color:var(--muted)] underline underline-offset-2"
-              >
-                Delete
-              </button>
-            </>
-          )}
-        </div>
+        {!audioUrl && !recording && (
+          <span className="text-xs text-[color:var(--muted)]/70">
+            Faster than typing — max 2 min.
+          </span>
+        )}
       </div>
 
       {error && (
@@ -271,9 +284,9 @@ export function LeadForm() {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="w-full rounded-full bg-[color:var(--signal)] px-6 py-4 text-sm font-bold uppercase tracking-wide text-[color:var(--ink)] transition hover:brightness-110 disabled:opacity-60"
+        className="btn-gold w-full rounded-full px-6 py-4 text-sm font-bold uppercase tracking-widest disabled:opacity-60"
       >
-        {status === "sending" ? "Sending…" : "Send proposal request"}
+        {status === "sending" ? "Sending…" : "Get my website started"}
       </button>
     </form>
   );

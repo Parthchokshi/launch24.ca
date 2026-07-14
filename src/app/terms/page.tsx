@@ -11,7 +11,7 @@ export default function TermsPage() {
     <main className="mx-auto max-w-2xl px-5 py-16 sm:px-8">
       <Link
         href="/"
-        className="text-xs font-bold uppercase tracking-wider text-[color:var(--signal)]"
+        className="text-xs font-bold uppercase tracking-wider text-[color:var(--gold)]"
       >
         ← Launch24
       </Link>
@@ -25,7 +25,7 @@ export default function TermsPage() {
 
       <div className="prose-invert mt-10 space-y-8 text-sm leading-relaxed text-[color:var(--muted)]">
         <section>
-          <h2 className="font-display text-lg font-bold text-[color:var(--foam)]">
+          <h2 className="font-display text-lg font-bold text-[color:var(--ivory)]">
             The offer
           </h2>
           <p className="mt-2">
@@ -36,7 +36,7 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="font-display text-lg font-bold text-[color:var(--foam)]">
+          <h2 className="font-display text-lg font-bold text-[color:var(--ivory)]">
             When the 24-hour clock starts
           </h2>
           <p className="mt-2">All of the following must be true:</p>
@@ -54,7 +54,7 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="font-display text-lg font-bold text-[color:var(--foam)]">
+          <h2 className="font-display text-lg font-bold text-[color:var(--ivory)]">
             What is not counted toward 24 hours
           </h2>
           <ul className="mt-2 list-disc space-y-1 pl-5">
@@ -70,7 +70,7 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="font-display text-lg font-bold text-[color:var(--foam)]">
+          <h2 className="font-display text-lg font-bold text-[color:var(--ivory)]">
             Included vs not included
           </h2>
           <p className="mt-2">
@@ -82,7 +82,7 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="font-display text-lg font-bold text-[color:var(--foam)]">
+          <h2 className="font-display text-lg font-bold text-[color:var(--ivory)]">
             Revisions
           </h2>
           <p className="mt-2">
@@ -92,14 +92,14 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="font-display text-lg font-bold text-[color:var(--foam)]">
+          <h2 className="font-display text-lg font-bold text-[color:var(--ivory)]">
             Contact
           </h2>
           <p className="mt-2">
             Questions:{" "}
             <a
               href="mailto:hi@launch24.ca"
-              className="text-[color:var(--signal)] underline underline-offset-2"
+              className="text-[color:var(--gold)] underline underline-offset-2"
             >
               hi@launch24.ca
             </a>
