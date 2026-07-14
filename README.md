@@ -61,3 +61,4 @@ Set the same env vars in the Vercel project settings. Point `launch24.ca` DNS to
 ## Guarantee copy
 
 Clock starts after deposit + intake + content (or “we write copy”) + scope lock. Full wording: `/terms`.
+# launch24.ca
