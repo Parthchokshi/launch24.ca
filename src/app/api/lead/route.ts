@@ -10,8 +10,11 @@ export async function POST(request: Request) {
   try {
     const form = await request.formData();
 
-    const honeypot = String(form.get("company") ?? "");
+    // Obscure field name — "company" is a common Chrome autofill target and
+    // was silently dropping real leads (200, no Resend call).
+    const honeypot = String(form.get("_hp") ?? "");
     if (honeypot.trim()) {
+      console.warn("[lead] honeypot tripped — skipping send");
       return NextResponse.json({ ok: true });
     }
 
@@ -57,17 +60,24 @@ export async function POST(request: Request) {
     ].join("\n");
 
     if (!apiKey) {
-      console.log("[lead] RESEND_API_KEY missing — logging lead only");
+      console.error("[lead] RESEND_API_KEY missing");
       console.log(text);
-      if (hasAudio) {
-        console.log(`[lead] audio: ${audio.name} (${audio.size} bytes, ${audio.type})`);
+      // Local/dev: don't block form testing. Production/Preview must have the key.
+      if (process.env.VERCEL || process.env.NODE_ENV === "production") {
+        return NextResponse.json(
+          {
+            error:
+              "Email is not configured (RESEND_API_KEY missing on this deployment).",
+          },
+          { status: 503 },
+        );
       }
       return NextResponse.json({ ok: true, mode: "dev-log" });
     }
 
     const resend = new Resend(apiKey);
     const from =
-      process.env.RESEND_FROM ?? "Launch24 <onboarding@resend.dev>";
+      process.env.RESEND_FROM ?? "Launch24 <hi@launch24.ca>";
 
     const attachments =
       hasAudio

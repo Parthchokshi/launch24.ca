@@ -32,7 +32,7 @@
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
-  --font-serif: var(--font-instrument);
+  --font-serif: Georgia, "Times New Roman", Times, serif;
   --font-sans: var(--font-hanken);
 }
 
@@ -60,8 +60,8 @@ body {
 /* ---------- accent word treatment ---------- */
 
 .accent-serif {
-  font-family: var(--font-serif), Georgia, serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-weight: 400;
 }
 

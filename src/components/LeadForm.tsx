@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { googleAdsConversionImageUrl, trackGoogleAdsConversion } from "@/lib/ads";
 
 const MAX_SECONDS = 120;
 
@@ -120,7 +121,7 @@ export function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
       form.set("name", name.trim());
       form.set("email", email.trim());
       form.set("message", message.trim());
-      form.set("company", honeypot);
+      form.set("_hp", honeypot);
       if (audioBlob) {
         const ext = audioBlob.type.includes("mp4") ? "mp4" : "webm";
         form.set("audio", audioBlob, `voice-memo.${ext}`);
@@ -139,6 +140,7 @@ export function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
       setEmail("");
       setMessage("");
       clearAudio();
+      trackGoogleAdsConversion();
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : "Something went wrong.");
@@ -152,7 +154,7 @@ export function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
           Consider it started.
         </p>
         <p className="mt-3 text-sm text-[color:var(--muted)]">
-          We&apos;ll reach out today — keep your phone close.
+          We&apos;ll reach out soon — keep your phone close.
         </p>
         <button
           type="button"
@@ -161,21 +163,32 @@ export function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
         >
           Send another
         </button>
+        {/* Backup conversion pixel — fires even if gtag.js is blocked. */}
+        <img
+          src={googleAdsConversionImageUrl()}
+          alt=""
+          width={1}
+          height={1}
+          style={{ display: "none" }}
+          aria-hidden
+        />
       </div>
     );
   }
 
   return (
     <form onSubmit={onSubmit} className="space-y-4" noValidate>
-      {/* Honeypot */}
+      {/* Honeypot — avoid names browsers autofill (e.g. "company") */}
       <input
         type="text"
-        name="company"
+        name="_hp"
         value={honeypot}
         onChange={(e) => setHoneypot(e.target.value)}
         className="absolute -left-[9999px] h-0 w-0 opacity-0"
         tabIndex={-1}
         autoComplete="off"
+        autoCorrect="off"
+        spellCheck={false}
         aria-hidden
       />
 

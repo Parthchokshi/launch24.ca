@@ -10,7 +10,7 @@ export function PhoneBrand({ className = "" }: { className?: string }) {
       <span className="rounded-[6px] bg-[color:var(--panel-yellow)] px-1 font-bold text-[color:var(--ink)]">
         247
       </span>
-      ·5
+      5
     </span>
   );
 }

@@ -1,10 +1,25 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { contact } from "@/lib/contact";
+import { siteConfig } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Privacy — Launch24",
-  description: "How Launch24 handles contact details and voice memos you send.",
+  title: "Privacy",
+  description:
+    "How Launch24 collects and uses phone numbers, emails, messages, and voice memos from proposal requests.",
+  alternates: {
+    canonical: "/privacy",
+  },
+  openGraph: {
+    title: "Privacy | Launch24",
+    description:
+      "How Launch24 collects and uses phone numbers, emails, messages, and voice memos from proposal requests.",
+    url: `${siteConfig.url}/privacy`,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function PrivacyPage() {
@@ -43,6 +58,26 @@ export default function PrivacyPage() {
           <p className="mt-2">
             Only to respond to your proposal request and deliver the website
             service. We don’t sell your information.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-bold text-[color:var(--ink)]">
+            Cookies &amp; advertising
+          </h2>
+          <p className="mt-2">
+            We use Google Ads to measure how our ads perform. When you arrive
+            from one of our ads, Google may set a cookie on your browser to
+            count conversions — for example, when you submit the proposal
+            form. We don’t use your personal data to personalize ads. You can
+            manage Google ad cookies at{" "}
+            <a
+              href="https://adssettings.google.com/adspersonalization"
+              className="text-[color:var(--accent)] underline underline-offset-2"
+            >
+              adssettings.google.com
+            </a>
+            , or block cookies in your browser.
           </p>
         </section>
 

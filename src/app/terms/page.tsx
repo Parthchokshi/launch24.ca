@@ -1,9 +1,25 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { starterPromoCopy } from "@/lib/pricing";
+import { siteConfig } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Terms — Launch24",
-  description: "Launch24 24-hour guarantee terms and service conditions.",
+  title: "Terms",
+  description:
+    "Launch24 24-hour guarantee terms: when the clock starts, what’s included, and what doesn’t count toward delivery.",
+  alternates: {
+    canonical: "/terms",
+  },
+  openGraph: {
+    title: "Terms | Launch24",
+    description:
+      "Launch24 24-hour guarantee terms: when the clock starts, what’s included, and what doesn’t count toward delivery.",
+    url: `${siteConfig.url}/terms`,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function TermsPage() {
@@ -49,7 +65,7 @@ export default function TermsPage() {
               Required content received — or you opt into “we write the copy”
               as part of the package
             </li>
-            <li>Starter package scope locked (not a custom multi-page rebuild)</li>
+            <li>Project scope locked (not a custom multi-page rebuild)</li>
           </ul>
         </section>
 
@@ -71,14 +87,24 @@ export default function TermsPage() {
 
         <section>
           <h2 className="text-lg font-bold text-[color:var(--ink)]">
+            Pricing
+          </h2>
+          <p className="mt-2">
+            {starterPromoCopy.terms} Ongoing maintenance and larger changes after launch are quoted
+            separately.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-bold text-[color:var(--ink)]">
             Included vs not included
           </h2>
           <p className="mt-2">
             Included: a responsive website, mobile-first layout, contact/lead
-            form, basic SEO (title/meta), and launch-ready homepage copy. Not
-            included by default: multi-page sites, e-commerce, advanced
-            booking, custom photography, ads, ongoing maintenance (quoted
-            separately).
+            form, basic SEO (title/meta), and launch-ready homepage copy. Domain
+            and hosting stay on your accounts. Not included by default:
+            multi-page sites, e-commerce, advanced booking, custom photography,
+            ads, and ongoing maintenance (quoted separately).
           </p>
         </section>
 

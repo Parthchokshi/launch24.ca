@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
-import { Hanken_Grotesk, Instrument_Serif } from "next/font/google";
+import Script from "next/script";
+import { Hanken_Grotesk } from "next/font/google";
+import { contact } from "@/lib/contact";
+import { googleAdsTagId } from "@/lib/ads";
+import { siteConfig } from "@/lib/seo";
 import "./globals.css";
-
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument",
-  subsets: ["latin"],
-  weight: ["400"],
-  style: ["italic"],
-});
 
 const hankenGrotesk = Hanken_Grotesk({
   variable: "--font-hanken",
@@ -16,18 +13,54 @@ const hankenGrotesk = Hanken_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Launch24 — Website in 24 hours. Or it’s free.",
-  description:
-    "Local businesses get a polished website in 24 hours — or it’s free. WhatsApp, call, text, or leave a voice note.",
-  metadataBase: new URL("https://launch24.ca"),
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.title,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  applicationName: siteConfig.name,
+  authors: [{ name: siteConfig.name, url: siteConfig.url }],
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
+  keywords: [...siteConfig.keywords],
+  category: "business",
+  referrer: "origin-when-cross-origin",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
-    title: "Launch24 — Website in 24 hours. Or it’s free.",
-    description:
-      "Polished starter websites for local businesses, delivered in 24 hours.",
-    url: "https://launch24.ca",
-    siteName: "Launch24",
-    locale: "en_CA",
     type: "website",
+    locale: siteConfig.locale,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    title: siteConfig.title,
+    description: siteConfig.ogDescription,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.title,
+    description: siteConfig.ogDescription,
+  },
+  other: {
+    "contact:email": contact.email,
+    "contact:phone_number": `+${contact.phoneE164}`,
   },
 };
 
@@ -38,10 +71,22 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en-CA"
-      className={`${instrumentSerif.variable} ${hankenGrotesk.variable} h-full`}
+      lang={siteConfig.language}
+      className={`${hankenGrotesk.variable} h-full`}
     >
       <body className="min-h-full antialiased">{children}</body>
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${googleAdsTagId}`}
+        strategy="afterInteractive"
+      />
+      <Script id="google-ads-gtag" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${googleAdsTagId}');
+        `}
+      </Script>
     </html>
   );
 }

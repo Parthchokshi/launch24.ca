@@ -18,7 +18,7 @@ const steps = [
   {
     label: "STEP 3",
     title: "You review",
-    body: "Live preview link. One round of changes, turned around same day.",
+    body: "Live preview link within 24 hours, tailored to your business needs and agreed scope.",
     panel: "var(--panel-blue)",
     pillDark: false,
   },
@@ -33,14 +33,17 @@ const steps = [
 
 export function Process() {
   return (
-    <section id="process" className="px-5 py-16 sm:px-8">
+    <section id="process" aria-labelledby="process-heading" className="px-5 py-16 sm:px-8">
       <div className="mx-auto max-w-6xl">
         <Reveal className="flex flex-wrap items-baseline justify-between gap-2">
-          <h2 className="text-[38px] font-bold tracking-[-0.02em] text-[color:var(--ink)]">
+          <h2
+            id="process-heading"
+            className="text-[38px] font-bold tracking-[-0.02em] text-[color:var(--ink)]"
+          >
             The 24-hour <span className="accent-serif">plan</span>
           </h2>
           <p className="text-[13.5px] text-[color:var(--muted-2)]">
-            Every build, same four beats.
+            Every project, same four beats.
           </p>
         </Reveal>
 
@@ -62,12 +65,12 @@ export function Process() {
                   {step.label}
                 </span>
                 <div>
-                  <div className="mb-[7px] text-[17px] font-bold text-[color:var(--ink)]">
+                  <h3 className="mb-[7px] text-[17px] font-bold text-[color:var(--ink)]">
                     {step.title}
-                  </div>
-                  <div className="text-[13.5px] leading-relaxed text-[color:var(--muted)]">
+                  </h3>
+                  <p className="text-[13.5px] leading-relaxed text-[color:var(--muted)]">
                     {step.body}
-                  </div>
+                  </p>
                 </div>
               </div>
             </Reveal>

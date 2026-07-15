@@ -72,16 +72,24 @@ const contactMethods = [
 
 export function GetStarted() {
   return (
-    <section id="contact" className="px-5 py-16 sm:px-8">
+    <section id="contact" aria-labelledby="contact-heading" className="px-5 py-16 sm:px-8">
       <div className="mx-auto max-w-6xl overflow-hidden rounded-[28px] bg-[color:var(--panel-mint)] p-8 sm:p-16">
         <div className="grid gap-10 lg:grid-cols-[1fr_460px] lg:items-center lg:gap-12">
           <Reveal>
-            <h2 className="text-[clamp(2rem,4.5vw,2.75rem)] font-bold leading-[1.08] tracking-[-0.02em] text-[color:var(--ink)]">
+            <h2
+              id="contact-heading"
+              className="text-[clamp(2rem,4.5vw,2.75rem)] font-bold leading-[1.08] tracking-[-0.02em] text-[color:var(--ink)]"
+            >
               Reach us the <span className="accent-serif">easy</span> way.
             </h2>
             <p className="mt-[18px] max-w-[400px] text-[15.5px] leading-relaxed text-[#3f5c4c]">
               Type it, tap it, or just talk — a 30-second voice note is a
-              perfectly good brief. Reach us anytime —{" "}
+              perfectly good brief. You&apos;ll get a{" "}
+              <strong className="font-semibold text-[color:var(--ink)]">
+                free proposal
+              </strong>{" "}
+              with your exact price — nothing to pay until we start. Reach us
+              anytime —{" "}
               <strong className="font-semibold text-[color:var(--ink)]">
                 365 days, 24/7
               </strong>{" "}
@@ -108,7 +116,7 @@ export function GetStarted() {
           <Reveal delay={120}>
             <div className="flex flex-col gap-[13px] rounded-[20px] bg-white p-[30px] shadow-[0_14px_44px_rgba(31,77,53,.18)]">
               <div className="text-base font-bold text-[color:var(--ink)]">
-                Start your build
+                Start your project
               </div>
               <LeadForm idPrefix="contact" />
             </div>

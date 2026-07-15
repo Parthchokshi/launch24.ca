@@ -1,44 +1,57 @@
+import Link from "next/link";
 import { PhoneBrand } from "@/components/PhoneBrand";
 import { links } from "@/lib/contact";
+import { formatCad, pricing } from "@/lib/pricing";
 
 export function Hero() {
   return (
-    <header className="relative">
-      <nav className="sticky top-0 z-20 flex items-center justify-between border-b border-[color:var(--line-soft)] bg-white/90 px-5 py-5 backdrop-blur-md sm:px-8">
-        <a href="#" className="flex items-center gap-2 enter">
-          <span className="flex h-[30px] w-[30px] items-center justify-center rounded-lg bg-[color:var(--ink)] text-[13px] font-extrabold text-white">
-            24
-          </span>
-          <span className="text-lg font-bold tracking-tight text-[color:var(--ink)]">
-            Launch24
-          </span>
-        </a>
-        <div className="hidden items-center gap-7 text-sm font-medium text-[color:var(--muted)] sm:flex enter enter-1">
-          <a href="#process" className="hover:text-[color:var(--ink)]">
-            Process
-          </a>
-          <a href="#faq" className="hover:text-[color:var(--ink)]">
-            FAQ
-          </a>
-          <a href="#contact" className="hover:text-[color:var(--ink)]">
-            Contact
-          </a>
+    <>
+      <header className="relative">
+        <nav
+          aria-label="Primary"
+          className="sticky top-0 z-20 flex items-center justify-between border-b border-[color:var(--line-soft)] bg-white/90 px-5 py-5 backdrop-blur-md sm:px-8"
+        >
+          <Link href="/" className="flex items-center gap-2 enter">
+            <span className="flex h-[30px] w-[30px] items-center justify-center rounded-lg bg-[color:var(--ink)] text-[13px] font-extrabold text-white">
+              24
+            </span>
+            <span className="text-lg font-bold tracking-tight text-[color:var(--ink)]">
+              Launch24
+            </span>
+          </Link>
+          <div className="hidden items-center gap-7 text-sm font-medium text-[color:var(--muted)] sm:flex enter enter-1">
+            <a href="#process" className="hover:text-[color:var(--ink)]">
+              Process
+            </a>
+            <a href="#pricing" className="hover:text-[color:var(--ink)]">
+              Pricing
+            </a>
+            <a href="#faq" className="hover:text-[color:var(--ink)]">
+              FAQ
+            </a>
+            <a href="#contact" className="hover:text-[color:var(--ink)]">
+              Contact
+            </a>
+            <a
+              href="#contact"
+              className="btn-dark inline-flex items-center gap-1.5 rounded-[11px] px-[18px] py-[11px] text-[13.5px] font-semibold"
+            >
+              Start a project ↗
+            </a>
+          </div>
           <a
             href="#contact"
-            className="btn-dark inline-flex items-center gap-1.5 rounded-[11px] px-[18px] py-[11px] text-[13.5px] font-semibold"
+            className="btn-dark inline-flex items-center gap-1.5 rounded-[11px] px-4 py-2.5 text-[13.5px] font-semibold sm:hidden enter enter-1"
           >
-            Start a build ↗
+            Start ↗
           </a>
-        </div>
-        <a
-          href="#contact"
-          className="btn-dark inline-flex items-center gap-1.5 rounded-[11px] px-4 py-2.5 text-[13.5px] font-semibold sm:hidden enter enter-1"
-        >
-          Start ↗
-        </a>
-      </nav>
+        </nav>
+      </header>
 
-      <div className="px-5 pt-3 sm:px-8">
+      <section
+        aria-labelledby="hero-heading"
+        className="px-5 pt-3 sm:px-8"
+      >
         <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[28px] bg-[color:var(--panel-lavender)] px-6 py-16 sm:px-12 sm:py-[76px]">
           <span
             aria-hidden
@@ -62,18 +75,30 @@ export function Hero() {
           <div className="relative max-w-3xl">
             <p className="inline-flex items-center gap-2 rounded-full bg-white px-[15px] py-2 text-[12.5px] font-semibold text-[color:var(--ink)] shadow-[0_1px_3px_rgba(0,0,0,.08)] enter enter-1">
               <span className="pulse-dot h-[7px] w-[7px] rounded-full bg-[color:var(--accent)]" />
-              Now taking this week&apos;s builds
+              Now taking this week&apos;s projects
             </p>
 
-            <h1 className="mt-[26px] text-balance text-[clamp(2.4rem,7.5vw,4.25rem)] font-bold leading-[1.04] tracking-[-0.025em] text-[color:var(--ink)] enter enter-2">
-              A website for your business in{" "}
-              <span className="accent-serif">24 hours</span> — or it&apos;s{" "}
-              <span className="mark-mint">free.</span>
+            <h1
+              id="hero-heading"
+              className="mt-[26px] text-balance text-[clamp(2.4rem,7.5vw,4.25rem)] font-bold leading-[1.04] tracking-[-0.025em] text-[color:var(--ink)] enter enter-2"
+            >
+              <span className="accent-serif">A website that&apos;s actually yours</span>{" "}
+              — guaranteed by tomorrow.
             </h1>
 
-            <p className="mt-[22px] max-w-[520px] text-[17.5px] leading-relaxed text-[#4c4a46] enter enter-3">
-              Built for small local businesses and creators who need to be
-              online yesterday. One brief, one review, 24 hours.
+            <p className="mt-3 max-w-[520px] text-[14.5px] font-semibold text-[color:var(--ink)] enter enter-2">
+              Miss the 24-hour deadline?{" "}
+              <span className="mark-mint">You don&apos;t pay.</span>
+            </p>
+
+            <p
+              className="mt-[18px] max-w-[520px] text-[17.5px] leading-relaxed text-[#4c4a46] enter enter-3"
+              style={{ fontFamily: "var(--font-serif)" }}
+            >
+              We don&apos;t hand you a template. We start by listening — your
+              business, your immediate goals, your taste, what makes you
+              different. Then we design and write a site that&apos;s actually
+              yours, built thoughtfully and with care — in 24 hours.
             </p>
 
             <div className="mt-9 flex flex-wrap items-center gap-3.5 enter enter-4">
@@ -81,7 +106,7 @@ export function Hero() {
                 href="#contact"
                 className="btn-dark inline-flex items-center gap-2 rounded-[12px] px-[26px] py-[15px] text-[14.5px] font-semibold"
               >
-                Start my 24 hours →
+                Get my free proposal →
               </a>
               <a
                 href={links.whatsapp}
@@ -121,11 +146,18 @@ export function Hero() {
             <div className="mt-7 flex flex-wrap items-center gap-5 text-[13px] text-[color:var(--muted)] enter enter-4">
               <span className="inline-flex items-center gap-1.5">
                 <span className="text-[15px] text-[color:var(--accent)]">✓</span>
-                Free proposal, deposit only once we start
+                Starting from{" "}
+                <span className="line-through decoration-[color:var(--muted-2)]">
+                  {formatCad(pricing.starterRegular)}
+                </span>{" "}
+                <span className="font-semibold text-[color:var(--ink)]">
+                  {formatCad(pricing.starterFrom)}
+                </span>{" "}
+                CAD
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <span className="text-[15px] text-[color:var(--accent)]">✓</span>
-                Custom, not a template
+                Free proposal, deposit only once we start
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <span className="text-[15px] text-[color:var(--accent)]">✓</span>
@@ -134,7 +166,7 @@ export function Hero() {
             </div>
           </div>
         </div>
-      </div>
-    </header>
+      </section>
+    </>
   );
 }
