@@ -1,6 +1,7 @@
 export const pricing = {
   currency: "CAD",
   starterFrom: 699,
+  // Internal reference only — not shown on the site
   starterRegular: 999,
   // Kept for later — not shown on the site yet
   careYearly: 99,
@@ -17,14 +18,21 @@ export function formatCad(amount: number) {
   }).format(amount);
 }
 
-export const starterFromLabel = `from ${formatCad(pricing.starterFrom)}`;
-export const starterRegularLabel = `from ${formatCad(pricing.starterRegular)}`;
+export const launchPackagePriceLabel = formatCad(pricing.starterFrom);
 
-/** Plain-text promo lines for SEO, FAQs, and legal copy */
+/** Shared founding-rate / 90–10 explanation */
+export const launchPackagePitch = {
+  heroNinety:
+    "About 90% of projects land here — and that’s enough. Need something bigger? We’re all ears — reach out for a custom quote.",
+  pricingNinety:
+    "About 90% of projects land here — and that’s enough. Need something bigger? We’re all ears for a custom quote.",
+} as const;
+
+/** Plain-text lines for SEO, FAQs, and legal copy */
 export const starterPromoCopy = {
-  short: `Limited-time from ${formatCad(pricing.starterFrom)} ${pricing.currency} (usually ${formatCad(pricing.starterRegular)})`,
-  faq: `Starter websites are a limited-time promotional rate from ${formatCad(pricing.starterFrom)} CAD (usually ${formatCad(pricing.starterRegular)}). Final price depends on scope — extra pages, booking, e-commerce, and custom features are quoted separately.`,
-  terms: `Starter websites are currently a limited-time promotional rate from ${formatCad(pricing.starterFrom)} ${pricing.currency} (usually ${formatCad(pricing.starterRegular)}). The final project price depends on agreed scope.`,
-  seoDescription: `Get a polished website for your local business in 24 hours — or it’s free. Limited-time from ${formatCad(pricing.starterFrom)} CAD (usually ${formatCad(pricing.starterRegular)}). Call, WhatsApp, text, or leave a voice note to start.`,
-  seoOg: `Polished websites for local Canadian businesses in 24 hours — limited-time from ${formatCad(pricing.starterFrom)} CAD (usually ${formatCad(pricing.starterRegular)}), or your deposit is refunded.`,
+  short: `Launch Package ${formatCad(pricing.starterFrom)} ${pricing.currency} (founding rate). About 90% of projects land here; bigger work is custom-quoted. Free proposal first.`,
+  faq: `The Launch Package is ${formatCad(pricing.starterFrom)} CAD (founding rate). About 90% of projects land here — and that’s enough. If you need something bigger, reach out and we’ll give you a custom quote. You’ll always see the exact price on a free proposal before you pay anything.`,
+  terms: `The Launch Package is currently offered at a founding rate of ${formatCad(pricing.starterFrom)} ${pricing.currency}. About 90% of projects land at this price. Bigger or custom work is quoted separately. You’ll see the exact price on a free proposal before you pay anything.`,
+  seoDescription: `Get a polished website for your local business in 24 hours — or it’s free. Launch Package ${formatCad(pricing.starterFrom)} CAD (founding rate). Call, WhatsApp, text, or leave a voice note to start.`,
+  seoOg: `Polished websites for local Canadian businesses in 24 hours — Launch Package ${formatCad(pricing.starterFrom)} CAD (founding rate), or your deposit is refunded.`,
 } as const;

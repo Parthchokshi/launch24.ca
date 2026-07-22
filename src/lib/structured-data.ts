@@ -71,8 +71,8 @@ export function homePageJsonLd() {
         serviceType: "Website design and development",
         offers: {
           "@type": "Offer",
-          name: "Starter website in 24 hours",
-          description: `First version of an agreed starter website delivered within 24 hours of clock start, or your deposit is refunded. ${starterPromoCopy.short}. Final price depends on scope.`,
+          name: "Launch Package in 24 hours",
+          description: `First version of an agreed Launch Package delivered within 24 hours of clock start, or your deposit is refunded. ${starterPromoCopy.short}`,
           url: `${siteConfig.url}/#pricing`,
           availability: "https://schema.org/InStock",
           price: String(pricing.starterFrom),

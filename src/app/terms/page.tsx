@@ -45,9 +45,9 @@ export default function TermsPage() {
             The offer
           </h2>
           <p className="mt-2">
-            Launch24 delivers the first version of an agreed starter website
+            Launch24 delivers the first version of an agreed Launch Package
             within 24 hours of clock start. If we miss that window, the
-            project is free — your deposit is refunded.
+            project is free and will be done for you for free.
           </p>
         </section>
 

@@ -1,7 +1,10 @@
 import { Reveal } from "@/components/Reveal";
-import { starterFromLabel, starterRegularLabel } from "@/lib/pricing";
+import {
+  launchPackagePitch,
+  launchPackagePriceLabel,
+} from "@/lib/pricing";
 
-const starterFeatures = [
+const launchFeatures = [
   "Responsive, mobile-first design",
   "Contact / lead form",
   "Basic SEO covered",
@@ -27,13 +30,13 @@ export function Pricing() {
             Simple <span className="accent-serif">pricing</span>
           </h2>
           <p className="text-[13.5px] text-[color:var(--muted-2)]">
-            Starter package or something bigger — your call.
+            Launch Package or something bigger — your call.
           </p>
         </Reveal>
 
         <Reveal delay={40}>
           <p className="mt-5 text-[14px] leading-snug text-[color:var(--ink-soft)]">
-            Limited-time promotional rate.
+            Founding rate.
           </p>
         </Reveal>
 
@@ -45,18 +48,18 @@ export function Pricing() {
             >
               <div>
                 <span className="rounded-full bg-white px-[13px] py-[5px] text-[11.5px] font-bold text-[color:var(--ink)]">
-                  STARTER
+                  LAUNCH PACKAGE
                 </span>
                 <h3 className="mt-5 text-[17px] font-bold text-[color:var(--ink)]">
                   Website
                 </h3>
                 <p className="mt-3 text-[14px] leading-relaxed text-[color:var(--muted)]">
-                  A polished starter site in 24 hours. Extra pages, booking, or
-                  e-commerce are quoted on top.
+                  A polished website for your business — how you look online,
+                  what you do, and how people get in touch.
                 </p>
 
                 <ul className="mt-5 flex flex-col gap-2">
-                  {starterFeatures.map((feature) => (
+                  {launchFeatures.map((feature) => (
                     <li
                       key={feature}
                       className="flex items-baseline gap-2 text-[13.5px] text-[color:var(--ink-soft)]"
@@ -72,15 +75,13 @@ export function Pricing() {
 
               <div>
                 <p className="text-[13px] text-[color:var(--muted)]">
-                  CAD · one-time · limited time
+                  CAD · one-time · founding rate
                 </p>
-                <p className="mt-1 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                  <span className="text-[clamp(1.15rem,2.4vw,1.4rem)] font-semibold tracking-[-0.02em] text-[color:var(--muted-2)] line-through decoration-[color:var(--muted-2)]">
-                    {starterRegularLabel}
-                  </span>
-                  <span className="text-[clamp(2rem,4vw,2.6rem)] font-bold tracking-[-0.03em] text-[color:var(--ink)]">
-                    {starterFromLabel}
-                  </span>
+                <p className="mt-1 text-[clamp(2rem,4vw,2.6rem)] font-bold tracking-[-0.03em] text-[color:var(--ink)]">
+                  {launchPackagePriceLabel}
+                </p>
+                <p className="mt-2 max-w-md text-[13px] leading-relaxed text-[color:var(--muted)]">
+                  {launchPackagePitch.pricingNinety}
                 </p>
 
                 <p className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 text-[12.5px] font-medium text-[color:var(--muted)]">
@@ -124,9 +125,9 @@ export function Pricing() {
                   Bigger projects
                 </h3>
                 <p className="mt-3 text-[14px] leading-relaxed text-[color:var(--muted)]">
-                  Need a larger site, custom portal, dashboards, or something
-                  beyond the starter? We can help — tell us what you’re building
-                  and we’ll quote it.
+                  Need more than Launch — a larger site, custom portal,
+                  dashboards, or something beyond the package? We’re all ears.
+                  Tell us what you’re building and we’ll quote it.
                 </p>
               </div>
 

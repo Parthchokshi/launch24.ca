@@ -7,11 +7,11 @@ export const faqs = [
   },
   {
     q: "When does the 24-hour clock start?",
-    a: "When four things are in: deposit received, intake complete (business name, services, goals), your content received (or you choose “we write the copy”), and the starter package scope locked.",
+    a: "When four things are in: deposit received, intake complete (business name, services, goals), your content received (or you choose “we write the copy”), and the Launch Package scope locked.",
   },
   {
-    q: "What exactly does “or it’s free” mean?",
-    a: "If we miss delivering the first version of the agreed starter package within 24 hours of clock start, you don’t pay — we will build it for free.",
+    q: "What exactly does “guaranteed by tomorrow” mean?",
+    a: "If we miss delivering the first version of the agreed Launch Package within 24 hours of clock start, you don’t pay — we will build it for free.",
   },
   {
     q: "What doesn’t count toward the 24 hours?",

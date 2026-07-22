@@ -1,7 +1,11 @@
 import Link from "next/link";
 import { PhoneBrand } from "@/components/PhoneBrand";
 import { links } from "@/lib/contact";
-import { formatCad, pricing } from "@/lib/pricing";
+import {
+  formatCad,
+  launchPackagePitch,
+  pricing,
+} from "@/lib/pricing";
 
 export function Hero() {
   return (
@@ -143,26 +147,28 @@ export function Hero() {
               </span>
             </a>
 
-            <div className="mt-7 flex flex-wrap items-center gap-5 text-[13px] text-[color:var(--muted)] enter enter-4">
-              <span className="inline-flex items-center gap-1.5">
-                <span className="text-[15px] text-[color:var(--accent)]">✓</span>
-                Starting from{" "}
-                <span className="line-through decoration-[color:var(--muted-2)]">
-                  {formatCad(pricing.starterRegular)}
-                </span>{" "}
-                <span className="font-semibold text-[color:var(--ink)]">
-                  {formatCad(pricing.starterFrom)}
-                </span>{" "}
-                CAD
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <span className="text-[15px] text-[color:var(--accent)]">✓</span>
-                Free proposal, deposit only once we start
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <span className="text-[15px] text-[color:var(--accent)]">✓</span>
-                You own the site
-              </span>
+            <div className="mt-7 enter enter-4">
+              <div className="flex flex-wrap items-center gap-5 text-[13px] text-[color:var(--muted)]">
+                <span className="inline-flex items-center gap-1.5">
+                  <span className="text-[15px] text-[color:var(--accent)]">✓</span>
+                  Launch Package —{" "}
+                  <span className="font-semibold text-[color:var(--ink)]">
+                    {formatCad(pricing.starterFrom)}
+                  </span>{" "}
+                  CAD
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <span className="text-[15px] text-[color:var(--accent)]">✓</span>
+                  Free proposal, deposit only once we start
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <span className="text-[15px] text-[color:var(--accent)]">✓</span>
+                  You own the site
+                </span>
+              </div>
+              <p className="mt-2.5 max-w-[520px] text-[13px] leading-relaxed text-[color:var(--muted)]">
+                {launchPackagePitch.heroNinety}
+              </p>
             </div>
           </div>
         </div>
