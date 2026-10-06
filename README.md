@@ -5,7 +5,9 @@ Marketing site for **launch24.ca** — websites in 24 hours, or it's free.
 ## Stack
 
 - Next.js (App Router) + TypeScript + Tailwind CSS
-- Resend for lead emails (voice memo attachments supported)
+- Resend for lead emails (voice note attached)
+- Postgres (Neon) `leads` table for counting leads per sign variant
+- Google Analytics 4 + Google Ads tags
 
 ## Quick start
 
@@ -40,6 +42,30 @@ RESEND_FROM="Launch24 <hi@launch24.ca>"
 ```
 
 Without `RESEND_API_KEY`, the API logs leads to the server console so you can still demo the UI.
+
+## Leads table + per-variant counts
+
+Set `DATABASE_URL` (Neon / Vercel Postgres). The `leads` table and a
+`leads_by_variant` view are created on the first submission (SQL in
+`docs/leads.sql`). Run `SELECT * FROM leads_by_variant;` to see leads per
+`utm_source` / `utm_campaign` / `utm_content`. A lead is accepted if either
+email or the database succeeds.
+
+## Analytics (GA4)
+
+Set `NEXT_PUBLIC_GA_MEASUREMENT_ID`. Events, each carrying the stored UTMs:
+`cta_call_click`, `cta_text_click`, `cta_whatsapp_click`, `form_submit`,
+`voice_note_start`. Marking events as conversions is done in GA4, not in code:
+Admin → Events → toggle "Mark as key event" once they appear.
+
+UTMs are saved to localStorage (`l24_utm`) on load. Text and WhatsApp links get
+a `(ref: source/content)` tag in the pre-filled message so those leads can be
+attributed too.
+
+## Hero variants
+
+`?utm_source=lawn_sign` → kicker "SAW OUR SIGN?". `utm_content=v2b` → the
+"NO WEBSITE?" headline. Logic: `src/lib/hero.ts`. Testimonial slot: `src/lib/proof.ts`.
 
 ## Deploy (Vercel)
 

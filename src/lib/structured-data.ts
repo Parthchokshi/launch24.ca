@@ -1,6 +1,6 @@
 import { contact } from "@/lib/contact";
 import { faqs } from "@/lib/faqs";
-import { pricing, starterPromoCopy } from "@/lib/pricing";
+import { pricing } from "@/lib/pricing";
 import { siteConfig } from "@/lib/seo";
 
 const orgId = `${siteConfig.url}/#organization`;
@@ -72,10 +72,10 @@ export function homePageJsonLd() {
         offers: {
           "@type": "Offer",
           name: "Launch Package in 24 hours",
-          description: `First version of an agreed Launch Package delivered within 24 hours of clock start, or your deposit is refunded. ${starterPromoCopy.short}`,
+          description: `First version of an agreed Launch Package delivered within 24 hours of clock start, or your deposit is refunded.`,
           url: `${siteConfig.url}/#pricing`,
           availability: "https://schema.org/InStock",
-          price: String(pricing.starterFrom),
+          price: String(pricing.launchPackage),
           priceCurrency: pricing.currency,
         },
       },

@@ -1,22 +1,23 @@
 import type { Metadata } from "next";
-import { FAQ } from "@/components/FAQ";
-import { GetStarted } from "@/components/GetStarted";
 import { Hero } from "@/components/Hero";
 import { JsonLd } from "@/components/JsonLd";
-import { Pricing } from "@/components/Pricing";
-import { Process } from "@/components/Process";
+import {
+  FAQ,
+  FinalCta,
+  Guarantee,
+  HowItWorks,
+  Pricing,
+  Proof,
+  QuoteForm,
+} from "@/components/Sections";
 import { SiteFooter } from "@/components/SiteFooter";
 import { siteConfig } from "@/lib/seo";
 import { homePageJsonLd } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
-  title: {
-    absolute: siteConfig.title,
-  },
+  title: { absolute: siteConfig.title },
   description: siteConfig.description,
-  alternates: {
-    canonical: "/",
-  },
+  alternates: { canonical: "/" },
   openGraph: {
     title: siteConfig.title,
     description: siteConfig.ogDescription,
@@ -28,22 +29,33 @@ export const metadata: Metadata = {
   },
 };
 
-export default function HomePage() {
+// searchParams makes this page render per request, which is what lets the
+// hero show the right words for ?utm_source=lawn_sign / utm_content=v2b.
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const query = await searchParams;
+
   return (
     <>
       <JsonLd data={homePageJsonLd()} />
       <a
         href="#main"
-        className="absolute left-4 top-4 z-50 -translate-y-[200%] rounded-lg bg-[color:var(--ink)] px-4 py-2 text-sm font-semibold text-white transition-transform focus:translate-y-0"
+        className="absolute left-2 top-2 z-50 -translate-y-[200%] bg-ink px-4 py-3 font-bold text-yellow focus:translate-y-0"
       >
         Skip to content
       </a>
-      <Hero />
+      <Hero query={query} />
       <main id="main">
-        <Process />
+        <QuoteForm />
+        <HowItWorks />
         <Pricing />
+        <Guarantee />
         <FAQ />
-        <GetStarted />
+        <Proof />
+        <FinalCta />
       </main>
       <SiteFooter />
     </>

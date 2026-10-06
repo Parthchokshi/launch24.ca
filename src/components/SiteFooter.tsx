@@ -1,51 +1,28 @@
-import { PhoneBrand } from "@/components/PhoneBrand";
-import { contact, links } from "@/lib/contact";
 import Link from "next/link";
+import { Logo } from "@/components/Logo";
+import { contact } from "@/lib/contact";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-[color:var(--line-soft)] px-5 py-9 sm:px-8">
-      <div className="mx-auto max-w-6xl">
-        <div className="flex flex-wrap items-center justify-between gap-4 text-[12.5px] text-[color:var(--muted-2)]">
-          <div className="flex items-center gap-2">
-            <Link href="/" className="flex items-center gap-2">
-              <span className="flex h-6 w-6 items-center justify-center rounded-[7px] bg-[color:var(--ink)] text-[11px] font-extrabold text-white">
-                24
-              </span>
-              <span className="text-sm font-bold text-[color:var(--ink)]">
-                {contact.brand}
-              </span>
-            </Link>
-            <a
-              href={links.tel}
-              className="ml-2 text-sm font-semibold text-[color:var(--ink)] hover:underline"
-            >
-              <PhoneBrand />
-            </a>
-          </div>
-          <div>
-            © {new Date().getFullYear()} {contact.brand} · Our
-            24-hours-or-it&apos;s-free guarantee applies to every project.
-          </div>
-          <div className="flex gap-[18px]">
-            <Link href="/terms" className="hover:text-[color:var(--ink)]">
-              Terms
-            </Link>
-            <Link href="/privacy" className="hover:text-[color:var(--ink)]">
-              Privacy
-            </Link>
-            <a href="#contact" className="hover:text-[color:var(--ink)]">
-              Contact
-            </a>
-          </div>
-        </div>
-        <p className="mt-4 text-[11.5px] leading-relaxed text-[color:var(--muted-2)]">
-          Guarantee applies to the project after deposit and intake
-          are complete. Details in{" "}
-          <Link href="/terms" className="underline underline-offset-2">
+    <footer className="on-ink bg-ink text-white">
+      <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+        <Logo onInk />
+        <p className="mt-2 text-base text-muted-on-ink">
+          Websites for local businesses in the GTA and across Ontario.
+        </p>
+        <nav aria-label="Footer" className="mt-4 flex flex-wrap gap-x-6">
+          <Link href="/terms" className="inline-flex min-h-12 items-center font-bold underline decoration-2 underline-offset-4">
             Terms
           </Link>
-          .
+          <Link href="/privacy" className="inline-flex min-h-12 items-center font-bold underline decoration-2 underline-offset-4">
+            Privacy
+          </Link>
+          <a href={`mailto:${contact.email}`} className="inline-flex min-h-12 items-center font-bold underline decoration-2 underline-offset-4">
+            {contact.email}
+          </a>
+        </nav>
+        <p className="mt-2 text-sm text-muted-on-ink">
+          © {new Date().getFullYear()} {contact.brand}
         </p>
       </div>
     </footer>
