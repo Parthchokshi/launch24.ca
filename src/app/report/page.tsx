@@ -41,7 +41,7 @@ export default async function ReportPage({
   let rows: ReportRow[] = [];
   let error = "";
   if (!dbConfigured()) {
-    error = "DATABASE_URL is not set, so nothing is being stored yet.";
+    error = "The Cloudflare D1 settings are not set, so nothing is being stored yet.";
   } else {
     try {
       rows = await getDesignReport();

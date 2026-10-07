@@ -6,7 +6,7 @@ Marketing site for **launch24.ca** — websites in 24 hours, or it's free.
 
 - Next.js (App Router) + TypeScript + Tailwind CSS
 - Resend for lead emails (voice note attached)
-- Postgres (Neon) `leads` table for counting leads per sign variant
+- Cloudflare D1 (`launch24` database) for leads and events, to count leads per sign variant
 - Google Analytics 4 + Google Ads tags
 
 ## Quick start
@@ -45,10 +45,13 @@ Without `RESEND_API_KEY`, the API logs leads to the server console so you can st
 
 ## Leads table + per-variant counts
 
-Set `DATABASE_URL` (Neon / Vercel Postgres). The `leads` table and a
-`leads_by_variant` view are created on the first submission (SQL in
-`docs/leads.sql`). Run `SELECT * FROM leads_by_variant;` to see leads per
-`utm_source` / `utm_campaign` / `utm_content`. A lead is accepted if either
+Leads and events are stored in the Cloudflare D1 database `launch24`
+(schema in `docs/leads.sql`, already applied). The site reaches it over
+Cloudflare's HTTP API, so set these in Vercel:
+`CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_D1_DATABASE_ID`, `CLOUDFLARE_API_TOKEN`
+(create a token with the **D1 Edit** permission, scoped to this account).
+Run `SELECT * FROM leads_by_variant;` in the Cloudflare dashboard to see leads
+per `utm_source` / `utm_campaign` / `utm_content`. A lead is accepted if either
 email or the database succeeds.
 
 ## Analytics (GA4)
@@ -84,8 +87,8 @@ New-design hero variants: `utm_source=lawn_sign` → kicker "SAW OUR SIGN?";
 ## Comparing the designs
 
 Every event and form submission carries `design_version` (`new`/`old`) plus the
-four UTMs, in GA4, in the lead email, and in Postgres (`events` + `leads`).
-With `DATABASE_URL` and `REPORT_KEY` set, open `/report?key=<REPORT_KEY>` for
+four UTMs, in GA4, in the lead email, and in D1 (`events` + `leads`).
+With the three `CLOUDFLARE_*` variables and `REPORT_KEY` set, open `/report?key=<REPORT_KEY>` for
 visitors, call/text/WhatsApp clicks and form submissions per design and
 `utm_content` (or `SELECT * FROM design_report;`). In GA4, register
 `design_version` and `utm_content` as custom dimensions to split there too.

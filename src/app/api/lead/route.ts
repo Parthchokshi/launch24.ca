@@ -86,7 +86,7 @@ export async function POST(request: Request) {
     const hasDb = dbConfigured();
 
     if (!apiKey && !hasDb) {
-      console.error("[lead] neither RESEND_API_KEY nor DATABASE_URL is set");
+      console.error("[lead] neither RESEND_API_KEY nor the Cloudflare D1 settings are set");
       console.log(text);
       // Local dev: let the UI be tested. Deployed: never pretend we got it.
       if (process.env.VERCEL || process.env.NODE_ENV === "production") {
