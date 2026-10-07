@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { PhoneBrand } from "@/components/PhoneBrand";
+import { PhoneBrand } from "@/components/old/PhoneBrand";
 import { links } from "@/lib/contact";
 import {
   formatCad,
   launchPackagePitch,
   pricing,
-} from "@/lib/pricing";
+} from "@/lib/old/pricing";
 
 export function Hero() {
   return (

@@ -1,8 +1,8 @@
-import { Reveal } from "@/components/Reveal";
+import { Reveal } from "@/components/old/Reveal";
 import {
   launchPackagePitch,
   launchPackagePriceLabel,
-} from "@/lib/pricing";
+} from "@/lib/old/pricing";
 
 const launchFeatures = [
   "Responsive, mobile-first design",

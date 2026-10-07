@@ -5,7 +5,9 @@ Marketing site for **launch24.ca** — websites in 24 hours, or it's free.
 ## Stack
 
 - Next.js (App Router) + TypeScript + Tailwind CSS
-- Resend for lead emails (voice memo attachments supported)
+- Resend for lead emails (voice note attached)
+- Postgres (Neon) `leads` table for counting leads per sign variant
+- Google Analytics 4 + Google Ads tags
 
 ## Quick start
 
@@ -40,6 +42,53 @@ RESEND_FROM="Launch24 <hi@launch24.ca>"
 ```
 
 Without `RESEND_API_KEY`, the API logs leads to the server console so you can still demo the UI.
+
+## Leads table + per-variant counts
+
+Set `DATABASE_URL` (Neon / Vercel Postgres). The `leads` table and a
+`leads_by_variant` view are created on the first submission (SQL in
+`docs/leads.sql`). Run `SELECT * FROM leads_by_variant;` to see leads per
+`utm_source` / `utm_campaign` / `utm_content`. A lead is accepted if either
+email or the database succeeds.
+
+## Analytics (GA4)
+
+Set `NEXT_PUBLIC_GA_MEASUREMENT_ID`. Events, each carrying the stored UTMs:
+`cta_call_click`, `cta_text_click`, `cta_whatsapp_click`, `form_submit`,
+`voice_note_start`. Marking events as conversions is done in GA4, not in code:
+Admin → Events → toggle "Mark as key event" once they appear.
+
+UTMs are saved to localStorage (`l24_utm`) on load. Text and WhatsApp links get
+a `(ref: source/content)` tag in the pre-filled message so those leads can be
+attributed too.
+
+## Two home-page designs (one URL)
+
+`src/lib/flags.ts` is the one place to change:
+
+- `NEW_DESIGN_MODE`: `"lawn_sign_only"` (default) | `"everyone"` | `"off"`.
+  In `lawn_sign_only`, `?utm_source=lawn_sign` shows the NEW design; everyone
+  else sees the CURRENT one. The choice is remembered in the `l24_design`
+  cookie for 30 days.
+- `SHOW_PORTFOLIO`: `false` hides the "Our work" section (testimonials / sample
+  sites from `src/lib/proof.ts`) on the new design.
+
+Preview with `?design=new` or `?design=old` (not remembered). Both designs use
+the same URL and the canonical `https://launch24.ca/`. Code: current design in
+`src/components/old/`, new in `src/components/new/`, switch in `src/app/page.tsx`
+and `src/lib/design.ts`.
+
+New-design hero variants: `utm_source=lawn_sign` → kicker "SAW OUR SIGN?";
+`utm_content=v2b` → the "NO WEBSITE?" headline (`src/lib/hero.ts`).
+
+## Comparing the designs
+
+Every event and form submission carries `design_version` (`new`/`old`) plus the
+four UTMs, in GA4, in the lead email, and in Postgres (`events` + `leads`).
+With `DATABASE_URL` and `REPORT_KEY` set, open `/report?key=<REPORT_KEY>` for
+visitors, call/text/WhatsApp clicks and form submissions per design and
+`utm_content` (or `SELECT * FROM design_report;`). In GA4, register
+`design_version` and `utm_content` as custom dimensions to split there too.
 
 ## Deploy (Vercel)
 

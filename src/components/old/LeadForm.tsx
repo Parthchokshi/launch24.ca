@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { googleAdsConversionImageUrl, trackGoogleAdsConversion } from "@/lib/ads";
+import { getDesignVersion, getUtms, track } from "@/lib/tracking";
 
 const MAX_SECONDS = 120;
 
@@ -81,6 +82,7 @@ export function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
 
       mediaRecorderRef.current = recorder;
       recorder.start();
+      track("voice_note_start", { location: "old_form" });
       setRecording(true);
       setSeconds(0);
       timerRef.current = setInterval(() => {
@@ -122,6 +124,10 @@ export function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
       form.set("email", email.trim());
       form.set("message", message.trim());
       form.set("_hp", honeypot);
+      // Attribution (does not change the form's look)
+      form.set("design_version", getDesignVersion());
+      form.set("page_url", window.location.href.split("#")[0]);
+      for (const [k, v] of Object.entries(getUtms())) form.set(k, v);
       if (audioBlob) {
         const ext = audioBlob.type.includes("mp4") ? "mp4" : "webm";
         form.set("audio", audioBlob, `voice-memo.${ext}`);
@@ -134,6 +140,7 @@ export function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
         } | null;
         throw new Error(data?.error || "Something went wrong.");
       }
+      track("form_submit", { has_voice_note: audioBlob ? "yes" : "no" });
       setStatus("ok");
       setName("");
       setPhone("");

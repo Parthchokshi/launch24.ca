@@ -1,5 +1,5 @@
 import { contact } from "@/lib/contact";
-import { starterPromoCopy } from "@/lib/pricing";
+import { guaranteeSentence } from "@/lib/guarantee";
 
 export const siteConfig = {
   name: contact.brand,
@@ -7,18 +7,16 @@ export const siteConfig = {
   url: `https://${contact.domain}`,
   locale: "en_CA",
   language: "en-CA",
-  title: "Launch24 — Website in 24 hours. Or it’s free.",
-  description: starterPromoCopy.seoDescription,
-  ogDescription: starterPromoCopy.seoOg,
+  title: "Launch24: Website in 24 hours. Or it’s free.",
+  description: `Custom-designed, mobile-ready websites for local businesses in 24 hours. ${guaranteeSentence}`,
+  ogDescription:
+    `Custom-designed, mobile-ready websites for local Ontario businesses. ${guaranteeSentence}`,
   keywords: [
     "website in 24 hours",
     "24 hour website",
-    "fast website design",
     "local business website",
-    "website Canada",
-    "Ontario web design",
+    "website Ontario",
+    "GTA web design",
     "Launch24",
-    "website or it's free",
-    "affordable website Canada",
   ],
 } as const;

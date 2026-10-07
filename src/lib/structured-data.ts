@@ -1,13 +1,15 @@
 import { contact } from "@/lib/contact";
-import { faqs } from "@/lib/faqs";
-import { pricing, starterPromoCopy } from "@/lib/pricing";
+import { guaranteeSentence } from "@/lib/guarantee";
+import { pricing } from "@/lib/pricing";
 import { siteConfig } from "@/lib/seo";
 
 const orgId = `${siteConfig.url}/#organization`;
 const websiteId = `${siteConfig.url}/#website`;
 const serviceId = `${siteConfig.url}/#service`;
 
-export function homePageJsonLd() {
+export type FaqItem = { readonly q: string; readonly a: string };
+
+export function homePageJsonLd(faqs: readonly FaqItem[]) {
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -72,10 +74,10 @@ export function homePageJsonLd() {
         offers: {
           "@type": "Offer",
           name: "Launch Package in 24 hours",
-          description: `First version of an agreed Launch Package delivered within 24 hours of clock start, or your deposit is refunded. ${starterPromoCopy.short}`,
+          description: `First version of an agreed Launch Package delivered within 24 hours of clock start. ${guaranteeSentence}`,
           url: `${siteConfig.url}/#pricing`,
           availability: "https://schema.org/InStock",
-          price: String(pricing.starterFrom),
+          price: String(pricing.launchPackage),
           priceCurrency: pricing.currency,
         },
       },

@@ -1,112 +1,88 @@
-import Link from "next/link";
 import type { Metadata } from "next";
+import { LegalPage, LegalSection } from "@/components/new/LegalPage";
 import { contact } from "@/lib/contact";
 import { siteConfig } from "@/lib/seo";
 
+const description =
+  "How Launch24 collects and uses your contact details, voice notes, and visit information.";
+
 export const metadata: Metadata = {
   title: "Privacy",
-  description:
-    "How Launch24 collects and uses phone numbers, emails, messages, and voice memos from proposal requests.",
-  alternates: {
-    canonical: "/privacy",
-  },
-  openGraph: {
-    title: "Privacy | Launch24",
-    description:
-      "How Launch24 collects and uses phone numbers, emails, messages, and voice memos from proposal requests.",
-    url: `${siteConfig.url}/privacy`,
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  description,
+  alternates: { canonical: "/privacy" },
+  openGraph: { title: "Privacy | Launch24", description, url: `${siteConfig.url}/privacy` },
 };
 
 export default function PrivacyPage() {
   return (
-    <main className="mx-auto max-w-2xl px-5 py-16 sm:px-8">
-      <Link
-        href="/"
-        className="text-xs font-bold uppercase tracking-wider text-[color:var(--accent)]"
-      >
-        ← Launch24
-      </Link>
-      <h1 className="mt-6 text-4xl font-bold tracking-tight text-[color:var(--ink)]">
-        Privacy
-      </h1>
-      <p className="mt-2 text-sm text-[color:var(--muted)]">
-        Last updated: July 2026. Short and plain.
-      </p>
+    <LegalPage title="Privacy" updated="Last updated: October 2026. Short and plain.">
+      <LegalSection title="What we collect">
+        <p>
+          If you fill in our form, we receive your name, phone number, business
+          name, and (if you add one) a voice note. We store these so we can call
+          you back, and we email them to our team.
+        </p>
+        <p>
+          If you call, text, or use WhatsApp, those services handle your message
+          under their own privacy terms.
+        </p>
+      </LegalSection>
 
-      <div className="mt-10 space-y-8 text-sm leading-relaxed text-[color:var(--muted)]">
-        <section>
-          <h2 className="text-lg font-bold text-[color:var(--ink)]">
-            What we collect
-          </h2>
-          <p className="mt-2">
-            When you contact us through the site, we may receive your phone
-            number, and optional name, email, message, and voice memo.
-            Direct WhatsApp, call, SMS, or email uses those platforms’ own
-            systems.
-          </p>
-        </section>
+      <LegalSection title="How we use it">
+        <p>
+          To respond to your request and deliver the service. We don&apos;t sell
+          your information.
+        </p>
+      </LegalSection>
 
-        <section>
-          <h2 className="text-lg font-bold text-[color:var(--ink)]">
-            How we use it
-          </h2>
-          <p className="mt-2">
-            Only to respond to your proposal request and deliver the website
-            service. We don’t sell your information.
-          </p>
-        </section>
+      <LegalSection title="Where you came from">
+        <p>
+          When you arrive from a link, QR code, or ad, the link may carry tags
+          (utm_source, utm_medium, utm_campaign, utm_content). We save them in
+          your browser for up to 30 days, and we attach them to your form
+          submission and to our analytics events. This tells us which sign or
+          ad worked. If you text or WhatsApp us from the site, the pre-filled
+          message may include a short tag such as &quot;ref: lawn_sign/v2b&quot;.
+          You can delete it before sending.
+        </p>
+      </LegalSection>
 
-        <section>
-          <h2 className="text-lg font-bold text-[color:var(--ink)]">
-            Cookies &amp; advertising
-          </h2>
-          <p className="mt-2">
-            We use Google Ads to measure how our ads perform. When you arrive
-            from one of our ads, Google may set a cookie on your browser to
-            count conversions — for example, when you submit the proposal
-            form. We don’t use your personal data to personalize ads. You can
-            manage Google ad cookies at{" "}
-            <a
-              href="https://adssettings.google.com/adspersonalization"
-              className="text-[color:var(--accent)] underline underline-offset-2"
-            >
-              adssettings.google.com
-            </a>
-            , or block cookies in your browser.
-          </p>
-        </section>
+      <LegalSection title="Which version of the site you see">
+        <p>
+          We are testing two versions of our home page. We save a small cookie
+          (l24_design, 30 days) so you keep seeing the same version, and we
+          record which version you saw with our analytics. We also keep an
+          anonymous random visitor ID in your browser so we can count unique
+          visitors.
+        </p>
+      </LegalSection>
 
-        <section>
-          <h2 className="text-lg font-bold text-[color:var(--ink)]">
-            Voice memos
-          </h2>
-          <p className="mt-2">
-            If you record a voice memo, it is sent to us as an email attachment
-            so we can understand your request. Don’t include sensitive personal
-            data you wouldn’t want in an email.
-          </p>
-        </section>
+      <LegalSection title="Analytics & advertising">
+        <p>
+          We use Google Analytics to count visits and button taps (call, text,
+          WhatsApp, form, voice note), and Google Ads to measure how our ads
+          perform. Google may set cookies for this. You can manage Google ad
+          settings at{" "}
+          <a href="https://adssettings.google.com/adspersonalization">
+            adssettings.google.com
+          </a>
+          , or block cookies in your browser.
+        </p>
+      </LegalSection>
 
-        <section>
-          <h2 className="text-lg font-bold text-[color:var(--ink)]">
-            Contact
-          </h2>
-          <p className="mt-2">
-            Privacy questions:{" "}
-            <a
-              href={`mailto:${contact.email}`}
-              className="text-[color:var(--accent)] underline underline-offset-2"
-            >
-              {contact.email}
-            </a>
-          </p>
-        </section>
-      </div>
-    </main>
+      <LegalSection title="Voice notes">
+        <p>
+          A voice note is sent to us as an email attachment so we can understand
+          your request. Please don&apos;t include sensitive personal information.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="Contact">
+        <p>
+          Privacy questions?{" "}
+          <a href={`mailto:${contact.email}`}>{contact.email}</a>
+        </p>
+      </LegalSection>
+    </LegalPage>
   );
 }

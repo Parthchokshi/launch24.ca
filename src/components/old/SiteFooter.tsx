@@ -1,4 +1,4 @@
-import { PhoneBrand } from "@/components/PhoneBrand";
+import { PhoneBrand } from "@/components/old/PhoneBrand";
 import { contact, links } from "@/lib/contact";
 import Link from "next/link";
 

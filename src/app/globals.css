@@ -1,6 +1,37 @@
 @import "tailwindcss";
 
-:root {
+/* ------------------------------------------------------------------
+   Two home-page designs share this stylesheet. Each one lives inside its
+   own wrapper (.design-old / .design-new) and defines its own variables,
+   so neither can change the other's look.
+   ------------------------------------------------------------------ */
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-yellow: var(--yellow);
+  --color-muted-on-ink: var(--muted-on-ink);
+  --color-danger: var(--danger);
+  --font-display: var(--font-anton), Impact, "Arial Narrow", sans-serif;
+  --font-sans: var(--ui-font);
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ---------- CURRENT design ---------- */
+
+.design-old {
   --bg: #ffffff;
   --surface: #f7f6f3;
   --ink: #191817;
@@ -24,35 +55,21 @@
   --radius-btn: 11px;
   --radius-card: 18px;
   --radius-panel: 28px;
-}
-
-@theme inline {
-  --color-bg: var(--bg);
-  --color-surface: var(--surface);
-  --color-ink: var(--ink);
-  --color-muted: var(--muted);
-  --color-accent: var(--accent);
   --font-serif: Georgia, "Times New Roman", Times, serif;
-  --font-sans: var(--font-hanken);
-}
+  --ui-font: var(--font-hanken);
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
   background: var(--bg);
   color: var(--ink);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: var(--ui-font), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-::selection {
+.design-old ::selection {
   background: var(--accent);
   color: var(--ink-inverse);
 }
 
-:focus-visible {
+.design-old :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
@@ -163,5 +180,114 @@ body {
     transition: none !important;
     opacity: 1 !important;
     transform: none !important;
+  }
+}
+
+/* ---------- NEW design (yellow / black) ---------- */
+
+.design-new {
+  --yellow: #ffd60a;
+  --ink: #0b0b0b;
+  --white: #ffffff;
+  /* #4a4a4a on white = 8.9:1; #d4d4d4 on ink = 13:1 */
+  --muted: #4a4a4a;
+  --muted-on-ink: #d4d4d4;
+  --danger: #b00020;
+  --ui-font: var(--font-archivo);
+
+  background: var(--ink);
+  color: var(--ink);
+  font-family: var(--ui-font), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  /* room for the sticky bar so it never covers the footer */
+  padding-bottom: 76px;
+}
+
+@media (min-width: 640px) {
+  .design-new {
+    padding-bottom: 0;
+  }
+}
+
+.design-new ::selection {
+  background: var(--ink);
+  color: var(--yellow);
+}
+
+/* Visible focus on every surface: ink on light blocks, yellow on dark ones. */
+.design-new :focus-visible {
+  outline: 4px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.design-new .on-ink :focus-visible,
+.design-new .on-ink:focus-visible {
+  outline-color: var(--yellow);
+}
+
+.display {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: 0.005em;
+}
+
+/* Same-size action buttons */
+.btn {
+  display: flex;
+  min-height: 56px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: 3px solid var(--ink);
+  padding: 0 20px;
+  font-size: 1.125rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 0.08s ease;
+}
+
+.btn:active {
+  transform: translateY(2px);
+}
+
+.btn-ink {
+  background: var(--ink);
+  color: var(--yellow);
+}
+
+.btn-white {
+  background: var(--white);
+  color: var(--ink);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--ink);
+}
+
+/* On black blocks */
+.on-ink .btn-ink {
+  background: var(--yellow);
+  color: var(--ink);
+  border-color: var(--yellow);
+}
+
+.on-ink .btn-white {
+  border-color: var(--white);
+}
+
+.on-ink .btn-outline {
+  color: var(--white);
+  border-color: var(--white);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
   }
 }

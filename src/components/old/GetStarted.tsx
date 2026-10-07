@@ -1,6 +1,6 @@
-import { LeadForm } from "@/components/LeadForm";
-import { PhoneBrand } from "@/components/PhoneBrand";
-import { Reveal } from "@/components/Reveal";
+import { LeadForm } from "@/components/old/LeadForm";
+import { PhoneBrand } from "@/components/old/PhoneBrand";
+import { Reveal } from "@/components/old/Reveal";
 import { links } from "@/lib/contact";
 
 const contactMethods = [

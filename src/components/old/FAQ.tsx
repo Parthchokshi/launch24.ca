@@ -1,5 +1,5 @@
-import { Reveal } from "@/components/Reveal";
-import { faqs } from "@/lib/faqs";
+import { Reveal } from "@/components/old/Reveal";
+import { faqs } from "@/lib/old/faqs";
 
 export function FAQ() {
   return (
