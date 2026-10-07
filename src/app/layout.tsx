@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 import { Anton, Archivo, Hanken_Grotesk } from "next/font/google";
 import { UtmCapture } from "@/components/UtmCapture";
 import { contact } from "@/lib/contact";
@@ -95,6 +96,7 @@ export default function RootLayout({
       <body className="antialiased">
         <UtmCapture />
         {children}
+        <Analytics />
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${ga4MeasurementId || googleAdsTagId}`}
           strategy="afterInteractive"

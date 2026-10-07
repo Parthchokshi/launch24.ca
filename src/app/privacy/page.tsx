@@ -59,7 +59,7 @@ export default function PrivacyPage() {
 
       <LegalSection title="Analytics & advertising">
         <p>
-          We use Google Analytics to count visits and button taps (call, text,
+          We use Vercel Web Analytics (no cookies) and Google Analytics to count visits and button taps (call, text,
           WhatsApp, form, voice note), and Google Ads to measure how our ads
           perform. Google may set cookies for this. You can manage Google ad
           settings at{" "}
