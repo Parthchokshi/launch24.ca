@@ -17,10 +17,13 @@ export const contact = {
   ),
 };
 
-/** Base links (no attribution tag). Clicks add the sign ref in tracking.ts. */
 export const links = {
   tel: `tel:+${contact.phoneE164}`,
   sms: `sms:+${contact.phoneE164}`,
-  whatsapp: `https://wa.me/${contact.phoneE164}`,
-  mailto: `mailto:${contact.email}`,
+  whatsapp: `https://wa.me/${contact.phoneE164}?text=${encodeURIComponent(
+    "Hi Launch24 — I need a website in 24 hours.",
+  )}`,
+  mailto: `mailto:${contact.email}?subject=${encodeURIComponent(
+    "Website proposal",
+  )}`,
 };

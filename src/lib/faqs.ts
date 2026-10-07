@@ -1,3 +1,4 @@
+import { guaranteeSentence } from "@/lib/guarantee";
 import { formatCad, pricing } from "@/lib/pricing";
 
 export const faqs = [
@@ -19,7 +20,7 @@ export const faqs = [
   },
   {
     q: "What if you miss the 24 hours?",
-    a: "Then it's free. We refund your deposit and you pay nothing. The full rules are in the guarantee box above and in our Terms.",
+    a: `${guaranteeSentence} The full rules are in the guarantee box above and in our Terms.`,
   },
   {
     q: "Do I own the website?",

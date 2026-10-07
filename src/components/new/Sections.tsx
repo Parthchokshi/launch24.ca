@@ -1,6 +1,7 @@
-import { ActionButtons } from "@/components/ActionButtons";
-import { LeadForm } from "@/components/LeadForm";
+import { ActionButtons } from "@/components/new/ActionButtons";
+import { LeadForm } from "@/components/new/LeadForm";
 import { faqs } from "@/lib/faqs";
+import { guaranteeSentence } from "@/lib/guarantee";
 import { launchPackageIncludes, launchPackagePriceLabel, pricing } from "@/lib/pricing";
 import { proof } from "@/lib/proof";
 import Link from "next/link";
@@ -28,7 +29,7 @@ const steps = [
   { title: "You brief us", body: "15 minutes by call, chat, or voice note." },
   { title: "We design & write", body: "Your layout, your words, built for your business." },
   { title: "You review a live preview", body: "A real link you can open on your phone, within 24 hours." },
-  { title: "You're live, or it's free", body: "Happy? We launch it. Late? You pay nothing." },
+  { title: "You're live", body: "Happy with the preview? We launch it." },
 ];
 
 export function HowItWorks() {
@@ -98,7 +99,7 @@ export function Guarantee() {
             24 hours. Or it&apos;s free.
           </h2>
           <p className="mt-3 text-lg font-bold">
-            If we miss the 24 hours, you pay nothing. We refund your deposit.
+            {guaranteeSentence}
           </p>
           <h3 className="mt-6 text-lg font-extrabold uppercase tracking-wide">How the clock works</h3>
           <ul className="mt-2 space-y-3 text-lg">
@@ -208,8 +209,11 @@ export function FinalCta() {
         <h2 id="final-heading" className="display text-[clamp(2.6rem,11vw,4.75rem)]">
           Ready? Start now.
         </h2>
-        <p className="mb-6 mt-2 text-lg font-semibold">
-          Call, text, or WhatsApp. Takes 15 minutes to brief us.
+        <p className="mt-2 text-lg font-semibold">
+          {guaranteeSentence}
+        </p>
+        <p className="mb-6 text-lg">
+          Call, text, or WhatsApp. It takes 15 minutes to brief us.
         </p>
         <ActionButtons location="final" />
       </div>

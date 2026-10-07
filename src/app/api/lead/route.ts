@@ -14,6 +14,14 @@ function field(form: FormData, key: string, max: number) {
     .slice(0, max);
 }
 
+const bad = (error: string) => NextResponse.json({ error }, { status: 400 });
+
+/**
+ * Takes submissions from both designs.
+ *  - new: name + phone + business (+ optional voice note)
+ *  - old: phone + email + (message or voice memo), name optional
+ * Every submission carries utm_* and design_version into the email and the DB.
+ */
 export async function POST(request: Request) {
   try {
     const form = await request.formData();
@@ -25,33 +33,27 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: true });
     }
 
+    const dv = field(form, "design_version", 10);
+    const design = dv === "new" ? "new" : "old";
     const name = field(form, "name", 100);
     const phone = field(form, "phone", 40);
     const business = field(form, "business", 150);
+    const email = field(form, "email", 200);
+    const message = String(form.get("message") ?? "").trim().slice(0, 3000);
     const audio = form.get("audio");
-
-    if (!name) {
-      return NextResponse.json({ error: "Name is required." }, { status: 400 });
-    }
-    if (phone.replace(/\D/g, "").length < 7) {
-      return NextResponse.json(
-        { error: "Enter a phone number we can call." },
-        { status: 400 },
-      );
-    }
-    if (!business) {
-      return NextResponse.json(
-        { error: "Business name is required." },
-        { status: 400 },
-      );
-    }
-
     const hasAudio = audio instanceof File && audio.size > 0;
+
+    if (design === "new") {
+      if (!name) return bad("Name is required.");
+      if (phone.replace(/\D/g, "").length < 7) return bad("Enter a phone number we can call.");
+      if (!business) return bad("Business name is required.");
+    } else {
+      if (!phone) return bad("Phone is required.");
+      if (!email) return bad("Email is required.");
+      if (!message && !hasAudio) return bad("Add a note or voice memo.");
+    }
     if (hasAudio && audio.size > MAX_AUDIO_BYTES) {
-      return NextResponse.json(
-        { error: "Voice note is too large (max 8MB)." },
-        { status: 400 },
-      );
+      return bad("Voice note is too large (max 8MB).");
     }
 
     const utm = {
@@ -65,9 +67,12 @@ export async function POST(request: Request) {
     const text = [
       "New Launch24 lead",
       "",
-      `Name: ${name}`,
+      `design_version: ${dv === "new" || dv === "old" ? dv : "(not sent)"}`,
+      `Name: ${name || "(not provided)"}`,
       `Phone: ${phone}`,
-      `Business: ${business}`,
+      ...(design === "new"
+        ? [`Business: ${business}`]
+        : [`Email: ${email}`, `Message: ${message || "(voice memo only)"}`]),
       `Voice note: ${hasAudio ? audio.name : "none"}`,
       "",
       `utm_source: ${utm.utm_source || "(none)"}`,
@@ -93,14 +98,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: true, mode: "dev-log" });
     }
 
-    const tag = [utm.utm_source, utm.utm_content].filter(Boolean).join("/");
-    const subject = `Launch24 lead: ${business} (${name})${tag ? ` [${tag}]` : ""}`;
+    const tag = [design, utm.utm_source, utm.utm_content].filter(Boolean).join("/");
+    const who = design === "new" ? `${business} (${name})` : `${phone}${name ? ` (${name})` : ""}`;
+    const subject = `Launch24 lead: ${who} [${tag}]`;
 
     const sendEmail = async () => {
       const resend = new Resend(apiKey);
       const { error } = await resend.emails.send({
         from: process.env.RESEND_FROM ?? "Launch24 <hi@launch24.ca>",
         to: [contact.email],
+        replyTo: design === "old" && email ? email : undefined,
         subject,
         text,
         attachments: hasAudio
@@ -121,9 +128,12 @@ export async function POST(request: Request) {
       jobs.push({
         label: "db",
         run: saveLead({
+          design_version: dv === "new" || dv === "old" ? dv : "",
           name,
           phone,
           business,
+          email,
+          message,
           ...utm,
           page_url: pageUrl,
           has_voice_note: hasAudio,

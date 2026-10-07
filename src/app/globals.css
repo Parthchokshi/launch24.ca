@@ -1,27 +1,26 @@
 @import "tailwindcss";
 
-:root {
-  --yellow: #ffd60a;
-  --ink: #0b0b0b;
-  --white: #ffffff;
-  /* #4a4a4a on white = 8.9:1; #d4d4d4 on ink = 13:1 */
-  --muted: #4a4a4a;
-  --muted-on-ink: #d4d4d4;
-  --danger: #b00020;
-}
+/* ------------------------------------------------------------------
+   Two home-page designs share this stylesheet. Each one lives inside its
+   own wrapper (.design-old / .design-new) and defines its own variables,
+   so neither can change the other's look.
+   ------------------------------------------------------------------ */
 
 @theme inline {
-  --color-yellow: var(--yellow);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-yellow: var(--yellow);
   --color-muted-on-ink: var(--muted-on-ink);
   --color-danger: var(--danger);
   --font-display: var(--font-anton), Impact, "Arial Narrow", sans-serif;
-  --font-sans: var(--font-archivo), system-ui, sans-serif;
+  --font-sans: var(--ui-font);
 }
 
 html {
-  background: var(--ink);
+  scroll-behavior: auto;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -30,34 +29,200 @@ html {
   }
 }
 
-body {
-  background: var(--white);
+/* ---------- CURRENT design ---------- */
+
+.design-old {
+  --bg: #ffffff;
+  --surface: #f7f6f3;
+  --ink: #191817;
+  --ink-soft: #3a3833;
+  --ink-inverse: #ffffff;
+  --muted: #5b5952;
+  --muted-2: #8b887f;
+  --line: rgba(0, 0, 0, 0.09);
+  --line-soft: rgba(0, 0, 0, 0.06);
+  --accent: #2f7d54;
+  --accent-warm: #d97706;
+  --danger: #d64545;
+
+  --panel-lavender: #eceafd;
+  --panel-lavender-2: #8d84e8;
+  --panel-lavender-3: #b3abf0;
+  --panel-yellow: #fdf3d8;
+  --panel-blue: #e3f0fb;
+  --panel-mint: #d9f2e4;
+
+  --radius-btn: 11px;
+  --radius-card: 18px;
+  --radius-panel: 28px;
+  --font-serif: Georgia, "Times New Roman", Times, serif;
+  --ui-font: var(--font-hanken);
+
+  background: var(--bg);
   color: var(--ink);
-  font-family: var(--font-sans);
+  font-family: var(--ui-font), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.design-old ::selection {
+  background: var(--accent);
+  color: var(--ink-inverse);
+}
+
+.design-old :focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------- accent word treatment ---------- */
+
+.accent-serif {
+  font-family: var(--font-serif);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.mark-mint {
+  background: var(--panel-mint);
+  border-radius: 12px;
+  padding: 0 14px;
+}
+
+/* ---------- shared buttons ---------- */
+
+.btn-dark {
+  background: var(--ink);
+  color: var(--ink-inverse);
+  transition: background 0.2s;
+}
+
+.btn-dark:hover {
+  background: var(--ink-soft);
+}
+
+.btn-light {
+  background: #fff;
+  color: var(--ink);
+  transition: color 0.2s;
+}
+
+.btn-light:hover {
+  color: var(--accent);
+}
+
+/* ---------- pulse (status dot / recording indicator) ---------- */
+
+.pulse-dot {
+  animation: l24pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes l24pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+/* ---------- reveal on scroll ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.65, 0.3, 1),
+    transform 0.7s cubic-bezier(0.2, 0.65, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- hero entrance ---------- */
+
+.enter {
+  animation: enter 0.8s cubic-bezier(0.2, 0.65, 0.3, 1) both;
+}
+
+.enter-1 {
+  animation-delay: 0.06s;
+}
+.enter-2 {
+  animation-delay: 0.14s;
+}
+.enter-3 {
+  animation-delay: 0.24s;
+}
+.enter-4 {
+  animation-delay: 0.34s;
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter,
+  .reveal,
+  .pulse-dot {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ---------- NEW design (yellow / black) ---------- */
+
+.design-new {
+  --yellow: #ffd60a;
+  --ink: #0b0b0b;
+  --white: #ffffff;
+  /* #4a4a4a on white = 8.9:1; #d4d4d4 on ink = 13:1 */
+  --muted: #4a4a4a;
+  --muted-on-ink: #d4d4d4;
+  --danger: #b00020;
+  --ui-font: var(--font-archivo);
+
+  background: var(--ink);
+  color: var(--ink);
+  font-family: var(--ui-font), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   /* room for the sticky bar so it never covers the footer */
   padding-bottom: 76px;
 }
 
 @media (min-width: 640px) {
-  body {
+  .design-new {
     padding-bottom: 0;
   }
 }
 
+.design-new ::selection {
+  background: var(--ink);
+  color: var(--yellow);
+}
+
 /* Visible focus on every surface: ink on light blocks, yellow on dark ones. */
-:focus-visible {
+.design-new :focus-visible {
   outline: 4px solid var(--ink);
   outline-offset: 3px;
 }
 
-.on-ink :focus-visible {
+.design-new .on-ink :focus-visible,
+.design-new .on-ink:focus-visible {
   outline-color: var(--yellow);
-}
-
-::selection {
-  background: var(--ink);
-  color: var(--yellow);
 }
 
 .display {
@@ -121,20 +286,7 @@ body {
   border-color: var(--white);
 }
 
-.pulse-dot {
-  animation: l24pulse 1.4s ease-in-out infinite;
-}
-
-@keyframes l24pulse {
-  50% {
-    opacity: 0.25;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .pulse-dot {
-    animation: none;
-  }
   .btn {
     transition: none;
   }

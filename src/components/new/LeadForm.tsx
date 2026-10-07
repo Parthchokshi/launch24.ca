@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { MicIcon } from "@/components/Icons";
+import { MicIcon } from "@/components/new/Icons";
 import { googleAdsConversionImageUrl, trackGoogleAdsConversion } from "@/lib/ads";
-import { getUtms, track } from "@/lib/tracking";
+import { getDesignVersion, getUtms, track } from "@/lib/tracking";
 
 const MAX_SECONDS = 120;
 const MAX_BYTES = 8 * 1024 * 1024;
@@ -12,7 +12,7 @@ type Voice = { blob: Blob; name: string; url: string };
 
 const input =
   "mt-1.5 block min-h-14 w-full border-[3px] border-white bg-white px-4 text-lg text-ink placeholder:text-[#6b6b6b]";
-const label = "text-sm font-extrabold uppercase tracking-[0.12em] text-white";
+const label = "block text-sm font-extrabold uppercase tracking-[0.12em] text-white";
 
 export function LeadForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "ok">("idle");
@@ -25,6 +25,7 @@ export function LeadForm() {
   const streamRef = useRef<MediaStream | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const voiceRef = useRef<Voice | null>(null);
+  const submittingRef = useRef(false);
   useEffect(() => {
     voiceRef.current = voice;
   }, [voice]);
@@ -108,6 +109,7 @@ export function LeadForm() {
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (submittingRef.current) return; // ignore double taps before state updates
     if (recording) stopRecording();
     setError("");
     const data = new FormData(e.currentTarget);
@@ -126,9 +128,11 @@ export function LeadForm() {
     body.set("business", business);
     body.set("_hp", String(data.get("_hp") ?? ""));
     body.set("page_url", window.location.href.split("#")[0]);
+    body.set("design_version", getDesignVersion());
     for (const [k, v] of Object.entries(utms)) body.set(k, v);
     if (voice) body.set("audio", voice.blob, voice.name);
 
+    submittingRef.current = true;
     setStatus("sending");
     try {
       const res = await fetch("/api/lead", { method: "POST", body });
@@ -143,6 +147,8 @@ export function LeadForm() {
     } catch (err) {
       setStatus("idle");
       setError(err instanceof Error ? err.message : "Something went wrong.");
+    } finally {
+      submittingRef.current = false;
     }
   }
 
@@ -150,7 +156,7 @@ export function LeadForm() {
     return (
       <div role="status" className="border-[3px] border-yellow p-6 text-center">
         <p className="display text-4xl text-yellow sm:text-5xl">
-          Got it. We&apos;ll call you within the hour.
+          Got it. We&apos;ll call you back as soon as we can.
         </p>
         {/* Backup conversion pixel for when gtag.js is blocked. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -180,7 +186,7 @@ export function LeadForm() {
 
       <div>
         <label htmlFor="lead-name" className={label}>
-          Your name
+          Name
         </label>
         <input id="lead-name" name="name" type="text" autoComplete="name" required className={input} />
       </div>
@@ -266,9 +272,10 @@ export function LeadForm() {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="btn btn-ink disabled:opacity-70"
+        aria-busy={status === "sending"}
+        className="btn btn-ink disabled:opacity-60"
       >
-        {status === "sending" ? "Sending…" : "Call me back"}
+        Call me back
       </button>
     </form>
   );

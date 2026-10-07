@@ -1,5 +1,5 @@
 import { contact } from "@/lib/contact";
-import { formatCad, pricing } from "@/lib/pricing";
+import { guaranteeSentence } from "@/lib/guarantee";
 
 export const siteConfig = {
   name: contact.brand,
@@ -8,9 +8,9 @@ export const siteConfig = {
   locale: "en_CA",
   language: "en-CA",
   title: "Launch24: Website in 24 hours. Or it’s free.",
-  description: `A custom-designed, mobile-ready website for your local business in 24 hours, or it’s free. ${formatCad(pricing.launchPackage)} CAD one-time. You own it. Call, text, or send a voice note.`,
+  description: `Custom-designed, mobile-ready websites for local businesses in 24 hours. ${guaranteeSentence}`,
   ogDescription:
-    "Custom-designed, mobile-ready websites for local Ontario businesses. Live in 24 hours, or it’s free.",
+    `Custom-designed, mobile-ready websites for local Ontario businesses. ${guaranteeSentence}`,
   keywords: [
     "website in 24 hours",
     "24 hour website",

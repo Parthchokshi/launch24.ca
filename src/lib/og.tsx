@@ -1,6 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
+import { guaranteeSentence } from "@/lib/guarantee";
 
 export const ogSize = { width: 1200, height: 630 };
 export const ogAlt = "Launch24: Website in 24 hours. Or it’s free.";
@@ -41,12 +42,15 @@ export async function renderOgImage() {
           </div>
           <div style={{ fontSize: 56, letterSpacing: 2 }}>Launch24</div>
         </div>
-        <div style={{ display: "flex", fontSize: 124, lineHeight: 1, maxWidth: 1000 }}>
+        <div style={{ display: "flex", fontSize: 112, lineHeight: 1, maxWidth: 1000 }}>
           Website in 24 hours. Or it’s free.
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 40 }}>
-          <span>Custom. Mobile-ready. You own it.</span>
-          <span>437-365-2475</span>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10, fontSize: 32 }}>
+          <span style={{ display: "flex" }}>{guaranteeSentence}</span>
+          <span style={{ display: "flex", justifyContent: "space-between", fontSize: 40 }}>
+            <span>launch24.ca</span>
+            <span>437-365-2475</span>
+          </span>
         </div>
       </div>
     ),

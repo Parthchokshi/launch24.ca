@@ -1,6 +1,6 @@
 "use client";
 
-import { ChatIcon, PhoneIcon } from "@/components/Icons";
+import { ChatIcon, PhoneIcon } from "@/components/new/Icons";
 import { contact, links } from "@/lib/contact";
 import { smsHref, track } from "@/lib/tracking";
 

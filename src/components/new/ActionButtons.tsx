@@ -1,6 +1,6 @@
 "use client";
 
-import { ChatIcon, MicIcon, PhoneIcon, WhatsAppIcon } from "@/components/Icons";
+import { ChatIcon, MicIcon, PhoneIcon, WhatsAppIcon } from "@/components/new/Icons";
 import { contact, links } from "@/lib/contact";
 import { smsHref, track, whatsappHref } from "@/lib/tracking";
 

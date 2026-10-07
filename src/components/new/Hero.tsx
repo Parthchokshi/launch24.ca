@@ -1,5 +1,6 @@
-import { ActionButtons, VoiceNoteLink } from "@/components/ActionButtons";
-import { Logo } from "@/components/Logo";
+import { ActionButtons, VoiceNoteLink } from "@/components/new/ActionButtons";
+import { Logo } from "@/components/new/Logo";
+import { guaranteeSentence } from "@/lib/guarantee";
 import { heroCopy } from "@/lib/hero";
 
 type Query = Record<string, string | string[] | undefined>;
@@ -27,6 +28,9 @@ export function Hero({ query }: { query: Query }) {
 
         <p className="mt-3 text-base font-semibold leading-snug text-ink sm:text-xl">
           Custom-designed. Mobile-ready. You own it.
+        </p>
+        <p className="mt-1.5 text-sm font-bold leading-snug text-ink">
+          {guaranteeSentence}
         </p>
 
         <div className="mt-4">

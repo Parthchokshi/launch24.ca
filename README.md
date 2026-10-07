@@ -62,10 +62,33 @@ UTMs are saved to localStorage (`l24_utm`) on load. Text and WhatsApp links get
 a `(ref: source/content)` tag in the pre-filled message so those leads can be
 attributed too.
 
-## Hero variants
+## Two home-page designs (one URL)
 
-`?utm_source=lawn_sign` → kicker "SAW OUR SIGN?". `utm_content=v2b` → the
-"NO WEBSITE?" headline. Logic: `src/lib/hero.ts`. Testimonial slot: `src/lib/proof.ts`.
+`src/lib/flags.ts` is the one place to change:
+
+- `NEW_DESIGN_MODE`: `"lawn_sign_only"` (default) | `"everyone"` | `"off"`.
+  In `lawn_sign_only`, `?utm_source=lawn_sign` shows the NEW design; everyone
+  else sees the CURRENT one. The choice is remembered in the `l24_design`
+  cookie for 30 days.
+- `SHOW_PORTFOLIO`: `false` hides the "Our work" section (testimonials / sample
+  sites from `src/lib/proof.ts`) on the new design.
+
+Preview with `?design=new` or `?design=old` (not remembered). Both designs use
+the same URL and the canonical `https://launch24.ca/`. Code: current design in
+`src/components/old/`, new in `src/components/new/`, switch in `src/app/page.tsx`
+and `src/lib/design.ts`.
+
+New-design hero variants: `utm_source=lawn_sign` → kicker "SAW OUR SIGN?";
+`utm_content=v2b` → the "NO WEBSITE?" headline (`src/lib/hero.ts`).
+
+## Comparing the designs
+
+Every event and form submission carries `design_version` (`new`/`old`) plus the
+four UTMs, in GA4, in the lead email, and in Postgres (`events` + `leads`).
+With `DATABASE_URL` and `REPORT_KEY` set, open `/report?key=<REPORT_KEY>` for
+visitors, call/text/WhatsApp clicks and form submissions per design and
+`utm_content` (or `SELECT * FROM design_report;`). In GA4, register
+`design_version` and `utm_content` as custom dimensions to split there too.
 
 ## Deploy (Vercel)
 

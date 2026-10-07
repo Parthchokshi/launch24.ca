@@ -10,6 +10,7 @@
  * - track() sends a GA4 event with the stored UTMs attached.
  */
 import { contact } from "@/lib/contact";
+import { DESIGN_COOKIE, type Design } from "@/lib/design";
 
 export const UTM_KEYS = [
   "utm_source",
@@ -82,12 +83,48 @@ export function captureUtms() {
 }
 
 export type EventName =
+  | "page_view"
   | "cta_call_click"
   | "cta_text_click"
   | "cta_whatsapp_click"
   | "form_submit"
   | "voice_note_start";
 
+const VISITOR_KEY = "l24_vid";
+
+/** Anonymous random id so we can count unique visitors in our own table. */
+export function getVisitorId(): string {
+  try {
+    let id = localStorage.getItem(VISITOR_KEY);
+    if (!id) {
+      id =
+        typeof crypto.randomUUID === "function"
+          ? crypto.randomUUID()
+          : Math.random().toString(36).slice(2) + Date.now().toString(36);
+      localStorage.setItem(VISITOR_KEY, id);
+    }
+    return id;
+  } catch {
+    return "";
+  }
+}
+
+/**
+ * Which design is on screen. The home page wrapper carries data-design; other
+ * pages fall back to the visitor's saved choice, then "old".
+ */
+export function getDesignVersion(): Design {
+  const el = document.querySelector<HTMLElement>("[data-design]");
+  const fromDom = el?.dataset.design;
+  if (fromDom === "new" || fromDom === "old") return fromDom;
+  const m = document.cookie.match(new RegExp(`(?:^|; )${DESIGN_COOKIE}=(new|old)`));
+  return m ? (m[1] as Design) : "old";
+}
+
+/**
+ * Sends one event to GA4 (gtag) and to our own /api/event table. Every event
+ * carries the stored UTMs and design_version.
+ */
 export function track(name: EventName, params: Record<string, string> = {}) {
   const w = window as unknown as { dataLayer?: unknown[]; gtag?: GtagFn };
   if (!w.gtag) {
@@ -98,11 +135,32 @@ export function track(name: EventName, params: Record<string, string> = {}) {
       w.dataLayer!.push(arguments);
     };
   }
+  const design_version = getDesignVersion();
+  const utms = getUtms();
   w.gtag("event", name, {
-    ...getUtms(),
+    ...utms,
+    design_version,
     ...params,
     transport_type: "beacon",
   });
+
+  try {
+    navigator.sendBeacon(
+      "/api/event",
+      new Blob(
+        [
+          JSON.stringify({
+            name,
+            visitor_id: getVisitorId(),
+            design_version,
+            path: window.location.pathname,
+            ...utms,
+          }),
+        ],
+        { type: "application/json" },
+      ),
+    );
+  } catch {}
 }
 
 /** Short tag so texts/WhatsApps can be matched to a sign variant, e.g. "lawn_sign/v2b". */

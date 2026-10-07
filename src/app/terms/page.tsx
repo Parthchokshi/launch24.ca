@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LegalPage, LegalSection } from "@/components/LegalPage";
+import { LegalPage, LegalSection } from "@/components/new/LegalPage";
 import { contact } from "@/lib/contact";
 import { formatCad, pricing } from "@/lib/pricing";
 import { siteConfig } from "@/lib/seo";

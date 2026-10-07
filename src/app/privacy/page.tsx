@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LegalPage, LegalSection } from "@/components/LegalPage";
+import { LegalPage, LegalSection } from "@/components/new/LegalPage";
 import { contact } from "@/lib/contact";
 import { siteConfig } from "@/lib/seo";
 
@@ -44,6 +44,16 @@ export default function PrivacyPage() {
           ad worked. If you text or WhatsApp us from the site, the pre-filled
           message may include a short tag such as &quot;ref: lawn_sign/v2b&quot;.
           You can delete it before sending.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="Which version of the site you see">
+        <p>
+          We are testing two versions of our home page. We save a small cookie
+          (l24_design, 30 days) so you keep seeing the same version, and we
+          record which version you saw with our analytics. We also keep an
+          anonymous random visitor ID in your browser so we can count unique
+          visitors.
         </p>
       </LegalSection>
 

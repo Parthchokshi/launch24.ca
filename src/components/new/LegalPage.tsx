@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import { Logo } from "@/components/Logo";
-import { SiteFooter } from "@/components/SiteFooter";
+import { Logo } from "@/components/new/Logo";
+import { SiteFooter } from "@/components/new/SiteFooter";
 
 export function LegalPage({
   title,

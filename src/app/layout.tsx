@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { Anton, Archivo } from "next/font/google";
-import { StickyBar } from "@/components/StickyBar";
+import { Anton, Archivo, Hanken_Grotesk } from "next/font/google";
 import { UtmCapture } from "@/components/UtmCapture";
 import { contact } from "@/lib/contact";
 import { ga4MeasurementId, googleAdsTagId } from "@/lib/ads";
@@ -15,6 +14,14 @@ const anton = Anton({
   display: "swap",
 });
 
+// Current design
+const hankenGrotesk = Hanken_Grotesk({
+  variable: "--font-hanken",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
+// New design
 const archivo = Archivo({
   variable: "--font-archivo",
   subsets: ["latin"],
@@ -42,7 +49,6 @@ export const metadata: Metadata = {
   category: "business",
   referrer: "origin-when-cross-origin",
   formatDetection: { email: false, address: false, telephone: false },
-  alternates: { canonical: "/" },
   robots: {
     index: true,
     follow: true,
@@ -78,15 +84,17 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const gtagConfig = [
     `gtag('config', '${googleAdsTagId}');`,
-    ga4MeasurementId ? `gtag('config', '${ga4MeasurementId}');` : "",
+    // page_view is sent by UtmCapture so it carries UTMs + design_version.
+    ga4MeasurementId
+      ? `gtag('config', '${ga4MeasurementId}', { send_page_view: false });`
+      : "",
   ].join("\n");
 
   return (
-    <html lang={siteConfig.language} className={`${anton.variable} ${archivo.variable}`}>
+    <html lang={siteConfig.language} className={`${anton.variable} ${archivo.variable} ${hankenGrotesk.variable}`}>
       <body className="antialiased">
         <UtmCapture />
         {children}
-        <StickyBar />
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${ga4MeasurementId || googleAdsTagId}`}
           strategy="afterInteractive"
