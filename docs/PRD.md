@@ -54,7 +54,7 @@ Contact: phone 437-365-2475 (`tel:`, `sms:`, WhatsApp `wa.me/14373652475`), emai
 Order: Hero → "Rather we call you?" form → How it works (4 steps) → Pricing → Guarantee box → FAQ (6) → *[Our work — hidden, see §6]* → Final CTA → Footer. Sticky bottom bar (Call + Text) on mobile.
 - **Hero:** kicker, H1, "Custom-designed. Mobile-ready. You own it.", the guarantee sentence, three equal stacked buttons (Call / Text us / WhatsApp), then "Send a 30-second voice note" (scrolls to the form and focuses Record; does not auto-start the mic). Must fit above the sticky bar on a 375×667 phone, including the long v2b headline.
 - **Hero variants** (`src/lib/hero.ts`, decided server-side): `utm_source=lawn_sign` → kicker "SAW OUR SIGN?" (default "LOCAL BUSINESS?"). `utm_content=v2b` → H1 "NO WEBSITE? WE'LL BUILD IT IN 24 HOURS. OR IT'S FREE."; v2a/v2c/other → default H1.
-- **Form** (`LeadForm.tsx`): fields NAME, PHONE (`type=tel`), BUSINESS NAME, each a real `<label>`+`<input>` with autocomplete `name` / `tel` / `organization`. Then an **optional** dropdown "How did you hear about us?" (`heard_from`: Lawn sign, Google, Friend or family, Facebook or Instagram, WhatsApp, Other; one shared list in `src/lib/heard-from.ts`, same dropdown on the CURRENT form; never preselected, so the answer is genuinely self-reported). Optional voice note: record in browser or upload audio (max 8 MB; recording max 2 min). Button text "Call me back", disabled while sending (also guarded against double-tap). Success: **"Got it. We'll call you back as soon as we can."** (never promise a specific time). Honeypot field `_hp`.
+- **Form** (`LeadForm.tsx`): fields NAME, PHONE (`type=tel`), BUSINESS NAME, each a real `<label>`+`<input>` with autocomplete `name` / `tel` / `organization`. Then a dropdown "How did you hear about us?" (optional in behavior, but the label deliberately does **not** say "optional"; it is never required) (`heard_from`: Lawn sign, Google, Friend or family, Facebook or Instagram, WhatsApp, Other; one shared list in `src/lib/heard-from.ts`, same dropdown on the CURRENT form; never preselected, so the answer is genuinely self-reported). Optional voice note: record in browser or upload audio (max 8 MB; recording max 2 min). Button text "Call me back", disabled while sending (also guarded against double-tap). Success: **"Got it. We'll call you back as soon as we can."** (never promise a specific time). Honeypot field `_hp`.
 - **Accessibility:** tap targets ≥ 48px, 4.5:1 contrast, visible focus states, skip link.
 - Tracking buttons rewrite the `sms:` and WhatsApp links at click time to add `(ref: <utm_source>/<utm_content>)` to the prefilled message so texts can be traced to a sign.
 
@@ -99,7 +99,7 @@ Title "Launch24: Website in 24 hours. Or it's free." Meta and OG descriptions co
 ## 5. Decisions
 Newest first. Superseded entries are kept.
 
-- **2026-10-08 — Ask "How did you hear about us?" (optional) on BOTH forms (new and current).** Self-reported source complements `utm_source=lawn_sign`: the UTM says which link they scanned, the answer says what they remember. Not preselected even for lawn-sign visitors, to avoid biasing it. Stored in its own `heard_from` column (not only emailed) so answers can be counted per design and compared with `utm_source`. Query: `SELECT heard_from, count(*) FROM leads GROUP BY 1;`
+- **2026-10-08 — Ask "How did you hear about us?" on BOTH forms (new and current).** Never required, but the label does not say "(optional)" so it feels like a normal question. Self-reported source complements `utm_source=lawn_sign`: the UTM says which link they scanned, the answer says what they remember. Not preselected even for lawn-sign visitors, to avoid biasing it. Stored in its own `heard_from` column (not only emailed) so answers can be counted per design and compared with `utm_source`. Query: `SELECT heard_from, count(*) FROM leads GROUP BY 1;`
 
 - **2026-10-07 — Keep this PRD as the source of truth.** `docs/PRD.md`, imported by `CLAUDE.md`, updated in the same commit as every change; a Stop hook (`.claude/hooks/prd-check.sh`) warns if `src/` changed without it.
 - **2026-10-07 — Store leads/events in Cloudflare D1.** Replaces Postgres/Neon (see below). The site calls D1's HTTP API from Vercel; Claude's MCP connection can't be used at runtime.
@@ -137,6 +137,7 @@ Newest first. Superseded entries are kept.
 - Confirm Resend sending domain `launch24.ca` is verified so lead emails deliver.
 
 ## 8. Change log
+- 2026-10-08 — Removed the "(optional)" text from the "How did you hear about us?" label on both forms; the field is still not required.
 - 2026-10-08 — Added optional "How did you hear about us?" dropdown to BOTH forms (new and current design); new `leads.heard_from` column (applied to the live D1 database), shown in the lead email. Form subtitle now "A few quick fields."
 - 2026-10-07 — Created this PRD; added CLAUDE.md rule + `@docs/PRD.md` import and the PRD Stop hook.
 - 2026-10-07 — Added Vercel Web Analytics; privacy page mentions it.

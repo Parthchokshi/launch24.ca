@@ -222,8 +222,7 @@ export function LeadForm() {
 
       <div>
         <label htmlFor="lead-heard" className={label}>
-          How did you hear about us?{" "}
-          <span className="font-semibold normal-case tracking-normal text-muted-on-ink">(optional)</span>
+          How did you hear about us?
         </label>
         <select id="lead-heard" name="heard_from" defaultValue="" className={input}>
           <option value="">Select one</option>

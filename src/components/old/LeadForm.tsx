@@ -287,10 +287,7 @@ export function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
           htmlFor={`${idPrefix}-heard`}
           className="text-[11px] font-bold uppercase tracking-[0.18em] text-[color:var(--muted)]"
         >
-          How did you hear about us?{" "}
-          <span className="font-medium normal-case tracking-normal opacity-70">
-            (optional)
-          </span>
+          How did you hear about us?
         </label>
         <select
           id={`${idPrefix}-heard`}
