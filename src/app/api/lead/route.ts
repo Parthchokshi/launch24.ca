@@ -20,6 +20,7 @@ const bad = (error: string) => NextResponse.json({ error }, { status: 400 });
 /**
  * Takes submissions from both designs.
  *  - new: name + phone + business (+ optional voice note)
+ *  - both: optional heard_from (one of src/lib/heard-from.ts)
  *  - old: phone + email + (message or voice memo), name optional
  * Every submission carries utm_* and design_version into the email and the DB.
  */
@@ -74,8 +75,9 @@ export async function POST(request: Request) {
       `Name: ${name || "(not provided)"}`,
       `Phone: ${phone}`,
       ...(design === "new"
-        ? [`Business: ${business}`, `Heard about us: ${heardFromLabel(heardFrom) || "(not answered)"}`]
+        ? [`Business: ${business}`]
         : [`Email: ${email}`, `Message: ${message || "(voice memo only)"}`]),
+      `Heard about us: ${heardFromLabel(heardFrom) || "(not answered)"}`,
       `Voice note: ${hasAudio ? audio.name : "none"}`,
       "",
       `utm_source: ${utm.utm_source || "(none)"}`,
