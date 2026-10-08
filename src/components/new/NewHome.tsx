@@ -15,10 +15,8 @@ import { faqs } from "@/lib/faqs";
 import { SHOW_PORTFOLIO } from "@/lib/flags";
 import { homePageJsonLd } from "@/lib/structured-data";
 
-type Query = Record<string, string | string[] | undefined>;
-
-/** The NEW yellow/black home page. */
-export function NewHome({ query }: { query: Query }) {
+/** The NEW yellow/black home page (the default design). */
+export function NewHome() {
   return (
     <div className="design-new" data-design="new">
       <JsonLd data={homePageJsonLd(faqs)} />
@@ -28,7 +26,7 @@ export function NewHome({ query }: { query: Query }) {
       >
         Skip to content
       </a>
-      <Hero query={query} />
+      <Hero />
       <main id="main">
         <QuoteForm />
         <HowItWorks />

@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
-import { Anton, Archivo, Hanken_Grotesk } from "next/font/google";
-import { UtmCapture } from "@/components/UtmCapture";
+import { Anton, Archivo } from "next/font/google";
+// PARKED (UTM capture + page_view with UTMs): import { UtmCapture } from "@/components/UtmCapture";
 import { contact } from "@/lib/contact";
 import { ga4MeasurementId, googleAdsTagId } from "@/lib/ads";
 import { siteConfig } from "@/lib/seo";
@@ -15,14 +15,7 @@ const anton = Anton({
   display: "swap",
 });
 
-// Current design
-const hankenGrotesk = Hanken_Grotesk({
-  variable: "--font-hanken",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
-// New design
+// (The old design's font, Hanken Grotesk, loads only with the old design: src/components/old/font.ts)
 const archivo = Archivo({
   variable: "--font-archivo",
   subsets: ["latin"],
@@ -85,16 +78,15 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const gtagConfig = [
     `gtag('config', '${googleAdsTagId}');`,
-    // page_view is sent by UtmCapture so it carries UTMs + design_version.
-    ga4MeasurementId
-      ? `gtag('config', '${ga4MeasurementId}', { send_page_view: false });`
-      : "",
+    // GA4 sends its own page_view. (PARKED: with UtmCapture we sent it ourselves
+    // so it carried UTMs, and had to pass { send_page_view: false } here.)
+    ga4MeasurementId ? `gtag('config', '${ga4MeasurementId}');` : "",
   ].join("\n");
 
   return (
-    <html lang={siteConfig.language} className={`${anton.variable} ${archivo.variable} ${hankenGrotesk.variable}`}>
+    <html lang={siteConfig.language} className={`${anton.variable} ${archivo.variable}`}>
       <body className="antialiased">
-        <UtmCapture />
+        {/* PARKED: <UtmCapture /> */}
         {children}
         <Analytics />
         <Script

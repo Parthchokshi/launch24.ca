@@ -1,8 +1,18 @@
 import { NextResponse } from "next/server";
-import { dbConfigured, saveEvent } from "@/lib/leads-db";
+// PARKED: import { dbConfigured, saveEvent } from "@/lib/leads-db";
 
 export const runtime = "nodejs";
 
+/**
+ * DISABLED. Nothing sends events here now (first-party event copies are parked).
+ * The endpoint accepts and discards requests so it can't be used to write junk.
+ * To restore, see docs/PRD.md §6 and the commented original below.
+ */
+export async function POST() {
+  return new NextResponse(null, { status: 204 });
+}
+
+/* PARKED ORIGINAL
 const EVENTS = new Set([
   "page_view",
   "cta_call_click",
@@ -16,7 +26,6 @@ function str(v: unknown, max: number) {
   return typeof v === "string" ? v.replace(/[\r\n]+/g, " ").trim().slice(0, max) : "";
 }
 
-/** First-party copy of each analytics event, so we can report without GA. */
 export async function POST(request: Request) {
   if (!dbConfigured()) return new NextResponse(null, { status: 204 });
   try {
@@ -40,3 +49,4 @@ export async function POST(request: Request) {
     return new NextResponse(null, { status: 400 });
   }
 }
+*/

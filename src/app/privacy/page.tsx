@@ -35,6 +35,8 @@ export default function PrivacyPage() {
         </p>
       </LegalSection>
 
+      {/* PARKED (UTM tags + design cookie are switched off; restore these sections with them, see docs/PRD.md §6):
+
       <LegalSection title="Where you came from">
         <p>
           When you arrive from a link, QR code, or ad, the link may carry tags
@@ -56,6 +58,8 @@ export default function PrivacyPage() {
           visitors.
         </p>
       </LegalSection>
+
+      */}
 
       <LegalSection title="Analytics & advertising">
         <p>

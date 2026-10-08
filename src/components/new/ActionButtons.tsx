@@ -7,9 +7,8 @@ import { smsHref, track, whatsappHref } from "@/lib/tracking";
 export type CtaLocation = "hero" | "final" | "sticky";
 
 /**
- * Three same-size tap targets. sms/WhatsApp hrefs get the sign ref added at
- * click time (after UtmCapture has run), so every text and WhatsApp arrives
- * tagged with the variant the person scanned.
+ * Three same-size tap targets. (PARKED: sms/WhatsApp hrefs used to get a sign
+ * ref tag added at click time; smsHref()/whatsappHref() now return the plain message.)
  */
 export function ActionButtons({
   location,

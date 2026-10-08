@@ -1,5 +1,7 @@
 "use client";
 
+// PARKED: not rendered (see src/app/page.tsx and docs/PRD.md §6). Writes the l24_design cookie.
+
 import { useEffect } from "react";
 import { DESIGN_COOKIE, DESIGN_COOKIE_DAYS, type Design } from "@/lib/design";
 
