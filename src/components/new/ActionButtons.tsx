@@ -20,7 +20,7 @@ export function ActionButtons({
 }) {
   return (
     <div
-      className={`grid gap-3 sm:grid-cols-3 ${variant === "dark" ? "on-ink" : ""}`}
+      className={`grid gap-3 md:grid-cols-[1.6fr_1fr_1fr] ${variant === "dark" ? "on-ink" : ""}`}
     >
       <a
         href={links.tel}
