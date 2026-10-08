@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { contact } from "@/lib/contact";
+import { heardFromLabel } from "@/lib/heard-from";
 import { dbConfigured, saveLead } from "@/lib/leads-db";
 
 export const runtime = "nodejs";
@@ -19,6 +20,7 @@ const bad = (error: string) => NextResponse.json({ error }, { status: 400 });
 /**
  * Takes submissions from both designs.
  *  - new: name + phone + business (+ optional voice note)
+ *  - both: optional heard_from (one of src/lib/heard-from.ts)
  *  - old: phone + email + (message or voice memo), name optional
  * Every submission carries utm_* and design_version into the email and the DB.
  */
@@ -38,6 +40,8 @@ export async function POST(request: Request) {
     const name = field(form, "name", 100);
     const phone = field(form, "phone", 40);
     const business = field(form, "business", 150);
+    // Only accept known option values (anything else is stored as empty).
+    const heardFrom = heardFromLabel(field(form, "heard_from", 30)) ? field(form, "heard_from", 30) : "";
     const email = field(form, "email", 200);
     const message = String(form.get("message") ?? "").trim().slice(0, 3000);
     const audio = form.get("audio");
@@ -73,6 +77,7 @@ export async function POST(request: Request) {
       ...(design === "new"
         ? [`Business: ${business}`]
         : [`Email: ${email}`, `Message: ${message || "(voice memo only)"}`]),
+      `Heard about us: ${heardFromLabel(heardFrom) || "(not answered)"}`,
       `Voice note: ${hasAudio ? audio.name : "none"}`,
       "",
       `utm_source: ${utm.utm_source || "(none)"}`,
@@ -132,6 +137,7 @@ export async function POST(request: Request) {
           name,
           phone,
           business,
+          heard_from: heardFrom,
           email,
           message,
           ...utm,

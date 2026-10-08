@@ -17,7 +17,7 @@ export function QuoteForm() {
           Rather we call you?
         </h2>
         <p className="mb-6 mt-2 text-lg text-muted-on-ink">
-          Three quick fields. No long form.
+          A few quick fields. No long form.
         </p>
         <LeadForm />
       </div>

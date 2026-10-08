@@ -17,6 +17,7 @@ export type LeadRow = {
   name: string;
   phone: string;
   business: string;
+  heard_from: string;
   email: string;
   message: string;
   utm_source: string;
@@ -85,14 +86,15 @@ async function query<T = unknown>(sql: string, params: (string | number)[] = [])
 
 export async function saveLead(lead: LeadRow) {
   await query(
-    `INSERT INTO leads (design_version, name, phone, business, email, message,
+    `INSERT INTO leads (design_version, name, phone, business, heard_from, email, message,
        utm_source, utm_medium, utm_campaign, utm_content, page_url, has_voice_note)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [
       lead.design_version,
       lead.name,
       lead.phone,
       lead.business,
+      lead.heard_from,
       lead.email,
       lead.message,
       lead.utm_source,

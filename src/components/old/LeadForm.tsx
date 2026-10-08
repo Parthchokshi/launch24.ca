@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { googleAdsConversionImageUrl, trackGoogleAdsConversion } from "@/lib/ads";
+import { heardFromOptions } from "@/lib/heard-from";
 import { getDesignVersion, getUtms, track } from "@/lib/tracking";
 
 const MAX_SECONDS = 120;
@@ -11,6 +12,7 @@ export function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [heardFrom, setHeardFrom] = useState("");
   const [honeypot, setHoneypot] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">(
     "idle",
@@ -124,6 +126,7 @@ export function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
       form.set("email", email.trim());
       form.set("message", message.trim());
       form.set("_hp", honeypot);
+      form.set("heard_from", heardFrom);
       // Attribution (does not change the form's look)
       form.set("design_version", getDesignVersion());
       form.set("page_url", window.location.href.split("#")[0]);
@@ -146,6 +149,7 @@ export function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
       setPhone("");
       setEmail("");
       setMessage("");
+      setHeardFrom("");
       clearAudio();
       trackGoogleAdsConversion();
     } catch (err) {
@@ -276,6 +280,28 @@ export function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
           placeholder="e.g. “Website for my salon — services, prices, booking button.”"
           className="mt-2 w-full resize-none rounded-[11px] border border-black/[0.12] bg-white px-[15px] py-[13px] text-sm text-[color:var(--ink)] outline-none transition-colors focus-visible:border-[color:var(--accent)] placeholder:text-[color:var(--muted-2)]"
         />
+      </div>
+
+      <div>
+        <label
+          htmlFor={`${idPrefix}-heard`}
+          className="text-[11px] font-bold uppercase tracking-[0.18em] text-[color:var(--muted)]"
+        >
+          How did you hear about us?
+        </label>
+        <select
+          id={`${idPrefix}-heard`}
+          value={heardFrom}
+          onChange={(e) => setHeardFrom(e.target.value)}
+          className="mt-2 w-full rounded-[11px] border border-black/[0.12] bg-white px-[15px] py-[13px] text-sm text-[color:var(--ink)] outline-none transition-colors focus-visible:border-[color:var(--accent)]"
+        >
+          <option value="">Select one</option>
+          {heardFromOptions.map((o) => (
+            <option key={o.value} value={o.value}>
+              {o.label}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="flex flex-wrap items-center gap-3 rounded-[11px] border border-dashed border-black/[0.22] bg-[color:var(--surface)] p-4">
