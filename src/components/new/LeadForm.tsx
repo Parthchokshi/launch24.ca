@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { MicIcon } from "@/components/new/Icons";
 import { googleAdsConversionImageUrl, trackGoogleAdsConversion } from "@/lib/ads";
+import { heardFromOptions } from "@/lib/heard-from";
 import { getDesignVersion, getUtms, track } from "@/lib/tracking";
 
 const MAX_SECONDS = 120;
@@ -127,6 +128,7 @@ export function LeadForm() {
     body.set("phone", phone);
     body.set("business", business);
     body.set("_hp", String(data.get("_hp") ?? ""));
+    body.set("heard_from", String(data.get("heard_from") ?? ""));
     body.set("page_url", window.location.href.split("#")[0]);
     body.set("design_version", getDesignVersion());
     for (const [k, v] of Object.entries(utms)) body.set(k, v);
@@ -216,6 +218,21 @@ export function LeadForm() {
           required
           className={input}
         />
+      </div>
+
+      <div>
+        <label htmlFor="lead-heard" className={label}>
+          How did you hear about us?{" "}
+          <span className="font-semibold normal-case tracking-normal text-muted-on-ink">(optional)</span>
+        </label>
+        <select id="lead-heard" name="heard_from" defaultValue="" className={input}>
+          <option value="">Select one</option>
+          {heardFromOptions.map((o) => (
+            <option key={o.value} value={o.value}>
+              {o.label}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div id="voice-note" className="border-[3px] border-dashed border-white/60 p-4">

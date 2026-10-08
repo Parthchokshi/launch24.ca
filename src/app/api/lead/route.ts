@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { contact } from "@/lib/contact";
+import { heardFromLabel } from "@/lib/heard-from";
 import { dbConfigured, saveLead } from "@/lib/leads-db";
 
 export const runtime = "nodejs";
@@ -38,6 +39,8 @@ export async function POST(request: Request) {
     const name = field(form, "name", 100);
     const phone = field(form, "phone", 40);
     const business = field(form, "business", 150);
+    // Only accept known option values (anything else is stored as empty).
+    const heardFrom = heardFromLabel(field(form, "heard_from", 30)) ? field(form, "heard_from", 30) : "";
     const email = field(form, "email", 200);
     const message = String(form.get("message") ?? "").trim().slice(0, 3000);
     const audio = form.get("audio");
@@ -71,7 +74,7 @@ export async function POST(request: Request) {
       `Name: ${name || "(not provided)"}`,
       `Phone: ${phone}`,
       ...(design === "new"
-        ? [`Business: ${business}`]
+        ? [`Business: ${business}`, `Heard about us: ${heardFromLabel(heardFrom) || "(not answered)"}`]
         : [`Email: ${email}`, `Message: ${message || "(voice memo only)"}`]),
       `Voice note: ${hasAudio ? audio.name : "none"}`,
       "",
@@ -132,6 +135,7 @@ export async function POST(request: Request) {
           name,
           phone,
           business,
+          heard_from: heardFrom,
           email,
           message,
           ...utm,

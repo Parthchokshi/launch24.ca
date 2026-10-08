@@ -1,6 +1,6 @@
 # Launch24 — Product Requirements & Source of Truth
 
-> **Last updated:** 2026-10-07
+> **Last updated:** 2026-10-08
 > This is the single source of truth for what launch24.ca is, what it does today, and why.
 > **Claude Code must read this before working, and update it in the same commit as any
 > change that affects behavior, a decision, a setting, or a removed feature.**
@@ -54,7 +54,7 @@ Contact: phone 437-365-2475 (`tel:`, `sms:`, WhatsApp `wa.me/14373652475`), emai
 Order: Hero → "Rather we call you?" form → How it works (4 steps) → Pricing → Guarantee box → FAQ (6) → *[Our work — hidden, see §6]* → Final CTA → Footer. Sticky bottom bar (Call + Text) on mobile.
 - **Hero:** kicker, H1, "Custom-designed. Mobile-ready. You own it.", the guarantee sentence, three equal stacked buttons (Call / Text us / WhatsApp), then "Send a 30-second voice note" (scrolls to the form and focuses Record; does not auto-start the mic). Must fit above the sticky bar on a 375×667 phone, including the long v2b headline.
 - **Hero variants** (`src/lib/hero.ts`, decided server-side): `utm_source=lawn_sign` → kicker "SAW OUR SIGN?" (default "LOCAL BUSINESS?"). `utm_content=v2b` → H1 "NO WEBSITE? WE'LL BUILD IT IN 24 HOURS. OR IT'S FREE."; v2a/v2c/other → default H1.
-- **Form** (`LeadForm.tsx`): fields NAME, PHONE (`type=tel`), BUSINESS NAME, each a real `<label>`+`<input>` with autocomplete `name` / `tel` / `organization`. Optional voice note: record in browser or upload audio (max 8 MB; recording max 2 min). Button text "Call me back", disabled while sending (also guarded against double-tap). Success: **"Got it. We'll call you back as soon as we can."** (never promise a specific time). Honeypot field `_hp`.
+- **Form** (`LeadForm.tsx`): fields NAME, PHONE (`type=tel`), BUSINESS NAME, each a real `<label>`+`<input>` with autocomplete `name` / `tel` / `organization`. Then an **optional** dropdown "How did you hear about us?" (`heard_from`: Lawn sign, Google, Friend or family, Facebook or Instagram, WhatsApp, Other; options in `src/lib/heard-from.ts`; never preselected, so the answer is genuinely self-reported). Optional voice note: record in browser or upload audio (max 8 MB; recording max 2 min). Button text "Call me back", disabled while sending (also guarded against double-tap). Success: **"Got it. We'll call you back as soon as we can."** (never promise a specific time). Honeypot field `_hp`.
 - **Accessibility:** tap targets ≥ 48px, 4.5:1 contrast, visible focus states, skip link.
 - Tracking buttons rewrite the `sms:` and WhatsApp links at click time to add `(ref: <utm_source>/<utm_content>)` to the prefilled message so texts can be traced to a sign.
 
@@ -71,8 +71,8 @@ The original site: lavender hero, Process, Pricing, FAQ, GetStarted (call/WhatsA
 
 ### 3.5 Leads and storage
 - `POST /api/lead` (both forms). Validation depends on `design_version`: **new** = name + phone (≥7 digits) + business; **old** = phone + email + (message or voice note). Voice note max 8 MB.
-- Each lead is **emailed to hi@launch24.ca** (Resend; voice note attached; includes UTMs, `design_version`, page URL) **and** inserted into D1 `leads`. The visitor sees success if either worked. If neither is configured on a deployed site, the form returns an error instead of faking success.
-- D1 `launch24` (id `4bc0863d-2e5d-46f3-8e2c-7027aa065ab9`): tables `leads`, `events`; views `design_report`, `leads_by_variant`. Schema: `docs/leads.sql` (already applied). Code: `src/lib/leads-db.ts`.
+- Each lead is **emailed to hi@launch24.ca** (Resend; voice note attached; includes UTMs, `design_version`, "Heard about us", page URL) **and** inserted into D1 `leads`. The visitor sees success if either worked. If neither is configured on a deployed site, the form returns an error instead of faking success.
+- D1 `launch24` (id `4bc0863d-2e5d-46f3-8e2c-7027aa065ab9`): tables `leads` (incl. `heard_from`, NEW form only; blank for the CURRENT form and when unanswered; unknown values are stored as blank), `events`; views `design_report`, `leads_by_variant`. Schema: `docs/leads.sql` (already applied). Code: `src/lib/leads-db.ts`.
 - Voice notes are **not** stored in D1, only emailed.
 
 ### 3.6 `/report`
@@ -98,6 +98,8 @@ Title "Launch24: Website in 24 hours. Or it's free." Meta and OG descriptions co
 
 ## 5. Decisions
 Newest first. Superseded entries are kept.
+
+- **2026-10-08 — Ask "How did you hear about us?" (optional) on the NEW form.** Self-reported source complements `utm_source=lawn_sign`: the UTM says which link they scanned, the answer says what they remember. Not preselected even for lawn-sign visitors, to avoid biasing it. CURRENT form unchanged. Query: `SELECT heard_from, count(*) FROM leads GROUP BY 1;`
 
 - **2026-10-07 — Keep this PRD as the source of truth.** `docs/PRD.md`, imported by `CLAUDE.md`, updated in the same commit as every change; a Stop hook (`.claude/hooks/prd-check.sh`) warns if `src/` changed without it.
 - **2026-10-07 — Store leads/events in Cloudflare D1.** Replaces Postgres/Neon (see below). The site calls D1's HTTP API from Vercel; Claude's MCP connection can't be used at runtime.
@@ -135,6 +137,7 @@ Newest first. Superseded entries are kept.
 - Confirm Resend sending domain `launch24.ca` is verified so lead emails deliver.
 
 ## 8. Change log
+- 2026-10-08 — Added optional "How did you hear about us?" dropdown to the NEW form; new `leads.heard_from` column (applied to the live D1 database), shown in the lead email. Form subtitle now "A few quick fields."
 - 2026-10-07 — Created this PRD; added CLAUDE.md rule + `@docs/PRD.md` import and the PRD Stop hook.
 - 2026-10-07 — Added Vercel Web Analytics; privacy page mentions it.
 - 2026-10-07 — Moved lead/event storage from Postgres to Cloudflare D1; `/report` reads from D1.

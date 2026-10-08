@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS leads (
   name TEXT NOT NULL,
   phone TEXT NOT NULL,
   business TEXT NOT NULL DEFAULT '',
+  heard_from TEXT NOT NULL DEFAULT '',   -- lawn_sign | google | friend | social | whatsapp | other | ''
   email TEXT NOT NULL DEFAULT '',
   message TEXT NOT NULL DEFAULT '',
   utm_source TEXT NOT NULL DEFAULT '',
@@ -17,6 +18,8 @@ CREATE TABLE IF NOT EXISTS leads (
   page_url TEXT NOT NULL DEFAULT '',
   has_voice_note INTEGER NOT NULL DEFAULT 0
 );
+
+-- Existing databases: ALTER TABLE leads ADD COLUMN heard_from TEXT NOT NULL DEFAULT '';  (applied to "launch24" on 2026-10-08)
 
 CREATE TABLE IF NOT EXISTS events (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -76,4 +79,5 @@ FULL JOIN ld ON ev.design_version = ld.design_version AND ev.utm_content = ld.ut
 ORDER BY 1,2;
 
 -- Compare designs per utm_content:  SELECT * FROM design_report;
+-- Self-reported source:             SELECT heard_from, count(*) FROM leads GROUP BY 1;
 -- Leads per sign variant:           SELECT * FROM leads_by_variant;
