@@ -3,8 +3,10 @@ import { Logo } from "@/components/new/Logo";
 import { guaranteeSentence } from "@/lib/guarantee";
 import { heroCopy } from "@/lib/hero";
 
-export function Hero() {
-  const { kicker, h1 } = heroCopy();
+type Query = Record<string, string | string[] | undefined>;
+
+export function Hero({ query }: { query: Query }) {
+  const { kicker, h1 } = heroCopy(query);
 
   return (
     <section aria-labelledby="hero-heading" className="bg-yellow">

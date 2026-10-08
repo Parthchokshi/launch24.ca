@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { Anton, Archivo } from "next/font/google";
-// PARKED (UTM capture + page_view with UTMs): import { UtmCapture } from "@/components/UtmCapture";
+import { UtmCapture } from "@/components/UtmCapture";
 import { contact } from "@/lib/contact";
 import { ga4MeasurementId, googleAdsTagId } from "@/lib/ads";
 import { siteConfig } from "@/lib/seo";
@@ -78,15 +78,16 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const gtagConfig = [
     `gtag('config', '${googleAdsTagId}');`,
-    // GA4 sends its own page_view. (PARKED: with UtmCapture we sent it ourselves
-    // so it carried UTMs, and had to pass { send_page_view: false } here.)
-    ga4MeasurementId ? `gtag('config', '${ga4MeasurementId}');` : "",
+    // page_view is sent by UtmCapture so it carries UTMs + design_version.
+    ga4MeasurementId
+      ? `gtag('config', '${ga4MeasurementId}', { send_page_view: false });`
+      : "",
   ].join("\n");
 
   return (
     <html lang={siteConfig.language} className={`${anton.variable} ${archivo.variable}`}>
       <body className="antialiased">
-        {/* PARKED: <UtmCapture /> */}
+        <UtmCapture />
         {children}
         <Analytics />
         <Script

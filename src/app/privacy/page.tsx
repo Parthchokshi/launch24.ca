@@ -35,8 +35,6 @@ export default function PrivacyPage() {
         </p>
       </LegalSection>
 
-      {/* PARKED (UTM tags + design cookie are switched off; restore these sections with them, see docs/PRD.md §6):
-
       <LegalSection title="Where you came from">
         <p>
           When you arrive from a link, QR code, or ad, the link may carry tags
@@ -49,17 +47,13 @@ export default function PrivacyPage() {
         </p>
       </LegalSection>
 
-      <LegalSection title="Which version of the site you see">
+      <LegalSection title="Counting visitors">
         <p>
-          We are testing two versions of our home page. We save a small cookie
-          (l24_design, 30 days) so you keep seeing the same version, and we
-          record which version you saw with our analytics. We also keep an
-          anonymous random visitor ID in your browser so we can count unique
-          visitors.
+          We keep an anonymous random visitor ID in your browser so we can
+          count unique visitors and button taps. It isn&apos;t linked to your
+          name or contact details.
         </p>
       </LegalSection>
-
-      */}
 
       <LegalSection title="Analytics & advertising">
         <p>

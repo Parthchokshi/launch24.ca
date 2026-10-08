@@ -1,7 +1,5 @@
 "use client";
 
-// PARKED: not mounted (see src/app/layout.tsx and docs/PRD.md §6). Stores UTMs and sends page_view with them.
-
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { captureUtms, track } from "@/lib/tracking";
