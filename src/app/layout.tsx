@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
-import { Anton, Archivo, Hanken_Grotesk } from "next/font/google";
+import { Anton, Archivo } from "next/font/google";
 import { UtmCapture } from "@/components/UtmCapture";
 import { contact } from "@/lib/contact";
 import { ga4MeasurementId, googleAdsTagId } from "@/lib/ads";
@@ -15,14 +15,7 @@ const anton = Anton({
   display: "swap",
 });
 
-// Current design
-const hankenGrotesk = Hanken_Grotesk({
-  variable: "--font-hanken",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
-// New design
+// (The old design's font, Hanken Grotesk, loads only with the old design: src/components/old/font.ts)
 const archivo = Archivo({
   variable: "--font-archivo",
   subsets: ["latin"],
@@ -92,7 +85,7 @@ export default function RootLayout({
   ].join("\n");
 
   return (
-    <html lang={siteConfig.language} className={`${anton.variable} ${archivo.variable} ${hankenGrotesk.variable}`}>
+    <html lang={siteConfig.language} className={`${anton.variable} ${archivo.variable}`}>
       <body className="antialiased">
         <UtmCapture />
         {children}

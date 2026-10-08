@@ -47,13 +47,11 @@ export default function PrivacyPage() {
         </p>
       </LegalSection>
 
-      <LegalSection title="Which version of the site you see">
+      <LegalSection title="Counting visitors">
         <p>
-          We are testing two versions of our home page. We save a small cookie
-          (l24_design, 30 days) so you keep seeing the same version, and we
-          record which version you saw with our analytics. We also keep an
-          anonymous random visitor ID in your browser so we can count unique
-          visitors.
+          We keep an anonymous random visitor ID in your browser so we can
+          count unique visitors and button taps. It isn&apos;t linked to your
+          name or contact details.
         </p>
       </LegalSection>
 

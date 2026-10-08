@@ -10,7 +10,7 @@
  * - track() sends a GA4 event with the stored UTMs attached.
  */
 import { contact } from "@/lib/contact";
-import { DESIGN_COOKIE, type Design } from "@/lib/design";
+import type { Design } from "@/lib/design";
 
 export const UTM_KEYS = [
   "utm_source",
@@ -111,14 +111,11 @@ export function getVisitorId(): string {
 
 /**
  * Which design is on screen. The home page wrapper carries data-design; other
- * pages fall back to the visitor's saved choice, then "old".
+ * pages (terms, privacy) use the default, "new".
  */
 export function getDesignVersion(): Design {
   const el = document.querySelector<HTMLElement>("[data-design]");
-  const fromDom = el?.dataset.design;
-  if (fromDom === "new" || fromDom === "old") return fromDom;
-  const m = document.cookie.match(new RegExp(`(?:^|; )${DESIGN_COOKIE}=(new|old)`));
-  return m ? (m[1] as Design) : "old";
+  return el?.dataset.design === "old" ? "old" : "new";
 }
 
 /**

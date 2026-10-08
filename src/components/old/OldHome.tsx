@@ -2,6 +2,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { FAQ } from "@/components/old/FAQ";
 import { GetStarted } from "@/components/old/GetStarted";
 import { Hero } from "@/components/old/Hero";
+import { hankenGrotesk } from "@/components/old/font";
 import { OldClickTracking } from "@/components/old/OldClickTracking";
 import { Pricing } from "@/components/old/Pricing";
 import { Process } from "@/components/old/Process";
@@ -9,10 +10,10 @@ import { SiteFooter } from "@/components/old/SiteFooter";
 import { faqs } from "@/lib/old/faqs";
 import { homePageJsonLd } from "@/lib/structured-data";
 
-/** The CURRENT home page, unchanged apart from the design wrapper. */
+/** The OLD (original lavender) home page. PARKED: shown only with NEW_DESIGN_MODE = "off" or ?design=old. */
 export function OldHome() {
   return (
-    <div className="design-old" data-design="old">
+    <div className={`design-old ${hankenGrotesk.variable}`} data-design="old">
       <JsonLd data={homePageJsonLd(faqs)} />
       <OldClickTracking />
       <a

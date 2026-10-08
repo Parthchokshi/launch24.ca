@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
-import { DesignPersist } from "@/components/DesignPersist";
 import { NewHome } from "@/components/new/NewHome";
-import { OldHome } from "@/components/old/OldHome";
-import { DESIGN_COOKIE, resolveDesign } from "@/lib/design";
+import { resolveDesign } from "@/lib/design";
 import { siteConfig } from "@/lib/seo";
 
-// One URL, one canonical (https://launch24.ca/), two designs.
+// One URL, one canonical (https://launch24.ca/).
 export const metadata: Metadata = {
   title: { absolute: siteConfig.title },
   description: siteConfig.description,
@@ -21,25 +18,28 @@ export const metadata: Metadata = {
   },
 };
 
-// searchParams + cookies make this page render per request, which is what
-// lets us choose the design (and the hero words) before the first byte.
+// Reads searchParams (UTM-aware hero copy, ?design= preview), so the page
+// renders per request.
 export default async function HomePage({
   searchParams,
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const [query, cookieStore] = await Promise.all([searchParams, cookies()]);
-  const { design, persist } = resolveDesign(
-    query,
-    cookieStore.get(DESIGN_COOKIE)?.value,
-  );
+  const query = await searchParams;
+  const design = resolveDesign(query);
+
+  // The old design is parked: its code is only loaded when it is actually shown.
+  let home = <NewHome query={query} />;
+  if (design === "old") {
+    const { OldHome } = await import("@/components/old/OldHome");
+    home = <OldHome />;
+  }
 
   return (
     <>
       {/* Next trims the trailing slash from metadata canonicals; we want exactly https://launch24.ca/ */}
       <link rel="canonical" href={`${siteConfig.url}/`} />
-      <DesignPersist design={persist} />
-      {design === "new" ? <NewHome query={query} /> : <OldHome />}
+      {home}
     </>
   );
 }
