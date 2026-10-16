@@ -1,0 +1,9 @@
+@font-face { font-family: Anton; src: url("../../../src/app/assets/Anton-Regular.ttf"); }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: var(--w); height: var(--h); overflow: hidden; }
+body { font-family: Archivo, Arial, sans-serif; color: #0B0B0B; background: #FFD60A; }
+.d { font-family: Anton, Impact, sans-serif; text-transform: uppercase; font-weight: 400; line-height: 1; }
+.ink { background: #0B0B0B; color: #FFD60A; }
+.sq { display: flex; align-items: center; justify-content: center; }
+.lockup { display: flex; align-items: center; gap: .3em; }
+.lockup .sq { width: 1.25em; height: 1.25em; font-size: .8em; }

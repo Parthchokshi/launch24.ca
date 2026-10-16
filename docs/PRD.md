@@ -1,6 +1,6 @@
 # Launch24 — Product Requirements & Source of Truth
 
-> **Last updated:** 2026-10-08
+> **Last updated:** 2026-10-16
 > This is the single source of truth for what launch24.ca is, what it does today, and why.
 > **Claude Code must read this before working, and update it in the same commit as any
 > change that affects behavior, a decision, a setting, or a removed feature.**
@@ -66,6 +66,7 @@ The original lavender site: Hero, Process, Pricing, FAQ, GetStarted (call/WhatsA
 - **Events:** `page_view`, `cta_call_click`, `cta_text_click`, `cta_whatsapp_click`, `voice_note_start`, `form_submit`. Sent to GA4 via `gtag` and, as a first-party copy, to `/api/event` → D1 table `events` (with an anonymous visitor id in localStorage `l24_vid`).
 - **GA4:** loads only if `NEXT_PUBLIC_GA_MEASUREMENT_ID` is set; its automatic page_view is turned off (we send our own). Marking events as conversions must be done in the GA4 admin UI (not in code).
 - **Google Ads:** tag `AW-18341001020` loads on every page; the lead-form conversion fires on a successful submit (plus a backup pixel). Config in `src/lib/ads.ts`.
+- **Google Business Profile links** use `utm_source=google&utm_medium=organic&utm_campaign=gbp&utm_content=gbp_<placement>` (`gbp_website`, `gbp_booking`, `gbp_product`, `gbp_post_*`), so GBP visits show as their own rows in `/report` and on leads. No code change needed. Guide and upload-ready images: `brand/google-business-profile/`.
 - **Vercel Web Analytics:** `<Analytics />` in the root layout (page views/visitors only).
 - No cookie is set by us. Storage used: `l24_utm`, `l24_vid` (localStorage; UTMs also fall back to a cookie of the same name if storage is blocked).
 
@@ -132,6 +133,7 @@ Newest first. Superseded entries are kept.
 | Care plan prices (`careYearly`, `careMonthly`) | Removed with the old pricing config | Never shown on the site | Git history |
 
 ## 7. Open items
+- **Google Business Profile (owner to do in the GBP app):** rename to plain "Launch24" (tagline in the name risks suspension), replace "Canada"/"Ontario" service areas with real cities, upload logo/cover, add services/product/posts with the `gbp_*` links. Steps: `brand/google-business-profile/README.md`.
 - **GA4 not active:** set `NEXT_PUBLIC_GA_MEASUREMENT_ID` in Vercel and redeploy; then mark `cta_call_click`, `cta_text_click`, `cta_whatsapp_click`, `form_submit` as key events in GA4 (Admin → Events). Optionally register `design_version` and `utm_content` as custom dimensions.
 - **Terms wording mismatch (owner said do not change it myself):** `/terms` says "If we miss that window, it's free: we refund your deposit and you pay nothing." It should say the exact guarantee sentence in §1.
 - **Live write path not yet verified:** D1 has no real data yet. Visit `/?utm_source=lawn_sign&utm_content=v2b` on a phone, tap Call/Text, then check D1 `events`; and submit the form once (emails hi@launch24.ca, creates a lead row to delete).
@@ -141,6 +143,7 @@ Newest first. Superseded entries are kept.
 - Confirm Resend sending domain `launch24.ca` is verified so lead emails deliver.
 
 ## 8. Change log
+- 2026-10-16 — Added `brand/google-business-profile/` (GBP setup guide, logo, cover, 4 post images, HTML sources + render script) and the `utm_campaign=gbp` link convention.
 - 2026-10-08 — Fixed the phone number wrapping onto two lines in the Call button (hero and final CTA) on desktop: buttons never wrap, and from 768px the Call column is wider (`1.6fr 1fr 1fr`).
 - 2026-10-08 — Made the NEW yellow/black design the default for everyone (`NEW_DESIGN_MODE = "everyone"`); old design parked (previewable with `?design=old`, its font loads only then). Kept UTM capture, sign-aware hero, events, visitor id, `/report`, and ref tags. Removed the design cookie and the lawn-sign-only mode. (Replaces an earlier same-day change that parked all tracking.) Privacy page: "Which version" section replaced by "Counting visitors".
 - 2026-10-08 — Removed the "(optional)" text from the "How did you hear about us?" label on both forms; the field is still not required.
