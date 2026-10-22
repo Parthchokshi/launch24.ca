@@ -1,10 +1,10 @@
 "use client";
 
-import { ChatIcon, PhoneIcon } from "@/components/new/Icons";
+import { PhoneIcon, WhatsAppIcon } from "@/components/new/Icons";
 import { contact, links } from "@/lib/contact";
-import { smsHref, track } from "@/lib/tracking";
+import { track, whatsappHref } from "@/lib/tracking";
 
-/** Mobile-only bottom bar: Call + Text, always visible. */
+/** Mobile-only bottom bar: WhatsApp + Call, always visible. */
 export function StickyBar() {
   return (
     <div
@@ -13,24 +13,26 @@ export function StickyBar() {
     >
       <div className="grid grid-cols-2 gap-2.5">
         <a
+          href={links.whatsapp}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn btn-ink min-h-14! text-base!"
+          onClick={(e) => {
+            e.currentTarget.href = whatsappHref();
+            track("cta_whatsapp_click", { location: "sticky" });
+          }}
+        >
+          <WhatsAppIcon />
+          WhatsApp
+        </a>
+        <a
           href={links.tel}
           aria-label={`Call ${contact.phoneDisplay}`}
-          className="btn btn-ink min-h-14! text-base!"
+          className="btn btn-white min-h-14! text-base!"
           onClick={() => track("cta_call_click", { location: "sticky" })}
         >
           <PhoneIcon />
           Call
-        </a>
-        <a
-          href={links.sms}
-          className="btn btn-white min-h-14! text-base!"
-          onClick={(e) => {
-            e.currentTarget.href = smsHref();
-            track("cta_text_click", { location: "sticky" });
-          }}
-        >
-          <ChatIcon />
-          Text
         </a>
       </div>
     </div>

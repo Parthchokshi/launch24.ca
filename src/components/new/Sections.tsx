@@ -213,7 +213,7 @@ export function FinalCta() {
           {guaranteeSentence}
         </p>
         <p className="mb-6 text-lg">
-          Call, text, or WhatsApp. It takes 15 minutes to brief us.
+          WhatsApp, call, or text. It takes 15 minutes to brief us.
         </p>
         <ActionButtons location="final" />
       </div>
