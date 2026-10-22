@@ -7,7 +7,8 @@ import { smsHref, track, whatsappHref } from "@/lib/tracking";
 export type CtaLocation = "hero" | "final" | "sticky";
 
 /**
- * Three same-size tap targets. sms/WhatsApp hrefs get the sign ref added at
+ * Three same-size tap targets, WhatsApp first (most people message us there).
+ * sms/WhatsApp hrefs get the sign ref added at
  * click time (after UtmCapture has run), so every text and WhatsApp arrives
  * tagged with the variant the person scanned.
  */
@@ -20,11 +21,24 @@ export function ActionButtons({
 }) {
   return (
     <div
-      className={`grid gap-3 md:grid-cols-[1.6fr_1fr_1fr] ${variant === "dark" ? "on-ink" : ""}`}
+      className={`grid gap-3 md:grid-cols-[1fr_1.6fr_1fr] ${variant === "dark" ? "on-ink" : ""}`}
     >
       <a
-        href={links.tel}
+        href={links.whatsapp}
+        target="_blank"
+        rel="noopener noreferrer"
         className="btn btn-ink"
+        onClick={(e) => {
+          e.currentTarget.href = whatsappHref();
+          track("cta_whatsapp_click", { location });
+        }}
+      >
+        <WhatsAppIcon />
+        WhatsApp us
+      </a>
+      <a
+        href={links.tel}
+        className="btn btn-white"
         onClick={() => track("cta_call_click", { location })}
       >
         <PhoneIcon />
@@ -32,7 +46,7 @@ export function ActionButtons({
       </a>
       <a
         href={links.sms}
-        className="btn btn-white"
+        className="btn btn-outline"
         onClick={(e) => {
           e.currentTarget.href = smsHref();
           track("cta_text_click", { location });
@@ -40,19 +54,6 @@ export function ActionButtons({
       >
         <ChatIcon />
         Text us
-      </a>
-      <a
-        href={links.whatsapp}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="btn btn-outline"
-        onClick={(e) => {
-          e.currentTarget.href = whatsappHref();
-          track("cta_whatsapp_click", { location });
-        }}
-      >
-        <WhatsAppIcon />
-        WhatsApp
       </a>
     </div>
   );

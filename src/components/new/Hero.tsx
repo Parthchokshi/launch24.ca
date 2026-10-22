@@ -29,6 +29,9 @@ export function Hero({ query }: { query: Query }) {
         <p className="mt-3 text-base font-semibold leading-snug text-ink sm:text-xl">
           Custom-designed. Mobile-ready. You own it.
         </p>
+        <p className="mt-0.5 text-sm font-semibold leading-snug text-ink">
+          We speak English, Gujarati, and Hindi.
+        </p>
         <p className="mt-1.5 text-sm font-bold leading-snug text-ink">
           {guaranteeSentence}
         </p>

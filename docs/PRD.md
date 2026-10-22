@@ -1,6 +1,6 @@
 # Launch24 — Product Requirements & Source of Truth
 
-> **Last updated:** 2026-10-16
+> **Last updated:** 2026-10-22
 > This is the single source of truth for what launch24.ca is, what it does today, and why.
 > **Claude Code must read this before working, and update it in the same commit as any
 > change that affects behavior, a decision, a setting, or a removed feature.**
@@ -50,8 +50,8 @@ Contact: phone 437-365-2475 (`tel:`, `sms:`, WhatsApp `wa.me/14373652475`), emai
 - `/terms` and `/privacy` use the NEW styling.
 
 ### 3.2 NEW design (`src/components/new/`)
-Order: Hero → "Rather we call you?" form → How it works (4 steps) → Pricing → Guarantee box → FAQ (6) → *[Our work — hidden, see §6]* → Final CTA → Footer. Sticky bottom bar (Call + Text) on mobile.
-- **Hero:** kicker, H1, "Custom-designed. Mobile-ready. You own it.", the guarantee sentence, three buttons (Call / Text us / WhatsApp: equal-size and stacked on phones and up to 767px; from 768px up, three columns with the Call button wider so "CALL 437-365-2475" never wraps; button text never wraps at any width), then "Send a 30-second voice note" (scrolls to the form and focuses Record; does not auto-start the mic). Must fit above the sticky bar on a 375×667 phone, including the long v2b headline (verified).
+Order: Hero → "Rather we call you?" form → How it works (4 steps) → Pricing → Guarantee box → FAQ (6) → *[Our work — hidden, see §6]* → Final CTA → Footer. Sticky bottom bar (WhatsApp + Call) on mobile.
+- **Hero:** kicker, H1, "Custom-designed. Mobile-ready. You own it.", "We speak English, Gujarati, and Hindi.", the guarantee sentence, three buttons in this order: **WhatsApp us** (black, primary) / Call 437-365-2475 / Text us (equal-size and stacked on phones and up to 767px; from 768px up, three columns `1fr 1.6fr 1fr` with the Call button wider so "CALL 437-365-2475" never wraps; button text never wraps at any width). The same buttons and order are used in the Final CTA, whose copy reads "WhatsApp, call, or text… We speak English, Gujarati, and Hindi.", then "Send a 30-second voice note" (scrolls to the form and focuses Record; does not auto-start the mic). Must fit above the sticky bar on a 375×667 phone, including the long v2b headline (verified).
 - **Hero variants** (`src/lib/hero.ts`, decided server-side): `utm_source=lawn_sign` → kicker "SAW OUR SIGN?" (default "LOCAL BUSINESS?"). `utm_content=v2b` → H1 "NO WEBSITE? WE'LL BUILD IT IN 24 HOURS. OR IT'S FREE."; v2a/v2c/other → default H1 "WEBSITE IN 24 HOURS. OR IT'S FREE.".
 - **Form** (`LeadForm.tsx`): fields NAME, PHONE (`type=tel`), BUSINESS NAME, each a real `<label>`+`<input>` with autocomplete `name` / `tel` / `organization`. Then a dropdown "How did you hear about us?" (optional in behavior, but the label deliberately does **not** say "optional"; it is never required) (`heard_from`: Lawn sign, Google, Friend or family, Facebook or Instagram, WhatsApp, Other; one shared list in `src/lib/heard-from.ts`, same dropdown on the CURRENT form; never preselected, so the answer is genuinely self-reported). Optional voice note: record in browser or upload audio (max 8 MB; recording max 2 min). Button text "Call me back", disabled while sending (also guarded against double-tap). Success: **"Got it. We'll call you back as soon as we can."** (never promise a specific time). Honeypot field `_hp`.
 - **Accessibility:** tap targets ≥ 48px, 4.5:1 contrast, visible focus states, skip link.
@@ -100,6 +100,8 @@ Title "Launch24: Website in 24 hours. Or it's free." Meta and OG descriptions co
 ## 5. Decisions
 Newest first. Superseded entries are kept.
 
+- **2026-10-22 — WhatsApp first; say "We speak English, Gujarati, and Hindi."** Many visitors now come from a printed community-calendar ad (its QR goes to plain `launch24.ca`, no UTMs), and that audience messages on WhatsApp first. WhatsApp is now the first/primary button in the hero, final CTA, and mobile sticky bar (sticky bar is WhatsApp + Call; Text stays in the hero and final CTA). Owner's rules: **no colour change, no founder photo, nothing temple- or community-specific on the site** (it also serves lawn signs and general offline marketing), so the language line is the only audience-specific touch.
+
 - **2026-10-08 — NEW (yellow/black) design is the default for everyone; old design parked.** `NEW_DESIGN_MODE = "everyone"`. Owner said UTM/cookie tracking is fine to keep wherever it serves the new design, so **UTM capture, UTM-aware hero, UTMs on events/leads, visitor id, first-party events, `/report`, and sign ref tags stay ON**. **Removed as no longer relevant:** the design cookie (`l24_design`) and the "new design only for lawn-sign visitors" mode, since there is one default design. (A same-day attempt to park all tracking was reversed on the owner's say-so.)
 
 - **2026-10-08 — Ask "How did you hear about us?" on BOTH forms (new and current).** Never required, but the label does not say "(optional)" so it feels like a normal question. Self-reported source complements `utm_source=lawn_sign`: the UTM says which link they scanned, the answer says what they remember. Not preselected even for lawn-sign visitors, to avoid biasing it. Stored in its own `heard_from` column (not only emailed) so answers can be counted per design and compared with `utm_source`. Query: `SELECT heard_from, count(*) FROM leads GROUP BY 1;`
@@ -143,6 +145,7 @@ Newest first. Superseded entries are kept.
 - Confirm Resend sending domain `launch24.ca` is verified so lead emails deliver.
 
 ## 8. Change log
+- 2026-10-22 — WhatsApp is now the first, primary button (hero, final CTA) and the sticky bar is WhatsApp + Call (was Call + Text). Added "We speak English, Gujarati, and Hindi." to the hero and final CTA. Hero still fits above the sticky bar on 375×667 with the v2b headline (verified).
 - 2026-10-16 — Added `brand/google-business-profile/` (GBP setup guide, logo, cover, 4 post images, HTML sources + render script) and the `utm_campaign=gbp` link convention.
 - 2026-10-08 — Fixed the phone number wrapping onto two lines in the Call button (hero and final CTA) on desktop: buttons never wrap, and from 768px the Call column is wider (`1.6fr 1fr 1fr`).
 - 2026-10-08 — Made the NEW yellow/black design the default for everyone (`NEW_DESIGN_MODE = "everyone"`); old design parked (previewable with `?design=old`, its font loads only then). Kept UTM capture, sign-aware hero, events, visitor id, `/report`, and ref tags. Removed the design cookie and the lawn-sign-only mode. (Replaces an earlier same-day change that parked all tracking.) Privacy page: "Which version" section replaced by "Counting visitors".
