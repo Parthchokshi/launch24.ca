@@ -51,7 +51,7 @@ Contact: phone 437-365-2475 (`tel:`, `sms:`, WhatsApp `wa.me/14373652475`), emai
 
 ### 3.2 NEW design (`src/components/new/`)
 Order: Hero → "Rather we call you?" form → How it works (4 steps) → Pricing → Guarantee box → FAQ (6) → *[Our work — hidden, see §6]* → Final CTA → Footer. Sticky bottom bar (WhatsApp + Call) on mobile.
-- **Hero:** kicker, H1, "Custom-designed. Mobile-ready. You own it.", "We speak English, Gujarati, and Hindi.", the guarantee sentence, three buttons in this order: **WhatsApp us** (black, primary) / Call 437-365-2475 / Text us (equal-size and stacked on phones and up to 767px; from 768px up, three columns `1fr 1.6fr 1fr` with the Call button wider so "CALL 437-365-2475" never wraps; button text never wraps at any width). The same buttons and order are used in the Final CTA, whose copy reads "WhatsApp, call, or text… We speak English, Gujarati, and Hindi.", then "Send a 30-second voice note" (scrolls to the form and focuses Record; does not auto-start the mic). Must fit above the sticky bar on a 375×667 phone, including the long v2b headline (verified).
+- **Hero:** kicker, H1, "Custom-designed. Mobile-ready. You own it.", the guarantee sentence, three buttons in this order: **WhatsApp us** (black, primary) / Call 437-365-2475 / Text us (equal-size and stacked on phones and up to 767px; from 768px up, three columns `1fr 1.6fr 1fr` with the Call button wider so "CALL 437-365-2475" never wraps; button text never wraps at any width). The same buttons and order are used in the Final CTA, whose copy reads "WhatsApp, call, or text. It takes 15 minutes to brief us.", then "Send a 30-second voice note" (scrolls to the form and focuses Record; does not auto-start the mic). Must fit above the sticky bar on a 375×667 phone, including the long v2b headline (verified).
 - **Hero variants** (`src/lib/hero.ts`, decided server-side): `utm_source=lawn_sign` → kicker "SAW OUR SIGN?" (default "LOCAL BUSINESS?"). `utm_content=v2b` → H1 "NO WEBSITE? WE'LL BUILD IT IN 24 HOURS. OR IT'S FREE."; v2a/v2c/other → default H1 "WEBSITE IN 24 HOURS. OR IT'S FREE.".
 - **Form** (`LeadForm.tsx`): fields NAME, PHONE (`type=tel`), BUSINESS NAME, each a real `<label>`+`<input>` with autocomplete `name` / `tel` / `organization`. Then a dropdown "How did you hear about us?" (optional in behavior, but the label deliberately does **not** say "optional"; it is never required) (`heard_from`: Lawn sign, Google, Friend or family, Facebook or Instagram, WhatsApp, Other; one shared list in `src/lib/heard-from.ts`, same dropdown on the CURRENT form; never preselected, so the answer is genuinely self-reported). Optional voice note: record in browser or upload audio (max 8 MB; recording max 2 min). Button text "Call me back", disabled while sending (also guarded against double-tap). Success: **"Got it. We'll call you back as soon as we can."** (never promise a specific time). Honeypot field `_hp`.
 - **Accessibility:** tap targets ≥ 48px, 4.5:1 contrast, visible focus states, skip link.
@@ -100,7 +100,9 @@ Title "Launch24: Website in 24 hours. Or it's free." Meta and OG descriptions co
 ## 5. Decisions
 Newest first. Superseded entries are kept.
 
-- **2026-10-22 — WhatsApp first; say "We speak English, Gujarati, and Hindi."** Many visitors now come from a printed community-calendar ad (its QR goes to plain `launch24.ca`, no UTMs), and that audience messages on WhatsApp first. WhatsApp is now the first/primary button in the hero, final CTA, and mobile sticky bar (sticky bar is WhatsApp + Call; Text stays in the hero and final CTA). Owner's rules: **no colour change, no founder photo, nothing temple- or community-specific on the site** (it also serves lawn signs and general offline marketing), so the language line is the only audience-specific touch.
+- **2026-10-22 — Don't show a spoken-languages line.** The owner asked to remove "We speak English, Gujarati, and Hindi." (added the same day) from the hero and final CTA. Replaces the language-line part of the entry below; WhatsApp-first stays.
+
+- **2026-10-22 — WhatsApp first; ~~say "We speak English, Gujarati, and Hindi."~~ (language line SUPERSEDED the same day, see above)** Many visitors now come from a printed community-calendar ad (its QR goes to plain `launch24.ca`, no UTMs), and that audience messages on WhatsApp first. WhatsApp is now the first/primary button in the hero, final CTA, and mobile sticky bar (sticky bar is WhatsApp + Call; Text stays in the hero and final CTA). Owner's rules: **no colour change, no founder photo, nothing temple- or community-specific on the site** (it also serves lawn signs and general offline marketing), so the language line was the only audience-specific touch.
 
 - **2026-10-08 — NEW (yellow/black) design is the default for everyone; old design parked.** `NEW_DESIGN_MODE = "everyone"`. Owner said UTM/cookie tracking is fine to keep wherever it serves the new design, so **UTM capture, UTM-aware hero, UTMs on events/leads, visitor id, first-party events, `/report`, and sign ref tags stay ON**. **Removed as no longer relevant:** the design cookie (`l24_design`) and the "new design only for lawn-sign visitors" mode, since there is one default design. (A same-day attempt to park all tracking was reversed on the owner's say-so.)
 
@@ -132,6 +134,7 @@ Newest first. Superseded entries are kept.
 | Postgres / Neon storage | Removed | Replaced by D1 | Git history (commit `d0a9d25`…`dab716e`) |
 | "We'll call you within the hour" | Removed | Can't promise a time | — |
 | Old-style Terms/Privacy for CURRENT-design visitors | Removed | One shared pair of legal pages | Would need per-design legal pages |
+| "We speak English, Gujarati, and Hindi." line (hero + final CTA) | Removed 2026-10-22 | Owner asked to remove it | Re-add a `<p>` under the hero subline in `Hero.tsx` and to the final CTA copy in `Sections.tsx`; re-check the 375×667 v2b fit |
 | Care plan prices (`careYearly`, `careMonthly`) | Removed with the old pricing config | Never shown on the site | Git history |
 
 ## 7. Open items
@@ -145,6 +148,7 @@ Newest first. Superseded entries are kept.
 - Confirm Resend sending domain `launch24.ca` is verified so lead emails deliver.
 
 ## 8. Change log
+- 2026-10-22 — Removed the "We speak English, Gujarati, and Hindi." line from the hero and final CTA (owner request). WhatsApp-first stays.
 - 2026-10-22 — WhatsApp is now the first, primary button (hero, final CTA) and the sticky bar is WhatsApp + Call (was Call + Text). Added "We speak English, Gujarati, and Hindi." to the hero and final CTA. Hero still fits above the sticky bar on 375×667 with the v2b headline (verified).
 - 2026-10-16 — Added `brand/google-business-profile/` (GBP setup guide, logo, cover, 4 post images, HTML sources + render script) and the `utm_campaign=gbp` link convention.
 - 2026-10-08 — Fixed the phone number wrapping onto two lines in the Call button (hero and final CTA) on desktop: buttons never wrap, and from 768px the Call column is wider (`1.6fr 1fr 1fr`).

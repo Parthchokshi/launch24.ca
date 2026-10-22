@@ -214,7 +214,6 @@ export function FinalCta() {
         </p>
         <p className="mb-6 text-lg">
           WhatsApp, call, or text. It takes 15 minutes to brief us.
-          We speak English, Gujarati, and Hindi.
         </p>
         <ActionButtons location="final" />
       </div>
