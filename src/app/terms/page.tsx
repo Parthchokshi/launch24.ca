@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { LegalPage, LegalSection } from "@/components/new/LegalPage";
 import { contact } from "@/lib/contact";
+import { guaranteeSentence } from "@/lib/guarantee";
 import { formatCad, pricing } from "@/lib/pricing";
 import { siteConfig } from "@/lib/seo";
 
@@ -23,8 +24,7 @@ export default function TermsPage() {
       <LegalSection title="The offer">
         <p>
           Launch24 delivers the first version of an agreed Launch Package
-          within 24 hours of the clock starting. If we miss that window, it&apos;s
-          free: we refund your deposit and you pay nothing.
+          within 24 hours of the clock starting. {guaranteeSentence}
         </p>
       </LegalSection>
 
