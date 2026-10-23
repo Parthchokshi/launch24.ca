@@ -1,129 +1,153 @@
 import { ActionButtons } from "@/components/new/ActionButtons";
 import { LeadForm } from "@/components/new/LeadForm";
+import { contact } from "@/lib/contact";
 import { faqs } from "@/lib/faqs";
 import { guaranteeSentence } from "@/lib/guarantee";
 import { launchPackageIncludes, launchPackagePriceLabel, pricing } from "@/lib/pricing";
 import { proof } from "@/lib/proof";
 import Link from "next/link";
 
-const wrap = "mx-auto max-w-3xl px-4 sm:px-6";
-const h2 = "display text-[clamp(2.2rem,9vw,3.75rem)]";
+const businesses = ["Plumbers", "Salons", "Restaurants", "Contractors", "Clinics", "Realtors", "Cleaners", "Tutors"];
 
-export function QuoteForm() {
+/** Scrolling strip of the kinds of businesses we build for (decorative). */
+export function Strip() {
   return (
-    <section id="quote" aria-labelledby="quote-heading" className="on-ink scroll-mt-2 bg-ink text-white">
-      <div className={`${wrap} py-10 sm:py-14`}>
-        <h2 id="quote-heading" className={`${h2} text-yellow`}>
-          Rather we call you?
-        </h2>
-        <p className="mb-6 mt-2 text-lg text-muted-on-ink">
-          A few quick fields. No long form.
-        </p>
-        <LeadForm />
+    <div className="strip" aria-hidden>
+      <div className="track">
+        {[...businesses, ...businesses].map((b, i) => (
+          <span key={i}>{b}</span>
+        ))}
       </div>
-    </section>
+    </div>
   );
 }
 
 const steps = [
-  { title: "You brief us", body: "15 minutes by call, chat, or voice note." },
-  { title: "We design & write", body: "Your layout, your words, built for your business." },
-  { title: "You review a live preview", body: "A real link you can open on your phone, within 24 hours." },
-  { title: "You're live", body: "Happy with the preview? We launch it." },
+  { title: "You brief us", body: "15 minutes by call, chat, or voice note.", time: "00:15", fill: "8%" },
+  { title: "We design & write", body: "Your layout, your words, built for your business.", time: "same day", fill: "60%" },
+  { title: "You review a live preview", body: "A real link you can open on your phone, within 24 hours.", time: "≤ 24:00", fill: "92%" },
+  { title: "You're live", body: "Happy with the preview? We launch it.", time: "launch", fill: "100%" },
 ];
 
 export function HowItWorks() {
   return (
-    <section id="how" aria-labelledby="how-heading" className="bg-white">
-      <div className={`${wrap} py-12 sm:py-16`}>
-        <h2 id="how-heading" className={h2}>How it works</h2>
-        <ol className="mt-6 grid gap-3">
-          {steps.map((s, i) => (
-            <li key={s.title} className="flex gap-4 border-[3px] border-ink p-4">
-              <span aria-hidden className="display flex h-12 w-12 shrink-0 items-center justify-center bg-ink text-3xl text-yellow">
-                {i + 1}
-              </span>
-              <div>
-                <h3 className="text-xl font-extrabold uppercase leading-tight">{s.title}</h3>
-                <p className="mt-1 text-lg text-muted">{s.body}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
+    <section id="how" aria-labelledby="how-heading" className="sec tight wrap">
+      <div className="shead">
+        <div>
+          <p className="tag">How it works</p>
+          <h2 id="how-heading">
+            Brief tonight.
+            <br />
+            Preview tomorrow.
+          </h2>
+        </div>
+        <p>Four steps, and you only do the first one.</p>
       </div>
+      <ol className="bento">
+        {steps.map((s, i) => (
+          <li key={s.title} className="tile">
+            <span className="k">{String(i + 1).padStart(2, "0")}</span>
+            <span className="hr">{s.time}</span>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+            <div className="bar" aria-hidden>
+              <i style={{ width: s.fill }} />
+            </div>
+          </li>
+        ))}
+      </ol>
     </section>
   );
 }
 
-export function Pricing() {
+const Check = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" aria-hidden>
+    <path d="m5 12 5 5L20 7" />
+  </svg>
+);
+
+/** Launch Package card and the guarantee box, side by side on desktop. */
+export function PricingAndGuarantee() {
   return (
-    <section id="pricing" aria-labelledby="pricing-heading" className="on-ink bg-ink text-white">
-      <div className={`${wrap} py-12 sm:py-16`}>
-        <h2 id="pricing-heading" className={`${h2} text-yellow`}>Pricing</h2>
-        <div className="mt-6 border-[3px] border-yellow p-5 sm:p-8">
-          <p className="text-sm font-extrabold uppercase tracking-[0.14em] text-yellow">Launch Package</p>
-          <p className="mt-2 flex flex-wrap items-baseline gap-x-3">
-            <span className="display text-7xl text-white sm:text-8xl">{launchPackagePriceLabel}</span>
-            <span className="text-lg font-bold text-muted-on-ink">{pricing.currency}, one-time</span>
+    <section id="pricing" aria-labelledby="pricing-heading" className="sec tight wrap">
+      <div className="shead">
+        <div>
+          <p className="tag">Pricing</p>
+          <h2 id="pricing-heading">
+            One package.
+            <br />
+            One price.
+          </h2>
+        </div>
+        <p>Free proposal first. Deposit only when we start. You own the site.</p>
+      </div>
+      <div className="pgrid">
+        <div className="pcard hot">
+          <p className="tag">
+            <b>Launch Package</b>
           </p>
-          <ul className="mt-5 space-y-2.5 text-lg">
+          <p className="amt">
+            {launchPackagePriceLabel}
+            <small>{pricing.currency} · one-time</small>
+          </p>
+          <ul className="checks">
             {launchPackageIncludes.map((item) => (
-              <li key={item} className="flex gap-3">
-                <span aria-hidden className="font-black text-yellow">✓</span>
+              <li key={item}>
+                <Check />
                 {item}
               </li>
             ))}
           </ul>
-          <p className="mt-6 border-t-[3px] border-white/20 pt-4 text-lg font-bold">
-            Free proposal first. Deposit only when we start. You own the site.
+          <p className="note">
+            Bigger project? <a href="#quote">Get a custom quote</a>.
           </p>
         </div>
-        <p className="mt-5 text-lg">
-          Bigger project?{" "}
-          <a href="#quote" className="font-extrabold text-yellow underline decoration-2 underline-offset-4">
-            Get a custom quote
-          </a>
-          .
-        </p>
+
+        <div id="guarantee" className="pcard" role="group" aria-labelledby="guarantee-heading">
+          <p className="tag">The guarantee</p>
+          <h3 id="guarantee-heading">24 hours. Or it&apos;s free.</h3>
+          <p className="lead">{guaranteeSentence}</p>
+          <ul className="clock">
+            <li>
+              <b>Starts</b>
+              When all three are in: your deposit, your intake (business name, what you do,
+              contact details), and your content, or you tell us to write it.
+            </li>
+            <li>
+              <b>Waits</b>
+              When we&apos;re waiting on you: slow replies, missing content, or answers to our
+              questions.
+            </li>
+            <li>
+              <b>Skips</b>
+              Domain or DNS changes (they&apos;re out of our hands), and revision rounds after we
+              deliver.
+            </li>
+          </ul>
+          <p className="note">
+            Full rules in our <Link href="/terms">Terms</Link>.
+          </p>
+        </div>
       </div>
     </section>
   );
 }
 
-export function Guarantee() {
+export function QuoteForm() {
   return (
-    <section id="guarantee" aria-labelledby="guarantee-heading" className="bg-yellow">
-      <div className={`${wrap} py-12 sm:py-16`}>
-        <div className="border-[4px] border-ink bg-white p-5 sm:p-8">
-          <h2 id="guarantee-heading" className={h2}>
-            24 hours. Or it&apos;s free.
+    <section id="quote" aria-labelledby="quote-heading" className="sec tight wrap" style={{ scrollMarginTop: 72 }}>
+      <div className="split">
+        <div>
+          <p className="tag">Rather we call you?</p>
+          <h2 id="quote-heading">
+            Leave a number.
+            <br />
+            We&apos;ll call you back.
           </h2>
-          <p className="mt-3 text-lg font-bold">
-            {guaranteeSentence}
-          </p>
-          <h3 className="mt-6 text-lg font-extrabold uppercase tracking-wide">How the clock works</h3>
-          <ul className="mt-2 space-y-3 text-lg">
-            <li>
-              <strong>It starts</strong> when all three are in: your deposit, your
-              intake (business name, what you do, contact details), and your
-              content, or you tell us to write it.
-            </li>
-            <li>
-              <strong>It waits</strong> when we&apos;re waiting on you: slow
-              replies, missing content, or answers to our questions.
-            </li>
-            <li>
-              <strong>It doesn&apos;t count</strong>{" "}
-              domain or DNS changes (they&apos;re out of our hands), or revision rounds after we deliver.
-            </li>
-          </ul>
-          <p className="mt-4 text-base text-muted">
-            Full rules in our{" "}
-            <Link href="/terms" className="font-bold text-ink underline decoration-2 underline-offset-4">
-              Terms
-            </Link>
-            .
-          </p>
+          <p className="lead">A few quick fields. No long form.</p>
+        </div>
+        <div className="formcard">
+          <LeadForm />
         </div>
       </div>
     </section>
@@ -132,20 +156,26 @@ export function Guarantee() {
 
 export function FAQ() {
   return (
-    <section id="faq" aria-labelledby="faq-heading" className="bg-white">
-      <div className={`${wrap} py-12 sm:py-16`}>
-        <h2 id="faq-heading" className={h2}>Questions</h2>
-        <div className="mt-6 border-t-[3px] border-ink">
-          {faqs.map((f) => (
-            <details key={f.q} className="group border-b-[3px] border-ink">
-              <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-3 text-xl font-extrabold leading-tight [&::-webkit-details-marker]:hidden">
-                {f.q}
-                <span aria-hidden className="display text-4xl group-open:rotate-45">+</span>
-              </summary>
-              <p className="pb-5 text-lg text-muted">{f.a}</p>
-            </details>
-          ))}
+    <section id="faq" aria-labelledby="faq-heading" className="sec tight wrap">
+      <div className="shead">
+        <div>
+          <p className="tag">Questions</p>
+          <h2 id="faq-heading">Asked often.</h2>
         </div>
+      </div>
+      <div className="faq">
+        {faqs.map((f, i) => (
+          <details key={f.q}>
+            <summary>
+              <span className="q" aria-hidden>
+                Q.{String(i + 1).padStart(2, "0")}
+              </span>
+              {f.q}
+              <span className="x" aria-hidden />
+            </summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
       </div>
     </section>
   );
@@ -158,65 +188,59 @@ export function FAQ() {
  */
 export function Proof() {
   return (
-    <section id="proof" aria-labelledby="proof-heading" className="bg-white">
-      <div className={`${wrap} pb-12 sm:pb-16`}>
-        <h2 id="proof-heading" className={h2}>Our work</h2>
-        <ul className="mt-6 grid gap-3 sm:grid-cols-3">
-          {proof.length > 0
-            ? proof.map((p) => (
-                <li key={p.kind === "site" ? p.url : p.name} className="border-[3px] border-ink p-4">
-                  {p.kind === "testimonial" ? (
-                    <>
-                      <blockquote className="text-lg font-semibold">“{p.quote}”</blockquote>
-                      <p className="mt-3 font-extrabold uppercase">{p.name}</p>
-                      <p className="text-muted">{p.business}</p>
-                    </>
-                  ) : (
-                    <>
-                      <p className="text-xl font-extrabold uppercase">{p.title}</p>
-                      {p.note && <p className="text-muted">{p.note}</p>}
-                      <a href={p.url} className="mt-3 inline-flex min-h-12 items-center font-bold underline decoration-2 underline-offset-4">
-                        View the site
-                      </a>
-                    </>
-                  )}
-                </li>
-              ))
-            : [1, 2, 3].map((n) => (
-                <li
-                  key={n}
-                  data-slot="proof-placeholder"
-                  className="flex min-h-36 flex-col justify-center border-[3px] border-dashed border-ink p-4 text-muted"
-                >
-                  <p className="text-sm font-extrabold uppercase tracking-[0.14em] text-ink">
-                    Placeholder {n}
-                  </p>
-                  <p className="mt-1 text-base">
-                    Client testimonial or sample site goes here. Add real ones in src/lib/proof.ts.
-                  </p>
-                </li>
-              ))}
-        </ul>
+    <section id="proof" aria-labelledby="proof-heading" className="sec tight wrap">
+      <div className="shead">
+        <div>
+          <p className="tag">Our work</p>
+          <h2 id="proof-heading">Our work</h2>
+        </div>
       </div>
+      <ul className="proof">
+        {proof.length > 0
+          ? proof.map((p) => (
+              <li key={p.kind === "site" ? p.url : p.name} className="tile">
+                {p.kind === "testimonial" ? (
+                  <>
+                    <blockquote style={{ margin: 0 }}>“{p.quote}”</blockquote>
+                    <h3>{p.name}</h3>
+                    <p>{p.business}</p>
+                  </>
+                ) : (
+                  <>
+                    <h3>{p.title}</h3>
+                    {p.note && <p>{p.note}</p>}
+                    <a href={p.url} className="link">
+                      View the site
+                    </a>
+                  </>
+                )}
+              </li>
+            ))
+          : [1, 2, 3].map((n) => (
+              <li key={n} data-slot="proof-placeholder" className="tile" style={{ borderStyle: "dashed" }}>
+                <span className="k">Placeholder {n}</span>
+                <p>Client testimonial or sample site goes here. Add real ones in src/lib/proof.ts.</p>
+              </li>
+            ))}
+      </ul>
     </section>
   );
 }
 
 export function FinalCta() {
   return (
-    <section id="contact" aria-labelledby="final-heading" className="bg-yellow">
-      <div className={`${wrap} py-12 sm:py-16`}>
-        <h2 id="final-heading" className="display text-[clamp(2.6rem,11vw,4.75rem)]">
-          Ready? Start now.
-        </h2>
-        <p className="mt-2 text-lg font-semibold">
-          {guaranteeSentence}
-        </p>
-        <p className="mb-6 text-lg">
-          WhatsApp, call, or text. It takes 15 minutes to brief us.
-        </p>
-        <ActionButtons location="final" />
-      </div>
+    <section id="contact" aria-labelledby="final-heading" className="final wrap">
+      <h2 id="final-heading">
+        The clock starts
+        <br />
+        when you say go.
+      </h2>
+      <p>{guaranteeSentence}</p>
+      <p style={{ marginTop: 6 }}>WhatsApp, call, or text. It takes 15 minutes to brief us.</p>
+      <ActionButtons location="final" />
+      <p className="tag" style={{ marginTop: 22 }}>
+        {contact.phoneDisplay} · {contact.email}
+      </p>
     </section>
   );
 }

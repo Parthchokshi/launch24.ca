@@ -7,27 +7,19 @@ import { smsHref, track, whatsappHref } from "@/lib/tracking";
 export type CtaLocation = "hero" | "final" | "sticky";
 
 /**
- * Three same-size tap targets, WhatsApp first (most people message us there).
+ * Three tap targets, WhatsApp first (most people message us there).
  * sms/WhatsApp hrefs get the sign ref added at
  * click time (after UtmCapture has run), so every text and WhatsApp arrives
  * tagged with the variant the person scanned.
  */
-export function ActionButtons({
-  location,
-  variant = "light",
-}: {
-  location: CtaLocation;
-  variant?: "light" | "dark";
-}) {
+export function ActionButtons({ location }: { location: CtaLocation }) {
   return (
-    <div
-      className={`grid gap-3 md:grid-cols-[1fr_1.6fr_1fr] ${variant === "dark" ? "on-ink" : ""}`}
-    >
+    <div className="ctas">
       <a
         href={links.whatsapp}
         target="_blank"
         rel="noopener noreferrer"
-        className="btn btn-ink"
+        className="btn btn-wa"
         onClick={(e) => {
           e.currentTarget.href = whatsappHref();
           track("cta_whatsapp_click", { location });
@@ -38,15 +30,16 @@ export function ActionButtons({
       </a>
       <a
         href={links.tel}
-        className="btn btn-white"
+        aria-label={`Call ${contact.phoneDisplay}`}
+        className="btn"
         onClick={() => track("cta_call_click", { location })}
       >
         <PhoneIcon />
-        Call {contact.phoneDisplay}
+        Call<span className="wide-only"> {contact.phoneDisplay}</span>
       </a>
       <a
         href={links.sms}
-        className="btn btn-outline"
+        className="btn"
         onClick={(e) => {
           e.currentTarget.href = smsHref();
           track("cta_text_click", { location });
@@ -60,13 +53,11 @@ export function ActionButtons({
 }
 
 /** Scrolls to the form and parks focus on the record button (no surprise mic prompt). */
-export function VoiceNoteLink({ onInk = false }: { onInk?: boolean }) {
+export function VoiceNoteLink() {
   return (
     <a
       href="#voice-note"
-      className={`inline-flex min-h-12 items-center gap-2 text-base font-bold underline decoration-2 underline-offset-4 ${
-        onInk ? "text-white" : "text-ink"
-      }`}
+      className="voice"
       onClick={(e) => {
         e.preventDefault();
         const target = document.getElementById("quote");

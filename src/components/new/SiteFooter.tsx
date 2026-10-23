@@ -4,24 +4,16 @@ import { contact } from "@/lib/contact";
 
 export function SiteFooter() {
   return (
-    <footer className="on-ink bg-ink text-white">
-      <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
-        <Logo onInk />
-        <p className="mt-2 text-base text-muted-on-ink">
-          Websites for local businesses in the GTA and across Ontario.
-        </p>
-        <nav aria-label="Footer" className="mt-4 flex flex-wrap gap-x-6">
-          <Link href="/terms" className="inline-flex min-h-12 items-center font-bold underline decoration-2 underline-offset-4">
-            Terms
-          </Link>
-          <Link href="/privacy" className="inline-flex min-h-12 items-center font-bold underline decoration-2 underline-offset-4">
-            Privacy
-          </Link>
-          <a href={`mailto:${contact.email}`} className="inline-flex min-h-12 items-center font-bold underline decoration-2 underline-offset-4">
-            {contact.email}
-          </a>
+    <footer className="footer">
+      <div className="wrap">
+        <Logo />
+        <p style={{ margin: "6px 0 0" }}>Websites for local businesses in the GTA and across Ontario.</p>
+        <nav aria-label="Footer">
+          <Link href="/terms">Terms</Link>
+          <Link href="/privacy">Privacy</Link>
+          <a href={`mailto:${contact.email}`}>{contact.email}</a>
         </nav>
-        <p className="mt-2 text-sm text-muted-on-ink">
+        <p style={{ margin: "6px 0 0" }}>
           © {new Date().getFullYear()} {contact.brand}
         </p>
       </div>

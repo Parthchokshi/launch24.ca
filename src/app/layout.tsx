@@ -1,29 +1,36 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
-import { Anton, Archivo } from "next/font/google";
+import { Bricolage_Grotesque, JetBrains_Mono, Onest } from "next/font/google";
 import { UtmCapture } from "@/components/UtmCapture";
 import { contact } from "@/lib/contact";
 import { ga4MeasurementId, googleAdsTagId } from "@/lib/ads";
 import { siteConfig } from "@/lib/seo";
 import "./globals.css";
 
-const anton = Anton({
-  variable: "--font-anton",
+// NEW design fonts. (The old design's font, Hanken Grotesk, loads only with the old design: src/components/old/font.ts)
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
   subsets: ["latin"],
-  weight: "400",
+  weight: ["600", "800"],
   display: "swap",
 });
 
-// (The old design's font, Hanken Grotesk, loads only with the old design: src/components/old/font.ts)
-const archivo = Archivo({
-  variable: "--font-archivo",
+const onest = Onest({
+  variable: "--font-onest",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jbmono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
   display: "swap",
 });
 
 export const viewport: Viewport = {
-  themeColor: "#ffd60a",
+  themeColor: "#08090c",
   width: "device-width",
   initialScale: 1,
 };
@@ -85,7 +92,7 @@ export default function RootLayout({
   ].join("\n");
 
   return (
-    <html lang={siteConfig.language} className={`${anton.variable} ${archivo.variable}`}>
+    <html lang={siteConfig.language} className={`${bricolage.variable} ${onest.variable} ${jetbrainsMono.variable}`}>
       <body className="antialiased">
         <UtmCapture />
         {children}

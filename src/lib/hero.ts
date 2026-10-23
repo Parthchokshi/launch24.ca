@@ -4,8 +4,8 @@
  */
 export const DEFAULT_KICKER = "LOCAL BUSINESS?";
 export const SIGN_KICKER = "SAW OUR SIGN?";
-export const DEFAULT_H1 = "WEBSITE IN 24 HOURS. OR IT'S FREE.";
-export const V2B_H1 = "NO WEBSITE? WE'LL BUILD IT IN 24 HOURS. OR IT'S FREE.";
+export const DEFAULT_H1 = "Website in 24 hours. Or it's free.";
+export const V2B_H1 = "No website? We'll build it in 24 hours. Or it's free.";
 
 type Query = Record<string, string | string[] | undefined>;
 

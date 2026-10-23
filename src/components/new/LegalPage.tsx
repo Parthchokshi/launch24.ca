@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import { Logo } from "@/components/new/Logo";
 import { SiteFooter } from "@/components/new/SiteFooter";
+import { TopBar } from "@/components/new/TopBar";
 
 export function LegalPage({
   title,
@@ -12,29 +12,29 @@ export function LegalPage({
   children: ReactNode;
 }) {
   return (
-    <>
-      <div className="bg-yellow">
-        <div className="mx-auto max-w-3xl px-4 pb-8 pt-1 sm:px-6">
-          <Logo />
-          <h1 className="display mt-4 text-[clamp(2.8rem,12vw,5rem)]">{title}</h1>
-          <p className="mt-2 text-lg font-semibold">{updated}</p>
+    <div className="design-new">
+      <TopBar />
+      <div className="legal-head">
+        <div className="wrap">
+          <h1>{title}</h1>
+          <p className="tag" style={{ marginTop: 12 }}>
+            {updated}
+          </p>
         </div>
       </div>
-      <main className="mx-auto max-w-3xl space-y-8 px-4 py-10 text-lg leading-relaxed sm:px-6">
-        {children}
+      <main className="wrap">
+        <div className="legal">{children}</div>
       </main>
       <SiteFooter />
-    </>
+    </div>
   );
 }
 
 export function LegalSection({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section>
-      <h2 className="text-2xl font-extrabold uppercase leading-tight">{title}</h2>
-      <div className="mt-2 space-y-2 text-muted [&_a]:font-bold [&_a]:text-ink [&_a]:underline [&_a]:underline-offset-4 [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-6">
-        {children}
-      </div>
+      <h2>{title}</h2>
+      <div className="legal-body">{children}</div>
     </section>
   );
 }

@@ -11,9 +11,8 @@ const MAX_BYTES = 8 * 1024 * 1024;
 
 type Voice = { blob: Blob; name: string; url: string };
 
-const input =
-  "mt-1.5 block min-h-14 w-full border-[3px] border-white bg-white px-4 text-lg text-ink placeholder:text-[#6b6b6b]";
-const label = "block text-sm font-extrabold uppercase tracking-[0.12em] text-white";
+const input = "finput";
+const label = "flabel";
 
 export function LeadForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "ok">("idle");
@@ -156,8 +155,8 @@ export function LeadForm() {
 
   if (status === "ok") {
     return (
-      <div role="status" className="border-[3px] border-yellow p-6 text-center">
-        <p className="display text-4xl text-yellow sm:text-5xl">
+      <div role="status">
+        <p className="fok">
           Got it. We&apos;ll call you back as soon as we can.
         </p>
         {/* Backup conversion pixel for when gtag.js is blocked. */}
@@ -234,9 +233,9 @@ export function LeadForm() {
         </select>
       </div>
 
-      <div id="voice-note" className="border-[3px] border-dashed border-white/60 p-4">
+      <div id="voice-note" className="voicebox">
         <p className={label}>
-          Voice note <span className="font-semibold normal-case tracking-normal text-muted-on-ink">(optional)</span>
+          Voice note <span style={{ textTransform: "none", letterSpacing: 0 }}>(optional)</span>
         </p>
         <div className="mt-3 flex flex-wrap items-center gap-3">
           {recording ? (
@@ -244,7 +243,8 @@ export function LeadForm() {
               type="button"
               id="voice-record"
               onClick={stopRecording}
-              className="btn btn-white w-auto!"
+              className="btn"
+              style={{ width: "auto" }}
             >
               <span aria-hidden className="pulse-dot h-3 w-3 rounded-full bg-danger" />
               Stop · {seconds}s
@@ -254,13 +254,14 @@ export function LeadForm() {
               type="button"
               id="voice-record"
               onClick={startRecording}
-              className="btn btn-white w-auto!"
+              className="btn"
+              style={{ width: "auto" }}
             >
               <MicIcon />
               {voice ? "Record again" : "Record"}
             </button>
           )}
-          <label className="inline-flex min-h-12 cursor-pointer items-center text-base font-bold text-white underline decoration-2 underline-offset-4 focus-within:outline focus-within:outline-4 focus-within:outline-offset-2 focus-within:outline-yellow">
+          <label className="textlink">
             Or upload a file
             <input type="file" accept="audio/*" onChange={onFile} className="sr-only" />
           </label>
@@ -271,7 +272,7 @@ export function LeadForm() {
             <button
               type="button"
               onClick={clearVoice}
-              className="min-h-12 px-2 text-base font-bold text-white underline decoration-2 underline-offset-4"
+              className="textlink"
             >
               Remove
             </button>
@@ -280,7 +281,7 @@ export function LeadForm() {
       </div>
 
       {error && (
-        <p role="alert" className="border-[3px] border-white bg-white p-3 text-base font-bold text-danger">
+        <p role="alert" className="ferror">
           {error}
         </p>
       )}
@@ -289,7 +290,7 @@ export function LeadForm() {
         type="submit"
         disabled={status === "sending"}
         aria-busy={status === "sending"}
-        className="btn btn-ink disabled:opacity-60"
+        className="btn btn-gold"
       >
         Call me back
       </button>
