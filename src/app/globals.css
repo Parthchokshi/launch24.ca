@@ -1690,3 +1690,356 @@ html:has(.design-new) {
     opacity: 1;
   }
 }
+
+/* ---------- Prospect previews (/p/<slug>) ----------
+   The prospect's own site: light, in their accent colour. Not part of either Launch24 design. */
+
+.pv {
+  --pv-bg: #ffffff;
+  --pv-alt: #f5f6f8;
+  --pv-ink: #15181e;
+  --pv-muted: #555c69;
+  --pv-line: #e3e6eb;
+  min-height: 100vh;
+  background: var(--pv-bg);
+  color: var(--pv-ink);
+  font-family: var(--font-onest), "Segoe UI", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  padding-top: 64px;
+}
+
+.pv h1,
+.pv h2,
+.pv h3 {
+  font-family: var(--font-bricolage), "Avenir Next", Arial, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.pv-wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+
+.pv-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 64px;
+}
+
+.pv-top {
+  border-bottom: 1px solid var(--pv-line);
+}
+
+.pv-name {
+  font-family: var(--font-bricolage), Arial, sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.pv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 22px;
+  border-radius: 12px;
+  background: var(--pv-accent);
+  color: var(--pv-accent-ink);
+  border: 2px solid var(--pv-accent);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.2s;
+}
+
+.pv-btn:hover {
+  transform: translateY(-1px);
+}
+
+.pv-btn-line {
+  background: transparent;
+  color: var(--pv-ink);
+  border-color: var(--pv-line);
+}
+
+.pv-btn-sm {
+  min-height: 44px;
+  padding: 0 16px;
+  font-size: 15px;
+}
+
+.pv-hero {
+  padding-block: 56px 48px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--pv-accent) 10%, #fff), #fff);
+}
+
+.pv-kicker {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pv-accent);
+}
+
+.pv-hero h1 {
+  font-size: clamp(36px, 6vw, 64px);
+  margin-top: 10px;
+  max-width: 18ch;
+}
+
+.pv-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+@media (max-width: 520px) {
+  .pv-ctas .pv-btn {
+    width: 100%;
+  }
+}
+
+.pv-photos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.pv-photos img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+@media (max-width: 640px) {
+  .pv-photos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.pv-sec {
+  padding-block: 56px;
+}
+
+.pv-sec h2 {
+  font-size: clamp(28px, 4vw, 40px);
+}
+
+.pv-alt {
+  background: var(--pv-alt);
+}
+
+.pv-about p {
+  max-width: 62ch;
+  margin-top: 14px;
+  color: var(--pv-muted);
+}
+
+.pv-services {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 0;
+  display: grid;
+  gap: 12px;
+}
+
+@media (min-width: 720px) {
+  .pv-services {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.pv-services li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  border: 1px solid var(--pv-line);
+  border-left: 4px solid var(--pv-accent);
+  border-radius: 12px;
+  min-width: 0;
+}
+
+.pv-services p {
+  margin: 4px 0 0;
+  color: var(--pv-muted);
+  font-size: 15px;
+}
+
+.pv-price {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.pv-reviews {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 0;
+  display: grid;
+  gap: 12px;
+}
+
+@media (min-width: 720px) {
+  .pv-reviews {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.pv-reviews li {
+  padding: 20px;
+  border-radius: 14px;
+  background: var(--pv-alt);
+}
+
+.pv-stars {
+  color: #e0a100;
+  letter-spacing: 2px;
+}
+
+.pv-reviews blockquote {
+  margin: 8px 0 0;
+}
+
+.pv-reviews p {
+  margin: 10px 0 0;
+  color: var(--pv-muted);
+  font-size: 14px;
+}
+
+.pv-info {
+  display: grid;
+  gap: 32px;
+}
+
+@media (min-width: 720px) {
+  .pv-info {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.pv-info h3 {
+  font-size: 22px;
+}
+
+.pv-info p,
+.pv-info ul {
+  margin: 10px 0 0;
+  color: var(--pv-muted);
+}
+
+.pv-info ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+  max-width: 320px;
+}
+
+.pv-info li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.pv-contact {
+  background: var(--pv-accent);
+  color: var(--pv-accent-ink);
+}
+
+.pv-contact p {
+  margin-top: 10px;
+  opacity: 0.9;
+}
+
+.pv-contact .pv-btn {
+  background: var(--pv-accent-ink);
+  color: var(--pv-accent);
+  border-color: var(--pv-accent-ink);
+}
+
+.pv-contact .pv-btn-line {
+  background: transparent;
+  color: var(--pv-accent-ink);
+  border-color: color-mix(in srgb, var(--pv-accent-ink) 50%, transparent);
+}
+
+.pv-foot {
+  padding-block: 28px 96px;
+  color: var(--pv-muted);
+  font-size: 14px;
+}
+
+.pv-banner {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  min-height: 64px;
+  padding: 10px max(16px, env(safe-area-inset-right, 0px)) 10px max(16px, env(safe-area-inset-left, 0px));
+  background: #08090c;
+  color: #eef0f5;
+  font-family: var(--font-onest), Arial, sans-serif;
+  font-size: 14px;
+}
+
+.pv-banner p {
+  margin: 0;
+}
+
+.pv-banner-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.pv-bbtn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid #2c313d;
+  color: #eef0f5;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.pv-bbtn-gold {
+  background: #ffd60a;
+  border-color: #ffd60a;
+  color: #000;
+}
+
+@media (max-width: 560px) {
+  .pv {
+    padding-top: 112px;
+  }
+  .pv-banner-actions {
+    width: 100%;
+  }
+  .pv-bbtn {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+.pv :focus-visible,
+.pv-banner :focus-visible {
+  outline: 3px solid #ffd60a;
+  outline-offset: 2px;
+}
