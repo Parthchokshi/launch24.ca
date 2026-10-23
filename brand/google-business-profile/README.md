@@ -106,7 +106,7 @@ No stock photos (same rule as the website).
 
 ## 13. Tracking (ready for Google Ads)
 **What's already wired on the site**: nothing to change in code:
-- Every `gbp_*` link above is saved with the visit (UTMs), then appears on **every event and lead**: the lead email, the D1 `leads` row, `/report` (one row per `utm_content`), and the ref tag on texts/WhatsApp (`ref: google/gbp_website`).
+- Every `gbp_*` link above is saved with the visit (UTMs), then appears on **every event and lead**: the lead email, the D1 `leads` row, `/report` (one row per `utm_content`), and the WhatsApp/call/text click events.
 - Count GBP leads: `SELECT utm_content, count(*) FROM leads WHERE utm_campaign = 'gbp' GROUP BY 1;`
 - The form's "How did you hear about us?" has **Google** as an answer, which also catches people who searched you and typed the address in.
 - Note: the last link with UTMs wins. A lawn-sign scanner who later taps your GBP website button is counted as GBP.

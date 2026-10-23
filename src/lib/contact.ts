@@ -17,12 +17,19 @@ export const contact = {
   ),
 };
 
+/** Pre-filled WhatsApp/text message: a short note the visitor fills in. No tracking tags. */
+export const MESSAGE_TEMPLATE = [
+  "Hi Launch24! I'd like a website.",
+  "",
+  "Business name: ",
+  "What we do: ",
+  "City: ",
+].join("\n");
+
 export const links = {
   tel: `tel:+${contact.phoneE164}`,
-  sms: `sms:+${contact.phoneE164}`,
-  whatsapp: `https://wa.me/${contact.phoneE164}?text=${encodeURIComponent(
-    "Hi Launch24 — I need a website in 24 hours.",
-  )}`,
+  sms: `sms:+${contact.phoneE164}?&body=${encodeURIComponent(MESSAGE_TEMPLATE)}`,
+  whatsapp: `https://wa.me/${contact.phoneE164}?text=${encodeURIComponent(MESSAGE_TEMPLATE)}`,
   mailto: `mailto:${contact.email}?subject=${encodeURIComponent(
     "Website proposal",
   )}`,

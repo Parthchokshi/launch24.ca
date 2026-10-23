@@ -160,23 +160,3 @@ export function track(name: EventName, params: Record<string, string> = {}) {
   } catch {}
 }
 
-/** Short tag so texts/WhatsApps can be matched to a sign variant, e.g. "lawn_sign/v2b". */
-export function refTag(utms: Utms = getUtms()) {
-  const parts = [utms.utm_source, utms.utm_content].filter(Boolean);
-  return parts.join("/");
-}
-
-function prefilled(base: string) {
-  const ref = refTag();
-  return ref ? `${base} (ref: ${ref})` : base;
-}
-
-export const MESSAGE_BASE = "Hi Launch24, I need a website in 24 hours.";
-
-export function smsHref() {
-  return `sms:+${contact.phoneE164}?&body=${encodeURIComponent(prefilled(MESSAGE_BASE))}`;
-}
-
-export function whatsappHref() {
-  return `https://wa.me/${contact.phoneE164}?text=${encodeURIComponent(prefilled(MESSAGE_BASE))}`;
-}

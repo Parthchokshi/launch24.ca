@@ -41,9 +41,7 @@ export default function PrivacyPage() {
           (utm_source, utm_medium, utm_campaign, utm_content). We save them in
           your browser for up to 30 days, and we attach them to your form
           submission and to our analytics events. This tells us which sign or
-          ad worked. If you text or WhatsApp us from the site, the pre-filled
-          message may include a short tag such as &quot;ref: lawn_sign/v2b&quot;.
-          You can delete it before sending.
+          ad worked.
         </p>
       </LegalSection>
 

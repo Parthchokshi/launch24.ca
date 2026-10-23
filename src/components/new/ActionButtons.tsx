@@ -2,15 +2,13 @@
 
 import { ChatIcon, MicIcon, PhoneIcon, WhatsAppIcon } from "@/components/new/Icons";
 import { contact, links } from "@/lib/contact";
-import { smsHref, track, whatsappHref } from "@/lib/tracking";
+import { track } from "@/lib/tracking";
 
 export type CtaLocation = "hero" | "final" | "sticky";
 
 /**
  * Three tap targets, WhatsApp first (most people message us there).
- * sms/WhatsApp hrefs get the sign ref added at
- * click time (after UtmCapture has run), so every text and WhatsApp arrives
- * tagged with the variant the person scanned.
+ * Text and WhatsApp open with the fill-in message from `links` (no tracking tags).
  */
 export function ActionButtons({ location }: { location: CtaLocation }) {
   return (
@@ -20,10 +18,7 @@ export function ActionButtons({ location }: { location: CtaLocation }) {
         target="_blank"
         rel="noopener noreferrer"
         className="btn btn-wa"
-        onClick={(e) => {
-          e.currentTarget.href = whatsappHref();
-          track("cta_whatsapp_click", { location });
-        }}
+        onClick={() => track("cta_whatsapp_click", { location })}
       >
         <WhatsAppIcon />
         WhatsApp us
@@ -40,10 +35,7 @@ export function ActionButtons({ location }: { location: CtaLocation }) {
       <a
         href={links.sms}
         className="btn"
-        onClick={(e) => {
-          e.currentTarget.href = smsHref();
-          track("cta_text_click", { location });
-        }}
+        onClick={() => track("cta_text_click", { location })}
       >
         <ChatIcon />
         Text us
