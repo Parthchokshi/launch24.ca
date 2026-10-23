@@ -59,13 +59,16 @@ Dark, premium look; styles are plain CSS classes scoped to `.design-new` in `src
 - Text and WhatsApp buttons open with a short fill-in message (`MESSAGE_TEMPLATE` in `src/lib/contact.ts`): "Hi Launch24! I'd like a website." then blank lines for "Business name:", "What we do:", "City:". **No tracking tag in the message** (removed 2026-10-23). Clicks are still tracked as events with UTMs.
 - `/terms` and `/privacy` use the same dark styling (`LegalPage.tsx`). Browser theme colour and manifest colours are `#08090C`.
 
+### 3.2a Prospect previews (`/p/<slug>`)
+Pre-built one-page sites for businesses that don't have a website, sent privately as a sales tool (see `docs/previews.md`). Data: one JSON per business in `src/previews/data/` (type `src/previews/types.ts`, registry `src/previews/index.ts`). Template: `src/components/preview/PreviewSite.tsx`, light, in the business's own accent colour, same for four niches (`home`, `beauty`, `food`, `pro`; wording in `src/previews/niches.ts`). Fixed Launch24 banner (`PreviewBanner.tsx`): "Preview made for X by Launch24. Not live yet." + **Make changes** / **Make it mine** (both WhatsApp to Launch24, naming the business). Private: `noindex`, `/p/` disallowed in robots, not in the sitemap, unguessable slugs, 404 after `expiresAt` (14 days). Only the business's own public info; no invented reviews, prices or claims. `sample-home` is a made-up demo. Workflow: Claude finds leads, builds previews and drafts outreach; the owner approves every message before it is sent.
+
 ### 3.3 OLD design (parked) (`src/components/old/`)
 The original lavender site: Hero, Process, Pricing, FAQ, GetStarted (call/WhatsApp/text/email + form). **Not shown** unless `NEW_DESIGN_MODE = "off"` or `?design=old`. Its form needs phone + email + (note or voice memo) and has the "How did you hear about us?" dropdown. It has click events for call/text/WhatsApp (`OldClickTracking`). Its copy uses older wording (e.g. "You don't pay"); the one-sentence guarantee rule applies to the NEW design only.
 
 ### 3.4 Tracking and attribution
 - **UTMs:** `utm_source/medium/campaign/content` saved on first load to localStorage key `l24_utm` (cookie fallback, 30 days). A URL that carries UTMs replaces stored ones; a plain visit keeps them. Code: `src/lib/tracking.ts`, mounted via `UtmCapture` in the root layout.
 - **Every event and form submission carries the four UTMs and `design_version`** (`new`, or `old` while previewing the parked design). `design_version` is read from `data-design` on the page wrapper; pages without it (terms, privacy) count as `new`.
-- **Events:** `page_view`, `cta_call_click`, `cta_text_click`, `cta_whatsapp_click`, `voice_note_start`, `form_submit`. Sent to GA4 via `gtag` and, as a first-party copy, to `/api/event` → D1 table `events` (with an anonymous visitor id in localStorage `l24_vid`).
+- **Events:** `page_view`, `cta_call_click`, `cta_text_click`, `cta_whatsapp_click`, `voice_note_start`, `form_submit`, plus `preview_view`, `preview_changes_click`, `preview_claim_click` on `/p/<slug>`. Sent to GA4 via `gtag` and, as a first-party copy, to `/api/event` → D1 table `events` (with an anonymous visitor id in localStorage `l24_vid`).
 - **GA4:** loads only if `NEXT_PUBLIC_GA_MEASUREMENT_ID` is set; its automatic page_view is turned off (we send our own). Marking events as conversions must be done in the GA4 admin UI (not in code).
 - **Google Ads:** tag `AW-18341001020` loads on every page; the lead-form conversion fires on a successful submit (plus a backup pixel). Config in `src/lib/ads.ts`.
 - **Google Business Profile links** use `utm_source=google&utm_medium=organic&utm_campaign=gbp&utm_content=gbp_<placement>` (`gbp_website`, `gbp_booking`, `gbp_product`, `gbp_post_*`), so GBP visits show as their own rows in `/report` and on leads. No code change needed. Guide and upload-ready images (Night Shift style since 2026-10-23, rendered from `source/*.html` with the bundled fonts): `brand/google-business-profile/`.
@@ -79,7 +82,7 @@ The original lavender site: Hero, Process, Pricing, FAQ, GetStarted (call/WhatsA
 - Voice notes are **not** stored in D1, only emailed.
 
 ### 3.6 `/report`
-Private page (`/report?key=<REPORT_KEY>`, 404 without the right key; noindex; disallowed in robots). Table per `design_version` × `utm_content`: visitors (unique browsers loading `/`), call / text / WhatsApp clicks, form submissions. All time. Same data: `SELECT * FROM design_report;` in D1.
+Private page (`/report?key=<REPORT_KEY>`, 404 without the right key; noindex; disallowed in robots, as are `/api/` and `/p/`). Table per `design_version` × `utm_content`: visitors (unique browsers loading `/`), call / text / WhatsApp clicks, form submissions. All time. Same data: `SELECT * FROM design_report;` in D1.
 
 ### 3.7 SEO and metadata
 Title "Launch24: Website in 24 hours. Or it's free." Meta and OG descriptions contain the guarantee sentence. Canonical `https://launch24.ca/` is set as an explicit `<link>` in `src/app/page.tsx` (Next trims the slash from metadata canonicals). OG/Twitter images (Night Shift: dark background, gold glow and dial arc, "24 hours." in gold, include the guarantee sentence; `src/lib/og.tsx`), favicon (`icon.svg` + `favicon.ico`: rounded gold square, black "24" as outlines), Apple icon (gold square, black "24"), Apple icon, manifest, sitemap, robots, JSON-LD (Organization, WebSite, ProfessionalService with offer, FAQPage). Terms and Privacy links in every footer.
@@ -97,10 +100,13 @@ Title "Launch24: Website in 24 hours. Or it's free." Meta and OG descriptions co
 | Env (production): `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_D1_DATABASE_ID`, `CLOUDFLARE_API_TOKEN` | Vercel | D1 storage; token needs D1 Edit |
 | Env (production): `REPORT_KEY` | Vercel | Unlocks `/report` |
 | Env (not set yet): `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Vercel | Turns GA4 on; redeploy after setting (build-time value) |
+| Env (not set yet): `GOOGLE_PLACES_API_KEY` | Claude cloud environment (not Vercel) | Lets Claude search Google Maps for leads (Places API, Text Search + Place Details). Not used by the site. |
 | Browser storage keys | `l24_utm` (UTMs, 30d cookie fallback), `l24_vid` (visitor id) | Disclosed on `/privacy`. No design cookie. |
 
 ## 5. Decisions
 Newest first. Superseded entries are kept.
+
+- **2026-10-23 — Sell with pre-built previews; Claude does the work, the owner approves.** Find established businesses without a website (Google Maps via the Places API, Instagram by hand), build a private preview at `/p/<slug>`, and send it with a short message. The owner approves every outreach message before it's sent; Claude sends approved emails from hi@launch24.ca, the owner sends Instagram/WhatsApp with one tap. Care plans are an optional add-on, not counted in the plan. Plan: https://claude.ai/artifact/3HXpr15yC9ebTchdGzV8cN
 
 - **2026-10-23 — No ref tag in WhatsApp/text messages; use a fill-in template instead.** The owner saw "(ref: lawn_sign/v2b)" in a real WhatsApp draft and wanted it gone. The prefilled message is now a short note with "Business name / What we do / City" for the visitor to complete. Replaces the "sign ref tags stay ON" part of the 2026-10-08 entry. Attribution for texts/WhatsApps now relies on the click events (which still carry UTMs) and on asking.
 
@@ -146,6 +152,8 @@ Newest first. Superseded entries are kept.
 | Care plan prices (`careYearly`, `careMonthly`) | Removed with the old pricing config | Never shown on the site | Git history |
 
 ## 7. Open items
+- **Lead search needs a Google Places API key:** create one in Google Cloud (Places API (New) enabled, restricted to that API), add it to the Claude cloud environment as `GOOGLE_PLACES_API_KEY`.
+- **Send outreach email as hi@launch24.ca:** the connected Gmail is the owner's personal account. Add hi@launch24.ca under Gmail → Settings → Accounts → "Send mail as" (needs that mailbox's SMTP details) or connect a Google Workspace account for launch24.ca.
 - **Local builds in Claude cloud sessions** need `NODE_USE_ENV_PROXY=1 NODE_EXTRA_CA_CERTS=/root/.ccr/ca-bundle.crt npm run build` so `next/font` can download the Google fonts; Vercel builds normally.
 - **Google Business Profile (owner to do in the GBP app):** replace the old yellow logo, cover and post images with the Night Shift ones, rename to plain "Launch24" (tagline in the name risks suspension), replace "Canada"/"Ontario" service areas with real cities, upload logo/cover, add services/product/posts with the `gbp_*` links. Steps: `brand/google-business-profile/README.md`.
 - **GA4 not active:** set `NEXT_PUBLIC_GA_MEASUREMENT_ID` in Vercel and redeploy; then mark `cta_call_click`, `cta_text_click`, `cta_whatsapp_click`, `form_submit` as key events in GA4 (Admin → Events). Optionally register `design_version` and `utm_content` as custom dimensions.
@@ -156,6 +164,7 @@ Newest first. Superseded entries are kept.
 - Confirm Resend sending domain `launch24.ca` is verified so lead emails deliver.
 
 ## 8. Change log
+- 2026-10-23 — Added prospect previews: `/p/<slug>` route, one template for four niches, Launch24 banner with Make changes / Make it mine, 14-day expiry, noindex + robots disallow, three preview events, `docs/previews.md`, and a made-up `sample-home` demo. Removed an unused import in `tracking.ts`.
 - 2026-10-23 — `/terms` "The offer" now uses the exact guarantee sentence (from `src/lib/guarantee.ts`) instead of "If we miss that window, it's free: we refund your deposit and you pay nothing." (owner asked).
 - 2026-10-23 — WhatsApp and text buttons now open with a fill-in message (Business name / What we do / City); removed the "(ref: …)" tracking tag from it and the click-time link rewrite. Privacy page no longer mentions the tag.
 - 2026-10-23 — Redid the Google Business Profile images (logo, spare dark logo replacing the yellow one, cover, 4 posts) in Night Shift style; call-us post now leads with WhatsApp. Anton removed.

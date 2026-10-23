@@ -9,7 +9,6 @@
  *   keeps the earlier values.
  * - track() sends a GA4 event with the stored UTMs attached.
  */
-import { contact } from "@/lib/contact";
 import type { Design } from "@/lib/design";
 
 export const UTM_KEYS = [
@@ -88,7 +87,10 @@ export type EventName =
   | "cta_text_click"
   | "cta_whatsapp_click"
   | "form_submit"
-  | "voice_note_start";
+  | "voice_note_start"
+  | "preview_view"
+  | "preview_changes_click"
+  | "preview_claim_click";
 
 const VISITOR_KEY = "l24_vid";
 
