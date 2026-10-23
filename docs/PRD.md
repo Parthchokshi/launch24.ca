@@ -149,7 +149,6 @@ Newest first. Superseded entries are kept.
 - **Local builds in Claude cloud sessions** need `NODE_USE_ENV_PROXY=1 NODE_EXTRA_CA_CERTS=/root/.ccr/ca-bundle.crt npm run build` so `next/font` can download the Google fonts; Vercel builds normally.
 - **Google Business Profile (owner to do in the GBP app):** replace the old yellow logo, cover and post images with the Night Shift ones, rename to plain "Launch24" (tagline in the name risks suspension), replace "Canada"/"Ontario" service areas with real cities, upload logo/cover, add services/product/posts with the `gbp_*` links. Steps: `brand/google-business-profile/README.md`.
 - **GA4 not active:** set `NEXT_PUBLIC_GA_MEASUREMENT_ID` in Vercel and redeploy; then mark `cta_call_click`, `cta_text_click`, `cta_whatsapp_click`, `form_submit` as key events in GA4 (Admin → Events). Optionally register `design_version` and `utm_content` as custom dimensions.
-- **Terms wording mismatch (owner said do not change it myself):** `/terms` says "If we miss that window, it's free: we refund your deposit and you pay nothing." It should say the exact guarantee sentence in §1.
 - **Live write path not yet verified:** D1 has no real data yet. Visit `/?utm_source=lawn_sign&utm_content=v2b` on a phone, tap Call/Text, then check D1 `events`; and submit the form once (emails hi@launch24.ca, creates a lead row to delete).
 - `/api/event` is unauthenticated (anyone could inflate counts); no rate limiting yet.
 - **Vercel Web Analytics** may need enabling in the Vercel project's Analytics tab (setup screen was still showing).
@@ -157,6 +156,7 @@ Newest first. Superseded entries are kept.
 - Confirm Resend sending domain `launch24.ca` is verified so lead emails deliver.
 
 ## 8. Change log
+- 2026-10-23 — `/terms` "The offer" now uses the exact guarantee sentence (from `src/lib/guarantee.ts`) instead of "If we miss that window, it's free: we refund your deposit and you pay nothing." (owner asked).
 - 2026-10-23 — WhatsApp and text buttons now open with a fill-in message (Business name / What we do / City); removed the "(ref: …)" tracking tag from it and the click-time link rewrite. Privacy page no longer mentions the tag.
 - 2026-10-23 — Redid the Google Business Profile images (logo, spare dark logo replacing the yellow one, cover, 4 posts) in Night Shift style; call-us post now leads with WhatsApp. Anton removed.
 - 2026-10-23 — Restyled the share images (OG/Twitter), favicon and Apple icon to Night Shift; bundled Bricolage/Onest/JetBrains Mono WOFFs for them and removed the unused Anton file.
