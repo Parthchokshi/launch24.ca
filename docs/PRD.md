@@ -37,7 +37,7 @@ Contact: phone 437-365-2475 (`tel:`, `sms:`, WhatsApp `wa.me/14373652475`), emai
 - Next.js 16.2.10 (App Router), React 19, Tailwind CSS 4, TypeScript. **Next 16 has breaking changes: read `node_modules/next/dist/docs/` before writing Next code** (see `AGENTS.md`).
 - Hosting: Vercel project `launch24-ca`; production deploys from `main`. Preview deploys do **not** have the storage env vars.
 - Email: Resend. Storage: Cloudflare D1 database `launch24` (HTTP API). Analytics: Google Ads tag, GA4 (not active yet), Vercel Web Analytics.
-- Fonts via `next/font/google`: Bricolage Grotesque + Onest + JetBrains Mono (default design; root layout). Share images and the Apple icon use bundled WOFF copies of the same fonts (`src/app/assets/`, see `FONTS.md`); Anton is no longer used by the site (its file now lives in `brand/google-business-profile/source/` for the GBP image sources). Hanken Grotesk belongs to the parked old design and loads only when that design is shown (`src/components/old/font.ts`).
+- Fonts via `next/font/google`: Bricolage Grotesque + Onest + JetBrains Mono (default design; root layout). Share images and the Apple icon use bundled WOFF copies of the same fonts (`src/app/assets/`, see `FONTS.md`); Anton is no longer used anywhere. Hanken Grotesk belongs to the parked old design and loads only when that design is shown (`src/components/old/font.ts`).
 
 ## 3. Current state
 
@@ -68,7 +68,7 @@ The original lavender site: Hero, Process, Pricing, FAQ, GetStarted (call/WhatsA
 - **Events:** `page_view`, `cta_call_click`, `cta_text_click`, `cta_whatsapp_click`, `voice_note_start`, `form_submit`. Sent to GA4 via `gtag` and, as a first-party copy, to `/api/event` → D1 table `events` (with an anonymous visitor id in localStorage `l24_vid`).
 - **GA4:** loads only if `NEXT_PUBLIC_GA_MEASUREMENT_ID` is set; its automatic page_view is turned off (we send our own). Marking events as conversions must be done in the GA4 admin UI (not in code).
 - **Google Ads:** tag `AW-18341001020` loads on every page; the lead-form conversion fires on a successful submit (plus a backup pixel). Config in `src/lib/ads.ts`.
-- **Google Business Profile links** use `utm_source=google&utm_medium=organic&utm_campaign=gbp&utm_content=gbp_<placement>` (`gbp_website`, `gbp_booking`, `gbp_product`, `gbp_post_*`), so GBP visits show as their own rows in `/report` and on leads. No code change needed. Guide and upload-ready images: `brand/google-business-profile/`.
+- **Google Business Profile links** use `utm_source=google&utm_medium=organic&utm_campaign=gbp&utm_content=gbp_<placement>` (`gbp_website`, `gbp_booking`, `gbp_product`, `gbp_post_*`), so GBP visits show as their own rows in `/report` and on leads. No code change needed. Guide and upload-ready images (Night Shift style since 2026-10-23, rendered from `source/*.html` with the bundled fonts): `brand/google-business-profile/`.
 - **Vercel Web Analytics:** `<Analytics />` in the root layout (page views/visitors only).
 - No cookie is set by us. Storage used: `l24_utm`, `l24_vid` (localStorage; UTMs also fall back to a cookie of the same name if storage is blocked).
 
@@ -144,7 +144,7 @@ Newest first. Superseded entries are kept.
 
 ## 7. Open items
 - **Local builds in Claude cloud sessions** need `NODE_USE_ENV_PROXY=1 NODE_EXTRA_CA_CERTS=/root/.ccr/ca-bundle.crt npm run build` so `next/font` can download the Google fonts; Vercel builds normally.
-- **Google Business Profile (owner to do in the GBP app):** rename to plain "Launch24" (tagline in the name risks suspension), replace "Canada"/"Ontario" service areas with real cities, upload logo/cover, add services/product/posts with the `gbp_*` links. Steps: `brand/google-business-profile/README.md`.
+- **Google Business Profile (owner to do in the GBP app):** replace the old yellow logo, cover and post images with the Night Shift ones, rename to plain "Launch24" (tagline in the name risks suspension), replace "Canada"/"Ontario" service areas with real cities, upload logo/cover, add services/product/posts with the `gbp_*` links. Steps: `brand/google-business-profile/README.md`.
 - **GA4 not active:** set `NEXT_PUBLIC_GA_MEASUREMENT_ID` in Vercel and redeploy; then mark `cta_call_click`, `cta_text_click`, `cta_whatsapp_click`, `form_submit` as key events in GA4 (Admin → Events). Optionally register `design_version` and `utm_content` as custom dimensions.
 - **Terms wording mismatch (owner said do not change it myself):** `/terms` says "If we miss that window, it's free: we refund your deposit and you pay nothing." It should say the exact guarantee sentence in §1.
 - **Live write path not yet verified:** D1 has no real data yet. Visit `/?utm_source=lawn_sign&utm_content=v2b` on a phone, tap Call/Text, then check D1 `events`; and submit the form once (emails hi@launch24.ca, creates a lead row to delete).
@@ -154,6 +154,7 @@ Newest first. Superseded entries are kept.
 - Confirm Resend sending domain `launch24.ca` is verified so lead emails deliver.
 
 ## 8. Change log
+- 2026-10-23 — Redid the Google Business Profile images (logo, spare dark logo replacing the yellow one, cover, 4 posts) in Night Shift style; call-us post now leads with WhatsApp. Anton removed.
 - 2026-10-23 — Restyled the share images (OG/Twitter), favicon and Apple icon to Night Shift; bundled Bricolage/Onest/JetBrains Mono WOFFs for them and removed the unused Anton file.
 - 2026-10-23 — Redesigned the home page and legal pages as "Night Shift": dark background, gold accents, Bricolage Grotesque/Onest/JetBrains Mono, 24-hour dial in the hero, business-type strip, new "One chat. One live site." example story, bento steps, pricing + guarantee cards, dark form, numbered FAQ, outlined "24" final CTA. Headlines now sentence case. Phones: Call + Text side by side under WhatsApp. Theme/manifest colour `#08090C`.
 - 2026-10-22 — Removed the "We speak English, Gujarati, and Hindi." line from the hero and final CTA (owner request). WhatsApp-first stays.

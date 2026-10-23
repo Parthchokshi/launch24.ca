@@ -1,16 +1,26 @@
-<!doctype html><html><head><meta charset="utf-8">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;800&display=block">
-<link rel="stylesheet" href="base.css">
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
 <style>:root{--w:1200px;--h:900px}
-body{padding:64px 72px;display:flex;flex-direction:column;justify-content:space-between}
-.lockup{font-size:52px;letter-spacing:2px}
-.foot{display:flex;justify-content:space-between;font-size:40px;letter-spacing:1px}
-.steps{list-style:none;display:grid;gap:18px}.steps li{display:flex;gap:24px;align-items:center;font-size:30px;font-weight:500}.steps .sq{width:84px;height:84px;font-size:52px;flex:none}.steps b{display:block;font-size:44px;margin-bottom:4px}</style></head><body>
-<div class="d lockup"><span class="sq ink">24</span>Launch24</div>
-<div><div class="d" style="font-size:96px;margin-bottom:30px">How it works</div><ol class="steps">
-<li><span class="d sq ink">1</span><div><b class="d">You brief us</b>15 minutes by call, chat, or voice note.</div></li>
-<li><span class="d sq ink">2</span><div><b class="d">We design &amp; write</b>Your layout, your words, built for your business.</div></li>
-<li><span class="d sq ink">3</span><div><b class="d">You review a live preview</b>A real link on your phone, within 24 hours.</div></li>
-<li><span class="d sq ink">4</span><div><b class="d">You’re live</b>Happy with the preview? We launch it.</div></li></ol></div>
-<div class="d foot"><span>launch24.ca</span><span>437-365-2475</span></div>
+body{padding:60px 72px;display:flex;flex-direction:column;justify-content:space-between}
+.lockup{font-size:40px}
+.foot{font-size:24px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:26px}
+.t{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:24px 26px}
+.t .k{font-family:Mono;font-size:18px;color:var(--gold)}
+.t .h{position:absolute;top:24px;right:26px;font-family:Mono;font-size:18px;color:var(--muted)}
+.t b{display:block;font-family:Bricolage;font-weight:800;font-size:36px;letter-spacing:-.02em;line-height:1.05;margin-top:30px}
+.t p{color:var(--muted);font-size:22px;margin-top:8px;line-height:1.35}
+.bar{height:5px;border-radius:4px;background:var(--line);margin-top:18px;overflow:hidden}.bar i{display:block;height:100%;background:var(--gold)}
+</style></head><body>
+<div class="glow" style="width:900px;height:900px;right:-300px;top:-380px"></div>
+<div class="ring" style="width:620px;height:620px;right:-260px;top:150px"></div>
+<div class="arc" style="width:520px;height:520px;right:-210px;top:200px"></div>
+<div class="lockup"><span class="sq">24</span>LAUNCH24</div>
+<div class="content"><h1 class="d" style="font-size:92px">Brief tonight.<br><span class="gold">Preview tomorrow.</span></h1>
+<div class="grid">
+<div class="t"><span class="k">01</span><span class="h">00:15</span><b>You brief us</b><p>15 minutes by call, chat, or voice note.</p><div class="bar"><i style="width:8%"></i></div></div>
+<div class="t"><span class="k">02</span><span class="h">same day</span><b>We design &amp; write</b><p>Your layout, your words, built for your business.</p><div class="bar"><i style="width:60%"></i></div></div>
+<div class="t"><span class="k">03</span><span class="h">≤ 24:00</span><b>You review a live preview</b><p>A real link on your phone, within 24 hours.</p><div class="bar"><i style="width:92%"></i></div></div>
+<div class="t"><span class="k">04</span><span class="h">launch</span><b>You’re live</b><p>Happy with the preview? We launch it.</p><div class="bar"><i style="width:100%"></i></div></div>
+</div></div>
+<div class="m foot"><span>launch24.ca</span><span>437-365-2475</span></div>
 </body></html>

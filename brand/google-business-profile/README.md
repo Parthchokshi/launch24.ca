@@ -2,19 +2,20 @@
 
 Everything to finish the Launch24 Google Business Profile (GBP). Paste the text as is.
 Facts and copy rules come from `docs/PRD.md` (guarantee sentence verbatim, no fake stats or reviews).
+The images use the site's "Night Shift" look (dark background, gold accents, Bricolage Grotesque), redone 2026-10-23. If the profile still shows the old yellow images, replace them all so the profile matches the website.
 
 ## Files to upload
 | File | Where in GBP | Size |
 |---|---|---|
-| `logo.png` | **Logo** | 720×720 (Google crops it to a circle; the "24" sits safely inside) |
-| `logo-yellow.png` | Spare logo (yellow version) | 720×720 |
+| `logo.png` | **Logo** (gold with black "24", same as the site's favicon) | 720×720 (Google crops it to a circle; the "24" sits safely inside) |
+| `logo-dark.png` | Spare logo (dark with glowing gold "24") | 720×720 |
 | `cover.png` | **Cover photo** | 2048×1152 (16:9). Text is centred because Google crops the edges differently on phones and desktop |
 | `post-offer.png` | Product photo + first Update | 1200×900 |
 | `post-how-it-works.png` | Update | 1200×900 |
 | `post-guarantee.png` | Update | 1200×900 |
 | `post-call-us.png` | Update | 1200×900 |
 
-To change and re-render: edit `source/*.html`, then `node source/render.mjs` (uses the pre-installed Playwright/Chromium).
+To change and re-render: edit `source/*.html`, then `CHROMIUM_PATH=/opt/pw-browsers/chromium node source/render.mjs` (uses the pre-installed Playwright/Chromium). Fonts come from `src/app/assets/` (same files as the site's share images).
 
 ## 1. Fix first: business name (suspension risk)
 The name currently reads "Launch24 - Website in 24 h…". Google only allows your **real business name**. Adding a tagline or keywords
@@ -84,7 +85,7 @@ Posts show on the profile and signal an active business. Each one uses its own l
 3. **Photo** `post-guarantee.png` · **Button** Learn more → `https://launch24.ca/?utm_source=google&utm_medium=organic&utm_campaign=gbp&utm_content=gbp_post_guarantee#guarantee`
    > Website in 24 hours. Or it's free. If we miss the 24 hours, you pay nothing. Your deposit is refunded in full. The clock starts once your deposit, intake, and content (or "you write it") are in.
 4. **Photo** `post-call-us.png` · **Button** Call now
-   > No website yet? Call or text 437-365-2475, or send a 30-second voice note from launch24.ca. Free proposal first, deposit only when work starts.
+   > No website yet? WhatsApp, call, or text 437-365-2475, or send a 30-second voice note from launch24.ca. Free proposal first, deposit only when work starts.
 
 **Add offer / Add event:** only use them for a real, time-limited deal or a real event. Don't invent a discount.
 
@@ -126,7 +127,7 @@ No stock photos (same rule as the website).
 - [ ] 20 real service-area cities (no "Canada"/"Ontario")
 - [ ] Hours + holiday hours
 - [ ] 6 services, 1 product
-- [ ] Logo + cover uploaded
+- [ ] Logo + cover uploaded (Night Shift versions; old yellow images removed)
 - [ ] 5–10 real photos + 1 short video
 - [ ] First update posted; one a week after
 - [ ] First 5 real reviews requested; all replied to
