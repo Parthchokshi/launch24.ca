@@ -1,13 +1,21 @@
-<!doctype html><html><head><meta charset="utf-8">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;800&display=block">
-<link rel="stylesheet" href="base.css">
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
 <style>:root{--w:1200px;--h:900px}
-body{padding:64px 72px;display:flex;flex-direction:column;justify-content:space-between}
-.lockup{font-size:52px;letter-spacing:2px}
-.foot{display:flex;justify-content:space-between;font-size:40px;letter-spacing:1px}
+body{padding:60px 72px;display:flex;flex-direction:column;justify-content:space-between}
+.lockup{font-size:40px}
+.foot{font-size:24px}
+.clock{display:grid;gap:12px;margin-top:34px;max-width:900px}
+.clock div{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:16px 20px;border-radius:16px;background:var(--surface);border:1px solid var(--line);font-size:24px;color:var(--muted);line-height:1.35}
+.clock b{font-family:Mono;font-weight:500;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg);padding-top:4px}
 </style></head><body>
-<div class="d lockup"><span class="sq ink">24</span>Launch24</div>
-<div class="ink" style="padding:44px 56px;margin:28px 0"><div class="d" style="font-size:112px;color:#FFD60A">Website in 24 hours.<br>Or it’s free.</div>
-<p style="font-size:38px;font-weight:800;color:#fff;margin-top:26px;line-height:1.25">If we miss the 24 hours, you pay nothing. Your deposit is refunded in full.</p></div>
-<div class="d foot"><span>launch24.ca</span><span>437-365-2475</span></div>
+<div class="glow" style="width:900px;height:900px;right:-300px;top:-380px"></div>
+<div class="lockup"><span class="sq">24</span>LAUNCH24</div>
+<div class="content">
+<p class="m" style="font-size:22px">The guarantee</p>
+<h1 class="d" style="font-size:120px;margin-top:14px">Website in <span class="gold">24 hours.</span><br>Or it’s free.</h1>
+<p class="rule" style="font-size:32px;margin-top:26px;max-width:900px;line-height:1.35">If we miss the 24 hours, you pay nothing. Your deposit is refunded in full.</p>
+<div class="clock">
+<div><b>Starts</b>When your deposit, intake, and content are in, or you tell us to write it.</div>
+<div><b>Waits</b>When we’re waiting on you: replies, content, or answers.</div>
+</div></div>
+<div class="m foot"><span>launch24.ca</span><span>437-365-2475</span></div>
 </body></html>
