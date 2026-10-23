@@ -1,45 +1,46 @@
 import { ActionButtons, VoiceNoteLink } from "@/components/new/ActionButtons";
-import { Logo } from "@/components/new/Logo";
+import { Dial } from "@/components/new/Dial";
 import { guaranteeSentence } from "@/lib/guarantee";
 import { heroCopy } from "@/lib/hero";
 
 type Query = Record<string, string | string[] | undefined>;
 
+const HIGHLIGHT = "24 hours.";
+
+/** Puts "24 hours." in gold wherever it appears in the headline. */
+function Headline({ text }: { text: string }) {
+  const at = text.indexOf(HIGHLIGHT);
+  if (at < 0) return <>{text}</>;
+  return (
+    <>
+      {text.slice(0, at)}
+      <em>{HIGHLIGHT}</em>
+      {text.slice(at + HIGHLIGHT.length)}
+    </>
+  );
+}
+
 export function Hero({ query }: { query: Query }) {
   const { kicker, h1 } = heroCopy(query);
 
   return (
-    <section aria-labelledby="hero-heading" className="bg-yellow">
-      <div className="mx-auto max-w-3xl px-4 pb-8 pt-1 sm:px-6 sm:pb-14">
-        <header className="flex min-h-14 items-center">
-          <Logo />
-        </header>
-
-        <p className="mt-3 inline-block bg-ink px-2.5 py-1 text-sm font-extrabold uppercase tracking-[0.14em] text-yellow">
-          {kicker}
-        </p>
-
-        <h1
-          id="hero-heading"
-          className="display mt-3 text-balance text-[clamp(2.3rem,10.4vw,5.5rem)] text-ink"
-        >
-          {h1}
-        </h1>
-
-        <p className="mt-3 text-base font-semibold leading-snug text-ink sm:text-xl">
-          Custom-designed. Mobile-ready. You own it.
-        </p>
-        <p className="mt-1.5 text-sm font-bold leading-snug text-ink">
-          {guaranteeSentence}
-        </p>
-
-        <div className="mt-4">
-          <ActionButtons location="hero" />
-        </div>
-
-        <div className="mt-1">
+    <section aria-labelledby="hero-heading" className="hero wrap">
+      <div className="hgrid">
+        <div>
+          <p className="tag in">
+            <b aria-hidden>●</b> {kicker}
+          </p>
+          <h1 id="hero-heading" className="in d1">
+            <Headline text={h1} />
+          </h1>
+          <p className="sub in d2">Custom-designed. Mobile-ready. You own it.</p>
+          <p className="guar in d2">{guaranteeSentence}</p>
+          <div className="in d3">
+            <ActionButtons location="hero" />
+          </div>
           <VoiceNoteLink />
         </div>
+        <Dial />
       </div>
     </section>
   );

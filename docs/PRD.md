@@ -1,6 +1,6 @@
 # Launch24 — Product Requirements & Source of Truth
 
-> **Last updated:** 2026-10-22
+> **Last updated:** 2026-10-23
 > This is the single source of truth for what launch24.ca is, what it does today, and why.
 > **Claude Code must read this before working, and update it in the same commit as any
 > change that affects behavior, a decision, a setting, or a removed feature.**
@@ -17,7 +17,7 @@
 
 ## 1. Product and goal
 **Launch24** sells custom websites for local Canadian businesses (GTA / Ontario): *"Website in 24 hours. Or it's free."*
-Visitors mostly arrive by scanning a QR code on a lawn sign, on a phone. Everyone now sees the same site: the yellow/black design that matches the sign.
+Visitors mostly arrive by scanning a QR code on a lawn sign or a printed ad, on a phone. Everyone sees the same site: the dark "Night Shift" design (chosen 2026-10-23; replaced the yellow/black sign-style page).
 
 **One goal:** get the visitor to call, text, WhatsApp, or send a voice note within ~30 seconds. No long form above the fold.
 
@@ -30,14 +30,14 @@ Visitors mostly arrive by scanning a QR code on a lawn sign, on a phone. Everyon
 
 **24-hour clock:** starts when deposit, intake, and content (or "we write it") are all in. It waits on client replies; domain/DNS delays and revision rounds don't count. Full rules: `/terms`.
 
-**Brand:** yellow `#FFD60A` + near-black `#0B0B0B` (+ white), flat colour blocks, no gradients or stock photos. Headlines Anton (all caps), body Archivo, black "24" square logo + LAUNCH24 wordmark. Tone: plain, confident, no jargon. **Never use fake stats or fake testimonials.**
+**Brand (site, "Night Shift"):** near-black `#08090C` background, surfaces `#101218`/`#161922`, text `#EEF0F5`, muted `#8F97A8`, brand gold `#FFD60A` used as light/accent (soft glows allowed), WhatsApp green `#25D366` for the WhatsApp button. Headlines Bricolage Grotesque (sentence case), body Onest, labels JetBrains Mono. Gold "24" square logo + LAUNCH24 wordmark. No stock photos. Lawn signs and OG images stay yellow/black. Tone: plain, confident, no jargon. **Never use fake stats or fake testimonials.**
 Contact: phone 437-365-2475 (`tel:`, `sms:`, WhatsApp `wa.me/14373652475`), email hi@launch24.ca.
 
 ## 2. Stack and hosting
 - Next.js 16.2.10 (App Router), React 19, Tailwind CSS 4, TypeScript. **Next 16 has breaking changes: read `node_modules/next/dist/docs/` before writing Next code** (see `AGENTS.md`).
 - Hosting: Vercel project `launch24-ca`; production deploys from `main`. Preview deploys do **not** have the storage env vars.
 - Email: Resend. Storage: Cloudflare D1 database `launch24` (HTTP API). Analytics: Google Ads tag, GA4 (not active yet), Vercel Web Analytics.
-- Fonts via `next/font/google`: Anton + Archivo (default design). Hanken Grotesk belongs to the parked old design and loads only when that design is shown (`src/components/old/font.ts`).
+- Fonts via `next/font/google`: Bricolage Grotesque + Onest + JetBrains Mono (default design; root layout). Anton is only used as a file (`src/app/assets/Anton-Regular.ttf`) by the OG/Twitter images. Hanken Grotesk belongs to the parked old design and loads only when that design is shown (`src/components/old/font.ts`).
 
 ## 3. Current state
 
@@ -47,15 +47,17 @@ Contact: phone 437-365-2475 (`tel:`, `sms:`, WhatsApp `wa.me/14373652475`), emai
 - `?design=old` / `?design=new` force a version for previewing.
 - The **OLD** (original lavender) design is **parked**: code kept in `src/components/old/`, loaded only when shown (dynamic import; its font loads only then). It does not appear on the live site.
 - Each design is wrapped in `.design-new` / `.design-old` with its own CSS variables (`src/app/globals.css`) so they can't affect each other.
-- `/terms` and `/privacy` use the NEW styling.
+- `/terms` and `/privacy` use the NEW (Night Shift) styling.
 
-### 3.2 NEW design (`src/components/new/`)
-Order: Hero → "Rather we call you?" form → How it works (4 steps) → Pricing → Guarantee box → FAQ (6) → *[Our work — hidden, see §6]* → Final CTA → Footer. Sticky bottom bar (WhatsApp + Call) on mobile.
-- **Hero:** kicker, H1, "Custom-designed. Mobile-ready. You own it.", the guarantee sentence, three buttons in this order: **WhatsApp us** (black, primary) / Call 437-365-2475 / Text us (equal-size and stacked on phones and up to 767px; from 768px up, three columns `1fr 1.6fr 1fr` with the Call button wider so "CALL 437-365-2475" never wraps; button text never wraps at any width). The same buttons and order are used in the Final CTA, whose copy reads "WhatsApp, call, or text. It takes 15 minutes to brief us.", then "Send a 30-second voice note" (scrolls to the form and focuses Record; does not auto-start the mic). Must fit above the sticky bar on a 375×667 phone, including the long v2b headline (verified).
-- **Hero variants** (`src/lib/hero.ts`, decided server-side): `utm_source=lawn_sign` → kicker "SAW OUR SIGN?" (default "LOCAL BUSINESS?"). `utm_content=v2b` → H1 "NO WEBSITE? WE'LL BUILD IT IN 24 HOURS. OR IT'S FREE."; v2a/v2c/other → default H1 "WEBSITE IN 24 HOURS. OR IT'S FREE.".
-- **Form** (`LeadForm.tsx`): fields NAME, PHONE (`type=tel`), BUSINESS NAME, each a real `<label>`+`<input>` with autocomplete `name` / `tel` / `organization`. Then a dropdown "How did you hear about us?" (optional in behavior, but the label deliberately does **not** say "optional"; it is never required) (`heard_from`: Lawn sign, Google, Friend or family, Facebook or Instagram, WhatsApp, Other; one shared list in `src/lib/heard-from.ts`, same dropdown on the CURRENT form; never preselected, so the answer is genuinely self-reported). Optional voice note: record in browser or upload audio (max 8 MB; recording max 2 min). Button text "Call me back", disabled while sending (also guarded against double-tap). Success: **"Got it. We'll call you back as soon as we can."** (never promise a specific time). Honeypot field `_hp`.
-- **Accessibility:** tap targets ≥ 48px, 4.5:1 contrast, visible focus states, skip link.
+### 3.2 NEW design: "Night Shift" (`src/components/new/`)
+Dark, premium look; styles are plain CSS classes scoped to `.design-new` in `src/app/globals.css` (Tailwind only for a few utilities in the form). Order: Top bar (logo + "Taking new projects") → Hero → business-type strip → **"One chat. One live site."** story → How it works (4 tiles) → Pricing + Guarantee (side by side on desktop) → "Rather we call you?" form → FAQ (6) → *[Our work — hidden, see §6]* → Final CTA → Footer. Sticky bottom bar (WhatsApp + Call) on phones (< 640px).
+- **Hero:** kicker (mono, with gold dot), H1 with "24 hours." in glowing gold, "Custom-designed. Mobile-ready. You own it.", the guarantee sentence (gold left rule), buttons in this order: **WhatsApp us** (green, primary, light sweep) / Call / Text us. **Phones (< 768px):** WhatsApp full width, then Call and Text side by side; the Call button reads "Call" (number in its `aria-label`, and printed under the final CTA). **From 768px:** one row `1fr 1.5fr 1fr`, Call reads "Call 437-365-2475" and never wraps. Then "Send a 30-second voice note" (scrolls to the form and focuses Record; does not auto-start the mic). Right column (below the buttons on phones): decorative 24-hour dial (`Dial.tsx`) whose hand sweeps and clock counts down from 24:00:00. The whole hero (through the voice-note link) fits above the sticky bar on a 375×667 phone, including the long v2b headline (verified 2026-10-23: link ends at 574px, bar starts at 592px).
+- **Hero variants** (`src/lib/hero.ts`, decided server-side): `utm_source=lawn_sign` → kicker "SAW OUR SIGN?" (default "LOCAL BUSINESS?"). `utm_content=v2b` → H1 "No website? We'll build it in 24 hours. Or it's free."; v2a/v2c/other → default H1 "Website in 24 hours. Or it's free." (sentence case since 2026-10-23).
+- **Story** (`Story.tsx`): an **example** WhatsApp chat (a Brampton bakery asks for a site, sends photos and menu, is told the preview comes within 24 hours) → gold arrow → a phone showing a **sample** "Brampton Bakehouse" site, then a "Preview ready" badge. Plays once when scrolled into view (IntersectionObserver; without JS or with reduced motion it is simply shown), "Play again" button. Always labelled "Example chat and sample website, made up to show how it works. Not a real customer." Never present it as a real client.
+- **Form** (`LeadForm.tsx`, logic unchanged): fields NAME, PHONE (`type=tel`), BUSINESS NAME, each a real `<label>`+`<input>` with autocomplete `name` / `tel` / `organization`. Then a dropdown "How did you hear about us?" (optional in behavior, but the label deliberately does **not** say "optional"; it is never required) (`heard_from`: Lawn sign, Google, Friend or family, Facebook or Instagram, WhatsApp, Other; one shared list in `src/lib/heard-from.ts`, same dropdown on the CURRENT form; never preselected, so the answer is genuinely self-reported). Optional voice note: record in browser or upload audio (max 8 MB; recording max 2 min). Button text "Call me back" (gold), disabled while sending (also guarded against double-tap). Success: **"Got it. We'll call you back as soon as we can."** (never promise a specific time). Honeypot field `_hp`.
+- **Accessibility:** tap targets ≥ 48px, 4.5:1 contrast (muted text 6.8:1 on the background, 6.4:1 on cards), visible gold focus rings, skip link, `prefers-reduced-motion` turns all animation off.
 - Text and WhatsApp buttons rewrite their links at click time to add `(ref: <utm_source>/<utm_content>)` to the prefilled message so texts can be traced to a sign.
+- `/terms` and `/privacy` use the same dark styling (`LegalPage.tsx`). Browser theme colour and manifest colours are `#08090C`.
 
 ### 3.3 OLD design (parked) (`src/components/old/`)
 The original lavender site: Hero, Process, Pricing, FAQ, GetStarted (call/WhatsApp/text/email + form). **Not shown** unless `NEW_DESIGN_MODE = "off"` or `?design=old`. Its form needs phone + email + (note or voice memo) and has the "How did you hear about us?" dropdown. It has click events for call/text/WhatsApp (`OldClickTracking`). Its copy uses older wording (e.g. "You don't pay"); the one-sentence guarantee rule applies to the NEW design only.
@@ -80,7 +82,7 @@ The original lavender site: Hero, Process, Pricing, FAQ, GetStarted (call/WhatsA
 Private page (`/report?key=<REPORT_KEY>`, 404 without the right key; noindex; disallowed in robots). Table per `design_version` × `utm_content`: visitors (unique browsers loading `/`), call / text / WhatsApp clicks, form submissions. All time. Same data: `SELECT * FROM design_report;` in D1.
 
 ### 3.7 SEO and metadata
-Title "Launch24: Website in 24 hours. Or it's free." Meta and OG descriptions contain the guarantee sentence. Canonical `https://launch24.ca/` is set as an explicit `<link>` in `src/app/page.tsx` (Next trims the slash from metadata canonicals). OG/Twitter images (Anton, yellow, include the guarantee sentence), favicon (black square, yellow 24), Apple icon, manifest, sitemap, robots, JSON-LD (Organization, WebSite, ProfessionalService with offer, FAQPage). Terms and Privacy links in every footer.
+Title "Launch24: Website in 24 hours. Or it's free." Meta and OG descriptions contain the guarantee sentence. Canonical `https://launch24.ca/` is set as an explicit `<link>` in `src/app/page.tsx` (Next trims the slash from metadata canonicals). OG/Twitter images (Anton, yellow, include the guarantee sentence; not yet restyled to Night Shift, see §7), favicon (black square, yellow 24), Apple icon, manifest, sitemap, robots, JSON-LD (Organization, WebSite, ProfessionalService with offer, FAQPage). Terms and Privacy links in every footer.
 
 ## 4. Settings and where they live
 | Setting | Where | Notes |
@@ -100,6 +102,8 @@ Title "Launch24: Website in 24 hours. Or it's free." Meta and OG descriptions co
 ## 5. Decisions
 Newest first. Superseded entries are kept.
 
+- **2026-10-23 — Site redesigned as "Night Shift" (dark, gold light).** The owner felt the yellow/black page looked like a taxi and too basic. From four concepts (Apple-style clean, Night Shift, warm editorial, refined yellow) they picked Night Shift and asked for the example chat + live-preview story (first shown in the warm concept) to be added. Replaces the 2026-10-06 yellow/black look. Kept: WhatsApp first, all tracking/UTM behavior, form fields and logic, hero variants, guarantee sentence, no-fake-proof rule. Changed because of the new hero: on phones Call and Text sit side by side under a full-width WhatsApp button (Call shows the number from 768px up) so the hero still fits above the sticky bar. Lawn signs and OG images stay yellow.
+
 - **2026-10-22 — Don't show a spoken-languages line.** The owner asked to remove "We speak English, Gujarati, and Hindi." (added the same day) from the hero and final CTA. Replaces the language-line part of the entry below; WhatsApp-first stays.
 
 - **2026-10-22 — WhatsApp first; ~~say "We speak English, Gujarati, and Hindi."~~ (language line SUPERSEDED the same day, see above)** Many visitors now come from a printed community-calendar ad (its QR goes to plain `launch24.ca`, no UTMs), and that audience messages on WhatsApp first. WhatsApp is now the first/primary button in the hero, final CTA, and mobile sticky bar (sticky bar is WhatsApp + Call; Text stays in the hero and final CTA). Owner's rules: **no colour change, no founder photo, nothing temple- or community-specific on the site** (it also serves lawn signs and general offline marketing), so the language line was the only audience-specific touch.
@@ -115,7 +119,7 @@ Newest first. Superseded entries are kept.
 - ~~**2026-10-07 — NEW design only for lawn-sign visitors (for now).**~~ **SUPERSEDED by the 2026-10-08 default-design decision (mode and cookie removed).** Flag `NEW_DESIGN_MODE`; same URL and canonical; 30-day cookie so a visitor keeps their version; `?design=` for previews.
 - **2026-10-07 — Compare designs with a first-party events table + `/report`**, because GA4 can't be queried from here and Vercel Analytics lacks custom events.
 - **2026-10-07 — Success message does not promise a time.** "We'll call you back as soon as we can" replaces "within the hour".
-- **2026-10-06 — Single-page, conversion-first redesign** with Anton/Archivo, flat yellow/black blocks, mobile-first, big tap targets, sticky Call/Text bar.
+- ~~**2026-10-06 — Single-page, conversion-first redesign** with Anton/Archivo, flat yellow/black blocks, mobile-first, big tap targets, sticky Call/Text bar.~~ **Look SUPERSEDED by the 2026-10-23 Night Shift decision** (single page, mobile-first, big tap targets and sticky bar kept).
 - **2026-10-06 — Render `/` per request** (not static) so the hero kicker/H1 are correct in the first HTML for lawn-sign/v2b visitors, with no flash. Load time not yet measured against the 2 s target.
 - **2026-10-06 — UTM rule:** a URL with UTMs overwrites stored ones, otherwise keep stored (so scanning a sign always wins).
 - **2026-10-06 — Voice-note link scrolls to the form and focuses Record** instead of auto-starting the microphone (no surprise permission prompt).
@@ -135,9 +139,12 @@ Newest first. Superseded entries are kept.
 | "We'll call you within the hour" | Removed | Can't promise a time | — |
 | Old-style Terms/Privacy for CURRENT-design visitors | Removed | One shared pair of legal pages | Would need per-design legal pages |
 | "We speak English, Gujarati, and Hindi." line (hero + final CTA) | Removed 2026-10-22 | Owner asked to remove it | Re-add a `<p>` under the hero subline in `Hero.tsx` and to the final CTA copy in `Sections.tsx`; re-check the 375×667 v2b fit |
+| Yellow/black sign-style look of the NEW design (Anton/Archivo, flat blocks) | **Replaced** 2026-10-23 by Night Shift | Owner felt it looked like a taxi and too basic | Git history: `src/components/new/` and the NEW block of `src/app/globals.css` at commit `0853979` |
 | Care plan prices (`careYearly`, `careMonthly`) | Removed with the old pricing config | Never shown on the site | Git history |
 
 ## 7. Open items
+- **OG/Twitter share images and favicon are still yellow/black** (Anton). They still look fine and match the signs, but could be restyled to Night Shift if the owner wants.
+- **Local builds in Claude cloud sessions** need `NODE_USE_ENV_PROXY=1 NODE_EXTRA_CA_CERTS=/root/.ccr/ca-bundle.crt npm run build` so `next/font` can download the Google fonts; Vercel builds normally.
 - **Google Business Profile (owner to do in the GBP app):** rename to plain "Launch24" (tagline in the name risks suspension), replace "Canada"/"Ontario" service areas with real cities, upload logo/cover, add services/product/posts with the `gbp_*` links. Steps: `brand/google-business-profile/README.md`.
 - **GA4 not active:** set `NEXT_PUBLIC_GA_MEASUREMENT_ID` in Vercel and redeploy; then mark `cta_call_click`, `cta_text_click`, `cta_whatsapp_click`, `form_submit` as key events in GA4 (Admin → Events). Optionally register `design_version` and `utm_content` as custom dimensions.
 - **Terms wording mismatch (owner said do not change it myself):** `/terms` says "If we miss that window, it's free: we refund your deposit and you pay nothing." It should say the exact guarantee sentence in §1.
@@ -148,6 +155,7 @@ Newest first. Superseded entries are kept.
 - Confirm Resend sending domain `launch24.ca` is verified so lead emails deliver.
 
 ## 8. Change log
+- 2026-10-23 — Redesigned the home page and legal pages as "Night Shift": dark background, gold accents, Bricolage Grotesque/Onest/JetBrains Mono, 24-hour dial in the hero, business-type strip, new "One chat. One live site." example story, bento steps, pricing + guarantee cards, dark form, numbered FAQ, outlined "24" final CTA. Headlines now sentence case. Phones: Call + Text side by side under WhatsApp. Theme/manifest colour `#08090C`.
 - 2026-10-22 — Removed the "We speak English, Gujarati, and Hindi." line from the hero and final CTA (owner request). WhatsApp-first stays.
 - 2026-10-22 — WhatsApp is now the first, primary button (hero, final CTA) and the sticky bar is WhatsApp + Call (was Call + Text). Added "We speak English, Gujarati, and Hindi." to the hero and final CTA. Hero still fits above the sticky bar on 375×667 with the v2b headline (verified).
 - 2026-10-16 — Added `brand/google-business-profile/` (GBP setup guide, logo, cover, 4 post images, HTML sources + render script) and the `utm_campaign=gbp` link convention.
