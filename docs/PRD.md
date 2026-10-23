@@ -37,7 +37,7 @@ Contact: phone 437-365-2475 (`tel:`, `sms:`, WhatsApp `wa.me/14373652475`), emai
 - Next.js 16.2.10 (App Router), React 19, Tailwind CSS 4, TypeScript. **Next 16 has breaking changes: read `node_modules/next/dist/docs/` before writing Next code** (see `AGENTS.md`).
 - Hosting: Vercel project `launch24-ca`; production deploys from `main`. Preview deploys do **not** have the storage env vars.
 - Email: Resend. Storage: Cloudflare D1 database `launch24` (HTTP API). Analytics: Google Ads tag, GA4 (not active yet), Vercel Web Analytics.
-- Fonts via `next/font/google`: Bricolage Grotesque + Onest + JetBrains Mono (default design; root layout). Share images and the Apple icon use bundled WOFF copies of the same fonts (`src/app/assets/`, see `FONTS.md`); Anton is no longer used. Hanken Grotesk belongs to the parked old design and loads only when that design is shown (`src/components/old/font.ts`).
+- Fonts via `next/font/google`: Bricolage Grotesque + Onest + JetBrains Mono (default design; root layout). Share images and the Apple icon use bundled WOFF copies of the same fonts (`src/app/assets/`, see `FONTS.md`); Anton is no longer used by the site (its file now lives in `brand/google-business-profile/source/` for the GBP image sources). Hanken Grotesk belongs to the parked old design and loads only when that design is shown (`src/components/old/font.ts`).
 
 ## 3. Current state
 
