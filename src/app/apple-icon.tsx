@@ -1,12 +1,11 @@
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
 import { ImageResponse } from "next/og";
+import { nightShiftFonts } from "@/lib/og";
 
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
+/** Home-screen icon: the gold "24" square from the site logo (iOS rounds the corners). */
 export default async function AppleIcon() {
-  const anton = await readFile(join(process.cwd(), "src/app/assets/Anton-Regular.ttf"));
   return new ImageResponse(
     (
       <div
@@ -16,15 +15,16 @@ export default async function AppleIcon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#0B0B0B",
-          color: "#FFD60A",
-          fontSize: 118,
-          fontFamily: "Anton",
+          background: "#FFD60A",
+          color: "#08090C",
+          fontSize: 100,
+          fontFamily: "Bricolage",
+          letterSpacing: -3,
         }}
       >
         24
       </div>
     ),
-    { ...size, fonts: [{ name: "Anton", data: anton, style: "normal", weight: 400 }] },
+    { ...size, fonts: await nightShiftFonts() },
   );
 }

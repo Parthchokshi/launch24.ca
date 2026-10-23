@@ -30,14 +30,14 @@ Visitors mostly arrive by scanning a QR code on a lawn sign or a printed ad, on 
 
 **24-hour clock:** starts when deposit, intake, and content (or "we write it") are all in. It waits on client replies; domain/DNS delays and revision rounds don't count. Full rules: `/terms`.
 
-**Brand (site, "Night Shift"):** near-black `#08090C` background, surfaces `#101218`/`#161922`, text `#EEF0F5`, muted `#8F97A8`, brand gold `#FFD60A` used as light/accent (soft glows allowed), WhatsApp green `#25D366` for the WhatsApp button. Headlines Bricolage Grotesque (sentence case), body Onest, labels JetBrains Mono. Gold "24" square logo + LAUNCH24 wordmark. No stock photos. Lawn signs and OG images stay yellow/black. Tone: plain, confident, no jargon. **Never use fake stats or fake testimonials.**
+**Brand (site, "Night Shift"):** near-black `#08090C` background, surfaces `#101218`/`#161922`, text `#EEF0F5`, muted `#8F97A8`, brand gold `#FFD60A` used as light/accent (soft glows allowed), WhatsApp green `#25D366` for the WhatsApp button. Headlines Bricolage Grotesque (sentence case), body Onest, labels JetBrains Mono. Gold "24" square logo + LAUNCH24 wordmark. No stock photos. Share images and icons match the site (since 2026-10-23); lawn signs stay yellow/black. Tone: plain, confident, no jargon. **Never use fake stats or fake testimonials.**
 Contact: phone 437-365-2475 (`tel:`, `sms:`, WhatsApp `wa.me/14373652475`), email hi@launch24.ca.
 
 ## 2. Stack and hosting
 - Next.js 16.2.10 (App Router), React 19, Tailwind CSS 4, TypeScript. **Next 16 has breaking changes: read `node_modules/next/dist/docs/` before writing Next code** (see `AGENTS.md`).
 - Hosting: Vercel project `launch24-ca`; production deploys from `main`. Preview deploys do **not** have the storage env vars.
 - Email: Resend. Storage: Cloudflare D1 database `launch24` (HTTP API). Analytics: Google Ads tag, GA4 (not active yet), Vercel Web Analytics.
-- Fonts via `next/font/google`: Bricolage Grotesque + Onest + JetBrains Mono (default design; root layout). Anton is only used as a file (`src/app/assets/Anton-Regular.ttf`) by the OG/Twitter images. Hanken Grotesk belongs to the parked old design and loads only when that design is shown (`src/components/old/font.ts`).
+- Fonts via `next/font/google`: Bricolage Grotesque + Onest + JetBrains Mono (default design; root layout). Share images and the Apple icon use bundled WOFF copies of the same fonts (`src/app/assets/`, see `FONTS.md`); Anton is no longer used. Hanken Grotesk belongs to the parked old design and loads only when that design is shown (`src/components/old/font.ts`).
 
 ## 3. Current state
 
@@ -82,7 +82,7 @@ The original lavender site: Hero, Process, Pricing, FAQ, GetStarted (call/WhatsA
 Private page (`/report?key=<REPORT_KEY>`, 404 without the right key; noindex; disallowed in robots). Table per `design_version` × `utm_content`: visitors (unique browsers loading `/`), call / text / WhatsApp clicks, form submissions. All time. Same data: `SELECT * FROM design_report;` in D1.
 
 ### 3.7 SEO and metadata
-Title "Launch24: Website in 24 hours. Or it's free." Meta and OG descriptions contain the guarantee sentence. Canonical `https://launch24.ca/` is set as an explicit `<link>` in `src/app/page.tsx` (Next trims the slash from metadata canonicals). OG/Twitter images (Anton, yellow, include the guarantee sentence; not yet restyled to Night Shift, see §7), favicon (black square, yellow 24), Apple icon, manifest, sitemap, robots, JSON-LD (Organization, WebSite, ProfessionalService with offer, FAQPage). Terms and Privacy links in every footer.
+Title "Launch24: Website in 24 hours. Or it's free." Meta and OG descriptions contain the guarantee sentence. Canonical `https://launch24.ca/` is set as an explicit `<link>` in `src/app/page.tsx` (Next trims the slash from metadata canonicals). OG/Twitter images (Night Shift: dark background, gold glow and dial arc, "24 hours." in gold, include the guarantee sentence; `src/lib/og.tsx`), favicon (`icon.svg` + `favicon.ico`: rounded gold square, black "24" as outlines), Apple icon (gold square, black "24"), Apple icon, manifest, sitemap, robots, JSON-LD (Organization, WebSite, ProfessionalService with offer, FAQPage). Terms and Privacy links in every footer.
 
 ## 4. Settings and where they live
 | Setting | Where | Notes |
@@ -102,7 +102,7 @@ Title "Launch24: Website in 24 hours. Or it's free." Meta and OG descriptions co
 ## 5. Decisions
 Newest first. Superseded entries are kept.
 
-- **2026-10-23 — Site redesigned as "Night Shift" (dark, gold light).** The owner felt the yellow/black page looked like a taxi and too basic. From four concepts (Apple-style clean, Night Shift, warm editorial, refined yellow) they picked Night Shift and asked for the example chat + live-preview story (first shown in the warm concept) to be added. Replaces the 2026-10-06 yellow/black look. Kept: WhatsApp first, all tracking/UTM behavior, form fields and logic, hero variants, guarantee sentence, no-fake-proof rule. Changed because of the new hero: on phones Call and Text sit side by side under a full-width WhatsApp button (Call shows the number from 768px up) so the hero still fits above the sticky bar. Lawn signs and OG images stay yellow.
+- **2026-10-23 — Site redesigned as "Night Shift" (dark, gold light).** The owner felt the yellow/black page looked like a taxi and too basic. From four concepts (Apple-style clean, Night Shift, warm editorial, refined yellow) they picked Night Shift and asked for the example chat + live-preview story (first shown in the warm concept) to be added. Replaces the 2026-10-06 yellow/black look. Kept: WhatsApp first, all tracking/UTM behavior, form fields and logic, hero variants, guarantee sentence, no-fake-proof rule. Changed because of the new hero: on phones Call and Text sit side by side under a full-width WhatsApp button (Call shows the number from 768px up) so the hero still fits above the sticky bar. Lawn signs stay yellow. (Share images and icons were restyled to match the same day.)
 
 - **2026-10-22 — Don't show a spoken-languages line.** The owner asked to remove "We speak English, Gujarati, and Hindi." (added the same day) from the hero and final CTA. Replaces the language-line part of the entry below; WhatsApp-first stays.
 
@@ -143,7 +143,6 @@ Newest first. Superseded entries are kept.
 | Care plan prices (`careYearly`, `careMonthly`) | Removed with the old pricing config | Never shown on the site | Git history |
 
 ## 7. Open items
-- **OG/Twitter share images and favicon are still yellow/black** (Anton). They still look fine and match the signs, but could be restyled to Night Shift if the owner wants.
 - **Local builds in Claude cloud sessions** need `NODE_USE_ENV_PROXY=1 NODE_EXTRA_CA_CERTS=/root/.ccr/ca-bundle.crt npm run build` so `next/font` can download the Google fonts; Vercel builds normally.
 - **Google Business Profile (owner to do in the GBP app):** rename to plain "Launch24" (tagline in the name risks suspension), replace "Canada"/"Ontario" service areas with real cities, upload logo/cover, add services/product/posts with the `gbp_*` links. Steps: `brand/google-business-profile/README.md`.
 - **GA4 not active:** set `NEXT_PUBLIC_GA_MEASUREMENT_ID` in Vercel and redeploy; then mark `cta_call_click`, `cta_text_click`, `cta_whatsapp_click`, `form_submit` as key events in GA4 (Admin → Events). Optionally register `design_version` and `utm_content` as custom dimensions.
@@ -155,6 +154,7 @@ Newest first. Superseded entries are kept.
 - Confirm Resend sending domain `launch24.ca` is verified so lead emails deliver.
 
 ## 8. Change log
+- 2026-10-23 — Restyled the share images (OG/Twitter), favicon and Apple icon to Night Shift; bundled Bricolage/Onest/JetBrains Mono WOFFs for them and removed the unused Anton file.
 - 2026-10-23 — Redesigned the home page and legal pages as "Night Shift": dark background, gold accents, Bricolage Grotesque/Onest/JetBrains Mono, 24-hour dial in the hero, business-type strip, new "One chat. One live site." example story, bento steps, pricing + guarantee cards, dark form, numbered FAQ, outlined "24" final CTA. Headlines now sentence case. Phones: Call + Text side by side under WhatsApp. Theme/manifest colour `#08090C`.
 - 2026-10-22 — Removed the "We speak English, Gujarati, and Hindi." line from the hero and final CTA (owner request). WhatsApp-first stays.
 - 2026-10-22 — WhatsApp is now the first, primary button (hero, final CTA) and the sticky bar is WhatsApp + Call (was Call + Text). Added "We speak English, Gujarati, and Hindi." to the hero and final CTA. Hero still fits above the sticky bar on 375×667 with the v2b headline (verified).
