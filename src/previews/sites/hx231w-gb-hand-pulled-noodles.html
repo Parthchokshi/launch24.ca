@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<title>GB Noodles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Familjen+Grotesk:wght@400;500;600;700&family=Courier+Prime:wght@400;700&display=swap">
+<style>
+:root{
+  color-scheme:dark;
+  --ink:#0c0a09;--ink2:#16120f;--line:#2a231d;
+  --steam:#f1e8da;--muted:#a89a87;
+  --accent:#eaa23a;      /* broth amber */
+  --chili:#e2361f;
+  --neon:#ff4d6d;
+  --paper:#f2e7d2;--paper-ink:#1d1712;
+  --heat:0;
+  --gut:max(16px,env(safe-area-inset-left,0px));
+  --gutr:max(16px,env(safe-area-inset-right,0px));
+  --disp:"Big Shoulders Display",Impact,"Arial Narrow",sans-serif;
+  --body:"Familjen Grotesk",system-ui,sans-serif;
+  --mono:"Courier Prime","Courier New",monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--ink);color:var(--steam);font-family:var(--body);font-size:17px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+.gb{position:relative;isolation:isolate;overflow-x:clip}
+/* the page heats up with the spice dial */
+.gb::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(90% 60% at 80% 0%,rgb(226 54 31 / calc(.05 + var(--heat)*.38)),transparent 70%),
+    radial-gradient(70% 50% at 0% 100%,rgb(234 162 58 / calc(.06 + var(--heat)*.14)),transparent 70%);
+  transition:background .6s}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding-left:var(--gut);padding-right:var(--gutr)}
+h1,h2,h3{font-family:var(--disp);font-weight:900;line-height:.92;letter-spacing:.005em;margin:0;text-wrap:balance}
+h2{font-size:clamp(44px,9vw,96px)}
+.kick{font-family:var(--mono);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.lede{color:var(--muted);font-size:clamp(17px,2vw,20px);max-width:34ch}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+/* buttons */
+.btn{--b:var(--accent);white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 24px;border-radius:14px;
+  border:2px solid var(--b);background:var(--b);color:#160f08;font:700 17px var(--body);cursor:pointer;text-decoration:none;
+  transition:transform .25s cubic-bezier(.3,1.6,.5,1),box-shadow .3s,background .2s;-webkit-tap-highlight-color:transparent}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px -10px var(--b)}
+.btn:active{transform:scale(.96)}
+.btn.ghost{background:transparent;color:var(--steam);border-color:#3a3028}
+.btn.ghost:hover{border-color:var(--accent);box-shadow:none}
+.btn svg{width:20px;height:20px;flex:none}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:28px 0 56px}
+.hero .wrap{display:grid;gap:28px}
+.status{display:inline-flex;align-items:center;gap:10px;min-height:40px;padding:6px 14px 6px 12px;border:1px solid var(--line);border-radius:999px;background:rgb(22 18 15 / .8);font:400 14px var(--mono);width:fit-content}
+.status i{width:10px;height:10px;border-radius:50%;background:#59d38c;box-shadow:0 0 0 0 rgb(89 211 140 / .6);animation:pulse 2s infinite}
+.status.closed i{background:var(--chili);box-shadow:none;animation:none}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgb(89 211 140 / 0)}100%{box-shadow:0 0 0 0 rgb(89 211 140 / 0)}}
+.hero h1{font-size:clamp(64px,15vw,128px);text-transform:uppercase;margin-top:18px}
+.hero .tag{margin:18px 0 0;font-size:clamp(18px,2.2vw,21px);max-width:30ch;color:#d9cdbb}
+.acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.acts .btn{flex:1 1 150px;padding:0 16px}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:22px;font:400 14px var(--mono);color:var(--muted)}
+.meta b{color:var(--steam);font-weight:700}
+.stars{color:var(--accent);letter-spacing:2px}
+
+.bowl{position:relative;width:min(100%,560px);aspect-ratio:1;justify-self:center}
+.bowl .plate{position:absolute;inset:6%;border-radius:50%;overflow:hidden;box-shadow:0 0 0 1px #2b221b,0 40px 90px -30px #000,0 0 120px -30px rgb(234 162 58 / calc(.35 + var(--heat)*.4))}
+.bowl .plate img{width:100%;height:100%;object-fit:cover;transform:scale(1.48)}
+.bowl canvas{position:absolute;left:-10%;right:-10%;top:-28%;bottom:20%;width:120%;height:108%;pointer-events:none}
+.neon{position:absolute;right:-2%;top:2%;font:800 clamp(30px,6vw,52px)/.9 var(--disp);text-transform:uppercase;color:#fff;text-align:center;
+  padding:10px 14px;border:3px solid var(--neon);border-radius:14px;transform:rotate(7deg);
+  text-shadow:0 0 6px var(--neon),0 0 18px var(--neon),0 0 40px var(--neon);
+  box-shadow:0 0 10px var(--neon),inset 0 0 10px var(--neon),0 0 40px -6px var(--neon);animation:flick 6s infinite}
+.neon small{display:block;font-size:.42em;letter-spacing:.14em;margin-bottom:4px}
+@keyframes flick{0%,18%,22%,62%,64%,100%{opacity:1}20%,63%{opacity:.45}}
+
+/* marquee */
+.marq{border-block:1px solid var(--line);overflow:hidden;background:#100d0b}
+.marq div{display:flex;gap:0;width:max-content;animation:roll 34s linear infinite}
+.marq span{font:800 clamp(26px,4vw,40px)/1 var(--disp);text-transform:uppercase;padding:16px 0;white-space:nowrap}
+.marq span::after{content:"✺";color:var(--chili);margin:0 26px;font-size:.7em;vertical-align:.15em}
+.marq span:nth-child(even){color:var(--accent)}
+@keyframes roll{to{transform:translateX(-50%)}}
+
+/* ---------- order ticket ---------- */
+.order{padding:84px 0}
+.order .wrap{display:grid;gap:40px;align-items:start}
+.order .lede{margin-top:16px}
+.order-side .shot{margin-top:30px;border-radius:18px;overflow:hidden;aspect-ratio:4/3;position:relative}
+.order-side .shot img{width:100%;height:100%;object-fit:cover}
+.shot figcaption{position:absolute;left:12px;bottom:12px;font:400 12.5px var(--mono);background:rgb(12 10 9 / .72);padding:6px 10px;border-radius:8px}
+
+.ticket{position:relative;background:var(--paper);color:var(--paper-ink);font-family:var(--mono);padding:30px 22px 34px;max-width:520px;width:100%;justify-self:center;
+  transform:rotate(-1.2deg);box-shadow:0 40px 80px -30px #000,0 2px 0 #d8caae;
+  --z:radial-gradient(circle at 10px -4px,transparent 10px,var(--paper) 10.5px);
+  -webkit-mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/16px 51% repeat-x,conic-gradient(from 135deg at top,#0000,#000 1deg 89deg,#0000 90deg) top/16px 51% repeat-x;
+  mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/16px 51% repeat-x,conic-gradient(from 135deg at top,#0000,#000 1deg 89deg,#0000 90deg) top/16px 51% repeat-x}
+.ticket::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 3px,rgb(0 0 0 / .018) 3px 4px)}
+.t-head{text-align:center;border-bottom:2px dashed #b9a988;padding-bottom:16px}
+.t-head b{display:block;font:900 34px/1 var(--disp);text-transform:uppercase;letter-spacing:.02em}
+.t-head>span{display:block;font-size:13px;margin-top:6px}
+.t-row{display:grid;grid-template-columns:28px 1fr;gap:4px 10px;padding:16px 0;border-bottom:1px dashed #c8b997}
+.t-row .n{font-weight:700}
+.t-row h3{font:700 19px/1.25 var(--mono);text-transform:uppercase;letter-spacing:.02em}
+.t-row p{grid-column:2;margin:2px 0 0;font-size:14.5px;line-height:1.45;color:#4c3f33}
+.t-sub{padding:18px 0 4px}
+.t-sub .lbl{display:flex;justify-content:space-between;font-weight:700;text-transform:uppercase;font-size:14px;letter-spacing:.06em}
+.chips{display:flex;gap:8px;margin-top:10px}
+.chips button{flex:1;min-height:46px;border:2px solid var(--paper-ink);background:transparent;color:var(--paper-ink);font:700 14px var(--mono);text-transform:uppercase;border-radius:10px;cursor:pointer;transition:transform .2s cubic-bezier(.3,1.7,.5,1),background .2s}
+.chips button[aria-pressed="true"]{background:var(--paper-ink);color:var(--paper)}
+.chips button:active{transform:scale(.93)}
+.dial{margin-top:12px}
+.dial input{width:100%;height:46px;margin:0;-webkit-appearance:none;appearance:none;background:transparent;cursor:pointer}
+.dial input::-webkit-slider-runnable-track{height:10px;border-radius:99px;background:linear-gradient(90deg,#e9d9b6,#f0a63a,#e2361f,#8f0f0a)}
+.dial input::-moz-range-track{height:10px;border-radius:99px;background:linear-gradient(90deg,#e9d9b6,#f0a63a,#e2361f,#8f0f0a)}
+.dial input::-webkit-slider-thumb{-webkit-appearance:none;width:34px;height:34px;margin-top:-12px;border-radius:50%;background:var(--paper);border:3px solid var(--paper-ink);box-shadow:0 4px 10px rgb(0 0 0 / .3)}
+.dial input::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:var(--paper);border:3px solid var(--paper-ink)}
+.dial .ends{display:flex;justify-content:space-between;font-size:12.5px;color:#6b5a48}
+.peppers{display:flex;gap:4px;height:26px;margin-top:6px}
+.peppers svg{width:22px;height:26px;fill:#d8c8a6;transition:fill .25s,transform .3s cubic-bezier(.3,1.8,.5,1)}
+.peppers svg.on{fill:var(--chili);transform:translateY(-3px) rotate(-8deg)}
+.t-foot{margin-top:18px;border-top:2px dashed #b9a988;padding-top:16px;font-size:14px}
+.t-foot .yours{font-weight:700;font-size:15px}
+.t-foot .opts{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0 16px;text-transform:uppercase;font-size:13px}
+.t-foot .opts span::before{content:"☑ "}
+.ticket .btn{width:100%;--b:var(--paper-ink);color:var(--paper);font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em}
+.ticket .btn:hover{box-shadow:0 10px 24px -10px rgb(0 0 0 / .6)}
+.t-note{text-align:center;margin:12px 0 0;font-size:12.5px;color:#6b5a48}
+
+/* ---------- the pull ---------- */
+.pull{position:relative;padding:90px 0 70px;border-top:1px solid var(--line);overflow:hidden}
+.pull .wrap{display:grid;gap:34px;align-items:center}
+.pull h2 span{color:var(--accent)}
+.strands{margin-top:28px;display:grid;gap:22px}
+.strand{display:grid;gap:4px}
+.strand b{font:400 13px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.strand svg{width:100%;height:56px;overflow:visible}
+.strand path{fill:none;stroke:#f0d9a8;stroke-linecap:round;filter:drop-shadow(0 4px 6px rgb(0 0 0 / .5))}
+.pull figure{margin:0;border-radius:200px 200px 22px 22px;overflow:hidden;aspect-ratio:3/4;max-height:620px;position:relative}
+.pull figure img{width:100%;height:100%;object-fit:cover;transform:scale(calc(1.08 + var(--p,0)*.1))}
+
+/* ---------- reviews ---------- */
+.revs{padding:84px 0;border-top:1px solid var(--line)}
+.revs-top{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:16px}
+.score{font:900 clamp(80px,14vw,150px)/.8 var(--disp);color:var(--accent)}
+.score small{display:block;font:400 14px/1.4 var(--mono);color:var(--muted);margin-top:10px}
+.cards{display:grid;gap:16px;margin-top:40px}
+.rev{margin:0;padding:24px 22px;background:var(--ink2);border:1px solid var(--line);border-radius:4px 22px 22px 22px;position:relative;transition:transform .35s cubic-bezier(.3,1.5,.5,1),border-color .3s}
+.rev:hover{transform:translateY(-4px) rotate(-.4deg);border-color:#4a3b2e}
+.rev blockquote{margin:0;font-size:18px;line-height:1.5}
+.rev blockquote::before{content:"“";display:block;font:900 64px/.6 var(--disp);color:var(--chili);height:30px}
+.rev figcaption{margin-top:16px;font:400 13.5px var(--mono);color:var(--muted)}
+.rev figcaption .stars{margin-right:8px}
+.rev.big blockquote{font-size:clamp(20px,2.4vw,26px);font-weight:500}
+
+/* ---------- hours ---------- */
+.late{padding:84px 0;border-top:1px solid var(--line);position:relative}
+.late .wrap{display:grid;gap:40px}
+.clock{font:900 clamp(70px,17vw,190px)/.85 var(--disp);text-transform:uppercase;color:var(--steam)}
+.clock .u{color:var(--accent)}
+.clock-sub{font:400 15px var(--mono);color:var(--muted);margin-top:14px}
+.week{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.week li{display:flex;justify-content:space-between;gap:12px;padding:14px 4px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:16px}
+.week li.today{color:var(--accent);font-weight:700;background:linear-gradient(90deg,rgb(234 162 58 / .1),transparent)}
+.week li.today span:first-child::after{content:" · " attr(data-tag);font-weight:400;font-size:13px}
+.where{margin-top:30px;display:grid;gap:6px}
+.where address{font-style:normal;font-size:20px;font-weight:600}
+.where p{margin:0;color:var(--muted)}
+.where .acts{margin-top:18px}
+
+/* ---------- closer ---------- */
+.closer{padding:100px 0 120px;border-top:1px solid var(--line);text-align:left;overflow:hidden;position:relative}
+.closer h2{font-size:clamp(64px,16vw,200px);text-transform:uppercase}
+.closer h2 em{font-style:normal;color:var(--neon);text-shadow:0 0 12px var(--neon),0 0 40px rgb(255 77 109 / .5)}
+.closer p{max-width:36ch;color:#d9cdbb;font-size:19px;margin:22px 0 0}
+.closer .acts{max-width:520px}
+footer{border-top:1px solid var(--line);padding:26px 0 120px;font:400 13px var(--mono);color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+
+/* mobile bottom bar */
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;gap:10px;padding:10px var(--gutr) calc(10px + env(safe-area-inset-bottom,0px)) var(--gut);background:rgb(12 10 9 / .92);backdrop-filter:blur(10px);border-top:1px solid var(--line);height:auto}
+.mbar .btn{flex:1;min-height:50px;font-size:16px;padding:0 12px}
+@media (min-width:761px){.mbar{display:none}footer{padding-bottom:30px}}
+
+/* reveal: visible by default, animated only once JS opts in */
+.js .rv{transform:translateY(34px);transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.js .rv.in{transform:none}
+
+@media (min-width:900px){
+  .hero{padding:50px 0 80px}
+  .hero .wrap{grid-template-columns:1.25fr .75fr;align-items:center}
+  .order .wrap{grid-template-columns:.9fr 1.1fr}
+  .pull .wrap{grid-template-columns:1.1fr .9fr}
+  .cards{grid-template-columns:repeat(6,1fr)}
+  .cards .rev{grid-column:span 3}
+  .cards .rev.big{grid-column:span 4}
+  .cards .rev.sm{grid-column:span 2}
+  .late .wrap{grid-template-columns:1fr 1fr;align-items:start}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .js .rv{opacity:1;transform:none}
+}
+</style>
+
+<div class="gb">
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="status" id="status" aria-live="polite"><i></i><span id="statusTxt">Open till 2 am, every night</span></div>
+      <h1 data-l24-edit="Headline">Hand-pulled noodles, open till 2 am.</h1>
+      <p class="tag" data-l24-edit="Tagline">Big bowls of beef noodle soup, steps from Dundas Square. Seven nights a week, late.</p>
+      <div class="acts">
+        <button class="btn" type="button" data-l24-contact="Call ahead">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+          Call ahead</button>
+        <button class="btn ghost" type="button" data-l24-contact="Find us on Edward St">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          Get directions</button>
+      </div>
+      <div class="meta"><span><span class="stars" aria-hidden="true">★★★★½</span> <b>4.5</b> from 2,862 Google reviews</span><span>66 Edward St</span></div>
+    </div>
+    <div class="bowl" aria-hidden="true">
+      <div class="plate"><img src="/p/hx231w-gb-hand-pulled-noodles/img/noodle2.jpg" alt=""></div>
+      <canvas id="steam"></canvas>
+      <div class="neon"><small>Open till</small>2 AM</div>
+    </div>
+  </div>
+</header>
+
+<div class="marq" aria-hidden="true"><div>
+  <span>Braised beef noodles</span><span>Spicy beef brisket</span><span>Dan Dan noodles</span><span>House chili oil</span><span>Pulled to order</span><span>Open till 2 am</span>
+  <span>Braised beef noodles</span><span>Spicy beef brisket</span><span>Dan Dan noodles</span><span>House chili oil</span><span>Pulled to order</span><span>Open till 2 am</span>
+</div></div>
+
+<section class="order" id="menu" aria-labelledby="order-h">
+  <div class="wrap">
+    <div class="order-side rv">
+      <div class="kick">The order</div>
+      <h2 id="order-h">Write your ticket.</h2>
+      <p class="lede">Pick a bowl, pick your noodle, pick your heat. Then call it in for takeout or grab a seat at the counter.</p>
+      <figure class="shot"><img src="/p/hx231w-gb-hand-pulled-noodles/img/noodle1.jpg" alt="Braised beef noodle soup with greens" loading="lazy"><figcaption>Sample photo. We'll use yours.</figcaption></figure>
+    </div>
+
+    <div class="ticket rv" id="ticket">
+      <div class="t-head"><b>GB Hand-Pulled</b><span>66 EDWARD ST · <span id="tTime">--:--</span></span></div>
+
+      <div class="t-row"><span class="n">01</span><h3>Braised beef noodle soup</h3><p>“Portion enormous and very flavourful.”</p></div>
+      <div class="t-row"><span class="n">02</span><h3>Spicy beef brisket noodle bowl</h3><p>Pick your spice level. House chili oil sits on every table.</p></div>
+      <div class="t-row"><span class="n">03</span><h3>Dan Dan noodles</h3><p>A regular's next must-try.</p></div>
+      <div class="t-row"><span class="n">04</span><h3>House chili oil</h3><p>“The chilli oil the provide as a condiment was actually incredible!”</p></div>
+
+      <div class="t-sub">
+        <div class="lbl"><span>Noodle</span><span id="nOut">Thin</span></div>
+        <div class="chips" role="group" aria-label="Choose your noodle">
+          <button type="button" aria-pressed="true" data-n="Thin">Thin</button>
+          <button type="button" aria-pressed="false" data-n="In between">Middle</button>
+          <button type="button" aria-pressed="false" data-n="Wide">Wide</button>
+        </div>
+      </div>
+
+      <div class="t-sub">
+        <div class="lbl"><label for="heat">Heat</label><span id="hOut">A little</span></div>
+        <div class="dial">
+          <input type="range" id="heat" min="0" max="4" step="1" value="1" aria-describedby="hOut">
+          <div class="ends"><span>No spice</span><span>Top level</span></div>
+          <div class="peppers" id="peppers" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <div class="t-foot">
+        <div class="yours">Your bowl: <span id="yours">thin noodles, a little heat</span></div>
+        <div class="opts"><span>Dine in</span><span>Takeout</span><span>Delivery</span></div>
+        <button class="btn" type="button" data-l24-contact="Call it in">Call it in</button>
+        <p class="t-note">Prices and the full menu go here on the live site.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pull" id="pull" aria-labelledby="pull-h">
+  <div class="wrap">
+    <div class="rv">
+      <div class="kick">Pulled when you order</div>
+      <h2 id="pull-h">Thin, wide, <span>or in between.</span></h2>
+      <p class="lede" style="margin-top:16px">Your noodles are pulled by hand when the order comes in. Keep scrolling and watch them stretch.</p>
+      <div class="strands" aria-hidden="true">
+        <div class="strand"><b>Thin</b><svg viewBox="0 0 600 56" preserveAspectRatio="none"><path data-w="4" stroke-width="4"/></svg></div>
+        <div class="strand"><b>In between</b><svg viewBox="0 0 600 56" preserveAspectRatio="none"><path data-w="9" stroke-width="9"/></svg></div>
+        <div class="strand"><b>Wide</b><svg viewBox="0 0 600 56" preserveAspectRatio="none"><path data-w="18" stroke-width="18"/></svg></div>
+      </div>
+    </div>
+    <figure class="rv"><img src="/p/hx231w-gb-hand-pulled-noodles/img/noodle3.jpg" alt="Fresh noodles in loose bundles" loading="lazy"></figure>
+  </div>
+</section>
+
+<section class="revs" aria-labelledby="revs-h">
+  <div class="wrap">
+    <div class="revs-top rv">
+      <div>
+        <div class="kick">What people say at 1 am</div>
+        <h2 id="revs-h">Enormous bowls.<br>Real service.</h2>
+      </div>
+      <div class="score">4.5<small><span class="stars">★★★★½</span><br>2,862 Google reviews</small></div>
+    </div>
+    <div class="cards">
+      <figure class="rev big rv"><blockquote>I had a braised beef noodle - portion enormous and very flavourful. highly recommend</blockquote><figcaption><span class="stars">★★★★★</span>Lanyi · Google review</figcaption></figure>
+      <figure class="rev sm rv"><blockquote>The bowl sizes are enormous and if you're in the area, stop in as soon as you can.</blockquote><figcaption><span class="stars">★★★★★</span>James F. · Google review</figcaption></figure>
+      <figure class="rev rv"><blockquote>Once the server knew this was my first time there, she took the time to ask what my preferred flavours are and what my likes are… I highly recommend this spot and do plan to come here again</blockquote><figcaption><span class="stars">★★★★</span>Tim · Google review</figcaption></figure>
+      <figure class="rev rv"><blockquote>The beef noodles were very good, I’m not a fan of broth in general but theirs was so delicious. I especially love that they had Halal beef.</blockquote><figcaption><span class="stars">★★★★</span>Hafsa K. · Google review</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="late" id="hours" aria-labelledby="late-h">
+  <div class="wrap">
+    <div class="rv">
+      <div class="kick" id="late-h">Kitchen clock</div>
+      <div class="clock" id="clock"><span id="cBig">Till 2 am</span></div>
+      <p class="clock-sub" id="cSub">Every night of the week.</p>
+      <div class="where">
+        <address>66 Edward St, Toronto, ON M5G 1M7</address>
+        <p>Steps from Dundas Square · <span style="white-space:nowrap">(647) 872-1336</span></p>
+        <div class="acts">
+          <button class="btn" type="button" data-l24-contact="Find us on Edward St">Get directions</button>
+          <button class="btn ghost" type="button" data-l24-contact="Call ahead">Call ahead</button>
+        </div>
+      </div>
+    </div>
+    <ul class="week rv" id="week" aria-label="Opening hours"></ul>
+  </div>
+</section>
+
+<section class="closer" aria-labelledby="closer-h">
+  <div class="wrap rv">
+    <h2 id="closer-h">See you at <em>1 am.</em></h2>
+    <p>Late shift, late show, late flight. The noodles are still being pulled on Edward St.</p>
+    <div class="acts">
+      <button class="btn" type="button" data-l24-contact="Call ahead">Call ahead</button>
+      <button class="btn ghost" type="button" data-l24-contact="Find us on Edward St">Get directions</button>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap"><span>GB Hand-Pulled Noodles · 66 Edward St, Toronto</span><span>Sample photos. We'll use yours.</span></div></footer>
+
+<nav class="mbar" aria-label="Quick actions">
+  <button class="btn" type="button" data-l24-contact="Call ahead">Call ahead</button>
+  <button class="btn ghost" type="button" data-l24-contact="Find us on Edward St">Directions</button>
+</nav>
+
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement, reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  root.classList.add('js');
+
+  /* ---- hours (America/Toronto) ---- */
+  var H=[["Sunday",[11,26]],["Monday",[10.5,26]],["Tuesday",[10.5,26]],["Wednesday",[10.5,26]],["Thursday",[10.5,26]],["Friday",[10.5,26]],["Saturday",[11,26]]];
+  function fmt(h){h=h%24;var hr=Math.floor(h),m=Math.round((h-hr)*60),ap=hr<12?'am':'pm',d=hr%12||12;return d+(m?':'+String(m).padStart(2,'0'):'')+' '+ap}
+  function now(){
+    var p=new Intl.DateTimeFormat('en-US',{timeZone:'America/Toronto',weekday:'short',hour:'numeric',minute:'numeric',hourCycle:'h23'}).formatToParts(new Date()),o={};
+    p.forEach(function(x){o[x.type]=x.value});
+    return {d:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(o.weekday),m:(+o.hour%24)*60+(+o.minute)};
+  }
+  function state(){
+    var n=now(),t=H[n.d][1],y=H[(n.d+6)%7][1];
+    if(y[1]>24&&n.m<(y[1]-24)*60) return {open:1,left:(y[1]-24)*60-n.m,close:y[1],n:n,shift:(n.d+6)%7};
+    if(n.m>=t[0]*60&&n.m<t[1]*60) return {open:1,left:t[1]*60-n.m,close:t[1],n:n};
+    if(n.m<t[0]*60) return {open:0,at:t[0],day:'today',n:n};
+    var nx=H[(n.d+1)%7];return {open:0,at:nx[1][0],day:'tomorrow',n:n};
+  }
+  function dur(m){var h=Math.floor(m/60),mm=m%60;return (h?h+'h ':'')+mm+'m'}
+  function paint(){
+    var s=state(),st=document.getElementById('status');
+    var tt=new Intl.DateTimeFormat('en-US',{timeZone:'America/Toronto',hour:'numeric',minute:'2-digit'}).format(new Date());
+    document.getElementById('tTime').textContent=tt.toUpperCase();
+    if(s.open){
+      st.classList.remove('closed');
+      document.getElementById('statusTxt').textContent='Open now · kitchen open '+dur(s.left)+' more';
+      document.getElementById('cBig').innerHTML='<span class="u">'+(s.left>=60?Math.floor(s.left/60)+'h '+String(s.left%60).padStart(2,'0')+'m':s.left+'m')+'</span> left';
+      document.getElementById('cSub').textContent='Open now. Kitchen closes at '+fmt(s.close)+' tonight.';
+    }else{
+      st.classList.add('closed');
+      document.getElementById('statusTxt').textContent='Closed · opens '+s.day+' at '+fmt(s.at);
+      document.getElementById('cBig').innerHTML='Back at <span class="u">'+fmt(s.at).replace(' ','&nbsp;')+'</span>';
+      document.getElementById('cSub').textContent='Closed right now. Opens '+s.day+', then open till 2 am.';
+    }
+    var w=document.getElementById('week');
+    if(!w.children.length){
+      [1,2,3,4,5,6,0].forEach(function(i){var li=document.createElement('li');li.dataset.d=i;
+        li.innerHTML='<span>'+H[i][0]+'</span><span>'+fmt(H[i][1][0])+' – '+fmt(H[i][1][1])+'</span>';w.appendChild(li)});
+    }
+    [].forEach.call(w.children,function(li){var on=+li.dataset.d===(s.shift!=null?s.shift:s.n.d);li.classList.toggle('today',on);li.firstChild.setAttribute('data-tag',s.open?'open now':'today')});
+  }
+  paint();setInterval(paint,30000);
+
+  /* ---- ticket: noodle + heat dial ---- */
+  var noodle='thin', heatNames=['No spice','A little','Medium','Hot','Top level'];
+  var pep=document.getElementById('peppers'),P='<svg viewBox="0 0 22 26"><path d="M13 2c0 2 1 3 3 3-1 1-2 2-2 3 4 1 6 5 4 10-2 5-8 8-14 8 4-3 6-6 6-10 0-3 1-6 3-7 0-2-1-4 0-7z"/></svg>';
+  pep.innerHTML=P+P+P+P;
+  function yours(){var h=+document.getElementById('heat').value;
+    document.getElementById('yours').textContent=noodle+' noodles, '+(h===0?'no spice':h===4?'top-level heat':heatNames[h].toLowerCase()+' heat');}
+  [].forEach.call(document.querySelectorAll('.chips button'),function(b){b.addEventListener('click',function(){
+    [].forEach.call(document.querySelectorAll('.chips button'),function(x){x.setAttribute('aria-pressed',x===b)});
+    noodle=b.dataset.n.toLowerCase();document.getElementById('nOut').textContent=b.dataset.n;yours();})});
+  var heat=document.getElementById('heat');
+  function setHeat(){var v=+heat.value;root.style.setProperty('--heat',(v/4).toFixed(2));
+    document.getElementById('hOut').textContent=heatNames[v];
+    [].forEach.call(pep.children,function(s,i){s.classList.toggle('on',i<v)});yours();}
+  heat.addEventListener('input',setHeat);setHeat();
+
+  /* ---- the pull: strands straighten and stretch as you scroll ---- */
+  var pull=document.getElementById('pull'),paths=[].slice.call(pull.querySelectorAll('path'));
+  function strand(p,amp,ph){var d='M0 28',n=60;for(var i=1;i<=n;i++){var x=i*10,y=28+Math.sin(i*.55+ph)*amp*Math.sin(Math.PI*i/n);d+=' L'+x+' '+y.toFixed(1)}return d}
+  function onScroll(){
+    var r=pull.getBoundingClientRect(),vh=innerHeight,p=Math.min(1,Math.max(0,(vh-r.top)/(vh+r.height*.4)));
+    if(reduce)p=1;
+    pull.style.setProperty('--p',p.toFixed(3));
+    paths.forEach(function(el,i){var amp=(1-p)*(22-i*3)+1.2;el.setAttribute('d',strand(el,amp,i*1.7+p*3));});
+  }
+  addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);onScroll();
+
+  /* ---- reveals ---- */
+  var rv=[].slice.call(document.querySelectorAll('.rv'));
+  if('IntersectionObserver' in window&&!reduce){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
+    rv.forEach(function(el){io.observe(el)});
+    setTimeout(function(){rv.forEach(function(el){el.classList.add('in')})},4000);
+  }else rv.forEach(function(el){el.classList.add('in')});
+
+  /* ---- steam over the bowl ---- */
+  var c=document.getElementById('steam'),x=c.getContext('2d'),W,Hh,parts=[];
+  function size(){var r=c.getBoundingClientRect(),dpr=Math.min(2,devicePixelRatio||1);W=r.width;Hh=r.height;c.width=W*dpr;c.height=Hh*dpr;x.setTransform(dpr,0,0,dpr,0,0)}
+  size();addEventListener('resize',size);
+  function spawn(){return {x:W*(.3+Math.random()*.4),y:Hh*(.72+Math.random()*.1),r:20+Math.random()*30,vy:.25+Math.random()*.45,ph:Math.random()*6,life:0,max:260+Math.random()*160}}
+  for(var i=0;i<26;i++){var s=spawn();s.life=Math.random()*s.max;s.y-=s.life*s.vy;parts.push(s)}
+  var visible=true;
+  if('IntersectionObserver' in window)new IntersectionObserver(function(e){visible=e[0].isIntersecting}).observe(c);
+  function frame(){
+    if(visible){
+      x.clearRect(0,0,W,Hh);
+      var hv=parseFloat(getComputedStyle(root).getPropertyValue('--heat'))||0;
+      parts.forEach(function(p,i){
+        p.life++;p.y-=p.vy*(1+hv*.6);p.x+=Math.sin(p.life/40+p.ph)*.4;p.r+=.12;
+        var t=p.life/p.max,a=Math.sin(Math.PI*t)*.11;
+        var g=x.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);
+        g.addColorStop(0,'rgba(245,236,222,'+a+')');g.addColorStop(1,'rgba(245,236,222,0)');
+        x.fillStyle=g;x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fill();
+        if(p.life>=p.max)parts[i]=spawn();
+      });
+    }
+    if(!reduce)requestAnimationFrame(frame);
+  }
+  frame();
+})();
+</script>
+<script>window.L24CFG={name:"GB Hand-Pulled Noodles",phone:"(647) 872-1336",tel:"+16478721336",address:"66 Edward St, Toronto, ON M5G 1M7",maps:"https://maps.google.com/?cid=2581289755430947068",
+ noteOpen:"2,862 people gave you 4.5★",noteRest:"but when someone searches for you, there's no website to show your bowls or tell them you're open till 2 am. I made this to show what yours could look like.",
+ checklist:["Designed for GB Noodles","Your hours, address and reviews added","Works on every phone","Live \"open now\" countdown to 2 am"],
+ swatches:[{name:"Original",dot:"#eaa23a",vars:{"--accent":"#eaa23a"}},{name:"Chili",dot:"#ff5a3c",vars:{"--accent":"#ff5a3c"}},{name:"Neon",dot:"#ff4d8d",vars:{"--accent":"#ff4d8d","--neon":"#ff4d8d"}},{name:"Jade",dot:"#45d1a4",vars:{"--accent":"#45d1a4","--neon":"#45d1a4"}}]};</script>
+
+<!-- ===== Launch24 preview layer (shared, do not edit). Needs window.L24CFG defined BEFORE this block. ===== -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Onest:wght@400;500;600&display=swap">
+<style>
+:root{--l24-h:44px}
+.l24,.l24 *{box-sizing:border-box}
+.l24{font-family:"Onest","Segoe UI",Arial,sans-serif;font-size:15px;line-height:1.5;color:#eef0f5;-webkit-font-smoothing:antialiased}
+.l24 button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.l24 :focus-visible{outline:3px solid #ffd60a;outline-offset:2px}
+.l24-bar{position:sticky;top:0;z-index:1000;height:var(--l24-h);background:#08090c;color:#eef0f5;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 max(14px,env(safe-area-inset-right,0px)) 0 max(14px,env(safe-area-inset-left,0px));font-family:"Onest","Segoe UI",Arial,sans-serif;font-size:13px;border-bottom:1px solid #1d2029}
+.l24-bar .l24-id{display:flex;align-items:center;gap:8px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.l24-logo{flex:none;display:inline-grid;place-items:center;width:22px;height:22px;border-radius:6px;background:#ffd60a;color:#000;font:800 10px "Bricolage Grotesque",sans-serif}
+.l24-bar b{font-weight:600}
+.l24-bar .l24-sub{color:#8f97a8}
+@media (max-width:620px){.l24-bar .l24-sub{display:none}}
+.l24-keep{flex:none;height:32px;padding:0 14px;border-radius:999px;border:0;background:#ffd60a;color:#000;font-weight:700!important}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:1001;background:#08090c}
+.l24-bar{top:env(safe-area-inset-top,0px)}
+.l24-note{position:fixed;z-index:1002;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(400px,calc(100vw - 32px));background:#08090c;border:1px solid #232733;border-radius:20px;padding:18px 18px 14px;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);transform:translateY(16px);opacity:0;transition:transform .7s cubic-bezier(.2,.9,.2,1),opacity .7s}
+.l24-note.in{transform:none;opacity:1}
+.l24-note[hidden]{display:none}
+.l24-note .l24-k{font:600 11px/1 "Onest",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#ffd60a}
+.l24-note p{margin:10px 0 0;font-size:14.5px}
+.l24-note p b{color:#fff}
+.l24-note .l24-s{color:#9aa1b1;font-size:13.5px}
+.l24-acts{display:flex;gap:8px;margin-top:14px}
+.l24-acts button{min-height:44px;padding:0 16px;border-radius:999px;border:1px solid #2c313d;background:transparent;color:#eef0f5;font-weight:600}
+.l24-acts .l24-y{background:#ffd60a;border-color:#ffd60a;color:#000}
+@media (max-width:560px){.l24-note .l24-s{display:none}}
+.l24-fab{position:fixed;z-index:999;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));display:inline-flex;align-items:center;gap:9px;height:50px;padding:0 18px;border-radius:999px;border:1px solid #232733;background:#08090c;color:#fff;font-weight:600;box-shadow:0 18px 40px -16px rgba(0,0,0,.6)}
+.l24-fab i{width:16px;height:16px;border-radius:50%;background:conic-gradient(#ffd60a 0 50%,var(--accent,#ffd60a) 0)}
+@media (max-width:760px){.l24-fab{bottom:calc(84px + env(safe-area-inset-bottom,0px))}}
+.l24-scrim{position:fixed;inset:0;z-index:1003;background:rgba(5,6,8,.55);opacity:0;pointer-events:none;transition:opacity .35s}
+.l24-scrim.open{opacity:1;pointer-events:auto}
+.l24-drawer{position:fixed;z-index:1004;top:0;right:0;bottom:0;width:min(410px,100vw);background:#101218;color:#eef0f5;border-left:1px solid #232733;transform:translateX(105%);transition:transform .5s cubic-bezier(.2,.9,.2,1);overflow-y:auto;padding:calc(22px + env(safe-area-inset-top,0px)) max(22px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) 22px}
+.l24-drawer.open{transform:none}
+.l24-x{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:14px;width:44px;height:44px;border-radius:50%;border:1px solid #2c313d;background:#161922;display:grid;place-items:center;padding:0}
+.l24-x svg{width:18px;height:18px;stroke:#eef0f5}
+.l24-h{font:700 30px/1.05 "Bricolage Grotesque",sans-serif;margin:8px 48px 0 0;letter-spacing:-.01em}
+.l24-p{color:#a3aab9;margin:10px 0 0}
+.l24-p b{color:#fff}
+.l24-lbl{display:block;font:600 11px/1 "Onest",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8f97a8;margin-top:22px}
+.l24-sw{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.l24-sw button{width:46px;height:46px;border-radius:50%;border:3px solid #101218;box-shadow:0 0 0 1.5px #2c313d;padding:0;transition:transform .2s}
+.l24-sw button[aria-pressed=true]{box-shadow:0 0 0 2.5px #ffd60a;transform:scale(1.06)}
+.l24-in{width:100%;min-height:48px;margin-top:8px;border-radius:12px;border:1.5px solid #2c313d;background:#08090c;color:#eef0f5;padding:0 12px;font:inherit;font-size:16px}
+.l24-in:focus{outline:none;border-color:#ffd60a}
+.l24-box{margin-top:24px;padding:20px;border-radius:18px;background:#08090c;border:1px solid #232733}
+.l24-box .l24-t{font:700 24px/1.1 "Bricolage Grotesque",sans-serif;color:#fff}
+.l24-done{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+.l24-done li{display:flex;gap:10px;align-items:flex-start}
+.l24-done li::before{content:"";flex:none;margin-top:2px;width:18px;height:18px;border-radius:50%;background:#25d366 url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'><path d='m6 12 4 4 8-8'/></svg>") center/11px no-repeat}
+.l24-price{font:700 40px/1 "Bricolage Grotesque",sans-serif;color:#fff;margin-top:14px}
+.l24-price span{font:400 15px "Onest",sans-serif;color:#9aa1b1}
+.l24-pay{display:flex;align-items:center;justify-content:center;text-decoration:none;width:100%;min-height:52px;margin-top:14px;border-radius:999px;border:0;background:#ffd60a;color:#000;font-weight:700!important;font-size:16px!important;animation:l24nudge 2.8s 1.4s ease-in-out infinite}
+@keyframes l24nudge{0%,86%,100%{transform:none}90%{transform:scale(1.03)}95%{transform:scale(.99)}}
+.l24-g{color:#9aa1b1;font-size:13.5px;margin:10px 0 0}
+.l24-wa{display:inline-flex;align-items:center;min-height:44px;color:#eef0f5;text-underline-offset:3px;font-size:14px}
+.l24-sheet{position:fixed;z-index:1004;left:50%;bottom:0;width:min(520px,100vw);max-height:88vh;overflow-y:auto;transform:translate(-50%,105%);transition:transform .5s cubic-bezier(.2,.9,.2,1);background:#101218;color:#eef0f5;border:1px solid #232733;border-radius:24px 24px 0 0;padding:14px max(20px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px))}
+.l24-sheet.open{transform:translate(-50%,0)}
+.l24-grab{width:44px;height:5px;border-radius:3px;background:#2c313d;margin:0 auto 16px}
+.l24-sheet .l24-x{top:14px}
+.l24-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 16px;border-radius:14px;background:#161922;margin-top:10px}
+.l24-row>div:first-child{min-width:0}
+.l24-row b{display:block}
+.l24-row span{color:#9aa1b1;font-size:13.5px}
+.l24-row .l24-num{color:#fff;font-size:16px;font-variant-numeric:tabular-nums;user-select:all}
+.l24-btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 16px;border-radius:999px;border:0;background:#ffd60a;color:#000!important;font-weight:700;text-decoration:none}
+.l24-btn.l24-gh{background:transparent;color:#eef0f5!important;box-shadow:inset 0 0 0 1.5px #2c313d}
+.l24-toast{position:fixed;z-index:1005;left:50%;top:calc(var(--l24-h) + 14px + env(safe-area-inset-top,0px));transform:translate(-50%,-14px);opacity:0;width:max-content;max-width:calc(100vw - 32px);text-align:center;background:#08090c;color:#fff;border:1px solid #232733;padding:11px 16px;border-radius:16px;font-size:14px;transition:opacity .3s,transform .3s;pointer-events:none}
+.l24-toast.show{opacity:1;transform:translate(-50%,0)}
+.l24-drawer,.l24-sheet{visibility:hidden}
+.l24-drawer.open,.l24-sheet.open{visibility:visible}
+@media (prefers-reduced-motion:reduce){.l24 *,.l24-pay{animation:none!important;transition:none!important}}
+</style>
+<div class="l24" id="l24"></div>
+<script>
+(function(){
+  var C=window.L24CFG||{}, root=document.getElementById('l24'), doc=document.documentElement;
+  var PAY='https://buy.stripe.com/9B65kC9zcfRMcqj7foe7m05?client_reference_id='+encodeURIComponent((C.name||'preview').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''));
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  var X='<svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  // bar goes first in <body>
+  var bar=document.createElement('div');bar.className='l24 l24-bar';
+  bar.innerHTML='<span class="l24-id"><span class="l24-logo">24</span><span><b>Preview made for '+esc(C.name)+'</b><span class="l24-sub"> by Launch24. Not live yet.</span></span></span><button class="l24-keep" type="button" data-l24-open>Make it yours</button>';
+  document.body.insertBefore(bar,document.body.firstChild);
+  var edits=[].slice.call(document.querySelectorAll('[data-l24-edit]'));
+  var sw=(C.swatches||[]);
+  root.innerHTML=
+   '<aside class="l24-note" id="l24-note" aria-label="Note from Launch24"><div class="l24-k">A note from Parth at Launch24</div><p>Hi! <b>'+esc(C.noteOpen)+'</b>, '+esc(C.noteRest)+'</p><p class="l24-s">It\'s built and ready. You\'re one click away from making it yours.</p><div class="l24-acts"><button class="l24-y" type="button" data-l24-open>Make it yours</button><button type="button" id="l24-look">Take a look</button></div></aside>'+
+   '<button class="l24-fab" type="button" data-l24-open><i aria-hidden="true"></i>Make it yours</button>'+
+   '<div class="l24-scrim" id="l24-scrim"></div>'+
+   '<aside class="l24-drawer" id="l24-drawer" aria-label="Make it yours" aria-hidden="true"><button class="l24-x" type="button" id="l24-dx" aria-label="Close">'+X+'</button>'+
+     '<span class="l24-lbl" style="margin-top:0;color:#ffd60a">Make it yours</span><h2 class="l24-h">Your website is ready.</h2>'+
+     '<p class="l24-p">We designed it, wrote it and added your hours, address and Google reviews. Try a colour or change the words if you like. Then you\'re <b>one click away</b> from making it yours.</p>'+
+     (sw.length?'<span class="l24-lbl">Colour</span><div class="l24-sw" id="l24-sw">'+sw.map(function(s,i){return '<button type="button" aria-pressed="'+(i===0)+'" aria-label="'+esc(s.name)+'" data-i="'+i+'" style="background:'+esc(s.dot)+'"></button>'}).join('')+'</div>':'')+
+     edits.map(function(el,i){var id='l24e'+i;return '<label class="l24-lbl" for="'+id+'">'+esc(el.getAttribute('data-l24-edit'))+'</label><input class="l24-in" id="'+id+'" data-i="'+i+'" value="'+esc(el.textContent.trim())+'">'}).join('')+
+     '<div class="l24-box"><div class="l24-t">You\'re one click away.</div><p class="l24-g" style="margin-top:6px">Already done for you:</p><ul class="l24-done">'+(C.checklist||[]).map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>'+
+     '<p class="l24-p" style="color:#eef0f5"><b>All that\'s left:</b> tap Pay. We add your real photos and details, and put it live on your own domain within 24 hours.</p>'+
+     '<div class="l24-price">$699 <span>one-time</span></div><a class="l24-pay" id="l24-pay" target="_blank" rel="noopener" href="'+esc(PAY)+'">Pay $699 and make it mine →</a><p class="l24-g" style="margin-top:8px">Secure checkout by Stripe.</p>'+
+     '<p class="l24-g">If we miss the 24 hours, you pay nothing. Your deposit is refunded in full.</p><a class="l24-wa" id="l24-wa" target="_blank" rel="noopener" href="#">Questions first? WhatsApp Parth</a></div></aside>'+
+   '<div class="l24-sheet" id="l24-sheet" role="dialog" aria-modal="true" aria-labelledby="l24-st" aria-hidden="true"><div class="l24-grab"></div><button class="l24-x" type="button" id="l24-sx" aria-label="Close">'+X+'</button><span class="l24-lbl" style="margin-top:0;color:#ffd60a" id="l24-se">Contact</span><h2 class="l24-h" id="l24-st" style="font-size:26px">How would you like to reach us?</h2>'+
+     (C.phone?'<div class="l24-row"><div><b>Call</b><span class="l24-num" id="l24-num">'+esc(C.phone)+'</span></div><div style="display:flex;gap:8px"><a class="l24-btn" href="tel:'+esc(C.tel)+'">Call</a><button class="l24-btn l24-gh" type="button" id="l24-copy">Copy</button></div></div>':'')+
+     (C.book?'<div class="l24-row"><div><b>Book online</b><span>Your existing '+esc(C.bookName||'booking')+' page</span></div><a class="l24-btn" href="'+esc(C.book)+'" target="_blank" rel="noopener">Open</a></div>':'')+
+     (C.instagram?'<div class="l24-row"><div><b>Instagram</b><span>Send a DM</span></div><a class="l24-btn l24-gh" href="'+esc(C.instagram)+'" target="_blank" rel="noopener">Open</a></div>':'')+
+     (C.address?'<div class="l24-row"><div><b>Visit</b><span>'+esc(C.address)+'</span></div><a class="l24-btn l24-gh" href="'+esc(C.maps)+'" target="_blank" rel="noopener">Directions</a></div>':'')+
+     '<p class="l24-g">On the live site these buttons call, book or open directions straight away.</p></div>'+
+   '<div class="l24-toast" id="l24-toast" role="status"></div>';
+  var $=function(id){return document.getElementById(id)};
+  var tt;function toast(m){var t=$('l24-toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('show')},3400)}
+  var note=$('l24-note');setTimeout(function(){note.classList.add('in')},700);
+  $('l24-look').onclick=function(){note.hidden=true};
+  var dr=$('l24-drawer'),sh=$('l24-sheet'),sc=$('l24-scrim');
+  function openD(){closeS();dr.classList.add('open');sc.classList.add('open');dr.setAttribute('aria-hidden','false');note.hidden=true;setTimeout(function(){$('l24-dx').focus()},200)}
+  function closeD(){dr.classList.remove('open');dr.setAttribute('aria-hidden','true');if(!sh.classList.contains('open'))sc.classList.remove('open')}
+  function openS(t){closeD();$('l24-st').textContent=t?t:'How would you like to reach us?';sh.classList.add('open');sc.classList.add('open');sh.setAttribute('aria-hidden','false');setTimeout(function(){$('l24-sx').focus()},200)}
+  function closeS(){sh.classList.remove('open');sh.setAttribute('aria-hidden','true');if(!dr.classList.contains('open'))sc.classList.remove('open')}
+  document.addEventListener('click',function(e){var o=e.target.closest('[data-l24-open]');if(o){e.preventDefault();openD();return}var c=e.target.closest('[data-l24-contact]');if(c){e.preventDefault();openS(c.getAttribute('data-l24-contact'))}});
+  $('l24-dx').onclick=closeD;$('l24-sx').onclick=closeS;sc.onclick=function(){closeD();closeS()};
+  addEventListener('keydown',function(e){if(e.key==='Escape'){closeD();closeS()}});
+  var cp=$('l24-copy');if(cp)cp.onclick=function(){var n=$('l24-num').textContent;try{navigator.clipboard.writeText(n).then(function(){toast('Number copied')},sel)}catch(_){sel()}function sel(){var r=document.createRange();r.selectNodeContents($('l24-num'));var s=getSelection();s.removeAllRanges();s.addRange(r);toast('Number selected')}};
+  var choice=sw[0]?sw[0].name:'Original';
+  [].forEach.call(document.querySelectorAll('#l24-sw button'),function(b){b.onclick=function(){var s=sw[+b.dataset.i];[].forEach.call(document.querySelectorAll('#l24-sw button'),function(x){x.setAttribute('aria-pressed',x===b)});Object.keys(s.vars||{}).forEach(function(k){doc.style.setProperty(k,s.vars[k])});choice=s.name;wa();if(matchMedia('(max-width: 767px)').matches){setTimeout(function(){closeD();toast(s.name+' it is. Tap Make it yours to try another.')},180)}else{toast(s.name+' it is')}}});
+  [].forEach.call(document.querySelectorAll('.l24-in'),function(inp){inp.oninput=function(){edits[+inp.dataset.i].textContent=inp.value;wa()}});
+  function wa(){var m='Hi Parth! I saw the website preview for '+C.name+" and I'd like to make it mine.\nColour: "+choice+edits.map(function(el){return '\n'+el.getAttribute('data-l24-edit')+': '+el.textContent.trim()}).join('');$('l24-wa').href='https://wa.me/14373652475?text='+encodeURIComponent(m)}
+  wa();
+  window.L24={toast:toast,contact:openS,open:openD};
+})();
+</script>
+<!-- ===== end Launch24 layer ===== -->
+<script>
+/* Launch24: count preview opens and clicks (first-party, /api/event). */
+(function(){
+  var vid='';try{vid=localStorage.getItem('l24_vid')||'';if(!vid){vid=Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem('l24_vid',vid)}}catch(_){}
+  var q=new URLSearchParams(location.search);
+  function send(name){try{var b=JSON.stringify({name:name,visitor_id:vid,path:location.pathname,utm_source:q.get('utm_source')||'',utm_medium:q.get('utm_medium')||'',utm_campaign:q.get('utm_campaign')||'',utm_content:q.get('utm_content')||''});
+    if(navigator.sendBeacon)navigator.sendBeacon('/api/event',new Blob([b],{type:'application/json'}));else fetch('/api/event',{method:'POST',headers:{'Content-Type':'application/json'},body:b,keepalive:true})}catch(_){}}
+  send('preview_view');
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('#l24-pay,#l24-wa');if(a)send(a.id==='l24-pay'?'preview_claim_click':'preview_changes_click')},true);
+})();
+</script>
+
+</html>

@@ -1,0 +1,129 @@
+<!-- ===== Launch24 preview layer (shared, do not edit). Needs window.L24CFG defined BEFORE this block. ===== -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Onest:wght@400;500;600&display=swap">
+<style>
+:root{--l24-h:44px}
+.l24,.l24 *{box-sizing:border-box}
+.l24{font-family:"Onest","Segoe UI",Arial,sans-serif;font-size:15px;line-height:1.5;color:#eef0f5;-webkit-font-smoothing:antialiased}
+.l24 button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.l24 :focus-visible{outline:3px solid #ffd60a;outline-offset:2px}
+.l24-bar{position:sticky;top:0;z-index:1000;height:var(--l24-h);background:#08090c;color:#eef0f5;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 max(14px,env(safe-area-inset-right,0px)) 0 max(14px,env(safe-area-inset-left,0px));font-family:"Onest","Segoe UI",Arial,sans-serif;font-size:13px;border-bottom:1px solid #1d2029}
+.l24-bar .l24-id{display:flex;align-items:center;gap:8px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.l24-logo{flex:none;display:inline-grid;place-items:center;width:22px;height:22px;border-radius:6px;background:#ffd60a;color:#000;font:800 10px "Bricolage Grotesque",sans-serif}
+.l24-bar b{font-weight:600}
+.l24-bar .l24-sub{color:#8f97a8}
+@media (max-width:620px){.l24-bar .l24-sub{display:none}}
+.l24-keep{flex:none;height:32px;padding:0 14px;border-radius:999px;border:0;background:#ffd60a;color:#000;font-weight:700!important}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:1001;background:#08090c}
+.l24-bar{top:env(safe-area-inset-top,0px)}
+.l24-note{position:fixed;z-index:1002;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(400px,calc(100vw - 32px));background:#08090c;border:1px solid #232733;border-radius:20px;padding:18px 18px 14px;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);transform:translateY(16px);opacity:0;transition:transform .7s cubic-bezier(.2,.9,.2,1),opacity .7s}
+.l24-note.in{transform:none;opacity:1}
+.l24-note[hidden]{display:none}
+.l24-note .l24-k{font:600 11px/1 "Onest",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#ffd60a}
+.l24-note p{margin:10px 0 0;font-size:14.5px}
+.l24-note p b{color:#fff}
+.l24-note .l24-s{color:#9aa1b1;font-size:13.5px}
+.l24-acts{display:flex;gap:8px;margin-top:14px}
+.l24-acts button{min-height:44px;padding:0 16px;border-radius:999px;border:1px solid #2c313d;background:transparent;color:#eef0f5;font-weight:600}
+.l24-acts .l24-y{background:#ffd60a;border-color:#ffd60a;color:#000}
+@media (max-width:560px){.l24-note .l24-s{display:none}}
+.l24-fab{position:fixed;z-index:999;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));display:inline-flex;align-items:center;gap:9px;height:50px;padding:0 18px;border-radius:999px;border:1px solid #232733;background:#08090c;color:#fff;font-weight:600;box-shadow:0 18px 40px -16px rgba(0,0,0,.6)}
+.l24-fab i{width:16px;height:16px;border-radius:50%;background:conic-gradient(#ffd60a 0 50%,var(--accent,#ffd60a) 0)}
+@media (max-width:760px){.l24-fab{bottom:calc(84px + env(safe-area-inset-bottom,0px))}}
+.l24-scrim{position:fixed;inset:0;z-index:1003;background:rgba(5,6,8,.55);opacity:0;pointer-events:none;transition:opacity .35s}
+.l24-scrim.open{opacity:1;pointer-events:auto}
+.l24-drawer{position:fixed;z-index:1004;top:0;right:0;bottom:0;width:min(410px,100vw);background:#101218;color:#eef0f5;border-left:1px solid #232733;transform:translateX(105%);transition:transform .5s cubic-bezier(.2,.9,.2,1);overflow-y:auto;padding:calc(22px + env(safe-area-inset-top,0px)) max(22px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) 22px}
+.l24-drawer.open{transform:none}
+.l24-x{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:14px;width:44px;height:44px;border-radius:50%;border:1px solid #2c313d;background:#161922;display:grid;place-items:center;padding:0}
+.l24-x svg{width:18px;height:18px;stroke:#eef0f5}
+.l24-h{font:700 30px/1.05 "Bricolage Grotesque",sans-serif;margin:8px 48px 0 0;letter-spacing:-.01em}
+.l24-p{color:#a3aab9;margin:10px 0 0}
+.l24-p b{color:#fff}
+.l24-lbl{display:block;font:600 11px/1 "Onest",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8f97a8;margin-top:22px}
+.l24-sw{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.l24-sw button{width:46px;height:46px;border-radius:50%;border:3px solid #101218;box-shadow:0 0 0 1.5px #2c313d;padding:0;transition:transform .2s}
+.l24-sw button[aria-pressed=true]{box-shadow:0 0 0 2.5px #ffd60a;transform:scale(1.06)}
+.l24-in{width:100%;min-height:48px;margin-top:8px;border-radius:12px;border:1.5px solid #2c313d;background:#08090c;color:#eef0f5;padding:0 12px;font:inherit;font-size:16px}
+.l24-in:focus{outline:none;border-color:#ffd60a}
+.l24-box{margin-top:24px;padding:20px;border-radius:18px;background:#08090c;border:1px solid #232733}
+.l24-box .l24-t{font:700 24px/1.1 "Bricolage Grotesque",sans-serif;color:#fff}
+.l24-done{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+.l24-done li{display:flex;gap:10px;align-items:flex-start}
+.l24-done li::before{content:"";flex:none;margin-top:2px;width:18px;height:18px;border-radius:50%;background:#25d366 url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'><path d='m6 12 4 4 8-8'/></svg>") center/11px no-repeat}
+.l24-price{font:700 40px/1 "Bricolage Grotesque",sans-serif;color:#fff;margin-top:14px}
+.l24-price span{font:400 15px "Onest",sans-serif;color:#9aa1b1}
+.l24-pay{display:flex;align-items:center;justify-content:center;text-decoration:none;width:100%;min-height:52px;margin-top:14px;border-radius:999px;border:0;background:#ffd60a;color:#000;font-weight:700!important;font-size:16px!important;animation:l24nudge 2.8s 1.4s ease-in-out infinite}
+@keyframes l24nudge{0%,86%,100%{transform:none}90%{transform:scale(1.03)}95%{transform:scale(.99)}}
+.l24-g{color:#9aa1b1;font-size:13.5px;margin:10px 0 0}
+.l24-wa{display:inline-flex;align-items:center;min-height:44px;color:#eef0f5;text-underline-offset:3px;font-size:14px}
+.l24-sheet{position:fixed;z-index:1004;left:50%;bottom:0;width:min(520px,100vw);max-height:88vh;overflow-y:auto;transform:translate(-50%,105%);transition:transform .5s cubic-bezier(.2,.9,.2,1);background:#101218;color:#eef0f5;border:1px solid #232733;border-radius:24px 24px 0 0;padding:14px max(20px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px))}
+.l24-sheet.open{transform:translate(-50%,0)}
+.l24-grab{width:44px;height:5px;border-radius:3px;background:#2c313d;margin:0 auto 16px}
+.l24-sheet .l24-x{top:14px}
+.l24-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 16px;border-radius:14px;background:#161922;margin-top:10px}
+.l24-row>div:first-child{min-width:0}
+.l24-row b{display:block}
+.l24-row span{color:#9aa1b1;font-size:13.5px}
+.l24-row .l24-num{color:#fff;font-size:16px;font-variant-numeric:tabular-nums;user-select:all}
+.l24-btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 16px;border-radius:999px;border:0;background:#ffd60a;color:#000!important;font-weight:700;text-decoration:none}
+.l24-btn.l24-gh{background:transparent;color:#eef0f5!important;box-shadow:inset 0 0 0 1.5px #2c313d}
+.l24-toast{position:fixed;z-index:1005;left:50%;top:calc(var(--l24-h) + 14px + env(safe-area-inset-top,0px));transform:translate(-50%,-14px);opacity:0;width:max-content;max-width:calc(100vw - 32px);text-align:center;background:#08090c;color:#fff;border:1px solid #232733;padding:11px 16px;border-radius:16px;font-size:14px;transition:opacity .3s,transform .3s;pointer-events:none}
+.l24-toast.show{opacity:1;transform:translate(-50%,0)}
+.l24-drawer,.l24-sheet{visibility:hidden}
+.l24-drawer.open,.l24-sheet.open{visibility:visible}
+@media (prefers-reduced-motion:reduce){.l24 *,.l24-pay{animation:none!important;transition:none!important}}
+</style>
+<div class="l24" id="l24"></div>
+<script>
+(function(){
+  var C=window.L24CFG||{}, root=document.getElementById('l24'), doc=document.documentElement;
+  var PAY='https://buy.stripe.com/9B65kC9zcfRMcqj7foe7m05?client_reference_id='+encodeURIComponent((C.name||'preview').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''));
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  var X='<svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  // bar goes first in <body>
+  var bar=document.createElement('div');bar.className='l24 l24-bar';
+  bar.innerHTML='<span class="l24-id"><span class="l24-logo">24</span><span><b>Preview made for '+esc(C.name)+'</b><span class="l24-sub"> by Launch24. Not live yet.</span></span></span><button class="l24-keep" type="button" data-l24-open>Make it yours</button>';
+  document.body.insertBefore(bar,document.body.firstChild);
+  var edits=[].slice.call(document.querySelectorAll('[data-l24-edit]'));
+  var sw=(C.swatches||[]);
+  root.innerHTML=
+   '<aside class="l24-note" id="l24-note" aria-label="Note from Launch24"><div class="l24-k">A note from Parth at Launch24</div><p>Hi! <b>'+esc(C.noteOpen)+'</b>, '+esc(C.noteRest)+'</p><p class="l24-s">It\'s built and ready. You\'re one click away from making it yours.</p><div class="l24-acts"><button class="l24-y" type="button" data-l24-open>Make it yours</button><button type="button" id="l24-look">Take a look</button></div></aside>'+
+   '<button class="l24-fab" type="button" data-l24-open><i aria-hidden="true"></i>Make it yours</button>'+
+   '<div class="l24-scrim" id="l24-scrim"></div>'+
+   '<aside class="l24-drawer" id="l24-drawer" aria-label="Make it yours" aria-hidden="true"><button class="l24-x" type="button" id="l24-dx" aria-label="Close">'+X+'</button>'+
+     '<span class="l24-lbl" style="margin-top:0;color:#ffd60a">Make it yours</span><h2 class="l24-h">Your website is ready.</h2>'+
+     '<p class="l24-p">We designed it, wrote it and added your hours, address and Google reviews. Try a colour or change the words if you like. Then you\'re <b>one click away</b> from making it yours.</p>'+
+     (sw.length?'<span class="l24-lbl">Colour</span><div class="l24-sw" id="l24-sw">'+sw.map(function(s,i){return '<button type="button" aria-pressed="'+(i===0)+'" aria-label="'+esc(s.name)+'" data-i="'+i+'" style="background:'+esc(s.dot)+'"></button>'}).join('')+'</div>':'')+
+     edits.map(function(el,i){var id='l24e'+i;return '<label class="l24-lbl" for="'+id+'">'+esc(el.getAttribute('data-l24-edit'))+'</label><input class="l24-in" id="'+id+'" data-i="'+i+'" value="'+esc(el.textContent.trim())+'">'}).join('')+
+     '<div class="l24-box"><div class="l24-t">You\'re one click away.</div><p class="l24-g" style="margin-top:6px">Already done for you:</p><ul class="l24-done">'+(C.checklist||[]).map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>'+
+     '<p class="l24-p" style="color:#eef0f5"><b>All that\'s left:</b> tap Pay. We add your real photos and details, and put it live on your own domain within 24 hours.</p>'+
+     '<div class="l24-price">$699 <span>one-time</span></div><a class="l24-pay" id="l24-pay" target="_blank" rel="noopener" href="'+esc(PAY)+'">Pay $699 and make it mine →</a><p class="l24-g" style="margin-top:8px">Secure checkout by Stripe.</p>'+
+     '<p class="l24-g">If we miss the 24 hours, you pay nothing. Your deposit is refunded in full.</p><a class="l24-wa" id="l24-wa" target="_blank" rel="noopener" href="#">Questions first? WhatsApp Parth</a></div></aside>'+
+   '<div class="l24-sheet" id="l24-sheet" role="dialog" aria-modal="true" aria-labelledby="l24-st" aria-hidden="true"><div class="l24-grab"></div><button class="l24-x" type="button" id="l24-sx" aria-label="Close">'+X+'</button><span class="l24-lbl" style="margin-top:0;color:#ffd60a" id="l24-se">Contact</span><h2 class="l24-h" id="l24-st" style="font-size:26px">How would you like to reach us?</h2>'+
+     (C.phone?'<div class="l24-row"><div><b>Call</b><span class="l24-num" id="l24-num">'+esc(C.phone)+'</span></div><div style="display:flex;gap:8px"><a class="l24-btn" href="tel:'+esc(C.tel)+'">Call</a><button class="l24-btn l24-gh" type="button" id="l24-copy">Copy</button></div></div>':'')+
+     (C.book?'<div class="l24-row"><div><b>Book online</b><span>Your existing '+esc(C.bookName||'booking')+' page</span></div><a class="l24-btn" href="'+esc(C.book)+'" target="_blank" rel="noopener">Open</a></div>':'')+
+     (C.instagram?'<div class="l24-row"><div><b>Instagram</b><span>Send a DM</span></div><a class="l24-btn l24-gh" href="'+esc(C.instagram)+'" target="_blank" rel="noopener">Open</a></div>':'')+
+     (C.address?'<div class="l24-row"><div><b>Visit</b><span>'+esc(C.address)+'</span></div><a class="l24-btn l24-gh" href="'+esc(C.maps)+'" target="_blank" rel="noopener">Directions</a></div>':'')+
+     '<p class="l24-g">On the live site these buttons call, book or open directions straight away.</p></div>'+
+   '<div class="l24-toast" id="l24-toast" role="status"></div>';
+  var $=function(id){return document.getElementById(id)};
+  var tt;function toast(m){var t=$('l24-toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('show')},3400)}
+  var note=$('l24-note');setTimeout(function(){note.classList.add('in')},700);
+  $('l24-look').onclick=function(){note.hidden=true};
+  var dr=$('l24-drawer'),sh=$('l24-sheet'),sc=$('l24-scrim');
+  function openD(){closeS();dr.classList.add('open');sc.classList.add('open');dr.setAttribute('aria-hidden','false');note.hidden=true;setTimeout(function(){$('l24-dx').focus()},200)}
+  function closeD(){dr.classList.remove('open');dr.setAttribute('aria-hidden','true');if(!sh.classList.contains('open'))sc.classList.remove('open')}
+  function openS(t){closeD();$('l24-st').textContent=t?t:'How would you like to reach us?';sh.classList.add('open');sc.classList.add('open');sh.setAttribute('aria-hidden','false');setTimeout(function(){$('l24-sx').focus()},200)}
+  function closeS(){sh.classList.remove('open');sh.setAttribute('aria-hidden','true');if(!dr.classList.contains('open'))sc.classList.remove('open')}
+  document.addEventListener('click',function(e){var o=e.target.closest('[data-l24-open]');if(o){e.preventDefault();openD();return}var c=e.target.closest('[data-l24-contact]');if(c){e.preventDefault();openS(c.getAttribute('data-l24-contact'))}});
+  $('l24-dx').onclick=closeD;$('l24-sx').onclick=closeS;sc.onclick=function(){closeD();closeS()};
+  addEventListener('keydown',function(e){if(e.key==='Escape'){closeD();closeS()}});
+  var cp=$('l24-copy');if(cp)cp.onclick=function(){var n=$('l24-num').textContent;try{navigator.clipboard.writeText(n).then(function(){toast('Number copied')},sel)}catch(_){sel()}function sel(){var r=document.createRange();r.selectNodeContents($('l24-num'));var s=getSelection();s.removeAllRanges();s.addRange(r);toast('Number selected')}};
+  var choice=sw[0]?sw[0].name:'Original';
+  [].forEach.call(document.querySelectorAll('#l24-sw button'),function(b){b.onclick=function(){var s=sw[+b.dataset.i];[].forEach.call(document.querySelectorAll('#l24-sw button'),function(x){x.setAttribute('aria-pressed',x===b)});Object.keys(s.vars||{}).forEach(function(k){doc.style.setProperty(k,s.vars[k])});choice=s.name;wa();if(matchMedia('(max-width: 767px)').matches){setTimeout(function(){closeD();toast(s.name+' it is. Tap Make it yours to try another.')},180)}else{toast(s.name+' it is')}}});
+  [].forEach.call(document.querySelectorAll('.l24-in'),function(inp){inp.oninput=function(){edits[+inp.dataset.i].textContent=inp.value;wa()}});
+  function wa(){var m='Hi Parth! I saw the website preview for '+C.name+" and I'd like to make it mine.\nColour: "+choice+edits.map(function(el){return '\n'+el.getAttribute('data-l24-edit')+': '+el.textContent.trim()}).join('');$('l24-wa').href='https://wa.me/14373652475?text='+encodeURIComponent(m)}
+  wa();
+  window.L24={toast:toast,contact:openS,open:openD};
+})();
+</script>
+<!-- ===== end Launch24 layer ===== -->

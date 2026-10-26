@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<title>Honest Burgers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Rubik:wght@400;500;700;800&family=Courier+Prime:wght@400;700&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --accent:#E0281C;      /* ketchup */
+  --mustard:#FFC21A;
+  --ink:#1C120D;
+  --paper:#FFFBF0;
+  --crust:#E08A2C;
+  --pickle:#3FA34D;
+  --line:4px;
+  --gut:max(16px,env(safe-area-inset-left,0px));
+  --gutr:max(16px,env(safe-area-inset-right,0px));
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--mustard);color:var(--ink);font-family:"Rubik",system-ui,sans-serif;font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:"Lilita One","Rubik",sans-serif;font-weight:400;line-height:.95;margin:0;letter-spacing:.005em}
+.wrap{max-width:1180px;margin:0 auto;padding-left:var(--gut);padding-right:var(--gutr)}
+:focus-visible{outline:4px solid var(--ink);outline-offset:3px}
+
+/* buttons */
+.btn{white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 26px;border-radius:999px;border:var(--line) solid var(--ink);background:var(--accent);color:#fff;font:800 18px/1 "Rubik",sans-serif;text-decoration:none;cursor:pointer;box-shadow:5px 5px 0 var(--ink);transition:transform .18s cubic-bezier(.3,1.6,.5,1),box-shadow .18s;-webkit-tap-highlight-color:transparent}
+.btn:hover{transform:translate(-2px,-2px) rotate(-1deg);box-shadow:7px 7px 0 var(--ink)}
+.btn:active{transform:translate(4px,4px) scale(.97);box-shadow:1px 1px 0 var(--ink)}
+.btn.alt{background:var(--paper);color:var(--ink)}
+.btn svg{width:20px;height:20px;flex:none}
+
+/* header */
+.top{position:sticky;top:calc(var(--l24-h) + env(safe-area-inset-top,0px));z-index:50;background:var(--mustard);border-bottom:var(--line) solid var(--ink)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;height:64px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo .mark{width:42px;height:42px;border-radius:50%;background:var(--accent);border:3px solid var(--ink);display:grid;place-items:center;color:#fff;font:400 22px/1 "Lilita One";transform:rotate(-8deg)}
+.logo b{font:400 22px/.9 "Lilita One";display:block}
+.logo small{display:block;font:700 10.5px/1.2 "Rubik";letter-spacing:.14em;text-transform:uppercase}
+.top nav{display:flex;align-items:center;gap:6px}
+.top nav a.lk{display:none;font-weight:700;text-decoration:none;padding:10px 12px;border-radius:999px}
+.top nav a.lk:hover{background:var(--paper)}
+.top .btn{min-height:46px;padding:0 18px;font-size:15px;box-shadow:3px 3px 0 var(--ink)}
+@media(min-width:860px){.top nav a.lk{display:inline-flex}}
+
+/* hero */
+.hero{position:relative;padding:34px 0 70px;overflow:hidden}
+.hero .wrap{display:grid;gap:36px;align-items:center}
+.status{display:inline-flex;align-items:center;gap:9px;padding:8px 16px 8px 12px;border:3px solid var(--ink);border-radius:999px;background:var(--paper);font-weight:800;font-size:14.5px;transform:rotate(-2deg);box-shadow:3px 3px 0 var(--ink)}
+.status i{width:12px;height:12px;border-radius:50%;background:#9a9a9a;border:2px solid var(--ink)}
+.status.open i{background:#2fc04a;animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{50%{transform:scale(.6)}}
+.hero h1{font-size:clamp(54px,14vw,100px);margin:22px 0 0;color:var(--paper);-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;text-shadow:5px 5px 0 var(--ink)}
+.hero h1 .hl{color:var(--accent)}
+.lede{font-size:19px;font-weight:500;max-width:30ch;margin:22px 0 0}
+.cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}
+.hero-art{position:relative;justify-self:center;width:min(100%,460px);aspect-ratio:4/5}
+.sticker-photo{position:absolute;inset:6% 4% 4% 10%;border:6px solid var(--ink);border-radius:34px;overflow:hidden;background:#ddd;transform:rotate(4deg);box-shadow:10px 10px 0 var(--ink)}
+.sticker-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 62%}
+.badge{position:absolute;left:-4%;top:-2%;width:44%;aspect-ratio:1;animation:spin 14s linear infinite}
+.badge svg{width:100%;height:100%;overflow:visible}
+.badge-core{position:absolute;left:-4%;top:-2%;width:44%;aspect-ratio:1;display:grid;place-items:center;pointer-events:none}
+.badge-core span{width:46%;aspect-ratio:1;border-radius:50%;background:var(--mustard);border:4px solid var(--ink);display:grid;place-items:center;font:400 clamp(26px,6vw,40px)/1 "Lilita One";color:var(--accent);transform:rotate(-10deg)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.tag{position:absolute;font:400 20px/1 "Lilita One";padding:10px 16px;border:3px solid var(--ink);border-radius:14px;box-shadow:4px 4px 0 var(--ink)}
+.tag.t1{right:-2%;bottom:16%;background:var(--accent);color:#fff;transform:rotate(-9deg)}
+.tag.t2{left:2%;bottom:3%;background:var(--paper);transform:rotate(6deg)}
+.photo-note{position:absolute;right:4%;bottom:-30px;font-size:12px;font-weight:500;opacity:.8}
+@media(min-width:900px){
+  .hero{padding:56px 0 90px}
+  .hero .wrap{grid-template-columns:1.25fr .75fr}
+}
+
+/* marquee */
+.marq-wrap{overflow:hidden;padding:18px 0;margin:-18px 0;position:relative;z-index:2}
+.marq{background:var(--accent);color:#fff;border-block:var(--line) solid var(--ink);overflow:hidden;transform:rotate(-1.6deg);margin:0 -20px;position:relative;z-index:2}
+.marq-in{display:flex;width:max-content;animation:mq 26s linear infinite}
+.marq span{font:400 30px/1 "Lilita One";padding:16px 0;white-space:nowrap;display:flex;align-items:center}
+.marq span::after{content:"";width:22px;height:22px;margin:0 22px;background:var(--mustard);border:3px solid var(--ink);clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* section heads */
+section{position:relative}
+.sec{padding:84px 0}
+.kick{display:inline-block;font:700 13px/1 "Rubik";letter-spacing:.16em;text-transform:uppercase;background:var(--ink);color:var(--mustard);padding:8px 12px;border-radius:8px;transform:rotate(-2deg)}
+.sec h2{font-size:clamp(42px,9vw,76px);margin-top:16px}
+.sub{max-width:44ch;margin:14px 0 0;font-size:18px}
+
+/* builder */
+.build{background:var(--paper);border-block:var(--line) solid var(--ink);background-image:radial-gradient(var(--mustard) 2px,transparent 2.5px);background-size:26px 26px}
+.build-grid{display:grid;gap:28px;margin-top:34px;align-items:start}
+.picks{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pick{position:relative;min-height:92px;padding:14px 14px 12px;border:var(--line) solid var(--ink);border-radius:20px;background:#fff;text-align:left;font:inherit;color:var(--ink);cursor:pointer;box-shadow:4px 4px 0 var(--ink);transition:transform .22s cubic-bezier(.3,1.7,.5,1),box-shadow .2s,background .2s;-webkit-tap-highlight-color:transparent}
+.pick b{display:block;font:400 25px/1 "Lilita One"}
+.pick small{display:block;margin-top:6px;font-size:13.5px;line-height:1.3}
+.pick .em{position:absolute;right:10px;top:10px;width:28px;height:28px}
+.pick:hover{transform:rotate(-1.5deg) translateY(-2px)}
+.pick:active{transform:scale(.94)}
+.pick[aria-pressed=true]{background:var(--accent);color:#fff;transform:rotate(-2deg);box-shadow:6px 6px 0 var(--ink)}
+.combo-with{grid-column:1/-1;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-weight:700;font-size:15px}
+.combo-with[hidden]{display:none}
+.seg{display:inline-flex;border:3px solid var(--ink);border-radius:999px;overflow:hidden;background:#fff}
+.seg button{min-height:44px;padding:0 16px;border:0;background:transparent;font:700 15px "Rubik";color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--mustard)}
+.stage-card{position:relative;border:var(--line) solid var(--ink);border-radius:28px;background:var(--mustard);box-shadow:8px 8px 0 var(--ink);overflow:hidden}
+.stage{position:relative;height:330px;background:radial-gradient(circle at 50% 108%,rgba(255,255,255,.65) 0 38%,transparent 38.5%)}
+.stage svg{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:min(100%,380px);height:auto;overflow:visible}
+.stage .hint{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font:400 26px/1.05 "Lilita One";padding:20px;transition:opacity .3s}
+.drop{transform-box:fill-box;transform-origin:50% 100%;animation:drop .78s cubic-bezier(.2,.7,.3,1) both}
+@keyframes drop{
+  0%{transform:translateY(-420px);opacity:0}
+  8%{opacity:1}
+  52%{transform:translateY(0) scale(1.08,.82)}
+  68%{transform:translateY(-16px) scale(.96,1.05)}
+  84%{transform:translateY(0) scale(1.03,.97)}
+  100%{transform:none}
+}
+.ticket{background:#fff;border-top:var(--line) dashed var(--ink);padding:18px 20px 22px;font-family:"Courier Prime",monospace}
+.ticket .row{display:flex;justify-content:space-between;gap:10px;font-size:14px;text-transform:uppercase;letter-spacing:.06em}
+.ticket h3{font:400 32px/1 "Lilita One";margin:10px 0 4px}
+.ticket p{margin:0;font-size:16px}
+.ticket .fine{margin-top:10px;font-size:14px;opacity:.85}
+.ticket .btn{margin-top:16px;width:100%}
+.pop{animation:pop .45s cubic-bezier(.3,1.8,.5,1)}
+@keyframes pop{0%{transform:scale(.9)}100%{transform:none}}
+@media(min-width:900px){
+  .build-grid{grid-template-columns:.9fr 1.1fr}
+  .picks{grid-template-columns:1fr 1fr;gap:16px}
+  .pick{min-height:120px;padding:18px}
+  .pick b{font-size:32px}
+  .stage{height:380px}
+}
+
+/* menu board */
+.menu{background:var(--ink);color:var(--paper)}
+.menu .kick{background:var(--mustard);color:var(--ink)}
+.menu h2{color:var(--mustard)}
+.board-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.scroll-btns{display:none;gap:10px}
+.scroll-btns button{width:52px;height:52px;border-radius:50%;border:3px solid var(--paper);background:transparent;color:var(--paper);cursor:pointer;display:grid;place-items:center;transition:transform .2s cubic-bezier(.3,1.7,.5,1)}
+.scroll-btns button:hover{background:var(--mustard);color:var(--ink);border-color:var(--mustard);transform:scale(1.08)}
+.scroll-btns svg{width:22px;height:22px}
+@media(min-width:760px){.scroll-btns{display:flex}}
+.board{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:36px var(--gutr) 30px var(--gut);margin-top:10px;scrollbar-width:thin;scrollbar-color:var(--mustard) transparent;overscroll-behavior-x:contain;scroll-padding-left:var(--gut)}
+.board::-webkit-scrollbar{height:8px}.board::-webkit-scrollbar-thumb{background:var(--mustard);border-radius:8px}
+@media(min-width:1180px){.board{padding-left:calc((100vw - 1180px)/2 + 16px);scroll-padding-left:calc((100vw - 1180px)/2 + 16px)}}
+.item{flex:none;width:min(78vw,300px);scroll-snap-align:start;background:var(--paper);color:var(--ink);border:var(--line) solid var(--paper);border-radius:26px;overflow:hidden;transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
+.item:nth-child(odd){transform:rotate(-1.5deg)}
+.item:nth-child(even){transform:rotate(1.5deg)}
+.item:hover{transform:rotate(0) translateY(-6px)}
+.item .ph{aspect-ratio:4/3;background:var(--mustard);border-bottom:var(--line) solid var(--ink);position:relative;overflow:hidden}
+.item .ph img{width:100%;height:100%;object-fit:cover}
+.item .ph svg{position:absolute;inset:0;margin:auto;width:70%;height:80%}
+.item .num{position:absolute;left:12px;top:12px;width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;border:3px solid var(--ink);display:grid;place-items:center;font:400 20px "Lilita One"}
+.item .bd{padding:18px 20px 22px}
+.item h3{font-size:30px}
+.item p{margin:8px 0 0;font-size:16px}
+.item .price{display:inline-block;margin-top:14px;font:700 13px/1 "Courier Prime",monospace;text-transform:uppercase;letter-spacing:.08em;border:2px dashed var(--ink);padding:7px 10px;border-radius:8px}
+.board-foot{font-size:14px;opacity:.75}
+
+/* reviews */
+.reviews .wrap{position:relative}
+.score{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:22px}
+.score .big{width:150px;height:150px;flex:none;border-radius:50%;background:var(--accent);color:#fff;border:var(--line) solid var(--ink);box-shadow:6px 6px 0 var(--ink);display:grid;place-content:center;text-align:center;transform:rotate(-8deg)}
+.score .big b{font:400 54px/1 "Lilita One"}
+.score .big small{font-weight:800;font-size:13px;letter-spacing:.1em}
+.score p{margin:0;font-weight:700;font-size:20px;max-width:20ch}
+.stars{display:inline-flex;gap:3px;color:var(--ink)}
+.stars svg{width:20px;height:20px}
+.receipts{display:grid;gap:30px;margin-top:44px}
+.rc{position:relative;background:#fff;padding:24px 22px 34px;font-family:"Courier Prime",monospace;filter:drop-shadow(6px 6px 0 var(--ink));transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
+.rc::after{content:"";position:absolute;left:0;right:0;bottom:-13px;height:14px;background:linear-gradient(-45deg,transparent 9px,#fff 0) 0 0/18px 14px,linear-gradient(45deg,transparent 9px,#fff 0) 0 0/18px 14px;background-repeat:repeat-x}
+.rc:nth-child(1){transform:rotate(-2deg)}
+.rc:nth-child(2){transform:rotate(1.5deg)}
+.rc:nth-child(3){transform:rotate(-1deg)}
+.rc:hover{transform:rotate(0) scale(1.02)}
+.rc .hdr{display:flex;justify-content:space-between;font-size:13px;text-transform:uppercase;letter-spacing:.08em;border-bottom:2px dashed var(--ink);padding-bottom:10px}
+.rc blockquote{margin:14px 0 0;font-size:17px;line-height:1.45}
+.rc .who{margin-top:16px;padding-top:10px;border-top:2px dashed var(--ink);font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.rc .pin{position:absolute;top:-16px;right:18px;font:400 18px/1 "Lilita One";background:var(--mustard);border:3px solid var(--ink);padding:8px 12px;border-radius:12px;transform:rotate(7deg);filter:none}
+@media(min-width:900px){.receipts{grid-template-columns:repeat(3,1fr);align-items:start}.rc:nth-child(2){margin-top:40px}}
+
+/* hours */
+.hours{background:var(--paper);border-top:var(--line) solid var(--ink)}
+.hgrid{display:grid;gap:28px;margin-top:34px}
+.hcard{border:var(--line) solid var(--ink);border-radius:26px;background:#fff;box-shadow:7px 7px 0 var(--ink);padding:10px 8px}
+.hcard ul{list-style:none;margin:0;padding:0}
+.hcard li{display:flex;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:14px;font-weight:500}
+.hcard li+li{border-top:2px dotted rgba(28,18,13,.25)}
+.hcard li.today{background:var(--mustard);font-weight:800;border-top-color:transparent}
+.hcard li.today+li{border-top-color:transparent}
+.hcard .late{font:400 15px/1 "Lilita One";background:var(--accent);color:#fff;padding:4px 8px;border-radius:8px;margin-left:8px;vertical-align:2px}
+.where{display:grid;gap:18px;align-content:start}
+.where h3{font-size:36px}
+.addr{font-size:20px;font-weight:700;margin:6px 0 0}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:3px solid var(--ink);border-radius:999px;background:#fff;font-weight:800;font-size:15px}
+.chip:nth-child(1){transform:rotate(-2deg)}.chip:nth-child(2){transform:rotate(2deg)}
+.phone{font:400 34px/1 "Lilita One";letter-spacing:.01em}
+.where .btns{display:flex;flex-wrap:wrap;gap:12px}
+@media(min-width:900px){.hgrid{grid-template-columns:1fr 1fr;gap:48px}}
+
+/* closing */
+.close{background:var(--accent);color:#fff;border-top:var(--line) solid var(--ink);text-align:left;overflow:hidden}
+.close .wrap{display:grid;gap:26px}
+.close h2{font-size:clamp(52px,12vw,110px);color:var(--paper);-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;text-shadow:5px 5px 0 var(--ink)}
+.close p{font-size:19px;font-weight:500;max-width:36ch;margin:0}
+.close .btn{background:var(--mustard);color:var(--ink)}
+.close .moon{position:absolute;right:-60px;top:-50px;width:240px;height:240px;border-radius:50%;background:var(--mustard);border:var(--line) solid var(--ink);opacity:.95}
+.close .moon::after{content:"";position:absolute;inset:-4px -4px -4px 60px;border-radius:50%;background:var(--accent);border-left:var(--line) solid var(--ink)}
+footer{background:var(--ink);color:var(--paper);padding:30px 0 120px;font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between}
+@media(min-width:761px){footer{padding-bottom:40px}}
+
+/* mobile bar */
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:40;height:72px;display:flex;align-items:center;gap:10px;padding:0 var(--gutr) env(safe-area-inset-bottom,0px) var(--gut);background:var(--ink);color:var(--paper)}
+.mbar .st{flex:1;min-width:0;font-weight:700;font-size:14px;line-height:1.2}
+.mbar .st small{display:block;font-weight:500;opacity:.75}
+.mbar .btn{min-height:50px;padding:0 20px;font-size:16px;box-shadow:none;border-color:var(--mustard)}
+@media(min-width:761px){.mbar{display:none}}
+
+/* reveal */
+.rv{transition:transform .7s cubic-bezier(.2,.9,.3,1.2),opacity .7s}
+.js .rv.pending{opacity:0;transform:translateY(34px) rotate(-1deg)}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+  .js .rv.pending{opacity:1;transform:none}
+}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="The Honest Burgers and Fried Chicken, home">
+      <span class="mark" aria-hidden="true">H</span>
+      <span><b>The Honest</b><small>Burgers &amp; fried chicken</small></span>
+    </a>
+    <nav aria-label="Main">
+      <a class="lk" href="#build">Build your order</a>
+      <a class="lk" href="#menu">Menu</a>
+      <a class="lk" href="#hours">Hours</a>
+      <button class="btn" type="button" data-l24-contact="Call to order">Call us</button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="status" id="status"><i aria-hidden="true"></i><span id="status-t">Open late every night</span></span>
+      <h1><span data-l24-edit="Headline">Crispy chicken and burgers on Sheppard East.</span></h1>
+      <p class="lede" data-l24-edit="Tagline">Fried chicken that stays juicy, burgers made to order, combos and loaded bowls. Takeout and delivery, open late.</p>
+      <div class="cta-row">
+        <button class="btn" type="button" data-l24-contact="Call to order">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+          Call to order</button>
+        <a class="btn alt" href="#build">Build your order</a>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="sticker-photo"><img src="/p/g0myuz-honest-burgers-fried-chicken/img/burger1.jpg" alt="" fetchpriority="high"></div>
+      <div class="badge">
+        <svg viewBox="0 0 200 200">
+          <defs><path id="circ" d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0"/></defs>
+          <circle cx="100" cy="100" r="96" fill="var(--accent)" stroke="var(--ink)" stroke-width="5"/>
+          <text font-family="Lilita One" font-size="24" fill="#fff"><textPath href="#circ" textLength="458" lengthAdjust="spacing">CRISPY · JUICY · OPEN LATE ·</textPath></text>
+        </svg>
+      </div>
+      <div class="badge-core"><span>★</span></div>
+      <span class="tag t1">Made to order</span>
+      <span class="tag t2">Takeout + delivery</span>
+    </div>
+  </div>
+</section>
+
+<div class="marq-wrap"><div class="marq" aria-hidden="true"><div class="marq-in" id="marq"></div></div></div>
+
+<section class="sec build" id="build">
+  <div class="wrap">
+    <span class="kick">Build your order</span>
+    <h2>Tap it. Stack it.<br>Call it in.</h2>
+    <p class="sub">Pick what you're craving and watch it come together. Then give us a call and it's yours.</p>
+    <div class="build-grid">
+      <div class="picks" role="group" aria-label="What are you craving?">
+        <button class="pick" type="button" data-k="chicken" aria-pressed="false"><b>Chicken</b><small>Super crispy, juicy inside</small></button>
+        <button class="pick" type="button" data-k="burger" aria-pressed="false"><b>Burger</b><small>Made to order</small></button>
+        <button class="pick" type="button" data-k="combo" aria-pressed="false"><b>Combo</b><small>Sides and a drink</small></button>
+        <button class="pick" type="button" data-k="bowl" aria-pressed="false"><b>Loaded bowl</b><small>Everything in one bowl</small></button>
+        <div class="combo-with" id="combo-with" hidden>Combo with
+          <span class="seg" role="group" aria-label="Combo main">
+            <button type="button" data-m="chicken" aria-pressed="true">Chicken</button>
+            <button type="button" data-m="burger" aria-pressed="false">Burger</button>
+          </span>
+        </div>
+      </div>
+      <div class="stage-card">
+        <div class="stage" id="stage" aria-hidden="true">
+          <div class="hint" id="hint">Pick something.<br>We'll stack it.</div>
+        </div>
+        <div class="ticket" aria-live="polite">
+          <div class="row"><span>Order ticket</span><span id="tk-no">No. 01</span></div>
+          <h3 id="tk-name">Your order</h3>
+          <p id="tk-desc">Choose chicken, a burger, a combo or a loaded bowl.</p>
+          <p class="fine">Takeout or delivery. Ask for today's prices.</p>
+          <button class="btn" type="button" id="tk-call" data-l24-contact="Call to order">Call to order</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec menu" id="menu">
+  <div class="wrap board-head">
+    <div>
+      <span class="kick">The menu board</span>
+      <h2>What's cooking</h2>
+      <p class="sub">The favourites people order again and again.</p>
+    </div>
+    <div class="scroll-btns">
+      <button type="button" id="mb-prev" aria-label="Scroll menu left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button type="button" id="mb-next" aria-label="Scroll menu right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+  <div class="board" id="board" tabindex="0" aria-label="Menu, scroll sideways">
+    <article class="item"><div class="ph"><img src="/p/g0myuz-honest-burgers-fried-chicken/img/chicken1.jpg" alt="A basket of crispy fried chicken" loading="lazy"><span class="num">1</span></div>
+      <div class="bd"><h3>Fried chicken</h3><p>Super crispy and actually stays juicy inside.</p><span class="price">Ask for today's prices</span></div></article>
+    <article class="item"><div class="ph"><img src="/p/g0myuz-honest-burgers-fried-chicken/img/chicken2.jpg" alt="Fried chicken pieces on a plate" loading="lazy" style="object-position:50% 55%"><span class="num">2</span></div>
+      <div class="bd"><h3>Chicken combos</h3><p>Pieces, sides and a drink. Portions bigger than you'd expect.</p><span class="price">Ask for today's prices</span></div></article>
+    <article class="item"><div class="ph">
+        <svg viewBox="0 0 200 160" aria-hidden="true"><g stroke="#1C120D" stroke-width="5" stroke-linejoin="round"><ellipse cx="100" cy="74" rx="78" ry="30" fill="#FFFBF0"/><circle cx="66" cy="64" r="15" fill="#E08A2C"/><circle cx="96" cy="56" r="16" fill="#E08A2C"/><circle cx="128" cy="64" r="15" fill="#E08A2C"/><circle cx="84" cy="80" r="13" fill="#E08A2C"/><circle cx="116" cy="82" r="13" fill="#E08A2C"/><path d="M22 76h156q-6 66-78 66T22 76z" fill="var(--accent)"/></g><path d="M40 98h120" stroke="#fff" stroke-width="6" stroke-linecap="round"/></svg>
+        <span class="num">3</span></div>
+      <div class="bd"><h3>Loaded chicken bowl</h3><p>Everything in one bowl.</p><span class="price">Ask for today's prices</span></div></article>
+    <article class="item"><div class="ph"><img src="/p/g0myuz-honest-burgers-fried-chicken/img/burger3.jpg" alt="A tall crispy burger" loading="lazy"><span class="num">4</span></div>
+      <div class="bd"><h3>Burgers</h3><p>Made to order. Cooked when you order it.</p><span class="price">Ask for today's prices</span></div></article>
+    <article class="item"><div class="ph"><img src="/p/g0myuz-honest-burgers-fried-chicken/img/burger2.jpg" alt="A burger with a basket of fries" loading="lazy"><span class="num">5</span></div>
+      <div class="bd"><h3>Burger combos</h3><p>Your burger plus sides and a drink.</p><span class="price">Ask for today's prices</span></div></article>
+  </div>
+  <div class="wrap"><p class="board-foot">Sample photos. We'll use yours. Full menu and prices go here on the live site.</p></div>
+</section>
+
+<section class="sec reviews" id="reviews">
+  <div class="wrap">
+    <span class="kick">Straight from Google</span>
+    <h2>People keep coming back</h2>
+    <div class="score">
+      <div class="big"><b>4.3</b><small>★ ON GOOGLE</small></div>
+      <p>From 1,075 Google reviews. Here's what a few of them said.</p>
+    </div>
+    <div class="receipts">
+      <figure class="rc rv" style="margin:0">
+        <span class="pin">Crispy!</span>
+        <div class="hdr"><span>Google review</span><span class="stars" aria-label="5 stars"></span></div>
+        <blockquote>“The chicken was super crispy and actually stayed juicy inside, and the seasoning was really nice. I got the combo and the portions were bigger than I expected too… I'll be coming back for sure.”</blockquote>
+        <figcaption class="who">Arnav · Google review</figcaption>
+      </figure>
+      <figure class="rc rv" style="margin:0">
+        <span class="pin">Fresh</span>
+        <div class="hdr"><span>Google review</span><span class="stars" aria-label="5 stars"></span></div>
+        <blockquote>“Great food and excellent service! The chicken is always fresh, flavorful, and cooked perfectly. Portions are generous… Orders are prepared quickly, and the quality is consistently good.”</blockquote>
+        <figcaption class="who">Mahmad M. · Google review</figcaption>
+      </figure>
+      <figure class="rc rv" style="margin:0">
+        <span class="pin">Wow</span>
+        <div class="hdr"><span>Google review</span><span class="stars" aria-label="5 stars"></span></div>
+        <blockquote>“It is most amazing restaurant i have ever ordered my food… Thank you!”</blockquote>
+        <figcaption class="who">Andriy P. · Google review</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="sec hours" id="hours">
+  <div class="wrap">
+    <span class="kick">Hours and location</span>
+    <h2>Late night? We got you.</h2>
+    <p class="sub">Open from 11 AM every day, and till midnight Wednesday to Sunday.</p>
+    <div class="hgrid">
+      <div class="hcard"><ul id="hlist"></ul></div>
+      <div class="where">
+        <div>
+          <h3>Find us</h3>
+          <p class="addr">4830 Sheppard Ave E<br>Scarborough, ON M1S 5M9</p>
+        </div>
+        <div class="chips"><span class="chip">Takeout</span><span class="chip">Delivery</span><span class="chip">Open late</span></div>
+        <div><div class="phone">(416) 396-4966</div></div>
+        <div class="btns">
+          <button class="btn" type="button" data-l24-contact="Call to order">Call to order</button>
+          <button class="btn alt" type="button" data-l24-contact="Get directions">Get directions</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec close">
+  <div class="moon" aria-hidden="true"></div>
+  <div class="wrap">
+    <h2>Hungry?<br>Call it in.</h2>
+    <p>Crispy chicken, burgers made to order, combos and loaded bowls. Ready for pickup or brought to your door.</p>
+    <div><button class="btn" type="button" data-l24-contact="Call to order">Call (416) 396-4966</button></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>The Honest Burgers and Fried Chicken · 4830 Sheppard Ave E, Scarborough</span>
+    <span>Sample photos. We'll use yours.</span>
+  </div>
+</footer>
+
+<div class="mbar">
+  <div class="st"><span id="mb-st">Open late</span><small>Takeout + delivery</small></div>
+  <button class="btn" type="button" data-l24-contact="Call to order">Call to order</button>
+</div>
+
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* marquee */
+  var words=["Fried chicken","Burgers","Combos","Loaded bowls","Takeout","Delivery","Open late"];
+  var m=document.getElementById('marq'),h='';
+  for(var r=0;r<4;r++)words.forEach(function(w){h+='<span>'+w+'</span>'});
+  m.innerHTML=h;
+
+  /* stars */
+  var star='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18.5 21 12 16.8 5.5 21l2-7.5L2 9h7z"/></svg>';
+  [].forEach.call(document.querySelectorAll('.stars'),function(s){s.innerHTML=star+star+star+star+star});
+
+  /* hours, Toronto time */
+  var HRS=[["Sunday",[11,24]],["Monday",[11,23]],["Tuesday",[11,23]],["Wednesday",[11,24]],["Thursday",[11,24]],["Friday",[11,24]],["Saturday",[11,24]]];
+  function fmt(x){x=x%24;if(x===0)return'midnight';if(x===12)return'noon';var hh=Math.floor(x),mm=Math.round((x-hh)*60);var ap=hh<12?'AM':'PM';var h12=hh%12||12;return h12+(mm?':'+(mm<10?'0':'')+mm:'')+' '+ap}
+  function now(){var p=new Intl.DateTimeFormat('en-US',{timeZone:'America/Toronto',weekday:'short',hour:'numeric',minute:'numeric',hourCycle:'h23'}).formatToParts(new Date());var o={};p.forEach(function(x){o[x.type]=x.value});var d=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(o.weekday);return{d:d,h:(+o.hour%24)+(+o.minute)/60}}
+  function status(){
+    var n=now(),t=HRS[n.d][1],y=HRS[(n.d+6)%7][1];
+    if(y[1]>24&&n.h<y[1]-24)return{open:true,txt:'Open now · until '+fmt(y[1])};
+    if(n.h>=t[0]&&n.h<t[1])return{open:true,txt:'Open now · until '+fmt(t[1])};
+    if(n.h<t[0])return{open:false,txt:'Closed · opens '+fmt(t[0])};
+    for(var i=1;i<=7;i++){var k=(n.d+i)%7;var s=HRS[k][1];if(s){return{open:false,txt:'Closed · opens '+(i===1?'tomorrow':HRS[k][0])+' '+fmt(s[0])}}}
+    return{open:false,txt:'Closed'};
+  }
+  function paint(){
+    var s=status(),el=document.getElementById('status');
+    el.classList.toggle('open',s.open);
+    document.getElementById('status-t').textContent=s.txt;
+    document.getElementById('mb-st').textContent=s.txt;
+    var n=now(),ul=document.getElementById('hlist'),out='';
+    for(var i=1;i<=7;i++){var k=i%7,row=HRS[k],late=row[1][1]>=24;
+      out+='<li'+(k===n.d?' class="today"':'')+'><span>'+row[0]+(k===n.d?' (today)':'')+'</span><span>'+fmt(row[1][0])+' – '+fmt(row[1][1])+(late?'<span class="late">late</span>':'')+'</span></li>'}
+    ul.innerHTML=out;
+  }
+  paint();setInterval(paint,60000);
+
+  /* builder */
+  var INK='#1C120D',BUN='#F2A93B',CR='#E08A2C',PAT='#7A3B1D';
+  var S=' stroke="'+INK+'" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"';
+  function lay(svg,delay,tf){return '<g'+(tf?' transform="'+tf+'"':'')+'><g class="drop" style="animation-delay:'+delay+'ms">'+svg+'</g></g>'}
+  function greens(){var d='M48 194';for(var x=48;x<272;x+=16)d+=' L'+(x+8)+' 180 L'+(x+16)+' 194';d+=' L272 200 L48 200 Z';return '<path d="'+d+'" fill="var(--pickle)"'+S+'/>'}
+  var P={
+    bunB:'<rect x="62" y="236" width="196" height="38" rx="17" fill="'+BUN+'"'+S+'/>',
+    patty:'<rect x="52" y="204" width="216" height="36" rx="18" fill="'+PAT+'"'+S+'/><path d="M88 216l14 14M130 214l14 14M172 216l14 14M214 214l14 14" stroke="#4a210d" stroke-width="5" stroke-linecap="round"/>',
+    sauce:'<path d="M54 196H266V206C258 206 256 222 246 222C236 222 236 206 226 206H192C184 206 182 230 170 230C158 230 158 206 150 206H112C104 206 102 220 94 220C86 220 86 206 76 206H54Z" fill="var(--accent)"'+S+'/>',
+    greens:greens(),
+    bunT:'<path d="M54 184Q54 102 160 98Q266 102 266 184Z" fill="'+BUN+'"'+S+'/><g fill="#FFFBF0" stroke="'+INK+'" stroke-width="2.5"><ellipse cx="112" cy="132" rx="7" ry="4" transform="rotate(-20 112 132)"/><ellipse cx="160" cy="118" rx="7" ry="4"/><ellipse cx="208" cy="134" rx="7" ry="4" transform="rotate(20 208 134)"/><ellipse cx="136" cy="156" rx="7" ry="4" transform="rotate(10 136 156)"/><ellipse cx="186" cy="156" rx="7" ry="4" transform="rotate(-10 186 156)"/></g>',
+    drum:'<g'+S+'><rect x="-8" y="-62" width="16" height="40" rx="6" fill="#FFFBF0"/><circle cx="-9" cy="-64" r="10" fill="#FFFBF0"/><circle cx="9" cy="-64" r="10" fill="#FFFBF0"/><path d="M-30 -18C-34 -34 -14 -40 0 -32C14 -40 34 -34 30 -18C36 0 22 30 0 30C-22 30 -36 0 -30 -18Z" fill="'+CR+'"/></g><path d="M-14 -6l4 3M8 6l5 2M-4 16l4 1M12 -14l3 4" stroke="#9c5214" stroke-width="4" stroke-linecap="round"/>',
+    box:'<defs><clipPath id="bx"><path d="M74 150H246L228 276H92Z"/></clipPath></defs><g clip-path="url(#bx)"><rect x="60" y="140" width="200" height="140" fill="#fff"/><g fill="var(--accent)"><rect x="80" y="140" width="22" height="140"/><rect x="124" y="140" width="22" height="140"/><rect x="168" y="140" width="22" height="140"/><rect x="212" y="140" width="22" height="140"/></g></g><path d="M74 150H246L228 276H92Z" fill="none"'+S+'/><rect x="104" y="190" width="112" height="40" rx="12" fill="var(--mustard)"'+S+'/><text x="160" y="219" text-anchor="middle" font-family="Lilita One" font-size="24" fill="'+INK+'">CRISPY</text>',
+    fries:'<g'+S+'><rect x="-34" y="-70" width="12" height="70" rx="3" fill="#FFD447" transform="rotate(-10)"/><rect x="-16" y="-84" width="12" height="84" rx="3" fill="#FFD447"/><rect x="2" y="-76" width="12" height="76" rx="3" fill="#FFD447" transform="rotate(6)"/><rect x="18" y="-66" width="12" height="66" rx="3" fill="#FFD447" transform="rotate(14)"/></g>',
+    carton:'<path d="M-44 0H44L34 80H-34Z" fill="var(--accent)"'+S+'/><path d="M-44 0Q0 22 44 0" fill="none"'+S+'/><text x="0" y="56" text-anchor="middle" font-family="Lilita One" font-size="20" fill="#fff">H</text>',
+    cup:'<path d="M-34 -40H34L26 76H-26Z" fill="#fff"'+S+'/><path d="M-31 0H31L28 34H-28Z" fill="var(--accent)" stroke="none"/><path d="M-34 -40H34L26 76H-26Z" fill="none"'+S+'/><rect x="-40" y="-54" width="80" height="16" rx="6" fill="var(--mustard)"'+S+'/><path d="M8 -54L18 -96H32" fill="none"'+S+'/>',
+    mound:'<ellipse cx="160" cy="196" rx="104" ry="34" fill="#FFFBF0"'+S+'/>',
+    chunk:'<path d="M-20 -6C-22 -20 -6 -24 2 -18C14 -24 24 -12 20 0C24 12 10 20 0 16C-12 22 -24 10 -20 -6Z" fill="'+CR+'"'+S+'/>',
+    drizzle:'<path d="M78 176Q98 160 118 178T158 176T198 178T242 176" fill="none" stroke="var(--accent)" stroke-width="8" stroke-linecap="round"/><g fill="var(--pickle)" stroke="'+INK+'" stroke-width="2"><circle cx="100" cy="196" r="5"/><circle cx="150" cy="168" r="5"/><circle cx="214" cy="196" r="5"/><circle cx="184" cy="164" r="5"/></g>',
+    bowl:'<path d="M40 196H280Q272 284 160 284Q48 284 40 196Z" fill="var(--accent)"'+S+'/><path d="M66 222H254" stroke="#fff" stroke-width="7" stroke-linecap="round"/><text x="160" y="262" text-anchor="middle" font-family="Lilita One" font-size="22" fill="#fff">LOADED</text>'
+  };
+  function burgerLayers(t0,step,tf){var o=[];['bunB','patty','sauce','greens','bunT'].forEach(function(k,i){o.push(lay(P[k],t0+i*step,tf))});return o.join('')}
+  var BUILDS={
+    chicken:{name:'Fried chicken',desc:'Super crispy and actually stays juicy inside.',svg:function(){
+      // drums in DOM first (behind box); box drops first by delay
+      return lay(P.drum,320,'translate(116 162) rotate(-22)')+lay(P.drum,480,'translate(204 158) rotate(20)')+lay(P.drum,640,'translate(160 146)')+lay(P.box,0)}},
+    burger:{name:'Burger',desc:'Made to order, stacked hot.',svg:function(){return burgerLayers(0,190)}},
+    combo:{svg:function(main){
+      var mid=main==='burger'?burgerLayers(0,160,'translate(78 134) scale(.52)'):(lay(P.drum,140,'translate(140 238) rotate(-16) scale(.9)')+lay(P.drum,300,'translate(180 236) rotate(16) scale(.9)'));
+      return mid+lay(P.fries,760,'translate(58 210)')+lay(P.carton,600,'translate(58 196)')+lay(P.cup,980,'translate(266 196)')}},
+    bowl:{name:'Loaded chicken bowl',desc:'Everything in one bowl.',svg:function(){
+      return lay(P.mound,260)+lay(P.chunk,420,'translate(112 180)')+lay(P.chunk,520,'translate(160 168) rotate(30)')+lay(P.chunk,620,'translate(206 182) rotate(-20)')+lay(P.chunk,700,'translate(136 196) scale(.8)')+lay(P.chunk,780,'translate(186 198) scale(.8) rotate(50)')+lay(P.drizzle,920)+lay(P.bowl,0)}}
+  };
+  var stage=document.getElementById('stage'),hint=document.getElementById('hint'),cur=null,comboMain='chicken',orders=0;
+  var picks=[].slice.call(document.querySelectorAll('.pick')),cw=document.getElementById('combo-with');
+  function build(k){
+    cur=k;orders++;
+    picks.forEach(function(p){p.setAttribute('aria-pressed',p.dataset.k===k)});
+    cw.hidden=k!=='combo';
+    var b=BUILDS[k],name=b.name,desc=b.desc;
+    if(k==='combo'){name=comboMain==='burger'?'Burger combo':'Chicken combo';desc=comboMain==='burger'?'Your burger plus sides and a drink.':'Pieces, sides and a drink. Bigger portions than you\'d expect.'}
+    hint.style.opacity=0;
+    var old=stage.querySelector('svg');if(old)old.remove();
+    stage.insertAdjacentHTML('beforeend','<svg viewBox="0 0 320 300">'+b.svg(comboMain)+'</svg>');
+    document.getElementById('tk-name').textContent=name;
+    document.getElementById('tk-desc').textContent=desc;
+    document.getElementById('tk-no').textContent='No. '+(orders<10?'0':'')+orders;
+    var c=document.getElementById('tk-call');c.setAttribute('data-l24-contact','Call to order: '+name);c.textContent='Call to order: '+name;
+    var tk=document.querySelector('.ticket');tk.classList.remove('pop');void tk.offsetWidth;tk.classList.add('pop');
+  }
+  picks.forEach(function(p){p.addEventListener('click',function(){build(p.dataset.k)})});
+  [].forEach.call(cw.querySelectorAll('button'),function(b){b.addEventListener('click',function(){comboMain=b.dataset.m;[].forEach.call(cw.querySelectorAll('button'),function(x){x.setAttribute('aria-pressed',x===b)});build('combo')})});
+  // auto-play a burger once when the builder scrolls into view
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!cur){build('burger');io.disconnect()}})},{threshold:.45});
+    io.observe(stage);
+  }
+
+  /* menu board arrows */
+  var board=document.getElementById('board');
+  function by(d){board.scrollBy({left:d*Math.min(board.clientWidth*.8,330),behavior:reduce?'auto':'smooth'})}
+  document.getElementById('mb-prev').onclick=function(){by(-1)};
+  document.getElementById('mb-next').onclick=function(){by(1)};
+
+  /* reveals: only hide things that are below the fold right now */
+  if(!reduce&&'IntersectionObserver' in window){
+    var rv=[].slice.call(document.querySelectorAll('.rv'));
+    rv.forEach(function(el){if(el.getBoundingClientRect().top>innerHeight)el.classList.add('pending')});
+    var ro=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.remove('pending');ro.unobserve(e.target)}})},{threshold:.15});
+    rv.forEach(function(el){ro.observe(el)});
+    setTimeout(function(){rv.forEach(function(el){el.classList.remove('pending')})},4000);
+  }
+})();
+</script>
+
+<script>window.L24CFG={name:"The Honest Burgers and Fried Chicken",phone:"(416) 396-4966",tel:"+14163964966",address:"4830 Sheppard Ave E, Scarborough, ON M1S 5M9",maps:"https://maps.google.com/?cid=11446094129832725153",
+ noteOpen:"1,075 people have reviewed you on Google",noteRest:"but there's no website where someone can see the menu before they order. I made this to show what yours could look like.",
+ checklist:["Designed for Honest Burgers","Your hours, address and reviews added","Works on every phone","Build-your-order and menu board ready for your real menu"],
+ swatches:[{name:"Ketchup",dot:"#E0281C",vars:{"--accent":"#E0281C","--mustard":"#FFC21A"}},{name:"Hot sauce",dot:"#FF5A1F",vars:{"--accent":"#FF5A1F","--mustard":"#FFC21A"}},{name:"Pickle",dot:"#2E8B45",vars:{"--accent":"#2E8B45","--mustard":"#FFD23F"}},{name:"Late night",dot:"#2F4BD8",vars:{"--accent":"#2F4BD8","--mustard":"#FFC21A"}}]};</script>
+<!-- ===== Launch24 preview layer (shared, do not edit). Needs window.L24CFG defined BEFORE this block. ===== -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Onest:wght@400;500;600&display=swap">
+<style>
+:root{--l24-h:44px}
+.l24,.l24 *{box-sizing:border-box}
+.l24{font-family:"Onest","Segoe UI",Arial,sans-serif;font-size:15px;line-height:1.5;color:#eef0f5;-webkit-font-smoothing:antialiased}
+.l24 button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.l24 :focus-visible{outline:3px solid #ffd60a;outline-offset:2px}
+.l24-bar{position:sticky;top:0;z-index:1000;height:var(--l24-h);background:#08090c;color:#eef0f5;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 max(14px,env(safe-area-inset-right,0px)) 0 max(14px,env(safe-area-inset-left,0px));font-family:"Onest","Segoe UI",Arial,sans-serif;font-size:13px;border-bottom:1px solid #1d2029}
+.l24-bar .l24-id{display:flex;align-items:center;gap:8px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.l24-logo{flex:none;display:inline-grid;place-items:center;width:22px;height:22px;border-radius:6px;background:#ffd60a;color:#000;font:800 10px "Bricolage Grotesque",sans-serif}
+.l24-bar b{font-weight:600}
+.l24-bar .l24-sub{color:#8f97a8}
+@media (max-width:620px){.l24-bar .l24-sub{display:none}}
+.l24-keep{flex:none;height:32px;padding:0 14px;border-radius:999px;border:0;background:#ffd60a;color:#000;font-weight:700!important}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:1001;background:#08090c}
+.l24-bar{top:env(safe-area-inset-top,0px)}
+.l24-note{position:fixed;z-index:1002;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(400px,calc(100vw - 32px));background:#08090c;border:1px solid #232733;border-radius:20px;padding:18px 18px 14px;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);transform:translateY(16px);opacity:0;transition:transform .7s cubic-bezier(.2,.9,.2,1),opacity .7s}
+.l24-note.in{transform:none;opacity:1}
+.l24-note[hidden]{display:none}
+.l24-note .l24-k{font:600 11px/1 "Onest",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#ffd60a}
+.l24-note p{margin:10px 0 0;font-size:14.5px}
+.l24-note p b{color:#fff}
+.l24-note .l24-s{color:#9aa1b1;font-size:13.5px}
+.l24-acts{display:flex;gap:8px;margin-top:14px}
+.l24-acts button{min-height:44px;padding:0 16px;border-radius:999px;border:1px solid #2c313d;background:transparent;color:#eef0f5;font-weight:600}
+.l24-acts .l24-y{background:#ffd60a;border-color:#ffd60a;color:#000}
+@media (max-width:560px){.l24-note .l24-s{display:none}}
+.l24-fab{position:fixed;z-index:999;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));display:inline-flex;align-items:center;gap:9px;height:50px;padding:0 18px;border-radius:999px;border:1px solid #232733;background:#08090c;color:#fff;font-weight:600;box-shadow:0 18px 40px -16px rgba(0,0,0,.6)}
+.l24-fab i{width:16px;height:16px;border-radius:50%;background:conic-gradient(#ffd60a 0 50%,var(--accent,#ffd60a) 0)}
+@media (max-width:760px){.l24-fab{bottom:calc(84px + env(safe-area-inset-bottom,0px))}}
+.l24-scrim{position:fixed;inset:0;z-index:1003;background:rgba(5,6,8,.55);opacity:0;pointer-events:none;transition:opacity .35s}
+.l24-scrim.open{opacity:1;pointer-events:auto}
+.l24-drawer{position:fixed;z-index:1004;top:0;right:0;bottom:0;width:min(410px,100vw);background:#101218;color:#eef0f5;border-left:1px solid #232733;transform:translateX(105%);transition:transform .5s cubic-bezier(.2,.9,.2,1);overflow-y:auto;padding:calc(22px + env(safe-area-inset-top,0px)) max(22px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) 22px}
+.l24-drawer.open{transform:none}
+.l24-x{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:14px;width:44px;height:44px;border-radius:50%;border:1px solid #2c313d;background:#161922;display:grid;place-items:center;padding:0}
+.l24-x svg{width:18px;height:18px;stroke:#eef0f5}
+.l24-h{font:700 30px/1.05 "Bricolage Grotesque",sans-serif;margin:8px 48px 0 0;letter-spacing:-.01em}
+.l24-p{color:#a3aab9;margin:10px 0 0}
+.l24-p b{color:#fff}
+.l24-lbl{display:block;font:600 11px/1 "Onest",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8f97a8;margin-top:22px}
+.l24-sw{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.l24-sw button{width:46px;height:46px;border-radius:50%;border:3px solid #101218;box-shadow:0 0 0 1.5px #2c313d;padding:0;transition:transform .2s}
+.l24-sw button[aria-pressed=true]{box-shadow:0 0 0 2.5px #ffd60a;transform:scale(1.06)}
+.l24-in{width:100%;min-height:48px;margin-top:8px;border-radius:12px;border:1.5px solid #2c313d;background:#08090c;color:#eef0f5;padding:0 12px;font:inherit;font-size:16px}
+.l24-in:focus{outline:none;border-color:#ffd60a}
+.l24-box{margin-top:24px;padding:20px;border-radius:18px;background:#08090c;border:1px solid #232733}
+.l24-box .l24-t{font:700 24px/1.1 "Bricolage Grotesque",sans-serif;color:#fff}
+.l24-done{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+.l24-done li{display:flex;gap:10px;align-items:flex-start}
+.l24-done li::before{content:"";flex:none;margin-top:2px;width:18px;height:18px;border-radius:50%;background:#25d366 url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'><path d='m6 12 4 4 8-8'/></svg>") center/11px no-repeat}
+.l24-price{font:700 40px/1 "Bricolage Grotesque",sans-serif;color:#fff;margin-top:14px}
+.l24-price span{font:400 15px "Onest",sans-serif;color:#9aa1b1}
+.l24-pay{display:flex;align-items:center;justify-content:center;text-decoration:none;width:100%;min-height:52px;margin-top:14px;border-radius:999px;border:0;background:#ffd60a;color:#000;font-weight:700!important;font-size:16px!important;animation:l24nudge 2.8s 1.4s ease-in-out infinite}
+@keyframes l24nudge{0%,86%,100%{transform:none}90%{transform:scale(1.03)}95%{transform:scale(.99)}}
+.l24-g{color:#9aa1b1;font-size:13.5px;margin:10px 0 0}
+.l24-wa{display:inline-flex;align-items:center;min-height:44px;color:#eef0f5;text-underline-offset:3px;font-size:14px}
+.l24-sheet{position:fixed;z-index:1004;left:50%;bottom:0;width:min(520px,100vw);max-height:88vh;overflow-y:auto;transform:translate(-50%,105%);transition:transform .5s cubic-bezier(.2,.9,.2,1);background:#101218;color:#eef0f5;border:1px solid #232733;border-radius:24px 24px 0 0;padding:14px max(20px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px))}
+.l24-sheet.open{transform:translate(-50%,0)}
+.l24-grab{width:44px;height:5px;border-radius:3px;background:#2c313d;margin:0 auto 16px}
+.l24-sheet .l24-x{top:14px}
+.l24-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 16px;border-radius:14px;background:#161922;margin-top:10px}
+.l24-row>div:first-child{min-width:0}
+.l24-row b{display:block}
+.l24-row span{color:#9aa1b1;font-size:13.5px}
+.l24-row .l24-num{color:#fff;font-size:16px;font-variant-numeric:tabular-nums;user-select:all}
+.l24-btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 16px;border-radius:999px;border:0;background:#ffd60a;color:#000!important;font-weight:700;text-decoration:none}
+.l24-btn.l24-gh{background:transparent;color:#eef0f5!important;box-shadow:inset 0 0 0 1.5px #2c313d}
+.l24-toast{position:fixed;z-index:1005;left:50%;top:calc(var(--l24-h) + 14px + env(safe-area-inset-top,0px));transform:translate(-50%,-14px);opacity:0;width:max-content;max-width:calc(100vw - 32px);text-align:center;background:#08090c;color:#fff;border:1px solid #232733;padding:11px 16px;border-radius:16px;font-size:14px;transition:opacity .3s,transform .3s;pointer-events:none}
+.l24-toast.show{opacity:1;transform:translate(-50%,0)}
+.l24-drawer,.l24-sheet{visibility:hidden}
+.l24-drawer.open,.l24-sheet.open{visibility:visible}
+@media (prefers-reduced-motion:reduce){.l24 *,.l24-pay{animation:none!important;transition:none!important}}
+</style>
+<div class="l24" id="l24"></div>
+<script>
+(function(){
+  var C=window.L24CFG||{}, root=document.getElementById('l24'), doc=document.documentElement;
+  var PAY='https://buy.stripe.com/9B65kC9zcfRMcqj7foe7m05?client_reference_id='+encodeURIComponent((C.name||'preview').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''));
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  var X='<svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  // bar goes first in <body>
+  var bar=document.createElement('div');bar.className='l24 l24-bar';
+  bar.innerHTML='<span class="l24-id"><span class="l24-logo">24</span><span><b>Preview made for '+esc(C.name)+'</b><span class="l24-sub"> by Launch24. Not live yet.</span></span></span><button class="l24-keep" type="button" data-l24-open>Make it yours</button>';
+  document.body.insertBefore(bar,document.body.firstChild);
+  var edits=[].slice.call(document.querySelectorAll('[data-l24-edit]'));
+  var sw=(C.swatches||[]);
+  root.innerHTML=
+   '<aside class="l24-note" id="l24-note" aria-label="Note from Launch24"><div class="l24-k">A note from Parth at Launch24</div><p>Hi! <b>'+esc(C.noteOpen)+'</b>, '+esc(C.noteRest)+'</p><p class="l24-s">It\'s built and ready. You\'re one click away from making it yours.</p><div class="l24-acts"><button class="l24-y" type="button" data-l24-open>Make it yours</button><button type="button" id="l24-look">Take a look</button></div></aside>'+
+   '<button class="l24-fab" type="button" data-l24-open><i aria-hidden="true"></i>Make it yours</button>'+
+   '<div class="l24-scrim" id="l24-scrim"></div>'+
+   '<aside class="l24-drawer" id="l24-drawer" aria-label="Make it yours" aria-hidden="true"><button class="l24-x" type="button" id="l24-dx" aria-label="Close">'+X+'</button>'+
+     '<span class="l24-lbl" style="margin-top:0;color:#ffd60a">Make it yours</span><h2 class="l24-h">Your website is ready.</h2>'+
+     '<p class="l24-p">We designed it, wrote it and added your hours, address and Google reviews. Try a colour or change the words if you like. Then you\'re <b>one click away</b> from making it yours.</p>'+
+     (sw.length?'<span class="l24-lbl">Colour</span><div class="l24-sw" id="l24-sw">'+sw.map(function(s,i){return '<button type="button" aria-pressed="'+(i===0)+'" aria-label="'+esc(s.name)+'" data-i="'+i+'" style="background:'+esc(s.dot)+'"></button>'}).join('')+'</div>':'')+
+     edits.map(function(el,i){var id='l24e'+i;return '<label class="l24-lbl" for="'+id+'">'+esc(el.getAttribute('data-l24-edit'))+'</label><input class="l24-in" id="'+id+'" data-i="'+i+'" value="'+esc(el.textContent.trim())+'">'}).join('')+
+     '<div class="l24-box"><div class="l24-t">You\'re one click away.</div><p class="l24-g" style="margin-top:6px">Already done for you:</p><ul class="l24-done">'+(C.checklist||[]).map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>'+
+     '<p class="l24-p" style="color:#eef0f5"><b>All that\'s left:</b> tap Pay. We add your real photos and details, and put it live on your own domain within 24 hours.</p>'+
+     '<div class="l24-price">$699 <span>one-time</span></div><a class="l24-pay" id="l24-pay" target="_blank" rel="noopener" href="'+esc(PAY)+'">Pay $699 and make it mine →</a><p class="l24-g" style="margin-top:8px">Secure checkout by Stripe.</p>'+
+     '<p class="l24-g">If we miss the 24 hours, you pay nothing. Your deposit is refunded in full.</p><a class="l24-wa" id="l24-wa" target="_blank" rel="noopener" href="#">Questions first? WhatsApp Parth</a></div></aside>'+
+   '<div class="l24-sheet" id="l24-sheet" role="dialog" aria-modal="true" aria-labelledby="l24-st" aria-hidden="true"><div class="l24-grab"></div><button class="l24-x" type="button" id="l24-sx" aria-label="Close">'+X+'</button><span class="l24-lbl" style="margin-top:0;color:#ffd60a" id="l24-se">Contact</span><h2 class="l24-h" id="l24-st" style="font-size:26px">How would you like to reach us?</h2>'+
+     (C.phone?'<div class="l24-row"><div><b>Call</b><span class="l24-num" id="l24-num">'+esc(C.phone)+'</span></div><div style="display:flex;gap:8px"><a class="l24-btn" href="tel:'+esc(C.tel)+'">Call</a><button class="l24-btn l24-gh" type="button" id="l24-copy">Copy</button></div></div>':'')+
+     (C.book?'<div class="l24-row"><div><b>Book online</b><span>Your existing '+esc(C.bookName||'booking')+' page</span></div><a class="l24-btn" href="'+esc(C.book)+'" target="_blank" rel="noopener">Open</a></div>':'')+
+     (C.instagram?'<div class="l24-row"><div><b>Instagram</b><span>Send a DM</span></div><a class="l24-btn l24-gh" href="'+esc(C.instagram)+'" target="_blank" rel="noopener">Open</a></div>':'')+
+     (C.address?'<div class="l24-row"><div><b>Visit</b><span>'+esc(C.address)+'</span></div><a class="l24-btn l24-gh" href="'+esc(C.maps)+'" target="_blank" rel="noopener">Directions</a></div>':'')+
+     '<p class="l24-g">On the live site these buttons call, book or open directions straight away.</p></div>'+
+   '<div class="l24-toast" id="l24-toast" role="status"></div>';
+  var $=function(id){return document.getElementById(id)};
+  var tt;function toast(m){var t=$('l24-toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('show')},3400)}
+  var note=$('l24-note');setTimeout(function(){note.classList.add('in')},700);
+  $('l24-look').onclick=function(){note.hidden=true};
+  var dr=$('l24-drawer'),sh=$('l24-sheet'),sc=$('l24-scrim');
+  function openD(){closeS();dr.classList.add('open');sc.classList.add('open');dr.setAttribute('aria-hidden','false');note.hidden=true;setTimeout(function(){$('l24-dx').focus()},200)}
+  function closeD(){dr.classList.remove('open');dr.setAttribute('aria-hidden','true');if(!sh.classList.contains('open'))sc.classList.remove('open')}
+  function openS(t){closeD();$('l24-st').textContent=t?t:'How would you like to reach us?';sh.classList.add('open');sc.classList.add('open');sh.setAttribute('aria-hidden','false');setTimeout(function(){$('l24-sx').focus()},200)}
+  function closeS(){sh.classList.remove('open');sh.setAttribute('aria-hidden','true');if(!dr.classList.contains('open'))sc.classList.remove('open')}
+  document.addEventListener('click',function(e){var o=e.target.closest('[data-l24-open]');if(o){e.preventDefault();openD();return}var c=e.target.closest('[data-l24-contact]');if(c){e.preventDefault();openS(c.getAttribute('data-l24-contact'))}});
+  $('l24-dx').onclick=closeD;$('l24-sx').onclick=closeS;sc.onclick=function(){closeD();closeS()};
+  addEventListener('keydown',function(e){if(e.key==='Escape'){closeD();closeS()}});
+  var cp=$('l24-copy');if(cp)cp.onclick=function(){var n=$('l24-num').textContent;try{navigator.clipboard.writeText(n).then(function(){toast('Number copied')},sel)}catch(_){sel()}function sel(){var r=document.createRange();r.selectNodeContents($('l24-num'));var s=getSelection();s.removeAllRanges();s.addRange(r);toast('Number selected')}};
+  var choice=sw[0]?sw[0].name:'Original';
+  [].forEach.call(document.querySelectorAll('#l24-sw button'),function(b){b.onclick=function(){var s=sw[+b.dataset.i];[].forEach.call(document.querySelectorAll('#l24-sw button'),function(x){x.setAttribute('aria-pressed',x===b)});Object.keys(s.vars||{}).forEach(function(k){doc.style.setProperty(k,s.vars[k])});choice=s.name;wa();if(matchMedia('(max-width: 767px)').matches){setTimeout(function(){closeD();toast(s.name+' it is. Tap Make it yours to try another.')},180)}else{toast(s.name+' it is')}}});
+  [].forEach.call(document.querySelectorAll('.l24-in'),function(inp){inp.oninput=function(){edits[+inp.dataset.i].textContent=inp.value;wa()}});
+  function wa(){var m='Hi Parth! I saw the website preview for '+C.name+" and I'd like to make it mine.\nColour: "+choice+edits.map(function(el){return '\n'+el.getAttribute('data-l24-edit')+': '+el.textContent.trim()}).join('');$('l24-wa').href='https://wa.me/14373652475?text='+encodeURIComponent(m)}
+  wa();
+  window.L24={toast:toast,contact:openS,open:openD};
+})();
+</script>
+<!-- ===== end Launch24 layer ===== -->
+<script>
+/* Launch24: count preview opens and clicks (first-party, /api/event). */
+(function(){
+  var vid='';try{vid=localStorage.getItem('l24_vid')||'';if(!vid){vid=Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem('l24_vid',vid)}}catch(_){}
+  var q=new URLSearchParams(location.search);
+  function send(name){try{var b=JSON.stringify({name:name,visitor_id:vid,path:location.pathname,utm_source:q.get('utm_source')||'',utm_medium:q.get('utm_medium')||'',utm_campaign:q.get('utm_campaign')||'',utm_content:q.get('utm_content')||''});
+    if(navigator.sendBeacon)navigator.sendBeacon('/api/event',new Blob([b],{type:'application/json'}));else fetch('/api/event',{method:'POST',headers:{'Content-Type':'application/json'},body:b,keepalive:true})}catch(_){}}
+  send('preview_view');
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('#l24-pay,#l24-wa');if(a)send(a.id==='l24-pay'?'preview_claim_click':'preview_changes_click')},true);
+})();
+</script>
+
+</html>

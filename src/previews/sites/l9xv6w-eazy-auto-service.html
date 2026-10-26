@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<title>EAZY Auto Service</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --accent:#0d4d4a;
+  --paper:#f7f4ee;
+  --card:#fffdf9;
+  --ink:#16211f;
+  --soft:#56635f;
+  --line:#e2ddd2;
+  --sun:#f4b740;
+  --mint:#dcebe3;
+  --deep:color-mix(in oklab,var(--accent) 78%,#04100f);
+  --tint:color-mix(in oklab,var(--accent) 12%,var(--paper));
+  --display:"Fredoka","Trebuchet MS",sans-serif;
+  --body:"Source Sans 3","Segoe UI",sans-serif;
+  --g:max(16px,env(safe-area-inset-left,0px));
+  --gr:max(16px,env(safe-area-inset-right,0px));
+  --spring:cubic-bezier(.34,1.56,.64,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.04;letter-spacing:-.015em;margin:0}
+p{margin:0}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px;border-radius:8px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:var(--g);padding-right:var(--gr)}
+.kick{font:700 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 22px;border-radius:999px;border:0;font-weight:700;font-size:16.5px;text-decoration:none;transition:transform .35s var(--spring),background .2s,box-shadow .2s}
+.btn:active{transform:scale(.95)}
+.btn-main{background:var(--accent);color:#fff;box-shadow:0 10px 24px -12px color-mix(in oklab,var(--accent) 80%,black)}
+.btn-main:hover{transform:translateY(-2px)}
+.btn-line{background:transparent;color:var(--accent);box-shadow:inset 0 0 0 2px color-mix(in oklab,var(--accent) 40%,transparent)}
+.btn-line:hover{box-shadow:inset 0 0 0 2px var(--accent)}
+.btn svg{width:19px;height:19px;flex:none}
+
+/* header */
+.top{position:sticky;top:calc(var(--l24-h) + env(safe-area-inset-top,0px));z-index:50;background:color-mix(in oklab,var(--paper) 88%,transparent);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
+.top.sc{border-bottom-color:var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand-mark{width:38px;height:38px;border-radius:12px;background:var(--accent);color:#fff;display:grid;place-items:center;font:700 19px/1 var(--display);transform:rotate(-6deg)}
+.brand-name{font:700 21px/1 var(--display);letter-spacing:-.01em}
+.brand-name small{display:block;font:600 11.5px/1.2 var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--soft);margin-top:3px}
+.top-r{display:flex;align-items:center;gap:10px}
+.status{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14.5px;color:var(--soft);white-space:nowrap}
+.dot{width:9px;height:9px;border-radius:50%;background:#b9b3a6;flex:none}
+.is-open .dot{background:#2fa36b;box-shadow:0 0 0 0 rgba(47,163,107,.5);animation:pulse 2.4s infinite}
+.is-open{color:#1f7a4f}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(47,163,107,.45)}70%{box-shadow:0 0 0 9px rgba(47,163,107,0)}100%{box-shadow:0 0 0 0 rgba(47,163,107,0)}}
+.top .btn{min-height:44px;padding:0 18px;font-size:15px}
+@media (max-width:640px){.top .status{display:none}}
+
+/* hero */
+.hero{padding:34px 0 56px}
+.hero-grid{display:grid;gap:34px}
+.hero-grid>*{min-width:0}
+.hero h1{font-size:clamp(42px,11.5vw,78px);margin-top:16px;color:var(--ink)}
+.hero h1 em{font-style:normal;color:var(--accent);position:relative;z-index:0;-webkit-box-decoration-break:clone;box-decoration-break:clone;background:linear-gradient(transparent 68%,color-mix(in oklab,var(--sun) 55%,transparent) 68%,color-mix(in oklab,var(--sun) 55%,transparent) 90%,transparent 90%)}
+.lede{font-size:19px;color:var(--soft);margin-top:18px;max-width:34ch}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chip{display:inline-flex;align-items:center;gap:7px;padding:8px 13px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-weight:600;font-size:14.5px}
+.chip b{color:var(--accent)}
+.star{color:var(--sun)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+@media (min-width:960px){
+  .chat-b{min-height:250px}
+  .hero{padding:56px 0 80px}
+  .hero-grid{grid-template-columns:1fr 1.02fr;gap:56px;align-items:center}
+}
+
+/* chat */
+.chat{background:var(--card);border:1px solid var(--line);border-radius:28px;box-shadow:0 40px 80px -48px rgba(13,40,38,.45),0 2px 0 rgba(255,255,255,.8) inset;overflow:hidden;position:relative}
+.chat-h{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--accent);color:#fff}
+.av{width:42px;height:42px;border-radius:50%;background:var(--sun);color:var(--ink);display:grid;place-items:center;font:700 19px/1 var(--display);flex:none;position:relative}
+.av::after{content:"";position:absolute;right:0;bottom:0;width:11px;height:11px;border-radius:50%;background:#2fa36b;border:2px solid var(--accent)}
+.chat-h b{display:block;font:600 17px/1.2 var(--display)}
+.chat-h span{font-size:13.5px;opacity:.82}
+.chat-b{padding:18px 14px 12px;display:flex;flex-direction:column;justify-content:flex-end;gap:9px;min-height:150px;background:
+  radial-gradient(circle at 1px 1px,color-mix(in oklab,var(--accent) 9%,transparent) 1px,transparent 1.4px) 0 0/18px 18px,var(--tint)}
+.msg{max-width:86%;padding:11px 15px;border-radius:20px;font-size:16.5px;line-height:1.45;animation:pop .45s var(--spring) both;transform-origin:left bottom}
+.msg.z{align-self:flex-start;background:var(--card);border:1px solid var(--line);border-bottom-left-radius:6px}
+.msg.me{align-self:flex-end;background:var(--accent);color:#fff;border-bottom-right-radius:6px;transform-origin:right bottom}
+.msg .who{display:block;font:700 12px/1 var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:5px}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.92)}to{opacity:1;transform:none}}
+.typing{align-self:flex-start;background:var(--card);border:1px solid var(--line);border-radius:20px;border-bottom-left-radius:6px;padding:14px 16px;display:flex;gap:5px}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--soft);opacity:.5;animation:bob 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes bob{0%,100%{transform:none;opacity:.4}40%{transform:translateY(-4px);opacity:.9}}
+.replies{display:flex;flex-wrap:wrap;gap:8px;padding:12px 14px 16px;border-top:1px solid var(--line);background:var(--card)}
+.qr{min-height:44px;padding:0 16px;border-radius:999px;border:2px solid color-mix(in oklab,var(--accent) 30%,transparent);background:var(--card);color:var(--accent);font-weight:700;font-size:15.5px;transition:transform .35s var(--spring),background .2s,border-color .2s}
+.qr:hover{border-color:var(--accent);background:var(--tint)}
+.qr:active{transform:scale(.92)}
+.qr.solid{background:var(--accent);border-color:var(--accent);color:#fff}
+.qr.ghost{border-color:transparent;color:var(--soft);font-weight:600}
+.chat-note{font-size:13px;color:var(--soft);padding:0 18px 14px;background:var(--card)}
+/* quote form inside chat */
+.qform{align-self:stretch;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;display:grid;gap:12px;animation:pop .45s var(--spring) both}
+.qform label{display:grid;gap:5px;font-weight:700;font-size:14px}
+.qform input,.qform textarea{width:100%;min-height:48px;border-radius:14px;border:1.5px solid var(--line);background:var(--paper);padding:11px 13px;font:inherit;font-size:16px;color:var(--ink)}
+.qform textarea{min-height:84px;resize:vertical}
+.qform input:focus,.qform textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in oklab,var(--accent) 18%,transparent)}
+.two{display:grid;gap:12px}
+@media (min-width:480px){.two{grid-template-columns:1fr 1fr}}
+.drop{display:flex!important;align-items:center;gap:12px;min-height:60px;padding:10px 14px;border-radius:14px;border:2px dashed color-mix(in oklab,var(--accent) 35%,transparent);background:var(--tint);cursor:pointer;font-weight:600!important;color:var(--accent)}
+.drop input{position:absolute;width:1px;height:1px;opacity:0}
+.drop svg{width:26px;height:26px;flex:none}
+.drop .thumbs{display:flex;gap:6px;margin-left:auto}
+.drop .thumbs img{width:40px;height:40px;border-radius:9px;object-fit:cover}
+.drop:focus-within{outline:3px solid var(--sun);outline-offset:2px}
+.qform .btn{width:100%}
+
+/* promises strip */
+.said{padding:64px 0;background:var(--card);border-block:1px solid var(--line)}
+.said h2{font-size:clamp(32px,7vw,50px);max-width:16ch;margin-top:12px}
+.said-grid{display:grid;gap:14px;margin-top:32px}
+.said-item{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;padding:20px 0;border-top:2px solid var(--ink)}
+.said-item .n{font:700 15px/1 var(--display);width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--mint);color:var(--accent)}
+.said-item h3{font-size:25px}
+.said-item p{color:var(--soft);margin-top:6px}
+@media (min-width:860px){.said-grid{grid-template-columns:repeat(3,1fr);gap:28px}}
+
+/* photos */
+.shots{padding:64px 0 22px}
+.shots-grid{display:grid;grid-template-columns:1.2fr 1fr;grid-template-rows:auto auto;gap:12px}
+.shot{border-radius:24px;overflow:hidden;position:relative;background:var(--mint)}
+.shot img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.shot:hover img{transform:scale(1.04)}
+.shot.a{grid-row:span 2;aspect-ratio:4/5.4}
+.shot.a img{object-position:50% 78%}
+.shot.b{aspect-ratio:1/1}
+.shot.b img{object-position:50% 30%}
+.shot.c{aspect-ratio:1/1;background:var(--accent);color:#fff;display:flex;flex-direction:column;justify-content:flex-end;padding:18px}
+.shot.c p{font:600 clamp(19px,4.6vw,28px)/1.15 var(--display)}
+.shot figcaption{position:absolute;left:12px;bottom:12px;right:12px;font-weight:700;font-size:14px;color:#fff;text-shadow:0 1px 12px rgba(0,0,0,.6)}
+.cap{font-size:13.5px;color:var(--soft);margin-top:12px}
+@media (min-width:860px){.shots-grid{grid-template-columns:1.1fr .9fr .9fr;grid-template-rows:auto}.shot.a{grid-row:auto;aspect-ratio:4/4.4}.shot.b,.shot.c{aspect-ratio:auto}}
+
+/* reviews */
+.rev{background:var(--deep);color:#f3f1ea;padding:72px 0 80px;margin-top:56px;position:relative;overflow:hidden}
+.rev .kick{color:var(--sun)}
+.rev h2{font-size:clamp(34px,7.6vw,56px);margin-top:12px;max-width:15ch}
+.rev-sub{color:#c6d1cd;margin-top:14px;max-width:40ch}
+.thread{display:grid;gap:22px;margin-top:40px}
+.bub{max-width:640px;justify-self:start}
+.bub:nth-child(even){justify-self:end}
+.bub blockquote{margin:0;padding:18px 20px;border-radius:24px;border-bottom-left-radius:6px;background:#fffdf9;color:var(--ink);font-size:17.5px;line-height:1.5;box-shadow:0 22px 40px -28px rgba(0,0,0,.6)}
+.bub:nth-child(even) blockquote{border-bottom-left-radius:24px;border-bottom-right-radius:6px;background:var(--mint)}
+.bub .meta{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:14px;color:#c6d1cd;padding-left:6px}
+.bub:nth-child(even) .meta{justify-content:flex-end;padding-right:6px}
+.ini{width:30px;height:30px;border-radius:50%;background:var(--sun);color:var(--ink);display:grid;place-items:center;font:700 13px/1 var(--display);flex:none}
+.bub .stars{color:var(--sun);letter-spacing:2px;font-size:13px}
+.bub mark{background:color-mix(in oklab,var(--sun) 45%,transparent);color:inherit;padding:0 2px;border-radius:4px}
+.big{font:600 clamp(26px,5.6vw,40px)/1.15 var(--display)!important}
+.rev-foot{margin-top:34px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;color:#c6d1cd}
+.score{font:700 46px/1 var(--display);color:#fff}
+
+/* what he does */
+.work{padding:72px 0}
+.work h2{font-size:clamp(32px,7vw,50px);margin-top:12px;max-width:18ch}
+.work-list{display:grid;gap:12px;margin-top:30px}
+.job{display:flex;gap:16px;align-items:center;padding:18px 20px;border-radius:22px;background:var(--card);border:1px solid var(--line);transition:transform .4s var(--spring),border-color .2s}
+.job:hover{transform:translateY(-3px);border-color:color-mix(in oklab,var(--accent) 40%,transparent)}
+.job .ic{width:52px;height:52px;border-radius:16px;background:var(--mint);color:var(--accent);display:grid;place-items:center;flex:none}
+.job .ic svg{width:26px;height:26px}
+.job h3{font-size:22px}
+.job p{color:var(--soft);font-size:16px;margin-top:3px}
+.ask{margin-top:18px;color:var(--soft)}
+@media (min-width:860px){.work-list{grid-template-columns:repeat(3,1fr)}.job{flex-direction:column;align-items:flex-start;padding:24px}}
+
+/* hours */
+.visit{padding:0 0 80px}
+.visit-card{display:grid;gap:0;border-radius:30px;overflow:hidden;background:var(--card);border:1px solid var(--line)}
+.hours{padding:28px 22px}
+.hours h2{font-size:clamp(32px,7vw,48px);margin-top:12px}
+.now{display:inline-flex;align-items:center;gap:9px;margin-top:16px;padding:9px 15px;border-radius:999px;background:var(--tint);font-weight:700;font-size:15.5px;color:var(--soft)}
+.now.is-open{background:#e1f3e9}
+.week{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:24px}
+.day{border-radius:18px;background:var(--accent);color:#fff;padding:14px 6px 12px;text-align:center}
+.day b{display:block;font:600 19px/1 var(--display)}
+.day span{display:block;font-size:13px;opacity:.85;margin-top:8px;line-height:1.25}
+.day.today{background:var(--sun);color:var(--ink);transform:translateY(-4px);box-shadow:0 14px 24px -16px rgba(0,0,0,.4)}
+.day.today span{opacity:1}
+.weekend{display:flex;justify-content:space-between;gap:10px;margin-top:10px;padding:13px 16px;border-radius:16px;border:1.5px dashed var(--line);color:var(--soft);font-weight:600}
+.weekend.today{border-color:var(--sun);color:var(--ink)}
+.hours-txt{font-size:15px;color:var(--soft);margin-top:14px}
+.where{padding:28px 22px;background:var(--tint);display:flex;flex-direction:column;gap:16px;justify-content:space-between}
+.where h3{font-size:28px}
+.addr{font-size:19px;line-height:1.4}
+.phone{font:600 26px/1 var(--display);color:var(--accent);font-variant-numeric:tabular-nums;user-select:all}
+.map{position:relative;height:170px;border-radius:20px;overflow:hidden;background:
+  linear-gradient(90deg,transparent 46%,#fff 46%,#fff 54%,transparent 54%) 0 0/100% 100%,
+  linear-gradient(0deg,transparent 30%,#fffdf9 30%,#fffdf9 36%,transparent 36%),
+  repeating-linear-gradient(90deg,color-mix(in oklab,var(--accent) 7%,var(--paper)) 0 40px,color-mix(in oklab,var(--accent) 11%,var(--paper)) 40px 80px)}
+.map .pin{position:absolute;left:50%;top:44%;transform:translate(-50%,-100%);width:46px;height:46px;border-radius:50% 50% 50% 4px;rotate:-45deg;background:var(--accent);box-shadow:0 10px 20px -8px rgba(0,0,0,.5)}
+.map .pin::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--sun)}
+.map .lbl{position:absolute;left:50%;top:calc(44% + 10px);transform:translateX(-50%);background:var(--card);padding:5px 11px;border-radius:999px;font-weight:700;font-size:13px;white-space:nowrap;box-shadow:0 6px 14px -8px rgba(0,0,0,.4)}
+.map .st{position:absolute;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.where .btns{display:flex;flex-wrap:wrap;gap:10px}
+@media (min-width:860px){.visit-card{grid-template-columns:1.25fr 1fr}.hours,.where{padding:40px}}
+
+/* closing */
+.close{padding:0 0 96px;text-align:left}
+.close-in{border-radius:32px;background:var(--accent);color:#fff;padding:40px 24px;position:relative;overflow:hidden}
+.close-in::before{content:"";position:absolute;right:-80px;top:-80px;width:260px;height:260px;border-radius:50%;background:var(--sun);opacity:.16}
+.close h2{font-size:clamp(36px,8.4vw,64px);max-width:14ch;position:relative}
+.close p{color:#d6e3df;margin-top:14px;max-width:38ch;position:relative;font-size:18px}
+.close .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;position:relative}
+.close .btn-main{background:var(--sun);color:var(--ink)}
+.close .btn-line{color:#fff;box-shadow:inset 0 0 0 2px rgba(255,255,255,.4)}
+@media (min-width:860px){.close-in{padding:64px}}
+
+footer{padding:0 0 120px;color:var(--soft);font-size:14.5px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 22px;justify-content:space-between;border-top:1px solid var(--line);padding-top:22px}
+
+/* mobile bottom bar */
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;gap:8px;padding:10px var(--gr) calc(10px + env(safe-area-inset-bottom,0px)) var(--g);background:color-mix(in oklab,var(--paper) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+.mbar .btn{flex:1;min-height:48px;font-size:15.5px;padding:0 12px}
+@media (min-width:760px){.mbar{display:none}footer{padding-bottom:40px}}
+
+/* reveal: visible by default, animate in only when JS marks it */
+.rv{transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+.js .rv.pre{opacity:0;transform:translateY(22px)}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js .rv.pre{opacity:1;transform:none}
+}
+</style>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="#main" aria-label="EAZY Auto Service, home">
+      <span class="brand-mark" aria-hidden="true">Z</span>
+      <span class="brand-name">EAZY Auto<small>Service · Brampton</small></span>
+    </a>
+    <div class="top-r">
+      <span class="status" data-status><span class="dot"></span><span data-status-text>Mon to Fri, 10 to 7</span></span>
+      <button class="btn btn-main" type="button" data-l24-contact="Call EAZY Auto">Call the shop</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="kick">Auto repair · Queen St W, Brampton</div>
+      <h1><span data-l24-edit="Headline">Tell Zahar what's going on.</span> <em>He'll tell you straight.</em></h1>
+      <p class="lede" data-l24-edit="Tagline">Honest repairs and maintenance in Brampton. He explains what's wrong, shows you, and fits you in when you're in a bind.</p>
+      <div class="facts">
+        <span class="chip"><span class="star" aria-hidden="true">★</span><b>4.3</b> on Google · 159 reviews</span>
+        <span class="chip">Mon to Fri · 10 AM to 7 PM</span>
+      </div>
+      <div class="hero-cta">
+        <a class="btn btn-main" href="#chat" data-jump>Ask about my car</a>
+        <button class="btn btn-line" type="button" data-l24-contact="Call EAZY Auto">(905) 456-7124</button>
+      </div>
+    </div>
+
+    <div class="chat rv" id="chat" aria-label="Ask Zahar about your car">
+      <div class="chat-h">
+        <span class="av" aria-hidden="true">Z</span>
+        <div><b>Zahar · EAZY Auto</b><span>Mon to Fri · 10 AM to 7 PM</span></div>
+      </div>
+      <div class="chat-b" id="chatlog" aria-live="polite">
+        <div class="msg z"><span class="who">Zahar</span>Hi, it's Zahar. What's going on with your car?</div>
+      </div>
+      <div class="replies" id="replies"></div>
+      <p class="chat-note">Example replies to show how Zahar talks you through it. General guidance, not a diagnosis.</p>
+    </div>
+  </div>
+</section>
+
+<section class="said">
+  <div class="wrap">
+    <div class="kick rv">What customers keep saying</div>
+    <h2 class="rv">A mechanic who talks to you like a person.</h2>
+    <div class="said-grid">
+      <div class="said-item rv"><span class="n">1</span><div><h3>Done right.</h3><p>No corners cut. He takes his time to do the job properly.</p></div></div>
+      <div class="said-item rv"><span class="n">2</span><div><h3>He shows you.</h3><p>Zahar will show you what's happening under the car and explain it in plain words.</p></div></div>
+      <div class="said-item rv"><span class="n">3</span><div><h3>He fits you in.</h3><p>Customers say he got them in and back on the road the same day when they were stuck.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="shots" aria-label="Photos">
+  <div class="wrap">
+    <div class="shots-grid">
+      <figure class="shot a rv" style="margin:0"><img src="/p/l9xv6w-eazy-auto-service/img/under.jpg" alt="A mechanic showing a customer what's under her car" loading="lazy"><figcaption>"Took the time to explain and show me"</figcaption></figure>
+      <figure class="shot b rv" style="margin:0"><img src="/p/l9xv6w-eazy-auto-service/img/hood.jpg" alt="Two men looking under the hood of a red car" loading="lazy"></figure>
+      <div class="shot c rv"><p>Bring it in. He'll take a look and tell you what he sees.</p></div>
+    </div>
+    <p class="cap">Sample photos. We'll use yours.</p>
+  </div>
+</section>
+
+<section class="rev" aria-labelledby="rev-h">
+  <div class="wrap">
+    <div class="kick rv">From Google reviews</div>
+    <h2 class="rv" id="rev-h">People don't just review the shop. They name Zahar.</h2>
+    <p class="rev-sub rv">A few of the 159 Google reviews, word for word.</p>
+    <div class="thread">
+      <div class="bub rv">
+        <blockquote class="big">"Been going to Eazy for <mark>over 10 years</mark> now and I've never had a bad experience."</blockquote>
+        <div class="meta"><span class="ini">Z</span><span>Zikra A. · Google review</span><span class="stars" aria-label="5 stars">★★★★★</span></div>
+      </div>
+      <div class="bub rv">
+        <blockquote>"Pricing was surprisingly reasonable and honesty is the best policy here. Zahar noticed and took care of an unrelated issue while under my car and <mark>took the time to explain and show me what was happening.</mark>"</blockquote>
+        <div class="meta"><span class="stars" aria-label="5 stars">★★★★★</span><span>JC · Google review</span><span class="ini">J</span></div>
+      </div>
+      <div class="bub rv">
+        <blockquote>"First experience I was in a bind and he fit me in and had me on my way <mark>the same day!</mark>"</blockquote>
+        <div class="meta"><span class="ini">M</span><span>mjmaniezzo · Google review</span><span class="stars" aria-label="5 stars">★★★★★</span></div>
+      </div>
+      <div class="bub rv">
+        <blockquote>"He's always honest and tells me when something is out of his comfort zone rather than over charging me."</blockquote>
+        <div class="meta"><span class="stars" aria-label="5 stars">★★★★★</span><span>Zikra A. · Google review</span><span class="ini">Z</span></div>
+      </div>
+      <div class="bub rv">
+        <blockquote>"Great work and an even better person, I was in a rush and he got me done fast."</blockquote>
+        <div class="meta"><span class="ini">F</span><span>Fahad A. · Google review</span><span class="stars" aria-label="5 stars">★★★★★</span></div>
+      </div>
+      <div class="bub rv">
+        <blockquote>"Zahar is very humble and cooperative, Especially helpful when in a situation that needs urgent help."</blockquote>
+        <div class="meta"><span class="stars" aria-label="5 stars">★★★★★</span><span>Razeya A. · Google review</span><span class="ini">R</span></div>
+      </div>
+    </div>
+    <div class="rev-foot rv"><span class="score">4.3</span><span><span class="star" aria-hidden="true">★★★★</span><br>159 reviews on Google</span></div>
+  </div>
+</section>
+
+<section class="work" aria-labelledby="work-h">
+  <div class="wrap">
+    <div class="kick rv">What he does</div>
+    <h2 class="rv" id="work-h">Repairs, maintenance and finding out what's wrong.</h2>
+    <div class="work-list">
+      <div class="job rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.2L3 17.8V21h3.2l6.3-6.3a4 4 0 0 0 5.2-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg></span><div><h3>Repairs</h3><p>Done right, with no corners cut.</p></div></div>
+      <div class="job rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v3M12 18v3M4.2 7.5l2.6 1.5M17.2 15l2.6 1.5M4.2 16.5l2.6-1.5M17.2 9l2.6-1.5"/><circle cx="12" cy="12" r="4"/></svg></span><div><h3>Maintenance</h3><p>Keep your car running smoothly between problems.</p></div></div>
+      <div class="job rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2M8.5 11h5M11 8.5v5"/></svg></span><div><h3>Diagnostics</h3><p>He'll show you what's happening under the car.</p></div></div>
+    </div>
+    <p class="ask rv">Pricing depends on the car and the job. Call or send a photo and ask.</p>
+  </div>
+</section>
+
+<section class="visit" id="visit" aria-labelledby="visit-h">
+  <div class="wrap">
+    <div class="visit-card rv">
+      <div class="hours">
+        <div class="kick">Hours</div>
+        <h2 id="visit-h">Weekdays, 10 to 7.</h2>
+        <div class="now" data-status><span class="dot"></span><span data-status-text>Checking hours…</span></div>
+        <div class="week" id="week" aria-label="Opening hours"></div>
+        <div class="weekend" id="weekend"><span>Saturday and Sunday</span><span>Closed</span></div>
+        <p class="hours-txt">Monday to Friday, 10:00 AM to 7:00 PM. Closed weekends.</p>
+      </div>
+      <div class="where">
+        <div>
+          <div class="kick">Find the shop</div>
+          <h3 style="margin-top:12px">EAZY Auto Service</h3>
+          <p class="addr" style="margin-top:8px">273 Queen St W<br>Brampton, ON L6Y 1M7</p>
+          <p class="phone" style="margin-top:14px">(905) 456-7124</p>
+        </div>
+        <div class="map" aria-hidden="true">
+          <span class="st" style="left:10px;top:calc(64% + 8px)">Queen St W</span>
+          <span class="pin"></span><span class="lbl">EAZY Auto</span>
+        </div>
+        <div class="btns">
+          <button class="btn btn-main" type="button" data-l24-contact="Visit EAZY Auto">Get directions</button>
+          <button class="btn btn-line" type="button" data-l24-contact="Call EAZY Auto">Call</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="close">
+  <div class="wrap">
+    <div class="close-in rv">
+      <h2>Not sure what's wrong? That's fine.</h2>
+      <p>Tell Zahar what you're hearing, seeing or feeling. He'll take a look and explain it.</p>
+      <div class="btns">
+        <a class="btn btn-main" href="#chat" data-jump>Ask about my car</a>
+        <button class="btn btn-line" type="button" data-l24-contact="Call EAZY Auto">Call the shop</button>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>EAZY Auto Service · 273 Queen St W, Brampton, ON L6Y 1M7</span>
+    <span>(905) 456-7124 · Mon to Fri 10 AM to 7 PM</span>
+  </div>
+</footer>
+
+<div class="mbar">
+  <button class="btn btn-line" type="button" data-l24-contact="Call EAZY Auto">Call</button>
+  <a class="btn btn-main" href="#chat" data-jump>Ask Zahar</a>
+</div>
+
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- hours (America/Toronto) ---------- */
+  var H=[null,[10,19],[10,19],[10,19],[10,19],[10,19],null]; // Sunday first
+  var DN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  function fmt(h){var hh=Math.floor(h),m=Math.round((h-hh)*60),ap=hh%24>=12?'PM':'AM',d=hh%12||12;return d+(m?':'+String(m).padStart(2,'0'):'')+' '+ap}
+  function torNow(){
+    var p=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Toronto',weekday:'short',hour:'numeric',minute:'numeric',hourCycle:'h23'}).formatToParts(new Date());
+    var o={};p.forEach(function(x){o[x.type]=x.value});
+    return {d:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(o.weekday),h:(+o.hour%24)+(+o.minute)/60};
+  }
+  function status(){
+    var n=torNow(),d=n.d,h=n.h;
+    var prev=H[(d+6)%7];
+    if(prev&&prev[1]>24&&h<prev[1]-24)return {open:true,t:'Open now · until '+fmt(prev[1]-24)};
+    var t=H[d];
+    if(t&&h>=t[0]&&h<t[1])return {open:true,t:'Open now · until '+fmt(t[1])};
+    if(t&&h<t[0])return {open:false,t:'Closed · opens '+fmt(t[0])+' today'};
+    for(var i=1;i<=7;i++){var k=(d+i)%7;if(H[k])return {open:false,t:'Closed · opens '+(i===1?'tomorrow':DN[k])+' '+fmt(H[k][0])}}
+    return {open:false,t:'Closed'};
+  }
+  function paint(){
+    var s=status();
+    [].forEach.call(document.querySelectorAll('[data-status]'),function(el){el.classList.toggle('is-open',s.open);el.querySelector('[data-status-text]').textContent=s.t});
+  }
+  var wk=document.getElementById('week'),today=torNow().d;
+  wk.innerHTML=[1,2,3,4,5].map(function(i){return '<div class="day'+(i===today?' today':'')+'"><b>'+DN[i].slice(0,3)+'</b><span>10–7'+(i===today?'<br>Today':'')+'</span></div>'}).join('');
+  if(today===0||today===6)document.getElementById('weekend').classList.add('today');
+  paint();setInterval(paint,60000);
+
+  /* ---------- header shadow ---------- */
+  var top=document.getElementById('top');
+  addEventListener('scroll',function(){top.classList.toggle('sc',scrollY>8)},{passive:true});
+
+  /* ---------- reveal (content starts visible) ---------- */
+  if(!reduce&&'IntersectionObserver' in window){
+    var els=[].slice.call(document.querySelectorAll('.rv'));
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.remove('pre');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(el){var r=el.getBoundingClientRect();if(r.top>innerHeight){el.classList.add('pre');io.observe(el)}});
+  }
+
+  /* ---------- smooth jump to chat ---------- */
+  [].forEach.call(document.querySelectorAll('[data-jump]'),function(a){a.addEventListener('click',function(e){e.preventDefault();var t=document.getElementById('chat');var y=t.getBoundingClientRect().top+scrollY-130;scrollTo({top:y,behavior:reduce?'auto':'smooth'});setTimeout(function(){var b=document.querySelector('#replies button');if(b)b.focus({preventScroll:true})},reduce?0:600)})});
+
+  /* ---------- the conversation ---------- */
+  var log=document.getElementById('chatlog'),rep=document.getElementById('replies');
+  var TOPICS=[
+    {k:'noise',label:'A strange noise',me:"It's making a strange noise.",z:["Noises are hard to judge over the phone. Try to notice when it happens: braking, turning, speeding up, or when it's cold.","Bring it in and I'll take a look and show you what's going on."]},
+    {k:'light',label:'A warning light',me:"A warning light came on.",z:["A light can mean a lot of things. Some can wait a little, some can't. If the car feels different, take it easy.","Bring it in and I'll check it and tell you straight what it is."]},
+    {k:'brakes',label:'Brakes',me:"Something feels off with my brakes.",z:["Squealing, grinding or a soft pedal are worth looking at soon. Brakes aren't something to put off.","Bring it in and I'll show you what I find before you decide anything."]},
+    {k:'start',label:"It won't start",me:"My car won't start.",z:["Sorry, that's a rough day. Does it click, crank slowly, or do nothing at all? That helps narrow it down.","Call the shop and tell me what it's doing. If you're in a bind, I'll do my best to fit you in."]},
+    {k:'service',label:'Routine maintenance',me:"I just need some routine maintenance.",z:["Good on you for staying ahead of it.","Bring it in and I'll go over it properly. If I spot anything else while I'm under there, I'll show you."]}
+  ];
+  function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function keep(node){var r=node.getBoundingClientRect();if(r.bottom>innerHeight-90||r.top<130){var y=r.bottom+scrollY-innerHeight+110;if(y>scrollY)scrollTo({top:y,behavior:reduce?'auto':'smooth'})}}
+  function add(node){log.appendChild(node);keep(node);return node}
+  function zsay(lines,done){
+    var i=0;(function next(){
+      if(i>=lines.length){done&&done();return}
+      var t=add(el('div','typing','<i></i><i></i><i></i>'));
+      var wait=reduce?0:Math.min(1300,500+lines[i].length*9);
+      setTimeout(function(){t.remove();add(el('div','msg z',(i===0?'<span class="who">Zahar</span>':'')+esc(lines[i])));i++;setTimeout(next,reduce?0:260)},wait);
+    })();
+  }
+  function setReplies(list){
+    rep.innerHTML='';
+    list.forEach(function(r){var b=el('button','qr'+(r.cls?' '+r.cls:''),esc(r.label));b.type='button';if(r.contact)b.setAttribute('data-l24-contact',r.contact);if(r.fn)b.addEventListener('click',r.fn);rep.appendChild(b)});
+  }
+  function start(){
+    setReplies(TOPICS.map(function(t){return {label:t.label,fn:function(){pick(t)}}}));
+  }
+  function pick(t){
+    setReplies([]);
+    add(el('div','msg me',esc(t.me)));
+    zsay(t.z,function(){
+      zsay(["Want to send a photo and a few details? Or just give the shop a call."],function(){
+        setReplies([
+          {label:'Send a photo & details',cls:'solid',fn:form},
+          {label:'Call the shop',contact:'Call EAZY Auto'},
+          {label:'Ask about something else',cls:'ghost',fn:reset}
+        ]);
+      });
+    });
+  }
+  function reset(){
+    setReplies([]);
+    add(el('div','msg me','Something else, actually.'));
+    zsay(["Sure. What's going on?"],start);
+  }
+  function form(){
+    setReplies([]);
+    add(el('div','msg me','Sure, here are the details.'));
+    var f=el('form','qform');
+    f.innerHTML=
+      '<div class="two"><label>Your name<input name="name" autocomplete="name" required></label>'+
+      '<label>Phone<input name="phone" type="tel" autocomplete="tel" inputmode="tel" required></label></div>'+
+      '<label>Your car<input name="car" placeholder="Year, make and model"></label>'+
+      '<label>What\'s going on?<textarea name="what" placeholder="When does it happen? What do you hear or see?"></textarea></label>'+
+      '<label class="drop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span>Add photos <span style="font-weight:400;color:var(--soft)">(optional)</span></span><input type="file" name="photos" accept="image/*" multiple><span class="thumbs"></span></label>'+
+      '<button class="btn btn-main" type="submit">Send to Zahar</button>';
+    var inp=f.querySelector('input[type=file]'),th=f.querySelector('.thumbs');
+    inp.addEventListener('change',function(){th.innerHTML='';[].slice.call(inp.files,0,3).forEach(function(file){var im=new Image();im.alt='';im.src=URL.createObjectURL(file);th.appendChild(im)})});
+    f.addEventListener('submit',function(e){e.preventDefault();L24.toast("Preview only: on the live site this goes straight to EAZY Auto Service.")});
+    add(f);
+    setReplies([{label:'Start over',cls:'ghost',fn:function(){f.remove();reset()}},{label:'Call instead',contact:'Call EAZY Auto'}]);
+    setTimeout(function(){f.querySelector('input').focus({preventScroll:true})},reduce?0:350);
+  }
+  start();
+})();
+</script>
+
+<script>window.L24CFG={name:"EAZY Auto Service",phone:"(905) 456-7124",tel:"+19054567124",address:"273 Queen St W, Brampton, ON L6Y 1M7",maps:"https://maps.google.com/?cid=2256198893909402870",
+ noteOpen:"159 people have reviewed you on Google",noteRest:"and many of them name Zahar. But there's no website where new customers can find you. I made this to show what yours could look like.",
+ checklist:["Designed for EAZY Auto","Your hours, address and reviews added","Works on every phone","A chat-style \"Ask Zahar\" helper with photo quotes"],
+ swatches:[{name:"Original",dot:"#0d4d4a",vars:{"--accent":"#0d4d4a"}},{name:"Forest",dot:"#2b5a3a",vars:{"--accent":"#2b5a3a"}},{name:"Midnight",dot:"#1f3b63",vars:{"--accent":"#1f3b63"}},{name:"Engine red",dot:"#9b2f24",vars:{"--accent":"#9b2f24"}}]};</script>
+<!-- ===== Launch24 preview layer (shared, do not edit). Needs window.L24CFG defined BEFORE this block. ===== -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Onest:wght@400;500;600&display=swap">
+<style>
+:root{--l24-h:44px}
+.l24,.l24 *{box-sizing:border-box}
+.l24{font-family:"Onest","Segoe UI",Arial,sans-serif;font-size:15px;line-height:1.5;color:#eef0f5;-webkit-font-smoothing:antialiased}
+.l24 button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.l24 :focus-visible{outline:3px solid #ffd60a;outline-offset:2px}
+.l24-bar{position:sticky;top:0;z-index:1000;height:var(--l24-h);background:#08090c;color:#eef0f5;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 max(14px,env(safe-area-inset-right,0px)) 0 max(14px,env(safe-area-inset-left,0px));font-family:"Onest","Segoe UI",Arial,sans-serif;font-size:13px;border-bottom:1px solid #1d2029}
+.l24-bar .l24-id{display:flex;align-items:center;gap:8px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.l24-logo{flex:none;display:inline-grid;place-items:center;width:22px;height:22px;border-radius:6px;background:#ffd60a;color:#000;font:800 10px "Bricolage Grotesque",sans-serif}
+.l24-bar b{font-weight:600}
+.l24-bar .l24-sub{color:#8f97a8}
+@media (max-width:620px){.l24-bar .l24-sub{display:none}}
+.l24-keep{flex:none;height:32px;padding:0 14px;border-radius:999px;border:0;background:#ffd60a;color:#000;font-weight:700!important}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:1001;background:#08090c}
+.l24-bar{top:env(safe-area-inset-top,0px)}
+.l24-note{position:fixed;z-index:1002;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(400px,calc(100vw - 32px));background:#08090c;border:1px solid #232733;border-radius:20px;padding:18px 18px 14px;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);transform:translateY(16px);opacity:0;transition:transform .7s cubic-bezier(.2,.9,.2,1),opacity .7s}
+.l24-note.in{transform:none;opacity:1}
+.l24-note[hidden]{display:none}
+.l24-note .l24-k{font:600 11px/1 "Onest",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#ffd60a}
+.l24-note p{margin:10px 0 0;font-size:14.5px}
+.l24-note p b{color:#fff}
+.l24-note .l24-s{color:#9aa1b1;font-size:13.5px}
+.l24-acts{display:flex;gap:8px;margin-top:14px}
+.l24-acts button{min-height:44px;padding:0 16px;border-radius:999px;border:1px solid #2c313d;background:transparent;color:#eef0f5;font-weight:600}
+.l24-acts .l24-y{background:#ffd60a;border-color:#ffd60a;color:#000}
+@media (max-width:560px){.l24-note .l24-s{display:none}}
+.l24-fab{position:fixed;z-index:999;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));display:inline-flex;align-items:center;gap:9px;height:50px;padding:0 18px;border-radius:999px;border:1px solid #232733;background:#08090c;color:#fff;font-weight:600;box-shadow:0 18px 40px -16px rgba(0,0,0,.6)}
+.l24-fab i{width:16px;height:16px;border-radius:50%;background:conic-gradient(#ffd60a 0 50%,var(--accent,#ffd60a) 0)}
+@media (max-width:760px){.l24-fab{bottom:calc(84px + env(safe-area-inset-bottom,0px))}}
+.l24-scrim{position:fixed;inset:0;z-index:1003;background:rgba(5,6,8,.55);opacity:0;pointer-events:none;transition:opacity .35s}
+.l24-scrim.open{opacity:1;pointer-events:auto}
+.l24-drawer{position:fixed;z-index:1004;top:0;right:0;bottom:0;width:min(410px,100vw);background:#101218;color:#eef0f5;border-left:1px solid #232733;transform:translateX(105%);transition:transform .5s cubic-bezier(.2,.9,.2,1);overflow-y:auto;padding:calc(22px + env(safe-area-inset-top,0px)) max(22px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) 22px}
+.l24-drawer.open{transform:none}
+.l24-x{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:14px;width:44px;height:44px;border-radius:50%;border:1px solid #2c313d;background:#161922;display:grid;place-items:center;padding:0}
+.l24-x svg{width:18px;height:18px;stroke:#eef0f5}
+.l24-h{font:700 30px/1.05 "Bricolage Grotesque",sans-serif;margin:8px 48px 0 0;letter-spacing:-.01em}
+.l24-p{color:#a3aab9;margin:10px 0 0}
+.l24-p b{color:#fff}
+.l24-lbl{display:block;font:600 11px/1 "Onest",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8f97a8;margin-top:22px}
+.l24-sw{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.l24-sw button{width:46px;height:46px;border-radius:50%;border:3px solid #101218;box-shadow:0 0 0 1.5px #2c313d;padding:0;transition:transform .2s}
+.l24-sw button[aria-pressed=true]{box-shadow:0 0 0 2.5px #ffd60a;transform:scale(1.06)}
+.l24-in{width:100%;min-height:48px;margin-top:8px;border-radius:12px;border:1.5px solid #2c313d;background:#08090c;color:#eef0f5;padding:0 12px;font:inherit;font-size:16px}
+.l24-in:focus{outline:none;border-color:#ffd60a}
+.l24-box{margin-top:24px;padding:20px;border-radius:18px;background:#08090c;border:1px solid #232733}
+.l24-box .l24-t{font:700 24px/1.1 "Bricolage Grotesque",sans-serif;color:#fff}
+.l24-done{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+.l24-done li{display:flex;gap:10px;align-items:flex-start}
+.l24-done li::before{content:"";flex:none;margin-top:2px;width:18px;height:18px;border-radius:50%;background:#25d366 url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'><path d='m6 12 4 4 8-8'/></svg>") center/11px no-repeat}
+.l24-price{font:700 40px/1 "Bricolage Grotesque",sans-serif;color:#fff;margin-top:14px}
+.l24-price span{font:400 15px "Onest",sans-serif;color:#9aa1b1}
+.l24-pay{display:flex;align-items:center;justify-content:center;text-decoration:none;width:100%;min-height:52px;margin-top:14px;border-radius:999px;border:0;background:#ffd60a;color:#000;font-weight:700!important;font-size:16px!important;animation:l24nudge 2.8s 1.4s ease-in-out infinite}
+@keyframes l24nudge{0%,86%,100%{transform:none}90%{transform:scale(1.03)}95%{transform:scale(.99)}}
+.l24-g{color:#9aa1b1;font-size:13.5px;margin:10px 0 0}
+.l24-wa{display:inline-flex;align-items:center;min-height:44px;color:#eef0f5;text-underline-offset:3px;font-size:14px}
+.l24-sheet{position:fixed;z-index:1004;left:50%;bottom:0;width:min(520px,100vw);max-height:88vh;overflow-y:auto;transform:translate(-50%,105%);transition:transform .5s cubic-bezier(.2,.9,.2,1);background:#101218;color:#eef0f5;border:1px solid #232733;border-radius:24px 24px 0 0;padding:14px max(20px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px))}
+.l24-sheet.open{transform:translate(-50%,0)}
+.l24-grab{width:44px;height:5px;border-radius:3px;background:#2c313d;margin:0 auto 16px}
+.l24-sheet .l24-x{top:14px}
+.l24-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 16px;border-radius:14px;background:#161922;margin-top:10px}
+.l24-row>div:first-child{min-width:0}
+.l24-row b{display:block}
+.l24-row span{color:#9aa1b1;font-size:13.5px}
+.l24-row .l24-num{color:#fff;font-size:16px;font-variant-numeric:tabular-nums;user-select:all}
+.l24-btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 16px;border-radius:999px;border:0;background:#ffd60a;color:#000!important;font-weight:700;text-decoration:none}
+.l24-btn.l24-gh{background:transparent;color:#eef0f5!important;box-shadow:inset 0 0 0 1.5px #2c313d}
+.l24-toast{position:fixed;z-index:1005;left:50%;top:calc(var(--l24-h) + 14px + env(safe-area-inset-top,0px));transform:translate(-50%,-14px);opacity:0;width:max-content;max-width:calc(100vw - 32px);text-align:center;background:#08090c;color:#fff;border:1px solid #232733;padding:11px 16px;border-radius:16px;font-size:14px;transition:opacity .3s,transform .3s;pointer-events:none}
+.l24-toast.show{opacity:1;transform:translate(-50%,0)}
+.l24-drawer,.l24-sheet{visibility:hidden}
+.l24-drawer.open,.l24-sheet.open{visibility:visible}
+@media (prefers-reduced-motion:reduce){.l24 *,.l24-pay{animation:none!important;transition:none!important}}
+</style>
+<div class="l24" id="l24"></div>
+<script>
+(function(){
+  var C=window.L24CFG||{}, root=document.getElementById('l24'), doc=document.documentElement;
+  var PAY='https://buy.stripe.com/9B65kC9zcfRMcqj7foe7m05?client_reference_id='+encodeURIComponent((C.name||'preview').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''));
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  var X='<svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  // bar goes first in <body>
+  var bar=document.createElement('div');bar.className='l24 l24-bar';
+  bar.innerHTML='<span class="l24-id"><span class="l24-logo">24</span><span><b>Preview made for '+esc(C.name)+'</b><span class="l24-sub"> by Launch24. Not live yet.</span></span></span><button class="l24-keep" type="button" data-l24-open>Make it yours</button>';
+  document.body.insertBefore(bar,document.body.firstChild);
+  var edits=[].slice.call(document.querySelectorAll('[data-l24-edit]'));
+  var sw=(C.swatches||[]);
+  root.innerHTML=
+   '<aside class="l24-note" id="l24-note" aria-label="Note from Launch24"><div class="l24-k">A note from Parth at Launch24</div><p>Hi! <b>'+esc(C.noteOpen)+'</b>, '+esc(C.noteRest)+'</p><p class="l24-s">It\'s built and ready. You\'re one click away from making it yours.</p><div class="l24-acts"><button class="l24-y" type="button" data-l24-open>Make it yours</button><button type="button" id="l24-look">Take a look</button></div></aside>'+
+   '<button class="l24-fab" type="button" data-l24-open><i aria-hidden="true"></i>Make it yours</button>'+
+   '<div class="l24-scrim" id="l24-scrim"></div>'+
+   '<aside class="l24-drawer" id="l24-drawer" aria-label="Make it yours" aria-hidden="true"><button class="l24-x" type="button" id="l24-dx" aria-label="Close">'+X+'</button>'+
+     '<span class="l24-lbl" style="margin-top:0;color:#ffd60a">Make it yours</span><h2 class="l24-h">Your website is ready.</h2>'+
+     '<p class="l24-p">We designed it, wrote it and added your hours, address and Google reviews. Try a colour or change the words if you like. Then you\'re <b>one click away</b> from making it yours.</p>'+
+     (sw.length?'<span class="l24-lbl">Colour</span><div class="l24-sw" id="l24-sw">'+sw.map(function(s,i){return '<button type="button" aria-pressed="'+(i===0)+'" aria-label="'+esc(s.name)+'" data-i="'+i+'" style="background:'+esc(s.dot)+'"></button>'}).join('')+'</div>':'')+
+     edits.map(function(el,i){var id='l24e'+i;return '<label class="l24-lbl" for="'+id+'">'+esc(el.getAttribute('data-l24-edit'))+'</label><input class="l24-in" id="'+id+'" data-i="'+i+'" value="'+esc(el.textContent.trim())+'">'}).join('')+
+     '<div class="l24-box"><div class="l24-t">You\'re one click away.</div><p class="l24-g" style="margin-top:6px">Already done for you:</p><ul class="l24-done">'+(C.checklist||[]).map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>'+
+     '<p class="l24-p" style="color:#eef0f5"><b>All that\'s left:</b> tap Pay. We add your real photos and details, and put it live on your own domain within 24 hours.</p>'+
+     '<div class="l24-price">$699 <span>one-time</span></div><a class="l24-pay" id="l24-pay" target="_blank" rel="noopener" href="'+esc(PAY)+'">Pay $699 and make it mine →</a><p class="l24-g" style="margin-top:8px">Secure checkout by Stripe.</p>'+
+     '<p class="l24-g">If we miss the 24 hours, you pay nothing. Your deposit is refunded in full.</p><a class="l24-wa" id="l24-wa" target="_blank" rel="noopener" href="#">Questions first? WhatsApp Parth</a></div></aside>'+
+   '<div class="l24-sheet" id="l24-sheet" role="dialog" aria-modal="true" aria-labelledby="l24-st" aria-hidden="true"><div class="l24-grab"></div><button class="l24-x" type="button" id="l24-sx" aria-label="Close">'+X+'</button><span class="l24-lbl" style="margin-top:0;color:#ffd60a" id="l24-se">Contact</span><h2 class="l24-h" id="l24-st" style="font-size:26px">How would you like to reach us?</h2>'+
+     (C.phone?'<div class="l24-row"><div><b>Call</b><span class="l24-num" id="l24-num">'+esc(C.phone)+'</span></div><div style="display:flex;gap:8px"><a class="l24-btn" href="tel:'+esc(C.tel)+'">Call</a><button class="l24-btn l24-gh" type="button" id="l24-copy">Copy</button></div></div>':'')+
+     (C.book?'<div class="l24-row"><div><b>Book online</b><span>Your existing '+esc(C.bookName||'booking')+' page</span></div><a class="l24-btn" href="'+esc(C.book)+'" target="_blank" rel="noopener">Open</a></div>':'')+
+     (C.instagram?'<div class="l24-row"><div><b>Instagram</b><span>Send a DM</span></div><a class="l24-btn l24-gh" href="'+esc(C.instagram)+'" target="_blank" rel="noopener">Open</a></div>':'')+
+     (C.address?'<div class="l24-row"><div><b>Visit</b><span>'+esc(C.address)+'</span></div><a class="l24-btn l24-gh" href="'+esc(C.maps)+'" target="_blank" rel="noopener">Directions</a></div>':'')+
+     '<p class="l24-g">On the live site these buttons call, book or open directions straight away.</p></div>'+
+   '<div class="l24-toast" id="l24-toast" role="status"></div>';
+  var $=function(id){return document.getElementById(id)};
+  var tt;function toast(m){var t=$('l24-toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('show')},3400)}
+  var note=$('l24-note');setTimeout(function(){note.classList.add('in')},700);
+  $('l24-look').onclick=function(){note.hidden=true};
+  var dr=$('l24-drawer'),sh=$('l24-sheet'),sc=$('l24-scrim');
+  function openD(){closeS();dr.classList.add('open');sc.classList.add('open');dr.setAttribute('aria-hidden','false');note.hidden=true;setTimeout(function(){$('l24-dx').focus()},200)}
+  function closeD(){dr.classList.remove('open');dr.setAttribute('aria-hidden','true');if(!sh.classList.contains('open'))sc.classList.remove('open')}
+  function openS(t){closeD();$('l24-st').textContent=t?t:'How would you like to reach us?';sh.classList.add('open');sc.classList.add('open');sh.setAttribute('aria-hidden','false');setTimeout(function(){$('l24-sx').focus()},200)}
+  function closeS(){sh.classList.remove('open');sh.setAttribute('aria-hidden','true');if(!dr.classList.contains('open'))sc.classList.remove('open')}
+  document.addEventListener('click',function(e){var o=e.target.closest('[data-l24-open]');if(o){e.preventDefault();openD();return}var c=e.target.closest('[data-l24-contact]');if(c){e.preventDefault();openS(c.getAttribute('data-l24-contact'))}});
+  $('l24-dx').onclick=closeD;$('l24-sx').onclick=closeS;sc.onclick=function(){closeD();closeS()};
+  addEventListener('keydown',function(e){if(e.key==='Escape'){closeD();closeS()}});
+  var cp=$('l24-copy');if(cp)cp.onclick=function(){var n=$('l24-num').textContent;try{navigator.clipboard.writeText(n).then(function(){toast('Number copied')},sel)}catch(_){sel()}function sel(){var r=document.createRange();r.selectNodeContents($('l24-num'));var s=getSelection();s.removeAllRanges();s.addRange(r);toast('Number selected')}};
+  var choice=sw[0]?sw[0].name:'Original';
+  [].forEach.call(document.querySelectorAll('#l24-sw button'),function(b){b.onclick=function(){var s=sw[+b.dataset.i];[].forEach.call(document.querySelectorAll('#l24-sw button'),function(x){x.setAttribute('aria-pressed',x===b)});Object.keys(s.vars||{}).forEach(function(k){doc.style.setProperty(k,s.vars[k])});choice=s.name;wa();if(matchMedia('(max-width: 767px)').matches){setTimeout(function(){closeD();toast(s.name+' it is. Tap Make it yours to try another.')},180)}else{toast(s.name+' it is')}}});
+  [].forEach.call(document.querySelectorAll('.l24-in'),function(inp){inp.oninput=function(){edits[+inp.dataset.i].textContent=inp.value;wa()}});
+  function wa(){var m='Hi Parth! I saw the website preview for '+C.name+" and I'd like to make it mine.\nColour: "+choice+edits.map(function(el){return '\n'+el.getAttribute('data-l24-edit')+': '+el.textContent.trim()}).join('');$('l24-wa').href='https://wa.me/14373652475?text='+encodeURIComponent(m)}
+  wa();
+  window.L24={toast:toast,contact:openS,open:openD};
+})();
+</script>
+<!-- ===== end Launch24 layer ===== -->
+<script>
+/* Launch24: count preview opens and clicks (first-party, /api/event). */
+(function(){
+  var vid='';try{vid=localStorage.getItem('l24_vid')||'';if(!vid){vid=Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem('l24_vid',vid)}}catch(_){}
+  var q=new URLSearchParams(location.search);
+  function send(name){try{var b=JSON.stringify({name:name,visitor_id:vid,path:location.pathname,utm_source:q.get('utm_source')||'',utm_medium:q.get('utm_medium')||'',utm_campaign:q.get('utm_campaign')||'',utm_content:q.get('utm_content')||''});
+    if(navigator.sendBeacon)navigator.sendBeacon('/api/event',new Blob([b],{type:'application/json'}));else fetch('/api/event',{method:'POST',headers:{'Content-Type':'application/json'},body:b,keepalive:true})}catch(_){}}
+  send('preview_view');
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('#l24-pay,#l24-wa');if(a)send(a.id==='l24-pay'?'preview_claim_click':'preview_changes_click')},true);
+})();
+</script>
+
+</html>

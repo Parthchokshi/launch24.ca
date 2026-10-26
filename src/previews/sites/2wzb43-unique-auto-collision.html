@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<title>Unique Auto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#111315;--bg2:#171a1d;--panel:#1e2226;--line:#2b3036;--line2:#3a4048;
+  --ink:#e9ebee;--mute:#8e959e;--accent:#ff5a1f;--accent-ink:#120a06;
+  --hd:"Barlow Condensed","Arial Narrow",sans-serif;--bd:"Barlow","Segoe UI",sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace;
+  --gut:max(16px,env(safe-area-inset-left,0px));--gutr:max(16px,env(safe-area-inset-right,0px));
+  --spring:cubic-bezier(.34,1.56,.64,1);--ease:cubic-bezier(.2,.9,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--bd);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.ua{position:relative;background:
+  linear-gradient(var(--bg),var(--bg)) padding-box;}
+.wrap{max-width:1200px;margin:0 auto;padding-left:var(--gut);padding-right:var(--gutr)}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.acc{color:var(--accent)}
+h1,h2,h3{font-family:var(--hd);font-weight:800;line-height:.95;letter-spacing:-.005em;margin:0}
+h2{font-size:clamp(40px,7vw,76px)}
+h3{font-size:26px;font-weight:700;line-height:1.05}
+p{margin:0}
+
+/* grid paper */
+.grid-bg{background-image:
+  linear-gradient(to right,rgba(255,255,255,.035) 1px,transparent 1px),
+  linear-gradient(to bottom,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:40px 40px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 22px;border:0;border-radius:3px;background:var(--accent);color:var(--accent-ink);font:700 18px/1 var(--hd);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:transform .35s var(--spring),box-shadow .3s,background .3s;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%)}
+.btn:hover{box-shadow:0 10px 30px -10px var(--accent);transform:translateY(-2px)}
+.btn:active{transform:scale(.96)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line2);clip-path:none}
+.btn.ghost:hover{box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn svg{width:18px;height:18px}
+
+/* header */
+.hdr{position:sticky;top:calc(var(--l24-h) + env(safe-area-inset-top,0px));z-index:50;background:rgba(17,19,21,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.hdr .wrap{display:flex;align-items:center;justify-content:space-between;height:62px;gap:12px}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink);min-width:0}
+.mark{flex:none;width:36px;height:36px;display:grid;place-items:center;border:1.5px solid var(--accent);font:800 17px/1 var(--hd);color:var(--accent);letter-spacing:.02em;position:relative}
+.mark::after{content:"";position:absolute;right:-1.5px;bottom:-1.5px;width:9px;height:9px;background:var(--accent)}
+.brand b{font:700 20px/1 var(--hd);letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+.brand small{display:block;font:500 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-top:4px}
+.nav{display:none;gap:26px}
+.nav a{color:var(--mute);text-decoration:none;font:600 15px/1 var(--hd);letter-spacing:.08em;text-transform:uppercase;transition:color .2s}
+.nav a:hover{color:var(--ink)}
+.hdr .btn{min-height:44px;padding:0 16px;font-size:16px}
+@media(min-width:900px){.nav{display:flex}}
+@media(max-width:420px){.brand small{display:none}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero-img{position:absolute;inset:0;z-index:0}
+.hero-img img{width:100%;height:100%;object-fit:cover;object-position:50% 45%;filter:grayscale(.35) contrast(1.05) brightness(.62)}
+.hero-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,19,21,.35) 0%,rgba(17,19,21,.7) 55%,var(--bg) 100%),linear-gradient(90deg,rgba(17,19,21,.85),rgba(17,19,21,0) 75%)}
+.hero .wrap{position:relative;z-index:1;padding-top:56px;padding-bottom:40px;min-height:min(84vh,760px);display:flex;flex-direction:column;justify-content:flex-end}
+.crop{position:absolute;width:18px;height:18px;border-color:var(--accent);border-style:solid;opacity:.9}
+.crop.tl{top:20px;left:var(--gut);border-width:1.5px 0 0 1.5px}
+.crop.tr{top:20px;right:var(--gutr);border-width:1.5px 1.5px 0 0}
+.hero .tag{display:flex;flex-wrap:wrap;gap:6px 16px;margin-bottom:22px}
+.hero h1{font-size:clamp(58px,15vw,150px);line-height:.88;max-width:11ch;text-wrap:balance}
+@media(min-width:900px){.hero h1{font-size:clamp(90px,10vw,140px);max-width:12ch}}
+.hero h1 .acc{display:block}
+.lede{max-width:520px;margin-top:22px;font-size:18px;color:#c9cdd3}
+.hcta{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.dim{display:flex;align-items:center;gap:10px;margin-top:40px;max-width:640px}
+.dim i{flex:1;height:1px;background:var(--line2);position:relative}
+.dim i::before,.dim i::after{content:"";position:absolute;top:-5px;width:1px;height:11px;background:var(--line2)}
+.dim i::before{left:0}.dim i::after{right:0}
+.specs{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);margin-top:14px}
+.specs>div{padding:14px 12px 4px 0;min-width:0}
+.specs>div+div{padding-left:14px;border-left:1px solid var(--line)}
+.specs b{display:block;font:700 30px/1 var(--hd);letter-spacing:.01em}
+.specs b .st{color:var(--accent);font-size:22px}
+.specs span{display:block;margin-top:6px}
+.live{display:inline-flex;align-items:center;gap:8px}
+.live::before{content:"";width:8px;height:8px;border-radius:50%;background:#8e959e}
+.live.on::before{background:#35d07f;box-shadow:0 0 0 0 rgba(53,208,127,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(53,208,127,0)}100%{box-shadow:0 0 0 0 rgba(53,208,127,0)}}
+.cap{position:absolute;right:var(--gutr);top:22px;z-index:1;font:400 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:rgba(233,235,238,.55)}
+@media(max-width:560px){.specs b{font-size:24px}.specs>div+div{padding-left:10px}.hero .wrap{padding-top:70px}}
+
+/* ticker */
+.tick{border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap;background:var(--bg2)}
+.tick .t{display:inline-flex;animation:mq 34s linear infinite}
+.tick span{font:600 15px/1 var(--hd);letter-spacing:.14em;text-transform:uppercase;padding:16px 22px;color:var(--mute);display:inline-flex;align-items:center;gap:22px}
+.tick span::after{content:"";width:6px;height:6px;background:var(--accent);transform:rotate(45deg)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* section heads */
+.sec{padding:84px 0;border-bottom:1px solid var(--line);position:relative}
+.shead{display:grid;gap:16px;margin-bottom:38px}
+.shead .no{display:flex;align-items:center;gap:12px}
+.shead .no::after{content:"";flex:1;height:1px;background:var(--line)}
+.shead p.sub{color:var(--mute);max-width:520px;font-size:17px}
+@media(min-width:900px){.shead{grid-template-columns:1fr 1fr;align-items:end}.shead .no{grid-column:1/-1}}
+
+/* QUOTE BAY */
+.bay{display:grid;gap:22px}
+@media(min-width:1000px){.bay{grid-template-columns:1.35fr 1fr;align-items:start}}
+.stage{position:relative;border:1px solid var(--line);background:var(--bg2);padding:18px 14px 16px}
+.stage .corner{position:absolute;font:400 10px/1 var(--mono);letter-spacing:.12em;color:var(--mute);text-transform:uppercase}
+.stage .c1{top:12px;left:14px}.stage .c2{top:12px;right:14px;color:var(--accent)}
+.car{width:100%;height:auto;display:block;margin-top:18px;overflow:visible}
+.car .pn{fill:var(--panel);stroke:#59606a;stroke-width:1.4;stroke-linejoin:round;cursor:pointer;transition:fill .25s,stroke .25s;outline:none}
+.car .pn:hover,.car .pn:focus-visible{fill:#2b3138;stroke:var(--ink)}
+.car .pn.sel{fill:var(--accent);stroke:#fff;filter:drop-shadow(0 0 10px color-mix(in srgb,var(--accent) 70%,transparent))}
+.car .pn.pop{animation:pop .45s var(--spring)}
+@keyframes pop{40%{transform:scale(1.03)}}
+.car .pn{transform-box:fill-box;transform-origin:center}
+.car .glass{fill:#0c0e10;stroke:#59606a;stroke-width:1.2;pointer-events:none}
+.car .gl2{fill:none;stroke:rgba(255,255,255,.08);stroke-width:8;pointer-events:none}
+.car .arch{fill:var(--bg2);pointer-events:none}
+.car .tire{fill:#0a0b0c;stroke:#59606a;stroke-width:1.4;pointer-events:none}
+.car .rim{fill:none;stroke:#59606a;stroke-width:1.2;pointer-events:none}
+.car .cl{stroke:var(--line2);stroke-width:1;stroke-dasharray:4 5;pointer-events:none}
+.car .dl{stroke:var(--line2);stroke-width:1;pointer-events:none}
+.car .dt{fill:var(--mute);font:400 11px var(--mono);letter-spacing:.1em;pointer-events:none}
+.car .detail{fill:none;stroke:#59606a;stroke-width:1.1;pointer-events:none}
+.car .arch-lip{fill:none;stroke:#59606a;stroke-width:1.4;pointer-events:none}
+.car .lamp{fill:#3a3f46;pointer-events:none}
+.car .callout{pointer-events:none;transition:opacity .3s}
+.car .callout line{stroke:var(--accent);stroke-width:1.2}
+.car .callout circle{fill:var(--accent)}
+.car .callout text{fill:var(--ink);font:600 14px var(--hd);letter-spacing:.12em;text-transform:uppercase}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{min-height:44px;padding:0 14px;border:1px solid var(--line2);background:transparent;border-radius:2px;font:600 15px/1 var(--hd);letter-spacing:.08em;text-transform:uppercase;color:var(--mute);transition:all .25s var(--spring);display:inline-flex;align-items:center;gap:8px}
+.chip:hover{color:var(--ink);border-color:var(--ink)}
+.chip[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chip:active{transform:scale(.94)}
+.hint{margin-top:12px}
+
+.wo{border:1px solid var(--line);background:var(--bg2);position:relative}
+.wo-h{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line);gap:10px}
+.wo-h b{font:700 22px/1 var(--hd);letter-spacing:.06em;text-transform:uppercase}
+.step{padding:18px;border-bottom:1px dashed var(--line);transition:opacity .3s}
+.step.dim0{opacity:.45}
+.step .lab{display:flex;gap:12px;align-items:baseline;margin-bottom:10px}
+.step .lab b{font:700 19px/1 var(--hd);letter-spacing:.06em;text-transform:uppercase}
+.step .lab .n{font:500 12px var(--mono);color:var(--accent)}
+.sel-list{font:600 18px/1.35 var(--hd);letter-spacing:.04em;color:var(--ink);min-height:24px}
+.sel-list.empty{color:var(--mute);font:400 14px/1.4 var(--bd);letter-spacing:0}
+.fld{display:grid;gap:6px}
+.fld label{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.fld input{min-height:48px;border:1px solid var(--line2);background:var(--bg);border-radius:2px;padding:0 12px;font-size:16px;transition:border-color .2s}
+.fld input:focus{outline:none;border-color:var(--accent)}
+.two{display:grid;gap:12px}
+@media(min-width:520px){.two{grid-template-columns:1fr 1fr}}
+.drop{display:flex;align-items:center;gap:12px;min-height:64px;border:1.5px dashed var(--line2);padding:10px 14px;cursor:pointer;transition:border-color .2s,background .2s}
+.drop:hover{border-color:var(--accent);background:rgba(255,255,255,.02)}
+.drop svg{flex:none;width:26px;height:26px;stroke:var(--accent)}
+.drop b{font:700 17px/1.1 var(--hd);letter-spacing:.06em;text-transform:uppercase;display:block}
+.drop input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.thumbs:empty{display:none}
+.th{position:relative;aspect-ratio:1;border:1px solid var(--line2);overflow:hidden;animation:thin .4s var(--spring)}
+.th img{width:100%;height:100%;object-fit:cover}
+.th button{position:absolute;top:3px;right:3px;width:28px;height:28px;border:0;border-radius:50%;background:rgba(0,0,0,.7);color:#fff;font-size:16px;line-height:1;display:grid;place-items:center}
+.th button::before{content:"";position:absolute;inset:-8px}
+@keyframes thin{from{transform:scale(.7);opacity:0}}
+.chk{display:flex;gap:12px;align-items:center;min-height:44px;margin-top:12px;cursor:pointer;color:#c9cdd3}
+.chk input{width:22px;height:22px;accent-color:var(--accent)}
+.wo-f{padding:18px}
+.wo-f .btn{width:100%}
+.wo-f p{margin-top:10px;font-size:13.5px;color:var(--mute)}
+
+/* services spec table */
+.spec{border-top:1px solid var(--line)}
+.row{position:relative;display:grid;grid-template-columns:44px 1fr;gap:6px 14px;padding:22px 0;border-bottom:1px solid var(--line);overflow:hidden}
+.row::before{content:"";position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
+.row:hover::before{transform:scaleX(1)}
+.row .n{font:500 13px/1.9 var(--mono);color:var(--accent)}
+.row h3{font-size:clamp(30px,5vw,46px);font-weight:800;transition:transform .45s var(--ease)}
+.row:hover h3{transform:translateX(8px)}
+.row .txt{grid-column:2;display:grid;gap:6px}
+.row p{color:var(--mute);font-size:16px}
+.row q{font-style:italic;color:#c9cdd3;quotes:"\201C" "\201D"}
+@media(min-width:900px){.row{grid-template-columns:70px 1.1fr 1fr;align-items:center}.row .txt{grid-column:auto}}
+
+/* paint match */
+.pm{display:grid;gap:26px;align-items:center}
+@media(min-width:900px){.pm{grid-template-columns:1fr 1fr}}
+.panel-card{position:relative;aspect-ratio:16/10;border:1px solid var(--line);overflow:hidden;background:var(--bg2)}
+.panel-card .half{position:absolute;inset:0;background:
+  radial-gradient(120% 90% at 30% 10%,rgba(255,255,255,.45),rgba(255,255,255,0) 42%),
+  linear-gradient(160deg,var(--paint) 0%,color-mix(in srgb,var(--paint) 55%,#000) 100%);transition:background .6s}
+.panel-card .b{clip-path:inset(0 0 0 var(--seam,50%))}
+.panel-card .b{filter:saturate(1.0)}
+.seam{position:absolute;top:0;bottom:0;left:var(--seam,50%);width:0;border-left:1px dashed rgba(255,255,255,.55)}
+.seam span{position:absolute;top:50%;left:0;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:rgba(10,11,12,.7);border:1px solid rgba(255,255,255,.6);display:grid;place-items:center;color:#fff;font:600 14px var(--mono)}
+.panel-card .lbl{position:absolute;bottom:12px;font:500 10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.45);padding:5px 8px}
+.panel-card .la{left:12px}.panel-card .lb{right:12px}
+.panel-card input[type=range]{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.swatches{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
+.swatch{width:48px;height:48px;border-radius:50%;border:2px solid var(--bg);box-shadow:0 0 0 1.5px var(--line2);background:var(--c);transition:transform .35s var(--spring),box-shadow .25s;position:relative}
+.swatch:hover{transform:translateY(-3px)}
+.swatch[aria-pressed=true]{box-shadow:0 0 0 2px var(--ink);transform:scale(1.1)}
+.swatch:active{transform:scale(.9)}
+.swname{margin-top:14px}
+.pm blockquote{margin:24px 0 0;padding-left:18px;border-left:2px solid var(--accent);font:600 24px/1.2 var(--hd);letter-spacing:.01em}
+.pm blockquote cite{display:block;margin-top:10px;font:400 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mute);font-style:normal}
+
+/* damage to done */
+.flow{display:grid;gap:28px}
+@media(min-width:1000px){.flow{grid-template-columns:.9fr 1.1fr;gap:60px}}
+.flow-side{align-self:start}
+@media(min-width:1000px){.flow-side{position:sticky;top:calc(var(--l24-h) + 100px)}}
+.meter{margin-top:26px;border:1px solid var(--line);padding:18px;background:var(--bg2)}
+.bar{margin-top:14px}
+.bar .t{display:flex;justify-content:space-between;gap:10px;font:600 15px/1.2 var(--hd);letter-spacing:.06em;text-transform:uppercase}
+.bar .t b{font-weight:800;font-size:20px}
+.bar .tr{height:14px;background:var(--bg);border:1px solid var(--line);margin-top:8px;position:relative;overflow:hidden}
+.bar .fl{position:absolute;inset:0 auto 0 0;width:0;background:var(--line2);transition:width 1.4s var(--ease)}
+.bar.us .fl{background:var(--accent)}
+.meter.go .bar .fl{width:var(--w)}
+.ticks{position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 calc(100%/12 - 1px),rgba(0,0,0,.5) calc(100%/12 - 1px) calc(100%/12))}
+.meter .src{margin-top:14px;font-size:13.5px;color:var(--mute)}
+.stg{counter-reset:s}
+.st{position:relative;padding:0 0 34px 44px}
+.st::before{content:"";position:absolute;left:13px;top:6px;bottom:-6px;width:1px;background:var(--line)}
+.st:last-child::before{display:none}
+.st .dot{position:absolute;left:4px;top:2px;width:19px;height:19px;border:1.5px solid var(--line2);background:var(--bg);transform:rotate(45deg);transition:background .4s,border-color .4s,transform .5s var(--spring)}
+.st.on .dot{background:var(--accent);border-color:var(--accent);transform:rotate(45deg) scale(1.15)}
+.st .k{display:block;margin-bottom:6px}
+.st h3{font-size:30px;transition:color .4s}
+.st:not(.on) h3{color:#b6bbc2}
+.st blockquote{margin:12px 0 0;color:#c9cdd3;font-size:17px;max-width:560px}
+.st cite{display:block;margin-top:8px;font:400 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mute);font-style:normal}
+.st.last h3{color:var(--accent)}
+
+/* photo band */
+.band{display:grid;gap:2px;grid-template-columns:1fr;border-bottom:1px solid var(--line)}
+.band figure{margin:0;position:relative;overflow:hidden;background:#000}
+.band img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3;filter:grayscale(.2);transition:transform 1.2s var(--ease)}
+.band figure:hover img{transform:scale(1.04)}
+.band figcaption{position:absolute;left:var(--gut);bottom:16px;right:16px;font:700 28px/1 var(--hd);text-transform:none}
+.band figcaption span{display:block;font:400 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#d6d9dd;margin-bottom:8px}
+@media(min-width:800px){.band{grid-template-columns:1fr 1.4fr}.band img{aspect-ratio:auto;height:520px}}
+
+/* reviews */
+.rv-top{display:flex;align-items:flex-end;gap:22px;flex-wrap:wrap;margin-bottom:34px}
+.big5{font:800 clamp(110px,22vw,200px)/.8 var(--hd);letter-spacing:-.02em}
+.big5 sup{font-size:.3em;color:var(--accent);vertical-align:top;margin-left:4px}
+.rv-top .m b{display:block;font:700 26px/1.05 var(--hd);letter-spacing:.02em}
+.quotes{display:grid;gap:0;border-top:1px solid var(--line)}
+@media(min-width:900px){.quotes{grid-template-columns:repeat(3,1fr)}.quotes .q+.q{border-left:1px solid var(--line)}}
+.q{padding:26px 0;border-bottom:1px solid var(--line)}
+@media(min-width:900px){.q{padding:26px 24px}.q:first-child{padding-left:0}}
+.q .stars{color:var(--accent);letter-spacing:3px;font-size:14px}
+.q p{margin-top:12px;font-size:18px;line-height:1.5;color:#d6d9dd}
+.q cite{display:block;margin-top:14px;font:400 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mute);font-style:normal}
+
+/* visit */
+.visit{display:grid;gap:30px}
+@media(min-width:900px){.visit{grid-template-columns:1fr 1fr}}
+.hrs{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:14px}
+.hrs td{padding:13px 0;border-bottom:1px solid var(--line)}
+.hrs td:last-child{text-align:right;color:#c9cdd3}
+.hrs tr.today td{color:var(--ink)}
+.hrs tr.today td:first-child{color:var(--accent)}
+.hrs tr.today td:first-child::before{content:"▸ "}
+.status{font:700 30px/1.1 var(--hd);letter-spacing:.02em;margin:6px 0 18px}
+.addr{font:700 clamp(34px,5vw,52px)/1 var(--hd)}
+.addr span{display:block;color:var(--mute);font-size:.55em;font-weight:600;margin-top:8px;letter-spacing:.04em}
+.acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+
+/* close */
+.close{padding:100px 0 120px;text-align:left;overflow:hidden;position:relative}
+.close h2{font-size:clamp(56px,12vw,140px);max-width:12ch}
+.close .ghost-num{position:absolute;right:-2vw;bottom:-6vw;font:800 34vw/.8 var(--hd);color:transparent;-webkit-text-stroke:1px var(--line);pointer-events:none;user-select:none}
+.foot{padding:28px 0 120px;color:var(--mute);font-size:14px}
+.foot .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+
+/* mobile bar */
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;gap:8px;padding:8px var(--gutr) calc(8px + env(safe-area-inset-bottom,0px)) var(--gut);background:rgba(17,19,21,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+.mbar .btn{flex:1;min-height:48px;font-size:16px;padding:0 10px}
+@media(min-width:761px){.mbar{display:none}.foot{padding-bottom:40px}}
+
+/* reveals (start visible) */
+.rv.pre{opacity:0;transform:translateY(24px)}
+.rv{transition:opacity .8s var(--ease),transform .8s var(--ease)}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .rv.pre{opacity:1;transform:none}
+}
+</style>
+
+<div class="ua">
+<header class="hdr"><div class="wrap">
+  <a class="brand" href="#top" aria-label="Unique Auto Collision Centre, top of page"><span class="mark">U</span><span><b>Unique Auto</b><small>Collision Centre · Maple</small></span></a>
+  <nav class="nav" aria-label="Sections"><a href="#quote">Quote</a><a href="#work">Work</a><a href="#process">Process</a><a href="#reviews">Reviews</a><a href="#visit">Visit</a></nav>
+  <a class="btn" href="#quote">Get a quote</a>
+</div></header>
+
+<main id="top">
+<section class="hero">
+  <div class="hero-img"><img src="/p/2wzb43-unique-auto-collision/img/body2.jpg" alt="A car masked in plastic and tape inside a lit paint booth" fetchpriority="high"></div>
+  <span class="crop tl" aria-hidden="true"></span>
+  <p class="cap">Sample photos. We'll use yours.</p>
+  <div class="wrap">
+    <div class="tag"><span class="mono acc">Collision &amp; body repair</span><span class="mono">67 Rodinea Rd · Maple, Vaughan</span></div>
+    <h1><span data-l24-edit="Headline">Like the damage never happened.</span></h1>
+    <p class="lede" data-l24-edit="Tagline">Collision repair, rust repair and paint matching in Maple. Aman and the team keep you updated from quote to pickup.</p>
+    <div class="hcta">
+      <a class="btn" href="#quote">Tap a panel, get a quote
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+      <button class="btn ghost" type="button" data-l24-contact="Call Unique Auto">Call (647) 366-8080</button>
+    </div>
+    <div class="dim mono" aria-hidden="true"><span>Spec</span><i></i><span>Maple, ON</span></div>
+    <div class="specs">
+      <div><b>5.0<span class="st">★</span></b><span class="mono">Google rating</span></div>
+      <div><b>314</b><span class="mono">Reviews</span></div>
+      <div><b id="hstat">Mon–Sat</b><span class="mono live" id="hlive">Hours</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="tick" aria-hidden="true"><div class="t">
+  <span>Collision repair</span><span>Rust repair</span><span>Paint matching</span><span>Spoilers &amp; body parts</span><span>Insurance help</span>
+  <span>Collision repair</span><span>Rust repair</span><span>Paint matching</span><span>Spoilers &amp; body parts</span><span>Insurance help</span>
+</div></div>
+
+<!-- QUOTE BAY -->
+<section class="sec grid-bg" id="quote">
+  <div class="wrap">
+    <div class="shead rv">
+      <span class="no mono"><span class="acc">01</span> Quote bay</span>
+      <h2>Show us where it hurts.</h2>
+      <p class="sub">Tap the damaged panel, add a few photos and your car model. Aman takes a look and gets back to you with a quote.</p>
+    </div>
+
+    <div class="bay">
+      <div class="stage rv">
+        <span class="corner c1">Side elevation · not to scale</span>
+        <span class="corner c2" id="selcount">0 panels</span>
+        <svg class="car" viewBox="0 0 800 300" role="group" aria-label="Car outline. Choose the damaged panels.">
+          <!-- dimension line -->
+          <line class="dl" x1="34" y1="34" x2="766" y2="34"/>
+          <line class="dl" x1="34" y1="27" x2="34" y2="41"/><line class="dl" x1="766" y1="27" x2="766" y2="41"/>
+          <rect x="330" y="26" width="140" height="16" fill="var(--bg2)"/>
+          <text class="dt" x="400" y="38" text-anchor="middle">TAP A PANEL</text>
+          <!-- roof / greenhouse -->
+          <path class="pn" data-p="Roof" tabindex="0" role="button" aria-pressed="false" aria-label="Roof" d="M268 124 L356 72 Q362 68 372 68 L512 68 Q522 68 530 74 L614 124 Z"/>
+          <path class="glass" d="M290 126 L362 82 L442 82 L442 126 Z"/>
+          <path class="glass" d="M454 126 L454 82 L512 82 Q518 82 524 86 L592 126 Z"/>
+          <path class="gl2" d="M318 120 L356 96"/>
+          <!-- body panels -->
+          <path class="pn" data-p="Front bumper" tabindex="0" role="button" aria-pressed="false" aria-label="Front bumper" d="M95 146 L58 151 Q38 155 35 178 L34 206 Q36 226 48 230 L95 230 Z"/>
+          <path class="pn" data-p="Hood" tabindex="0" role="button" aria-pressed="false" aria-label="Hood" d="M95 146 L268 122 L272 138 L95 164 Z"/>
+          <path class="pn" data-p="Front fender" tabindex="0" role="button" aria-pressed="false" aria-label="Front fender" d="M95 164 L272 138 L284 230 L95 230 Z"/>
+          <path class="pn" data-p="Front door" tabindex="0" role="button" aria-pressed="false" aria-label="Front door" d="M272 138 L272 126 L448 126 L448 232 L284 232 Z"/>
+          <path class="pn" data-p="Rear door" tabindex="0" role="button" aria-pressed="false" aria-label="Rear door" d="M448 126 L596 126 L606 136 L590 232 L448 232 Z"/>
+          <path class="pn" data-p="Quarter panel" tabindex="0" role="button" aria-pressed="false" aria-label="Rear quarter panel" d="M596 126 L614 124 L734 128 L744 160 L744 230 L590 232 L606 136 Z"/>
+          <path class="pn" data-p="Rear bumper" tabindex="0" role="button" aria-pressed="false" aria-label="Rear bumper" d="M734 128 L752 132 Q764 140 765 162 L766 204 Q764 226 752 230 L744 230 L744 160 Z"/>
+          <!-- arches + wheels -->
+          <circle class="arch" cx="188" cy="236" r="52"/>
+          <circle class="arch" cx="660" cy="236" r="52"/>
+          <circle class="tire" cx="188" cy="236" r="42"/><circle class="rim" cx="188" cy="236" r="25"/><circle class="rim" cx="188" cy="236" r="6"/>
+          <circle class="tire" cx="660" cy="236" r="42"/><circle class="rim" cx="660" cy="236" r="25"/><circle class="rim" cx="660" cy="236" r="6"/>
+          <!-- details -->
+          <path class="arch-lip" d="M128 230 A60 60 0 0 1 248 230 M600 230 A60 60 0 0 1 720 230"/>
+          <path class="detail" d="M100 182 L740 168" stroke-dasharray="0" opacity=".6"/>
+          <path class="detail" d="M300 168 h26 M470 166 h26"/>
+          <path class="lamp" d="M40 168 L68 160 L72 170 L44 178 Z"/>
+          <path class="lamp" d="M752 140 L762 146 L762 160 L750 158 Z"/>
+          <path class="detail" d="M432 112 l14 -4 l0 10 z"/>
+          <!-- center lines + ground -->
+          <line class="cl" x1="188" y1="170" x2="188" y2="292"/><line class="cl" x1="660" y1="170" x2="660" y2="292"/>
+          <line class="dl" x1="20" y1="278" x2="780" y2="278"/>
+          <text class="dt" x="424" y="296" text-anchor="middle">WHEELBASE</text>
+          <g class="callout" id="callout" opacity="0"><line id="co-l" x1="0" y1="0" x2="0" y2="0"/><circle id="co-c" r="4" cx="0" cy="0"/><text id="co-t" x="0" y="0"></text></g>
+        </svg>
+        <div class="chips" id="pchips" role="group" aria-label="Panels"></div>
+        <p class="hint mono">Tap more than one if you need to.</p>
+      </div>
+
+      <form class="wo rv" id="wo" novalidate>
+        <div class="wo-h"><b>Your quote request</b><span class="mono" id="wo-state">Step 1 of 4</span></div>
+        <div class="step" id="s1">
+          <div class="lab"><span class="n">01</span><b>Panels</b></div>
+          <div class="sel-list empty" id="sellist">Nothing picked yet. Tap a panel on the car.</div>
+        </div>
+        <div class="step dim0" id="s2">
+          <div class="lab"><span class="n">02</span><b>What happened?</b></div>
+          <div class="chips" id="dchips" role="group" aria-label="Type of damage" style="margin-top:0">
+            <button type="button" class="chip" aria-pressed="false">Dent</button>
+            <button type="button" class="chip" aria-pressed="false">Scratch or scuff</button>
+            <button type="button" class="chip" aria-pressed="false">Rust</button>
+            <button type="button" class="chip" aria-pressed="false">Crack</button>
+            <button type="button" class="chip" aria-pressed="false">Collision</button>
+            <button type="button" class="chip" aria-pressed="false">Spoiler or part</button>
+          </div>
+        </div>
+        <div class="step dim0" id="s3">
+          <div class="lab"><span class="n">03</span><b>Photos</b></div>
+          <label class="drop" style="position:relative">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+            <span><b>Add photos</b><span class="mono" style="font-size:11px">A wide shot and a close-up help</span></span>
+            <input type="file" id="files" accept="image/*" multiple>
+          </label>
+          <div class="thumbs" id="thumbs"></div>
+        </div>
+        <div class="step dim0" id="s4">
+          <div class="lab"><span class="n">04</span><b>Your car</b></div>
+          <div class="fld"><label for="model">Year, make and model</label><input id="model" placeholder="e.g. 2019 Ford Mustang" autocomplete="off"></div>
+          <div class="two" style="margin-top:12px">
+            <div class="fld"><label for="nm">Your name</label><input id="nm" autocomplete="name"></div>
+            <div class="fld"><label for="ph">Phone</label><input id="ph" type="tel" autocomplete="tel"></div>
+          </div>
+          <label class="chk"><input type="checkbox" id="ins"> Going through insurance? We can help with that side too.</label>
+        </div>
+        <div class="wo-f">
+          <button class="btn" type="submit">Send for a quote</button>
+          <p>Photos stay on your phone in this preview.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="sec" id="work">
+  <div class="wrap">
+    <div class="shead rv">
+      <span class="no mono"><span class="acc">02</span> The work</span>
+      <h2>What comes through the door.</h2>
+      <p class="sub">The jobs customers write about most. Ask about anything else on your car's body.</p>
+    </div>
+    <div class="spec">
+      <div class="row rv"><span class="n">/01</span><h3>Collision repair</h3><div class="txt"><q>You can't even tell where the damage was.</q><p>From a parking lot dent to a bigger hit.</p></div></div>
+      <div class="row rv"><span class="n">/02</span><h3>Rust repair</h3><div class="txt"><p>Rust removed and paint matched, done in days.</p></div></div>
+      <div class="row rv"><span class="n">/03</span><h3>Paint matching</h3><div class="txt"><p>A finish that matches the rest of the car.</p></div></div>
+      <div class="row rv"><span class="n">/04</span><h3>Spoilers &amp; body parts</h3><div class="txt"><p>Mounted and painted to match.</p></div></div>
+      <div class="row rv"><span class="n">/05</span><h3>Insurance help</h3><div class="txt"><p>Help dealing with the insurance side of things, so a stressful week gets easier.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PAINT MATCH -->
+<section class="sec grid-bg" id="paint">
+  <div class="wrap pm">
+    <div class="rv">
+      <span class="no mono"><span class="acc">03</span> Paint match</span>
+      <h2 style="margin-top:16px">Find the seam.</h2>
+      <p class="sub" style="color:var(--mute);margin-top:16px;font-size:17px;max-width:460px">Left is factory. Right is refinished. Drag across the panel and pick a colour. When it's done right, there's nothing to find.</p>
+      <div class="swatches" id="sws" role="group" aria-label="Paint colour"></div>
+      <p class="mono swname" id="swname">Colour · Race red</p>
+      <blockquote>"…matching the paint perfectly...my car looks like it just came off the lot again."<cite>Rob C. · Google review</cite></blockquote>
+    </div>
+    <div class="panel-card rv" id="pcard" style="--paint:#c8102e">
+      <div class="half a"></div><div class="half b"></div>
+      <div class="seam" aria-hidden="true"><span>⇆</span></div>
+      <span class="lbl la">Factory</span><span class="lbl lb">Refinished</span>
+      <input type="range" min="8" max="92" value="50" id="seam" aria-label="Move the seam between factory and refinished paint">
+    </div>
+  </div>
+</section>
+
+<!-- PHOTO BAND -->
+<div class="band">
+  <figure><img src="/p/2wzb43-unique-auto-collision/img/body1.jpg" alt="A painter masking a car door before refinishing" loading="lazy" style="object-position:50% 40%"><figcaption><span>Prep</span>Masked line by line.</figcaption></figure>
+  <figure><img src="/p/2wzb43-unique-auto-collision/img/spray.jpg" alt="A spray gun laying down an even coat of paint" loading="lazy" style="object-position:60% 55%"><figcaption><span>Paint</span>Even coats, matched colour.</figcaption></figure>
+</div>
+
+<!-- DAMAGE TO DONE -->
+<section class="sec" id="process">
+  <div class="wrap flow">
+    <div class="flow-side rv">
+      <span class="no mono" style="display:flex;gap:12px"><span class="acc">04</span> Damage to done</span>
+      <h2 style="margin-top:16px">From the first call to pickup.</h2>
+      <p class="sub" style="color:var(--mute);margin-top:16px;font-size:17px">Told in customers' own words, from their Google reviews.</p>
+      <div class="meter" id="meter">
+        <span class="mono">Rust spots · business days</span>
+        <div class="bar"><div class="t"><span>Quoted elsewhere</span><b>12</b></div><div class="tr"><div class="fl" style="--w:100%"></div><div class="ticks"></div></div></div>
+        <div class="bar us"><div class="t"><span class="acc">Unique Auto</span><b class="acc">4</b></div><div class="tr"><div class="fl" style="--w:33.3%"></div><div class="ticks"></div></div></div>
+        <p class="src">One customer's rust repair, from Rob C.'s Google review. "Aman did the same job in 4 business days."</p>
+      </div>
+    </div>
+    <ol class="stg" style="list-style:none;margin:0;padding:0">
+      <li class="st"><span class="dot"></span><span class="k mono">Stage 01 · Damage</span><h3>Something happened to the car.</h3><blockquote>"…a stressful situation…"</blockquote><cite>Metrik C. · Google review</cite></li>
+      <li class="st"><span class="dot"></span><span class="k mono">Stage 02 · Quote</span><h3>You talk to Aman.</h3><blockquote>"After speaking with Aman, I was happy with the quoted price and turn around time."</blockquote><cite>Joshua S. · Google review</cite></li>
+      <li class="st"><span class="dot"></span><span class="k mono">Stage 03 · Insurance</span><h3>The paperwork gets handled.</h3><blockquote>"They also did a great job helping me deal with the insurance side of things, which made a stressful situation much easier to manage."</blockquote><cite>Metrik C. · Google review</cite></li>
+      <li class="st"><span class="dot"></span><span class="k mono">Stage 04 · Repair</span><h3>You hear how it's going.</h3><blockquote>"He kept me updated at all times and was very fair with pricing."</blockquote><cite>Rob C. · Google review</cite></li>
+      <li class="st"><span class="dot"></span><span class="k mono">Stage 05 · Paint</span><h3>The colour matches.</h3><blockquote>"Aman mounted a spoiler and painted both to match the rest of the car and did a FANTASTIC job."</blockquote><cite>Joshua S. · Google review</cite></li>
+      <li class="st last"><span class="dot"></span><span class="k mono">Stage 06 · Done</span><h3>Like it never happened.</h3><blockquote>"The quality of the repairs was excellent — honestly, you can’t even tell where the damage was."</blockquote><cite>Metrik C. · Google review</cite></li>
+    </ol>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="sec grid-bg" id="reviews">
+  <div class="wrap">
+    <div class="rv-top rv">
+      <div class="big5">5.0<sup>★</sup></div>
+      <div class="m"><span class="mono acc">Google rating</span><b>From 314 reviews.<br>Every one counts.</b></div>
+    </div>
+    <div class="quotes">
+      <div class="q rv"><div class="stars" aria-label="5 stars">★★★★★</div><p>"Highly recommend this shop… Will definitely be going back to Aman whenever I need body work done."</p><cite>Joshua S. · Google review</cite></div>
+      <div class="q rv"><div class="stars" aria-label="5 stars">★★★★★</div><p>"The team at Unique Auto Collision Center was professional, honest, and kept me updated throughout the repair… my car looks brand new."</p><cite>Edgar S. · Google review</cite></div>
+      <div class="q rv"><div class="stars" aria-label="5 stars">★★★★★</div><p>"Picked up my vehicle from Aman the other day and he was great. Very patient and helpful. The repair was done nicely and price was reasonable."</p><cite>Tham L. · Google review</cite></div>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section class="sec" id="visit">
+  <div class="wrap">
+    <div class="shead rv"><span class="no mono"><span class="acc">05</span> Visit the shop</span></div>
+    <div class="visit">
+      <div class="rv">
+        <p class="addr">67 Rodinea Rd, Unit 1<span>Maple, ON L6A 1R3</span></p>
+        <p class="mono" style="margin-top:20px">Phone · (647) 366-8080</p>
+        <div class="acts">
+          <button class="btn" type="button" data-l24-contact="Visit Unique Auto">Get directions</button>
+          <button class="btn ghost" type="button" data-l24-contact="Call Unique Auto">Call the shop</button>
+          <button class="btn ghost" type="button" data-l24-contact="Find Unique Auto on Instagram">Instagram</button>
+        </div>
+      </div>
+      <div class="rv">
+        <p class="status live" id="vstat">Hours</p>
+        <table class="hrs" id="hrs"><tbody></tbody></table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="close grid-bg">
+  <div class="wrap" style="position:relative;z-index:1">
+    <span class="mono acc">Bring it in</span>
+    <h2 style="margin-top:14px">Dented today. Done right.</h2>
+    <div class="hcta">
+      <a class="btn" href="#quote">Send photos for a quote</a>
+      <button class="btn ghost" type="button" data-l24-contact="Reach Unique Auto">Call or visit</button>
+    </div>
+  </div>
+  <div class="ghost-num" aria-hidden="true">5.0</div>
+</section>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <span>Unique Auto Collision Centre · 67 Rodinea Rd Unit 1, Maple, ON</span>
+  <span class="mono">Sample photos. We'll use yours.</span>
+</div></footer>
+
+<div class="mbar">
+  <a class="btn" href="#quote">Get a quote</a>
+  <button class="btn ghost" type="button" data-l24-contact="Call Unique Auto">Call</button>
+</div>
+</div>
+
+<script>
+(function(){
+  var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
+  function toast(m){if(window.L24)L24.toast(m)}
+
+  /* ---------- hours (America/Toronto) ---------- */
+  var H=[null,[8,18],[8,18],[8,18],[8,18],[8,18],[8,17]]; // Sunday first
+  var DN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  function fmt(h){var hh=Math.floor(h)%24,mm=Math.round((h-Math.floor(h))*60),ap=hh>=12?'PM':'AM',h12=hh%12||12;return h12+(mm?':'+String(mm).padStart(2,'0'):'')+' '+ap}
+  function now(){var p={};new Intl.DateTimeFormat('en-US',{timeZone:'America/Toronto',weekday:'short',hour:'numeric',minute:'numeric',hour12:false}).formatToParts(new Date()).forEach(function(x){p[x.type]=x.value});
+    var d=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(p.weekday);return {d:d,h:(+p.hour%24)+(+p.minute)/60}}
+  function status(){var n=now(),d=n.d,h=n.h;
+    var y=H[(d+6)%7];if(y&&y[1]>24&&h<y[1]-24)return {open:true,txt:'Open now · until '+fmt(y[1])};
+    var t=H[d];if(t&&h>=t[0]&&h<t[1])return {open:true,txt:'Open now · until '+fmt(t[1])};
+    if(t&&h<t[0])return {open:false,txt:'Closed · opens '+fmt(t[0])+' today'};
+    for(var i=1;i<=7;i++){var k=(d+i)%7;if(H[k])return {open:false,txt:'Closed · opens '+(i===1?'tomorrow':DN[k])+' '+fmt(H[k][0])}}
+    return {open:false,txt:'Closed'}}
+  function paintHours(){var s=status(),n=now();
+    var hl=$('#hlive'),hs=$('#hstat'),vs=$('#vstat');
+    hl.textContent=s.open?'Open now':'Closed';hl.classList.toggle('on',s.open);
+    var t=H[n.d];hs.textContent=s.open?'Till '+fmt(t[1]).replace(':00',''):(s.txt.split('opens ')[1]||'Closed').replace(' today','').replace('tomorrow','Tmrw');
+    vs.textContent=s.txt;vs.classList.toggle('on',s.open);
+    var tb=$('#hrs tbody');tb.innerHTML='';
+    [1,2,3,4,5,6,0].forEach(function(i){var tr=document.createElement('tr');if(i===n.d)tr.className='today';
+      tr.innerHTML='<td>'+DN[i]+'</td><td>'+(H[i]?fmt(H[i][0])+' – '+fmt(H[i][1]):'Closed')+'</td>';tb.appendChild(tr)})}
+  paintHours();setInterval(paintHours,60000);
+
+  /* ---------- quote bay ---------- */
+  var panels=$$('.car .pn'), chipsWrap=$('#pchips'), picked=[];
+  var order=['Front bumper','Hood','Front fender','Front door','Rear door','Quarter panel','Rear bumper','Roof'];
+  order.forEach(function(n){var b=document.createElement('button');b.type='button';b.className='chip';b.textContent=n;b.setAttribute('aria-pressed','false');b.dataset.p=n;b.onclick=function(){toggle(n)};chipsWrap.appendChild(b)});
+  var co=$('#callout'),cl=$('#co-l'),cc=$('#co-c'),ct=$('#co-t');
+  function callout(el){
+    if(!el){co.setAttribute('opacity','0');return}
+    var b=el.getBBox(),cx=b.x+b.width/2,cy=b.y+Math.min(b.height/2,30);
+    var ty=cy<120?cy-30:62, tx=Math.min(Math.max(cx,70),730);
+    if(el.dataset.p==='Roof'){ty=56;cy=b.y+10}
+    cc.setAttribute('cx',cx);cc.setAttribute('cy',cy);
+    cl.setAttribute('x1',cx);cl.setAttribute('y1',cy);cl.setAttribute('x2',tx);cl.setAttribute('y2',ty+4);
+    ct.setAttribute('x',tx);ct.setAttribute('y',ty);ct.setAttribute('text-anchor',tx<120?'start':tx>680?'end':'middle');
+    ct.textContent=el.dataset.p;co.setAttribute('opacity','1');
+  }
+  function toggle(n){
+    var i=picked.indexOf(n);if(i>-1)picked.splice(i,1);else picked.push(n);
+    var el=panels.filter(function(p){return p.dataset.p===n})[0];
+    panels.forEach(function(p){var on=picked.indexOf(p.dataset.p)>-1;p.classList.toggle('sel',on);p.setAttribute('aria-pressed',on)});
+    $$('#pchips .chip').forEach(function(c){c.setAttribute('aria-pressed',picked.indexOf(c.dataset.p)>-1)});
+    if(el&&i===-1&&!RM){el.classList.remove('pop');void el.getBBox();el.classList.add('pop')}
+    callout(i===-1?el:(picked.length?panels.filter(function(p){return p.dataset.p===picked[picked.length-1]})[0]:null));
+    var sl=$('#sellist');
+    if(picked.length){sl.textContent=picked.join(' · ');sl.classList.remove('empty')}else{sl.textContent='Nothing picked yet. Tap a panel on the car.';sl.classList.add('empty')}
+    $('#selcount').textContent=picked.length+(picked.length===1?' panel':' panels');
+    if(picked.length&&i===-1&&!toggle.nudged){toggle.nudged=1;if(innerWidth<1000){setTimeout(function(){$('#wo').scrollIntoView({behavior:RM?'auto':'smooth',block:'start'})},650)}}
+    steps();
+  }
+  panels.forEach(function(p){p.addEventListener('click',function(){toggle(p.dataset.p)});p.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle(p.dataset.p)}})});
+  var dmg=[];
+  $$('#dchips .chip').forEach(function(c){c.onclick=function(){var v=c.textContent,i=dmg.indexOf(v);if(i>-1)dmg.splice(i,1);else dmg.push(v);c.setAttribute('aria-pressed',i===-1);steps()}});
+  var files=[];
+  $('#files').addEventListener('change',function(e){[].forEach.call(e.target.files,function(f){if(!/^image\//.test(f.type)||files.length>=8)return;files.push({f:f,u:URL.createObjectURL(f)})});e.target.value='';thumbs();steps()});
+  function thumbs(){var t=$('#thumbs');t.innerHTML='';files.forEach(function(x,i){var d=document.createElement('div');d.className='th';d.innerHTML='<img alt="Photo '+(i+1)+'"><button type="button" aria-label="Remove photo '+(i+1)+'">×</button>';d.querySelector('img').src=x.u;d.querySelector('button').onclick=function(){URL.revokeObjectURL(x.u);files.splice(i,1);thumbs();steps()};t.appendChild(d)})}
+  $('#model').addEventListener('input',steps);
+  function steps(){var s=1;if(picked.length)s=2;if(s===2&&dmg.length)s=3;if(s===3&&files.length)s=4;
+    ['#s2','#s3','#s4'].forEach(function(id,k){$(id).classList.toggle('dim0',!(picked.length&&(k===0||dmg.length)&&(k<2||files.length||$('#model').value)))});
+    $('#wo-state').textContent=($('#model').value.trim()&&s===4)?'Ready to send':'Step '+s+' of 4'}
+  $('#wo').addEventListener('submit',function(e){e.preventDefault();
+    if(!picked.length){toast('Tap a panel on the car first.');return}
+    toast('Preview only: on the live site this goes straight to Unique Auto Collision Centre.')});
+
+  /* ---------- paint match ---------- */
+  var SW=[['Race red','#c8102e'],['Signal orange','#ff5a1f'],['Midnight blue','#1d2f6b'],['Graphite','#4a4f56'],['Pearl white','#e8e6e0'],['Forest green','#1f4d3a']];
+  var card=$('#pcard'),sws=$('#sws');
+  SW.forEach(function(s,i){var b=document.createElement('button');b.type='button';b.className='swatch';b.style.setProperty('--c',s[1]);b.setAttribute('aria-label',s[0]);b.setAttribute('aria-pressed',i===0);
+    b.onclick=function(){$$('.swatch',sws).forEach(function(x){x.setAttribute('aria-pressed',x===b)});card.style.setProperty('--paint',s[1]);$('#swname').textContent='Colour · '+s[0]};sws.appendChild(b)});
+  $('#seam').addEventListener('input',function(e){card.style.setProperty('--seam',e.target.value+'%')});
+
+  /* ---------- reveals (start visible) ---------- */
+  if('IntersectionObserver' in window&&!RM){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.remove('pre');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
+    $$('.rv').forEach(function(el){if(el.getBoundingClientRect().top>innerHeight){el.classList.add('pre');io.observe(el)}});
+    setTimeout(function(){$$('.rv.pre').forEach(function(el){var r=el.getBoundingClientRect();if(r.top<innerHeight)el.classList.remove('pre')})},2500);
+  }
+  /* damage-to-done stages */
+  var sts=$$('.st');
+  function stageScan(){var mid=innerHeight*0.6;sts.forEach(function(s){s.classList.toggle('on',s.getBoundingClientRect().top<mid)})}
+  addEventListener('scroll',stageScan,{passive:true});stageScan();
+  var m=$('#meter');
+  if('IntersectionObserver' in window){new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){m.classList.add('go');o.disconnect()}})},{threshold:.4}).observe(m)}else m.classList.add('go');
+})();
+</script>
+<script>window.L24CFG={name:"Unique Auto Collision Centre",phone:"(647) 366-8080",tel:"+16473668080",address:"67 Rodinea Rd Unit 1, Maple, ON L6A 1R3",maps:"https://maps.google.com/?cid=13065634022329998852",instagram:"https://www.instagram.com/unique_autocollision/",
+ noteOpen:"314 people gave you a perfect 5★",noteRest:"but when someone searches for body shops in Vaughan, all they find is an Instagram. I made this to show what your own site could look like.",
+ checklist:["Designed for Unique Auto","Your hours, address and reviews added","Works on every phone","Photo quote request built in"],
+ swatches:[{name:"Original",dot:"#ff5a1f",vars:{"--accent":"#ff5a1f"}},{name:"Candy red",dot:"#e8263a",vars:{"--accent":"#e8263a"}},{name:"Racing yellow",dot:"#ffc21a",vars:{"--accent":"#ffc21a"}},{name:"Electric blue",dot:"#3d8bff",vars:{"--accent":"#3d8bff","--accent-ink":"#06101f"}}]};</script>
+<!-- ===== Launch24 preview layer (shared, do not edit). Needs window.L24CFG defined BEFORE this block. ===== -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Onest:wght@400;500;600&display=swap">
+<style>
+:root{--l24-h:44px}
+.l24,.l24 *{box-sizing:border-box}
+.l24{font-family:"Onest","Segoe UI",Arial,sans-serif;font-size:15px;line-height:1.5;color:#eef0f5;-webkit-font-smoothing:antialiased}
+.l24 button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.l24 :focus-visible{outline:3px solid #ffd60a;outline-offset:2px}
+.l24-bar{position:sticky;top:0;z-index:1000;height:var(--l24-h);background:#08090c;color:#eef0f5;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 max(14px,env(safe-area-inset-right,0px)) 0 max(14px,env(safe-area-inset-left,0px));font-family:"Onest","Segoe UI",Arial,sans-serif;font-size:13px;border-bottom:1px solid #1d2029}
+.l24-bar .l24-id{display:flex;align-items:center;gap:8px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.l24-logo{flex:none;display:inline-grid;place-items:center;width:22px;height:22px;border-radius:6px;background:#ffd60a;color:#000;font:800 10px "Bricolage Grotesque",sans-serif}
+.l24-bar b{font-weight:600}
+.l24-bar .l24-sub{color:#8f97a8}
+@media (max-width:620px){.l24-bar .l24-sub{display:none}}
+.l24-keep{flex:none;height:32px;padding:0 14px;border-radius:999px;border:0;background:#ffd60a;color:#000;font-weight:700!important}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:1001;background:#08090c}
+.l24-bar{top:env(safe-area-inset-top,0px)}
+.l24-note{position:fixed;z-index:1002;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(400px,calc(100vw - 32px));background:#08090c;border:1px solid #232733;border-radius:20px;padding:18px 18px 14px;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);transform:translateY(16px);opacity:0;transition:transform .7s cubic-bezier(.2,.9,.2,1),opacity .7s}
+.l24-note.in{transform:none;opacity:1}
+.l24-note[hidden]{display:none}
+.l24-note .l24-k{font:600 11px/1 "Onest",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#ffd60a}
+.l24-note p{margin:10px 0 0;font-size:14.5px}
+.l24-note p b{color:#fff}
+.l24-note .l24-s{color:#9aa1b1;font-size:13.5px}
+.l24-acts{display:flex;gap:8px;margin-top:14px}
+.l24-acts button{min-height:44px;padding:0 16px;border-radius:999px;border:1px solid #2c313d;background:transparent;color:#eef0f5;font-weight:600}
+.l24-acts .l24-y{background:#ffd60a;border-color:#ffd60a;color:#000}
+@media (max-width:560px){.l24-note .l24-s{display:none}}
+.l24-fab{position:fixed;z-index:999;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));display:inline-flex;align-items:center;gap:9px;height:50px;padding:0 18px;border-radius:999px;border:1px solid #232733;background:#08090c;color:#fff;font-weight:600;box-shadow:0 18px 40px -16px rgba(0,0,0,.6)}
+.l24-fab i{width:16px;height:16px;border-radius:50%;background:conic-gradient(#ffd60a 0 50%,var(--accent,#ffd60a) 0)}
+@media (max-width:760px){.l24-fab{bottom:calc(84px + env(safe-area-inset-bottom,0px))}}
+.l24-scrim{position:fixed;inset:0;z-index:1003;background:rgba(5,6,8,.55);opacity:0;pointer-events:none;transition:opacity .35s}
+.l24-scrim.open{opacity:1;pointer-events:auto}
+.l24-drawer{position:fixed;z-index:1004;top:0;right:0;bottom:0;width:min(410px,100vw);background:#101218;color:#eef0f5;border-left:1px solid #232733;transform:translateX(105%);transition:transform .5s cubic-bezier(.2,.9,.2,1);overflow-y:auto;padding:calc(22px + env(safe-area-inset-top,0px)) max(22px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) 22px}
+.l24-drawer.open{transform:none}
+.l24-x{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:14px;width:44px;height:44px;border-radius:50%;border:1px solid #2c313d;background:#161922;display:grid;place-items:center;padding:0}
+.l24-x svg{width:18px;height:18px;stroke:#eef0f5}
+.l24-h{font:700 30px/1.05 "Bricolage Grotesque",sans-serif;margin:8px 48px 0 0;letter-spacing:-.01em}
+.l24-p{color:#a3aab9;margin:10px 0 0}
+.l24-p b{color:#fff}
+.l24-lbl{display:block;font:600 11px/1 "Onest",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8f97a8;margin-top:22px}
+.l24-sw{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.l24-sw button{width:46px;height:46px;border-radius:50%;border:3px solid #101218;box-shadow:0 0 0 1.5px #2c313d;padding:0;transition:transform .2s}
+.l24-sw button[aria-pressed=true]{box-shadow:0 0 0 2.5px #ffd60a;transform:scale(1.06)}
+.l24-in{width:100%;min-height:48px;margin-top:8px;border-radius:12px;border:1.5px solid #2c313d;background:#08090c;color:#eef0f5;padding:0 12px;font:inherit;font-size:16px}
+.l24-in:focus{outline:none;border-color:#ffd60a}
+.l24-box{margin-top:24px;padding:20px;border-radius:18px;background:#08090c;border:1px solid #232733}
+.l24-box .l24-t{font:700 24px/1.1 "Bricolage Grotesque",sans-serif;color:#fff}
+.l24-done{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+.l24-done li{display:flex;gap:10px;align-items:flex-start}
+.l24-done li::before{content:"";flex:none;margin-top:2px;width:18px;height:18px;border-radius:50%;background:#25d366 url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'><path d='m6 12 4 4 8-8'/></svg>") center/11px no-repeat}
+.l24-price{font:700 40px/1 "Bricolage Grotesque",sans-serif;color:#fff;margin-top:14px}
+.l24-price span{font:400 15px "Onest",sans-serif;color:#9aa1b1}
+.l24-pay{display:flex;align-items:center;justify-content:center;text-decoration:none;width:100%;min-height:52px;margin-top:14px;border-radius:999px;border:0;background:#ffd60a;color:#000;font-weight:700!important;font-size:16px!important;animation:l24nudge 2.8s 1.4s ease-in-out infinite}
+@keyframes l24nudge{0%,86%,100%{transform:none}90%{transform:scale(1.03)}95%{transform:scale(.99)}}
+.l24-g{color:#9aa1b1;font-size:13.5px;margin:10px 0 0}
+.l24-wa{display:inline-flex;align-items:center;min-height:44px;color:#eef0f5;text-underline-offset:3px;font-size:14px}
+.l24-sheet{position:fixed;z-index:1004;left:50%;bottom:0;width:min(520px,100vw);max-height:88vh;overflow-y:auto;transform:translate(-50%,105%);transition:transform .5s cubic-bezier(.2,.9,.2,1);background:#101218;color:#eef0f5;border:1px solid #232733;border-radius:24px 24px 0 0;padding:14px max(20px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px))}
+.l24-sheet.open{transform:translate(-50%,0)}
+.l24-grab{width:44px;height:5px;border-radius:3px;background:#2c313d;margin:0 auto 16px}
+.l24-sheet .l24-x{top:14px}
+.l24-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 16px;border-radius:14px;background:#161922;margin-top:10px}
+.l24-row>div:first-child{min-width:0}
+.l24-row b{display:block}
+.l24-row span{color:#9aa1b1;font-size:13.5px}
+.l24-row .l24-num{color:#fff;font-size:16px;font-variant-numeric:tabular-nums;user-select:all}
+.l24-btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 16px;border-radius:999px;border:0;background:#ffd60a;color:#000!important;font-weight:700;text-decoration:none}
+.l24-btn.l24-gh{background:transparent;color:#eef0f5!important;box-shadow:inset 0 0 0 1.5px #2c313d}
+.l24-toast{position:fixed;z-index:1005;left:50%;top:calc(var(--l24-h) + 14px + env(safe-area-inset-top,0px));transform:translate(-50%,-14px);opacity:0;width:max-content;max-width:calc(100vw - 32px);text-align:center;background:#08090c;color:#fff;border:1px solid #232733;padding:11px 16px;border-radius:16px;font-size:14px;transition:opacity .3s,transform .3s;pointer-events:none}
+.l24-toast.show{opacity:1;transform:translate(-50%,0)}
+.l24-drawer,.l24-sheet{visibility:hidden}
+.l24-drawer.open,.l24-sheet.open{visibility:visible}
+@media (prefers-reduced-motion:reduce){.l24 *,.l24-pay{animation:none!important;transition:none!important}}
+</style>
+<div class="l24" id="l24"></div>
+<script>
+(function(){
+  var C=window.L24CFG||{}, root=document.getElementById('l24'), doc=document.documentElement;
+  var PAY='https://buy.stripe.com/9B65kC9zcfRMcqj7foe7m05?client_reference_id='+encodeURIComponent((C.name||'preview').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''));
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  var X='<svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  // bar goes first in <body>
+  var bar=document.createElement('div');bar.className='l24 l24-bar';
+  bar.innerHTML='<span class="l24-id"><span class="l24-logo">24</span><span><b>Preview made for '+esc(C.name)+'</b><span class="l24-sub"> by Launch24. Not live yet.</span></span></span><button class="l24-keep" type="button" data-l24-open>Make it yours</button>';
+  document.body.insertBefore(bar,document.body.firstChild);
+  var edits=[].slice.call(document.querySelectorAll('[data-l24-edit]'));
+  var sw=(C.swatches||[]);
+  root.innerHTML=
+   '<aside class="l24-note" id="l24-note" aria-label="Note from Launch24"><div class="l24-k">A note from Parth at Launch24</div><p>Hi! <b>'+esc(C.noteOpen)+'</b>, '+esc(C.noteRest)+'</p><p class="l24-s">It\'s built and ready. You\'re one click away from making it yours.</p><div class="l24-acts"><button class="l24-y" type="button" data-l24-open>Make it yours</button><button type="button" id="l24-look">Take a look</button></div></aside>'+
+   '<button class="l24-fab" type="button" data-l24-open><i aria-hidden="true"></i>Make it yours</button>'+
+   '<div class="l24-scrim" id="l24-scrim"></div>'+
+   '<aside class="l24-drawer" id="l24-drawer" aria-label="Make it yours" aria-hidden="true"><button class="l24-x" type="button" id="l24-dx" aria-label="Close">'+X+'</button>'+
+     '<span class="l24-lbl" style="margin-top:0;color:#ffd60a">Make it yours</span><h2 class="l24-h">Your website is ready.</h2>'+
+     '<p class="l24-p">We designed it, wrote it and added your hours, address and Google reviews. Try a colour or change the words if you like. Then you\'re <b>one click away</b> from making it yours.</p>'+
+     (sw.length?'<span class="l24-lbl">Colour</span><div class="l24-sw" id="l24-sw">'+sw.map(function(s,i){return '<button type="button" aria-pressed="'+(i===0)+'" aria-label="'+esc(s.name)+'" data-i="'+i+'" style="background:'+esc(s.dot)+'"></button>'}).join('')+'</div>':'')+
+     edits.map(function(el,i){var id='l24e'+i;return '<label class="l24-lbl" for="'+id+'">'+esc(el.getAttribute('data-l24-edit'))+'</label><input class="l24-in" id="'+id+'" data-i="'+i+'" value="'+esc(el.textContent.trim())+'">'}).join('')+
+     '<div class="l24-box"><div class="l24-t">You\'re one click away.</div><p class="l24-g" style="margin-top:6px">Already done for you:</p><ul class="l24-done">'+(C.checklist||[]).map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>'+
+     '<p class="l24-p" style="color:#eef0f5"><b>All that\'s left:</b> tap Pay. We add your real photos and details, and put it live on your own domain within 24 hours.</p>'+
+     '<div class="l24-price">$699 <span>one-time</span></div><a class="l24-pay" id="l24-pay" target="_blank" rel="noopener" href="'+esc(PAY)+'">Pay $699 and make it mine →</a><p class="l24-g" style="margin-top:8px">Secure checkout by Stripe.</p>'+
+     '<p class="l24-g">If we miss the 24 hours, you pay nothing. Your deposit is refunded in full.</p><a class="l24-wa" id="l24-wa" target="_blank" rel="noopener" href="#">Questions first? WhatsApp Parth</a></div></aside>'+
+   '<div class="l24-sheet" id="l24-sheet" role="dialog" aria-modal="true" aria-labelledby="l24-st" aria-hidden="true"><div class="l24-grab"></div><button class="l24-x" type="button" id="l24-sx" aria-label="Close">'+X+'</button><span class="l24-lbl" style="margin-top:0;color:#ffd60a" id="l24-se">Contact</span><h2 class="l24-h" id="l24-st" style="font-size:26px">How would you like to reach us?</h2>'+
+     (C.phone?'<div class="l24-row"><div><b>Call</b><span class="l24-num" id="l24-num">'+esc(C.phone)+'</span></div><div style="display:flex;gap:8px"><a class="l24-btn" href="tel:'+esc(C.tel)+'">Call</a><button class="l24-btn l24-gh" type="button" id="l24-copy">Copy</button></div></div>':'')+
+     (C.book?'<div class="l24-row"><div><b>Book online</b><span>Your existing '+esc(C.bookName||'booking')+' page</span></div><a class="l24-btn" href="'+esc(C.book)+'" target="_blank" rel="noopener">Open</a></div>':'')+
+     (C.instagram?'<div class="l24-row"><div><b>Instagram</b><span>Send a DM</span></div><a class="l24-btn l24-gh" href="'+esc(C.instagram)+'" target="_blank" rel="noopener">Open</a></div>':'')+
+     (C.address?'<div class="l24-row"><div><b>Visit</b><span>'+esc(C.address)+'</span></div><a class="l24-btn l24-gh" href="'+esc(C.maps)+'" target="_blank" rel="noopener">Directions</a></div>':'')+
+     '<p class="l24-g">On the live site these buttons call, book or open directions straight away.</p></div>'+
+   '<div class="l24-toast" id="l24-toast" role="status"></div>';
+  var $=function(id){return document.getElementById(id)};
+  var tt;function toast(m){var t=$('l24-toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('show')},3400)}
+  var note=$('l24-note');setTimeout(function(){note.classList.add('in')},700);
+  $('l24-look').onclick=function(){note.hidden=true};
+  var dr=$('l24-drawer'),sh=$('l24-sheet'),sc=$('l24-scrim');
+  function openD(){closeS();dr.classList.add('open');sc.classList.add('open');dr.setAttribute('aria-hidden','false');note.hidden=true;setTimeout(function(){$('l24-dx').focus()},200)}
+  function closeD(){dr.classList.remove('open');dr.setAttribute('aria-hidden','true');if(!sh.classList.contains('open'))sc.classList.remove('open')}
+  function openS(t){closeD();$('l24-st').textContent=t?t:'How would you like to reach us?';sh.classList.add('open');sc.classList.add('open');sh.setAttribute('aria-hidden','false');setTimeout(function(){$('l24-sx').focus()},200)}
+  function closeS(){sh.classList.remove('open');sh.setAttribute('aria-hidden','true');if(!dr.classList.contains('open'))sc.classList.remove('open')}
+  document.addEventListener('click',function(e){var o=e.target.closest('[data-l24-open]');if(o){e.preventDefault();openD();return}var c=e.target.closest('[data-l24-contact]');if(c){e.preventDefault();openS(c.getAttribute('data-l24-contact'))}});
+  $('l24-dx').onclick=closeD;$('l24-sx').onclick=closeS;sc.onclick=function(){closeD();closeS()};
+  addEventListener('keydown',function(e){if(e.key==='Escape'){closeD();closeS()}});
+  var cp=$('l24-copy');if(cp)cp.onclick=function(){var n=$('l24-num').textContent;try{navigator.clipboard.writeText(n).then(function(){toast('Number copied')},sel)}catch(_){sel()}function sel(){var r=document.createRange();r.selectNodeContents($('l24-num'));var s=getSelection();s.removeAllRanges();s.addRange(r);toast('Number selected')}};
+  var choice=sw[0]?sw[0].name:'Original';
+  [].forEach.call(document.querySelectorAll('#l24-sw button'),function(b){b.onclick=function(){var s=sw[+b.dataset.i];[].forEach.call(document.querySelectorAll('#l24-sw button'),function(x){x.setAttribute('aria-pressed',x===b)});Object.keys(s.vars||{}).forEach(function(k){doc.style.setProperty(k,s.vars[k])});choice=s.name;wa();if(matchMedia('(max-width: 767px)').matches){setTimeout(function(){closeD();toast(s.name+' it is. Tap Make it yours to try another.')},180)}else{toast(s.name+' it is')}}});
+  [].forEach.call(document.querySelectorAll('.l24-in'),function(inp){inp.oninput=function(){edits[+inp.dataset.i].textContent=inp.value;wa()}});
+  function wa(){var m='Hi Parth! I saw the website preview for '+C.name+" and I'd like to make it mine.\nColour: "+choice+edits.map(function(el){return '\n'+el.getAttribute('data-l24-edit')+': '+el.textContent.trim()}).join('');$('l24-wa').href='https://wa.me/14373652475?text='+encodeURIComponent(m)}
+  wa();
+  window.L24={toast:toast,contact:openS,open:openD};
+})();
+</script>
+<!-- ===== end Launch24 layer ===== -->
+<script>
+/* Launch24: count preview opens and clicks (first-party, /api/event). */
+(function(){
+  var vid='';try{vid=localStorage.getItem('l24_vid')||'';if(!vid){vid=Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem('l24_vid',vid)}}catch(_){}
+  var q=new URLSearchParams(location.search);
+  function send(name){try{var b=JSON.stringify({name:name,visitor_id:vid,path:location.pathname,utm_source:q.get('utm_source')||'',utm_medium:q.get('utm_medium')||'',utm_campaign:q.get('utm_campaign')||'',utm_content:q.get('utm_content')||''});
+    if(navigator.sendBeacon)navigator.sendBeacon('/api/event',new Blob([b],{type:'application/json'}));else fetch('/api/event',{method:'POST',headers:{'Content-Type':'application/json'},body:b,keepalive:true})}catch(_){}}
+  send('preview_view');
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('#l24-pay,#l24-wa');if(a)send(a.id==='l24-pay'?'preview_claim_click':'preview_changes_click')},true);
+})();
+</script>
+
+</html>

@@ -10,6 +10,9 @@ const EVENTS = new Set([
   "cta_whatsapp_click",
   "voice_note_start",
   "form_submit",
+  "preview_view",
+  "preview_changes_click",
+  "preview_claim_click",
 ]);
 
 function str(v: unknown, max: number) {

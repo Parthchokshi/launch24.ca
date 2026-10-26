@@ -1,0 +1,850 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<title>Pawny Tail</title>
+<meta name="description" content="Pawny Tail Pet Grooming & More in Scarborough. Gentle grooming, baths and nail trims for dogs of every age and cats, plus food and treats.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Figtree:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..800,0..100,0..1;1,9..144,400..800,0..100,0..1&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --peach:#FCE6D4;
+  --peach-2:#F7D2B6;
+  --paper:#FFF6EE;
+  --cocoa:#3A2317;
+  --cocoa-2:#6B4A39;
+  --sage:#A9BFA0;
+  --sage-d:#4F6A4B;
+  --accent:#F2A93B;
+  --on-accent:#3A2317;
+  --fur:#E8B98C;
+  --ear:#9A6443;
+  --r:22px;
+  --g:max(16px,env(safe-area-inset-left,0px));
+  --gr:max(16px,env(safe-area-inset-right,0px));
+  --disp:"Fraunces",Georgia,serif;
+  --hand:"Caveat","Comic Sans MS",cursive;
+  --sans:"Figtree",system-ui,sans-serif;
+  --top:calc(var(--l24-h,44px) + env(safe-area-inset-top,0px));
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--top) + 72px)}
+body{margin:0;background:var(--peach);color:var(--cocoa);font:400 17px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--cocoa);outline-offset:3px;border-radius:8px}
+.wrap{max-width:1160px;margin:0 auto;padding-left:var(--g);padding-right:var(--gr)}
+.disp{font-family:var(--disp);font-variation-settings:"SOFT" 100,"WONK" 1;font-optical-sizing:auto;letter-spacing:-.015em;line-height:1.02;font-weight:650}
+.hand{font-family:var(--hand);font-weight:700}
+.eyebrow{font:700 13px/1.2 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--sage-d)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border-radius:999px;border:0;cursor:pointer;font:700 16px/1 var(--sans);text-decoration:none;transition:transform .35s cubic-bezier(.3,1.6,.5,1),box-shadow .3s,background .3s;-webkit-tap-highlight-color:transparent}
+.btn-main{background:var(--accent);color:var(--on-accent);box-shadow:0 4px 0 var(--cocoa)}
+.btn-main:hover{transform:translateY(-2px) rotate(-1deg);box-shadow:0 6px 0 var(--cocoa)}
+.btn-main:active{transform:translateY(3px) scale(.97);box-shadow:0 1px 0 var(--cocoa)}
+.btn-line{background:transparent;color:var(--cocoa);box-shadow:inset 0 0 0 2px var(--cocoa)}
+.btn-line:hover{background:var(--paper);transform:translateY(-2px)}
+.btn-line:active{transform:scale(.97)}
+.btn svg{width:20px;height:20px;flex:none}
+
+/* header */
+.hd{position:sticky;top:var(--top);z-index:50;background:rgba(252,230,212,.86);backdrop-filter:saturate(1.3) blur(10px);-webkit-backdrop-filter:saturate(1.3) blur(10px);border-bottom:1.5px solid transparent;transition:border-color .3s}
+.hd.sc{border-bottom-color:rgba(58,35,23,.14)}
+.hd .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;height:66px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;min-height:44px}
+.logo-mark{width:38px;height:38px;flex:none;border-radius:50%;background:var(--cocoa);display:grid;place-items:center;transition:transform .5s cubic-bezier(.3,1.6,.5,1)}
+.logo:hover .logo-mark{transform:rotate(-14deg) scale(1.06)}
+.logo-mark svg{width:22px;height:22px;fill:var(--accent)}
+.logo b{font-family:var(--disp);font-variation-settings:"SOFT" 100,"WONK" 1;font-size:22px;font-weight:700;letter-spacing:-.01em;line-height:1}
+.logo small{display:block;font:600 11px/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--cocoa-2);margin-top:3px}
+.nav{display:none;gap:4px}
+.nav a{padding:10px 14px;border-radius:999px;text-decoration:none;font-weight:600;font-size:15px;transition:background .25s}
+.nav a:hover{background:var(--peach-2)}
+.hd .btn{min-height:46px;padding:0 18px;font-size:15px}
+@media (min-width:900px){.nav{display:flex}}
+@media (max-width:420px){.logo small{display:none}.hd .btn{padding:0 14px}}
+
+/* status pill */
+.status{display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:15px}
+.status i{width:10px;height:10px;border-radius:50%;background:#B9A79A;flex:none;position:relative}
+.status.open i{background:#4E9A5A}
+.status.open i::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid #4E9A5A;opacity:.5;animation:ping 2s ease-out infinite}
+@keyframes ping{from{transform:scale(.6);opacity:.7}to{transform:scale(1.6);opacity:0}}
+
+/* hero */
+.hero{position:relative;padding:34px 0 64px;overflow:hidden}
+.hero .wrap{display:grid;gap:34px}
+.hero h1{font-size:clamp(46px,12.4vw,104px);margin:14px 0 0}
+.hero h1 em{font-style:italic;font-weight:600;position:relative;white-space:nowrap}
+.hero h1 em::after{content:"";position:absolute;left:-2%;right:-2%;bottom:.04em;height:.2em;background:var(--accent);border-radius:99px;z-index:-1;transform:rotate(-1.2deg)}
+.hero .lede{font-size:clamp(18px,4.6vw,21px);max-width:34ch;margin:20px 0 0;color:var(--cocoa-2)}
+.hero .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin-top:24px;font-size:15px}
+.stars{color:var(--cocoa);letter-spacing:2px}
+.art{position:relative;max-width:520px;width:100%;margin:0 auto;aspect-ratio:1/1.02}
+.arch{position:absolute;left:6%;top:0;width:68%;height:86%;border-radius:999px 999px 28px 28px;overflow:hidden;background:var(--peach-2);box-shadow:0 0 0 2px var(--cocoa)}
+.arch img{width:100%;height:100%;object-fit:cover;object-position:46% 40%}
+.polar{position:absolute;right:2%;bottom:2%;width:46%;background:var(--paper);padding:10px 10px 6px;border-radius:6px;box-shadow:0 0 0 2px var(--cocoa),8px 10px 0 var(--sage);transform:rotate(5deg);transition:transform .5s cubic-bezier(.3,1.6,.5,1)}
+.polar:hover{transform:rotate(1deg) scale(1.03)}
+.polar img{aspect-ratio:1/1.05;object-fit:cover;border-radius:3px}
+.polar span{display:block;text-align:center;font-family:var(--hand);font-weight:700;font-size:22px;line-height:1.3;padding-top:2px}
+.stamp{position:absolute;left:0;bottom:8%;width:128px;height:128px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;text-align:center;box-shadow:0 0 0 2px var(--cocoa);transform:rotate(-10deg);animation:bob 5s ease-in-out infinite}
+.stamp b{display:block;font-family:var(--disp);font-variation-settings:"SOFT" 100,"WONK" 1;font-size:40px;line-height:.9;font-weight:750}
+.stamp small{display:block;font-size:12.5px;font-weight:700;line-height:1.25;margin-top:4px}
+.stamp svg{position:absolute;inset:6px;width:calc(100% - 12px);height:calc(100% - 12px);animation:spin 26s linear infinite}
+.stamp svg text{font:700 10.5px var(--sans);letter-spacing:.2em;fill:var(--cocoa)}
+@keyframes bob{0%,100%{transform:rotate(-10deg) translateY(0)}50%{transform:rotate(-6deg) translateY(-6px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sample{font-size:12.5px;color:var(--cocoa-2);margin-top:12px;text-align:center}
+.squig{position:absolute;pointer-events:none}
+@media (min-width:900px){
+  .hero{padding:56px 0 90px}
+  .hero .wrap{grid-template-columns:1.1fr .9fr;align-items:center;gap:40px}
+  .art{margin:0}
+}
+
+/* section basics */
+section{position:relative}
+.sec{padding:80px 0}
+.sec h2{font-size:clamp(36px,8.6vw,64px);margin:12px 0 0}
+.sec .intro{font-size:18px;color:var(--cocoa-2);max-width:46ch;margin:16px 0 0}
+
+/* every age */
+.ages{background:var(--paper);border-top:2px solid var(--cocoa);border-bottom:2px solid var(--cocoa)}
+.ages-grid{display:grid;gap:28px;margin-top:36px}
+.stage{position:relative;background:var(--peach);border-radius:28px;box-shadow:0 0 0 2px var(--cocoa);overflow:hidden;aspect-ratio:1/1;max-width:560px;width:100%;margin:0 auto;transition:background .6s}
+.stage[data-s="senior"]{background:#F3E3D3}
+.stage[data-s="cat"]{background:#E5EADF}
+.stage svg.pet{position:absolute;inset:0;width:100%;height:100%}
+.note{position:absolute;font-family:var(--hand);font-weight:700;font-size:clamp(19px,5vw,25px);line-height:1;color:var(--cocoa);transition:opacity .35s,transform .45s cubic-bezier(.3,1.6,.5,1);white-space:nowrap}
+.note.swap{opacity:0;transform:translateY(6px) rotate(-3deg)}
+.note-a{left:5%;top:7%;transform:rotate(-5deg)}
+.note-b{right:5%;top:17%;transform:rotate(4deg);text-align:right}
+.note svg{display:block;width:54px;height:36px;margin-top:4px;stroke:var(--cocoa);fill:none;stroke-width:2.2;stroke-linecap:round}
+.note-b svg{margin-left:auto}
+.tagline-stage{position:absolute;left:0;right:0;bottom:14px;text-align:center;font:700 12px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--cocoa-2)}
+
+.ctrl{margin-top:4px}
+.species{display:inline-flex;padding:4px;border-radius:999px;box-shadow:inset 0 0 0 2px var(--cocoa);background:var(--peach)}
+.species button{min-height:44px;min-width:92px;padding:0 18px;border-radius:999px;border:0;background:transparent;cursor:pointer;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:background .3s,color .3s,transform .3s cubic-bezier(.3,1.6,.5,1)}
+.species button[aria-pressed="true"]{background:var(--cocoa);color:var(--paper)}
+.species button:active{transform:scale(.94)}
+.slider{margin-top:26px;transition:opacity .4s}
+.slider.off{opacity:.38}
+.slider label.lbl{display:block;font-weight:700;font-size:15px;margin-bottom:8px}
+.range{position:relative;height:56px;display:flex;align-items:center}
+.range input{-webkit-appearance:none;appearance:none;width:100%;height:56px;background:transparent;margin:0;cursor:pointer;position:relative;z-index:2}
+.range input:focus-visible{outline:none}
+.range input:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 2px var(--cocoa),0 0 0 6px rgba(58,35,23,.25)}
+.range .track{position:absolute;left:0;right:0;height:12px;border-radius:99px;background:var(--peach-2);box-shadow:inset 0 0 0 2px var(--cocoa);overflow:hidden}
+.range .fill{position:absolute;inset:0 auto 0 0;width:var(--pct,50%);background:var(--accent);border-right:2px solid var(--cocoa)}
+.range input::-webkit-slider-thumb{-webkit-appearance:none;width:44px;height:44px;border-radius:50%;background:var(--paper) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233A2317'><ellipse cx='12' cy='16' rx='5' ry='4'/><circle cx='6' cy='10' r='2.2'/><circle cx='18' cy='10' r='2.2'/><circle cx='9.3' cy='6' r='2.2'/><circle cx='14.7' cy='6' r='2.2'/></svg>") center/24px no-repeat;box-shadow:0 0 0 2px var(--cocoa),0 3px 0 2px var(--cocoa);transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
+.range input:active::-webkit-slider-thumb{transform:scale(1.12) rotate(-12deg)}
+.range input::-moz-range-thumb{width:44px;height:44px;border:0;border-radius:50%;background:var(--paper) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233A2317'><ellipse cx='12' cy='16' rx='5' ry='4'/><circle cx='6' cy='10' r='2.2'/><circle cx='18' cy='10' r='2.2'/><circle cx='9.3' cy='6' r='2.2'/><circle cx='14.7' cy='6' r='2.2'/></svg>") center/24px no-repeat;box-shadow:0 0 0 2px var(--cocoa),0 3px 0 2px var(--cocoa)}
+.range input::-moz-range-track{background:transparent}
+.stops{display:flex;justify-content:space-between;margin-top:6px}
+.stops button{min-height:44px;padding:0 6px;border:0;background:none;cursor:pointer;font-weight:600;font-size:15px;color:var(--cocoa-2);border-radius:10px;transition:color .25s}
+.stops button[aria-current="true"]{color:var(--cocoa);font-weight:800}
+.stops button:nth-child(2){transform:translateX(0)}
+
+.copy{margin-top:28px;min-height:330px}
+.copy .kick{font-family:var(--hand);font-weight:700;font-size:28px;color:var(--sage-d);line-height:1}
+.copy h3{font-size:clamp(30px,7vw,44px);margin:8px 0 0}
+.copy p{margin:14px 0 0;color:var(--cocoa-2);max-width:48ch}
+.copy ul{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:10px}
+.copy li{display:flex;gap:12px;align-items:flex-start;font-weight:600}
+.copy li::before{content:"";flex:none;width:22px;height:22px;margin-top:2px;border-radius:50%;background:var(--sage) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233A2317' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='m6 12.5 4 4 8-9'/></svg>") center/13px no-repeat;box-shadow:0 0 0 1.5px var(--cocoa)}
+.copy blockquote{margin:24px 0 0;padding:16px 18px;border-radius:16px;background:var(--peach);border-left:5px solid var(--accent);font-size:16px}
+.copy blockquote cite{display:block;font-style:normal;font-weight:700;font-size:14px;margin-top:8px;color:var(--cocoa-2)}
+.copy .fade{animation:fadeup .5s cubic-bezier(.2,.9,.2,1)}
+@keyframes fadeup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (min-width:900px){
+  .ages-grid{grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+  .stage{position:sticky;top:calc(var(--top) + 96px)}
+}
+
+/* pet svg animation hooks */
+.pet *{transform-box:view-box}
+.dog,.cat{transition:opacity .45s,transform .6s cubic-bezier(.3,1.5,.5,1);transform-origin:160px 300px}
+.pet.is-cat .dog{opacity:0;transform:translateX(-40px) scale(.9)}
+.pet:not(.is-cat) .cat{opacity:0;transform:translateX(40px) scale(.9)}
+.d-body{transform-origin:160px 292px;transform:scale(calc(1 - var(--pup)*.2),calc(1 - var(--pup)*.26 - var(--sen)*.03))}
+.d-head{transform-origin:160px 190px;transform:translateY(calc(var(--pup)*44px + var(--sen)*8px)) scale(calc(1 + var(--pup)*.12)) rotate(calc(var(--sen)*-4deg))}
+.d-eye{transform-box:fill-box;transform-origin:center;transform:scale(calc(1 + var(--pup)*.45))}
+.d-legs{transform-origin:160px 292px;transform:scale(calc(1 - var(--pup)*.15),calc(1 - var(--pup)*.3))}
+.d-tail{transform-origin:206px 270px;animation:wag var(--wag,1.4s) ease-in-out infinite}
+@keyframes wag{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(14deg)}}
+.c-tail{transform-origin:200px 282px;animation:curl 3.2s ease-in-out infinite}
+@keyframes curl{0%,100%{transform:rotate(0)}50%{transform:rotate(-10deg)}}
+.blink{transform-box:fill-box;transform-origin:center;animation:blink 5s infinite}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+.sen-only{opacity:var(--sen)}
+.pup-only{opacity:var(--pup)}
+
+/* services */
+.menu{margin-top:40px;display:grid;gap:0;border-top:2px solid var(--cocoa)}
+.item{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;padding:24px 0;border-bottom:2px dashed rgba(58,35,23,.35);align-items:baseline;transition:background .3s,padding .4s cubic-bezier(.3,1.5,.5,1)}
+.item:hover{padding-left:10px}
+.item .n{font-family:var(--hand);font-weight:700;font-size:28px;color:var(--sage-d);line-height:1;grid-row:span 2}
+.item h3{font-size:clamp(28px,6.4vw,40px);margin:0}
+.item p{margin:0;color:var(--cocoa-2);font-size:17px}
+.price-note{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:26px;font-size:16px}
+.price-note .hand{font-size:24px}
+@media (min-width:900px){
+  .svc{display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:start}
+  .item{grid-template-columns:70px 1fr 1fr;align-items:center}
+  .item .n{grid-row:auto}
+  .svc-img{position:sticky;top:calc(var(--top) + 96px)}
+}
+.svc-img{margin-top:32px;position:relative}
+.svc-img img{border-radius:180px 180px 24px 24px;box-shadow:0 0 0 2px var(--cocoa);aspect-ratio:4/5;object-fit:cover;width:100%;max-width:460px}
+.svc-img .tag{position:absolute;right:0;bottom:24px;background:var(--sage);padding:10px 16px;border-radius:14px;box-shadow:0 0 0 2px var(--cocoa);font-family:var(--hand);font-weight:700;font-size:23px;transform:rotate(-4deg);line-height:1.1}
+
+/* reviews */
+.revs{background:var(--sage);border-top:2px solid var(--cocoa);border-bottom:2px solid var(--cocoa);overflow:hidden}
+.revs .eyebrow{color:var(--cocoa)}
+.big-q{font-size:clamp(28px,6.6vw,52px);line-height:1.14;margin:22px 0 0;max-width:24ch;font-weight:560}
+.big-q::before{content:"\201C";display:block;font-size:2.3em;line-height:.6;color:var(--paper);margin-bottom:-.05em}
+.big-cite{margin-top:18px;font-weight:700}
+.notes{display:grid;gap:22px;margin-top:48px}
+.pin{background:var(--paper);padding:22px 22px 18px;border-radius:4px;box-shadow:0 0 0 2px var(--cocoa),6px 8px 0 rgba(58,35,23,.9);position:relative;transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+.pin::before{content:"";position:absolute;top:-12px;left:50%;width:84px;height:24px;margin-left:-42px;background:rgba(242,169,59,.75);background:color-mix(in srgb,var(--accent) 75%,transparent);transform:rotate(-3deg)}
+.pin:nth-child(1){transform:rotate(-1.6deg)}
+.pin:nth-child(2){transform:rotate(1.2deg)}
+.pin:nth-child(3){transform:rotate(-.6deg)}
+.pin:hover{transform:rotate(0) translateY(-4px)}
+.pin p{margin:0;font-size:17px}
+.pin cite{display:block;margin-top:12px;font-style:normal;font-weight:700;font-size:14px;color:var(--cocoa-2)}
+.pin .stars{font-size:14px}
+.count{display:flex;align-items:center;gap:14px;margin-top:44px;flex-wrap:wrap}
+.count b{font-family:var(--disp);font-variation-settings:"SOFT" 100,"WONK" 1;font-size:64px;line-height:1;font-weight:700}
+@media (min-width:900px){.notes{grid-template-columns:repeat(3,1fr);gap:28px}}
+
+/* shop */
+.shop .wrap{display:grid;gap:36px}
+.shelf{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:30px;align-items:end;padding-bottom:16px;border-bottom:10px solid var(--cocoa);border-radius:0 0 4px 4px;position:relative}
+.jar{position:relative;background:var(--paper);border-radius:22px 22px 12px 12px;box-shadow:0 0 0 2px var(--cocoa);padding:30px 8px 16px;text-align:center;transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+.jar::before{content:"";position:absolute;left:14%;right:14%;top:-12px;height:16px;border-radius:6px;background:var(--cocoa)}
+.jar:hover{transform:translateY(-8px) rotate(-2deg)}
+.jar:nth-child(2){padding-top:46px;background:var(--accent)}
+.jar:nth-child(3){background:var(--sage)}
+.jar b{display:block;font-family:var(--disp);font-variation-settings:"SOFT" 100,"WONK" 1;font-size:clamp(20px,5.4vw,28px);line-height:1.05;font-weight:700}
+.jar span{display:block;font-size:13px;margin-top:6px;line-height:1.3;color:var(--cocoa)}
+.jar svg{width:36px;height:36px;margin:0 auto 10px;display:block;fill:none;stroke:var(--cocoa);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.shop-photos{display:grid;grid-template-columns:1.2fr 1fr;gap:12px}
+.shop-photos img{border-radius:20px;box-shadow:0 0 0 2px var(--cocoa);object-fit:cover;width:100%;height:100%}
+.shop-photos img:first-child{aspect-ratio:4/5}
+.shop-photos .stack{display:grid;gap:12px}
+.shop-photos .stack img{aspect-ratio:1/1}
+.shop-q{margin-top:26px;padding:18px 20px;background:var(--paper);border-radius:18px;box-shadow:0 0 0 2px var(--cocoa);font-size:16px}
+.shop-q cite{display:block;margin-top:8px;font-style:normal;font-weight:700;font-size:14px;color:var(--cocoa-2)}
+@media (min-width:900px){.shop .wrap{grid-template-columns:1fr 1fr;gap:64px;align-items:center}}
+
+/* visit */
+.visit{background:var(--cocoa);color:var(--paper)}
+.visit .eyebrow{color:var(--sage)}
+.visit .wrap{display:grid;gap:40px}
+.visit h2{color:var(--paper)}
+.visit .status{font-size:17px;margin-top:18px}
+.visit .status i{background:#9C8A7E}
+.visit .status.open i{background:#8FD39A}
+.visit .status.open i::after{border-color:#8FD39A}
+.hours{width:100%;border-collapse:collapse;margin-top:22px;font-size:17px}
+.hours td{padding:12px 4px;border-bottom:1px solid rgba(255,246,238,.16)}
+.hours td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.hours tr.today td{color:var(--accent);font-weight:700}
+.hours tr.today td:first-child::after{content:" · today";font-family:var(--hand);font-size:20px;font-weight:700}
+.hours tr.closed td:last-child{opacity:.6}
+.addr{font-size:20px;line-height:1.45;margin:20px 0 0}
+.phone{font-family:var(--disp);font-variation-settings:"SOFT" 100,"WONK" 1;font-size:clamp(34px,8vw,48px);margin:16px 0 0;font-weight:650;user-select:all;letter-spacing:-.01em}
+.visit .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.visit .btn-main{box-shadow:0 4px 0 #000}
+.visit .btn-line{color:var(--paper);box-shadow:inset 0 0 0 2px var(--paper)}
+.visit .btn-line:hover{background:rgba(255,246,238,.08)}
+.map{position:relative;border-radius:28px;overflow:hidden;background:#4A3123;aspect-ratio:1/1;max-width:520px;width:100%;box-shadow:0 0 0 2px rgba(255,246,238,.2)}
+.map svg{width:100%;height:100%;display:block}
+.map .pinlbl{position:absolute;left:50%;top:44%;transform:translate(-50%,-100%);background:var(--accent);color:var(--on-accent);padding:10px 14px;border-radius:14px;font-weight:700;font-size:14px;white-space:nowrap;box-shadow:0 0 0 2px var(--cocoa)}
+.map .pinlbl::after{content:"";position:absolute;left:50%;bottom:-9px;margin-left:-9px;border:9px solid transparent;border-bottom:0;border-top-color:var(--accent)}
+.map small{position:absolute;left:16px;bottom:14px;font-size:12px;color:rgba(255,246,238,.6)}
+@media (min-width:900px){.visit .wrap{grid-template-columns:1fr 1fr;gap:72px;align-items:start}}
+
+/* closing */
+.end{padding:90px 0 120px;text-align:center}
+.end h2{font-size:clamp(40px,10vw,84px);margin:10px auto 0;max-width:14ch}
+.end p{max-width:40ch;margin:18px auto 0;color:var(--cocoa-2);font-size:18px}
+.end .acts{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:30px}
+.end .bowl{width:120px;margin:0 auto 8px}
+footer{border-top:2px solid var(--cocoa);padding:28px 0 140px;font-size:14px;color:var(--cocoa-2)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between}
+
+/* paw trail */
+#trail{position:absolute;left:0;top:0;width:100%;pointer-events:none;z-index:40;overflow:hidden}
+.paw{position:absolute;width:24px;height:24px;margin:-12px 0 0 -12px;opacity:0;fill:var(--cocoa);transition:opacity 1.6s ease;will-change:transform,opacity}
+.paw.on{animation:stamp .5s cubic-bezier(.3,1.7,.5,1) both;opacity:.32}
+.paw.old{opacity:.1}
+@keyframes stamp{from{transform:var(--rot) scale(1.8);opacity:0}to{transform:var(--rot) scale(1);opacity:.42}}
+@media (max-width:640px){.paw{width:18px;height:18px;margin:-9px 0 0 -9px}}
+
+/* mobile bottom bar */
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:60;height:calc(64px + env(safe-area-inset-bottom,0px));padding:8px var(--gr) calc(8px + env(safe-area-inset-bottom,0px)) var(--g);background:var(--paper);border-top:2px solid var(--cocoa);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.mbar .status{font-size:14px;line-height:1.2;min-width:0}
+.mbar .btn{min-height:46px;padding:0 20px;font-size:15px;box-shadow:0 3px 0 var(--cocoa)}
+@media (min-width:761px){.mbar{display:none}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .paw{opacity:.18}
+}
+</style>
+
+<header class="hd" id="hd">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Pawny Tail, back to top">
+      <span class="logo-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="16" rx="5" ry="4"/><circle cx="5.8" cy="10" r="2.3"/><circle cx="18.2" cy="10" r="2.3"/><circle cx="9.2" cy="5.6" r="2.3"/><circle cx="14.8" cy="5.6" r="2.3"/></svg></span>
+      <span><b>Pawny Tail</b><small>Pet grooming &amp; more</small></span>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#ages">Every age</a><a href="#grooming">Grooming</a><a href="#shop">Shop</a><a href="#visit">Visit</a>
+    </nav>
+    <button class="btn btn-main" type="button" data-l24-contact="Call Pawny Tail to book">Call to book</button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">Grooming &amp; pet store · Scarborough</div>
+        <h1 class="disp"><span data-l24-edit="Headline">Gentle grooming for every age.</span></h1>
+        <p class="lede" data-l24-edit="Tagline">Dogs of every age, nervous seniors and cats. The team never forces it, and talks you through the cut first.</p>
+        <div class="acts">
+          <button class="btn btn-main" type="button" data-l24-contact="Call Pawny Tail to book">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+            Call to book
+          </button>
+          <a class="btn btn-line" href="#ages">See how they adapt</a>
+        </div>
+        <div class="meta">
+          <span><span class="stars" aria-hidden="true">★★★★★</span> <b>5.0</b> from 123 Google reviews</span>
+          <span class="status" data-status><i></i><span>Checking hours…</span></span>
+        </div>
+      </div>
+      <div>
+        <div class="art">
+          <div class="arch"><img src="/p/a767d1-pawny-tail-grooming/img/groom2.jpg" alt="A fluffy dog wrapped in a pink towel getting brushed" width="1400" height="933"></div>
+          <figure class="polar" style="margin:0"><img src="/p/a767d1-pawny-tail-grooming/img/groom3.jpg" alt="A small white dog in a shower cap and towel" width="1400" height="2004" loading="lazy"><span>fresh from the bath</span></figure>
+          <div class="stamp" aria-label="Rated 5.0 out of 5 from 123 Google reviews">
+            <svg viewBox="0 0 120 120" aria-hidden="true"><defs><path id="circ" d="M60 60m-49 0a49 49 0 1 1 98 0a49 49 0 1 1-98 0"/></defs><text><textPath href="#circ">GOOGLE REVIEWS · 123 OF THEM · </textPath></text></svg>
+            <div><b>5.0</b><small>perfect<br>score</small></div>
+          </div>
+        </div>
+        <p class="sample">Sample photos. We'll use yours.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec ages" id="ages" aria-labelledby="ages-h">
+    <div class="wrap">
+      <div class="eyebrow">Every age, every temperament</div>
+      <h2 class="disp" id="ages-h">Slide to see how they groom yours.</h2>
+      <p class="intro">Pulled straight from what 123 customers wrote about Pawny Tail. Pick your pet and watch the groom change.</p>
+      <div class="ages-grid">
+        <div class="stage" id="stage" data-s="adult">
+          <div class="note note-a" id="noteA"><span>checked over first</span><svg viewBox="0 0 54 36"><path d="M6 4c4 14 14 24 38 26M38 22l7 8-9 4"/></svg></div>
+          <div class="note note-b" id="noteB"><span>the plan, before the cut</span><svg viewBox="0 0 54 36"><path d="M48 4C44 18 34 26 10 30M16 22l-7 8 9 4"/></svg></div>
+          <svg class="pet" id="pet" viewBox="0 0 320 320" role="img" aria-labelledby="pet-t">
+            <title id="pet-t">Illustration of a dog</title>
+            <defs>
+              <filter id="rough" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.2"/></filter>
+            </defs>
+            <ellipse cx="160" cy="296" rx="96" ry="10" fill="#3A2317" opacity=".12"/>
+            <g filter="url(#rough)" stroke="#3A2317" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
+              <!-- DOG -->
+              <g class="dog">
+                <path class="d-tail" d="M204 268c18-6 30-22 30-40c0-6 7-6 8 0c2 24-14 46-36 52z" fill="var(--fur)"/>
+                <g class="d-body">
+                  <path d="M104 292c-8-54 6-104 56-110c50 6 64 56 56 110z" fill="var(--fur)"/>
+                  <path d="M132 292c-2-40 8-70 28-74c20 4 30 34 28 74z" fill="#F7E2CC" stroke="none"/>
+                </g>
+                <g class="d-legs">
+                  <path d="M132 292v-50c0-8 18-8 18 0v50" fill="var(--fur)"/>
+                  <path d="M170 292v-50c0-8 18-8 18 0v50" fill="var(--fur)"/>
+                  <path d="M124 293h32M164 293h32"/>
+                  <path d="M138 286v7M144 286v7M176 286v7M182 286v7" stroke-width="2.4"/>
+                </g>
+                <g class="d-head">
+                  <path d="M130 198c10 14 50 14 60 0l-4 24c-14 12-38 12-52 0z" fill="var(--accent)"/>
+                  <path d="M112 112c-26 2-34 46-20 74c6 12 22 6 26-8l8-40z" fill="var(--ear)"/>
+                  <path d="M208 112c26 2 34 46 20 74c-6 12-22 6-26-8l-8-40z" fill="var(--ear)"/>
+                  <ellipse cx="160" cy="146" rx="54" ry="52" fill="var(--fur)"/>
+                  <path d="M150 96c4-8 16-8 20 0" fill="none" stroke-width="3"/>
+                  <ellipse cx="160" cy="168" rx="30" ry="22" fill="#F7E2CC"/>
+                  <ellipse class="sen-only" cx="160" cy="170" rx="30" ry="22" fill="#DAD5CD" stroke="none" style="opacity:calc(var(--sen)*.8)"/>
+                  <g class="sen-only" fill="#D7D3CC" stroke-width="2.6"><path d="M124 122c6-8 18-9 24-4"/><path d="M196 122c-6-8-18-9-24-4"/></g>
+                  <g class="d-eye"><ellipse class="blink" cx="138" cy="138" rx="6.5" ry="7" fill="#3A2317" stroke="none"/></g>
+                  <g class="d-eye"><ellipse class="blink" cx="182" cy="138" rx="6.5" ry="7" fill="#3A2317" stroke="none"/></g>
+                  <circle cx="140.5" cy="135.5" r="2" fill="#fff" stroke="none"/><circle cx="184.5" cy="135.5" r="2" fill="#fff" stroke="none"/>
+                  <path class="sen-only" d="M129 135c4-5 14-5 18 0M173 135c4-5 14-5 18 0" fill="none" stroke-width="3"/>
+                  <path d="M150 156c0-6 20-6 20 0c0 6-6 10-10 10s-10-4-10-10z" fill="#3A2317"/>
+                  <path d="M160 166v6M146 174c6 6 22 6 28 0" fill="none"/>
+                  <path class="pup-only" d="M152 176c0 12 16 12 16 0z" fill="#EE8C8C" stroke-width="2.6"/>
+                  <circle cx="126" cy="162" r="7" fill="#F2A3A3" stroke="none" opacity=".55"/><circle cx="194" cy="162" r="7" fill="#F2A3A3" stroke="none" opacity=".55"/>
+                </g>
+              </g>
+              <!-- CAT -->
+              <g class="cat">
+                <path class="c-tail" d="M198 284c30 2 44-16 40-38c-3-14-16-16-18-6c-1 6 6 6 8 12c3 12-10 22-32 20z" fill="#C9A27E"/>
+                <path d="M110 292c-6-52 10-96 50-100c40 4 56 48 50 100z" fill="#C9A27E"/>
+                <path d="M138 292c0-34 8-58 22-62c14 4 22 28 22 62z" fill="#F3E4D2" stroke="none"/>
+                <path d="M134 292v-40c0-6 14-6 14 0v40M172 292v-40c0-6 14-6 14 0v40" fill="#C9A27E"/>
+                <path d="M126 293h28M166 293h28"/>
+                <path d="M112 132l-6-50 40 24zM208 132l6-50-40 24z" fill="#C9A27E"/>
+                <path d="M116 112l-2-20 16 12zM204 112l2-20-16 12z" fill="#EBB1A8" stroke-width="2"/>
+                <ellipse cx="160" cy="150" rx="56" ry="48" fill="#C9A27E"/>
+                <path d="M144 106c4 8 4 14 0 20M160 104v22M176 106c-4 8-4 14 0 20" fill="none" stroke-width="3" opacity=".7"/>
+                <ellipse class="blink" cx="138" cy="146" rx="6" ry="8" fill="#3A2317" stroke="none"/>
+                <ellipse class="blink" cx="182" cy="146" rx="6" ry="8" fill="#3A2317" stroke="none"/>
+                <circle cx="140" cy="143" r="2" fill="#fff" stroke="none"/><circle cx="184" cy="143" r="2" fill="#fff" stroke="none"/>
+                <path d="M154 162h12l-6 7z" fill="#E98C8C"/>
+                <path d="M160 169c-2 6-10 8-14 4M160 169c2 6 10 8 14 4" fill="none"/>
+                <path d="M124 164l-26-4M124 172l-26 4M196 164l26-4M196 172l26 4" fill="none" stroke-width="2.4"/>
+                <path d="M132 198c10 10 46 10 56 0" fill="none" stroke="var(--accent)" stroke-width="7"/>
+              </g>
+            </g>
+          </svg>
+          <div class="tagline-stage" id="stageLbl">Adult</div>
+        </div>
+
+        <div>
+          <div class="ctrl">
+            <div class="species" role="group" aria-label="Choose a pet">
+              <button type="button" aria-pressed="true" data-sp="dog">Dog</button>
+              <button type="button" aria-pressed="false" data-sp="cat">Cat</button>
+            </div>
+            <div class="slider" id="slider">
+              <label class="lbl" for="age">How old is your dog?</label>
+              <div class="range">
+                <div class="track"><div class="fill"></div></div>
+                <input id="age" type="range" min="0" max="100" value="50" step="1" aria-valuetext="Adult">
+              </div>
+              <div class="stops">
+                <button type="button" data-v="0">Puppy</button>
+                <button type="button" data-v="50" aria-current="true">Adult</button>
+                <button type="button" data-v="100">Senior</button>
+              </div>
+            </div>
+          </div>
+          <div class="copy" id="copy" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="grooming" aria-labelledby="g-h">
+    <div class="wrap svc">
+      <div>
+        <div class="eyebrow">What they do</div>
+        <h2 class="disp" id="g-h">Grooming, and a little more.</h2>
+        <p class="intro">The full groom, a bath or just the nails. And a shelf of food and treats to take home.</p>
+        <div class="svc-img">
+          <img src="/p/a767d1-pawny-tail-grooming/img/groom5.jpg" alt="A small dog licking its nose, wrapped in a soft blue towel" width="1400" height="2100" loading="lazy">
+          <div class="tag">clean, happy<br>&amp; relaxed</div>
+        </div>
+      </div>
+      <div>
+        <div class="menu">
+          <div class="item"><span class="n">01</span><h3 class="disp">Full groom</h3><p>They talk you through the cut first, so there are no surprises.</p></div>
+          <div class="item"><span class="n">02</span><h3 class="disp">Bath</h3><p>Clean, happy and relaxed afterwards.</p></div>
+          <div class="item"><span class="n">03</span><h3 class="disp">Nail trim</h3><p>Gentle with senior and anxious dogs.</p></div>
+          <div class="item"><span class="n">04</span><h3 class="disp">Cats too</h3><p>Kind, patient handling, and real answers about dander and shedding.</p></div>
+          <div class="item"><span class="n">05</span><h3 class="disp">Food &amp; treats</h3><p>Often priced better than the big-box stores, customers say.</p></div>
+        </div>
+        <div class="price-note"><span class="hand">Prices?</span><span>Just ask when you call.</span></div>
+        <div class="acts" style="margin-top:22px"><button class="btn btn-main" type="button" data-l24-contact="Call Pawny Tail to book">Call to book</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec revs" aria-labelledby="r-h">
+    <div class="wrap">
+      <div class="eyebrow" id="r-h">What owners say</div>
+      <blockquote class="big-q disp" style="margin-left:0;margin-right:0">Maggie is a huge part of our family, and leaving her here gives us total peace of mind. We know she is safe, loved, and in excellent hands every single time.</blockquote>
+      <div class="big-cite">Captain C. · Google review</div>
+      <div class="notes">
+        <figure class="pin" style="margin:0"><div class="stars" aria-label="5 stars">★★★★★</div><p>What honestly surprised me is that my dog wanted to go back into the grooming area after her appointment!</p><cite>Ken A. · Google review</cite></figure>
+        <figure class="pin" style="margin:0"><div class="stars" aria-label="5 stars">★★★★★</div><p>The staff were very friendly and gentle with both my dog and me… You can tell they really care about the dogs.</p><cite>Jiaoding N. · Google review</cite></figure>
+        <figure class="pin" style="margin:0"><div class="stars" aria-label="5 stars">★★★★★</div><p>I took my senior dog to get her nails trimmed today. The staff were absolutely amazing! They took great care of our old girl.</p><cite>Christine B. · Google review</cite></figure>
+      </div>
+      <div class="count"><b>5.0</b><span><span class="stars" aria-hidden="true">★★★★★</span><br>a perfect score from 123 Google reviews</span></div>
+    </div>
+  </section>
+
+  <section class="sec shop" id="shop" aria-labelledby="s-h">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">The little shop</div>
+        <h2 class="disp" id="s-h">Pick up dinner on the way out.</h2>
+        <p class="intro">Pawny Tail also stocks food and treats. Grab what your pet likes while you're there.</p>
+        <div class="shelf" aria-label="In the shop">
+          <div class="jar"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M8 18h24l-3 14H11z"/><path d="M13 18c0-5 3-8 7-8s7 3 7 8"/><circle cx="17" cy="14" r="1.5"/><circle cx="23" cy="14" r="1.5"/></svg><b>Food</b><span>ask what's in stock</span></div>
+          <div class="jar"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M12 16a4 4 0 1 1 4-5h8a4 4 0 1 1 4 5a4 4 0 1 1-4 5h-8a4 4 0 1 1-4-5z"/></svg><b>Treats</b><span>a little something</span></div>
+          <div class="jar"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 8v24M8 20h24"/></svg><b>Your brands</b><span>list goes here</span></div>
+        </div>
+        <blockquote class="shop-q" style="margin-left:0;margin-right:0">Beyond the top-notch grooming, we also buy Maggie's food and treats here. Their prices are often more competitive than the big-box pet stores, which is a wonderful bonus.<cite>Captain C. · Google review</cite></blockquote>
+      </div>
+      <div class="shop-photos">
+        <img src="/p/a767d1-pawny-tail-grooming/img/treat-hand.jpg" alt="A dog taking a treat from a hand" width="1200" height="1500">
+        <div class="stack">
+          <img src="/p/a767d1-pawny-tail-grooming/img/treats.jpg" alt="Bone-shaped biscuits on a pink background" width="1200" height="798">
+          <img src="/p/a767d1-pawny-tail-grooming/img/cat.jpg" alt="A tortoiseshell cat being brushed" width="1200" height="1800" style="object-position:50% 30%">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec visit" id="visit" aria-labelledby="v-h">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">Hours &amp; visit</div>
+        <h2 class="disp" id="v-h">Six days a week, 10 to 7.</h2>
+        <div class="status" data-status><i></i><span>Checking hours…</span></div>
+        <table class="hours" id="hours" aria-label="Weekly hours"></table>
+      </div>
+      <div>
+        <div class="map" aria-hidden="true">
+          <svg viewBox="0 0 400 400">
+            <rect width="400" height="400" fill="#4A3123"/>
+            <g stroke="#6B4A39" stroke-width="22" fill="none" stroke-linecap="round"><path d="M-20 120 C120 100 260 150 420 110"/><path d="M90 -20 C110 140 80 260 120 420"/><path d="M-20 300 C140 280 260 330 420 300"/><path d="M300 -20 C280 140 320 260 290 420"/></g>
+            <g stroke="#5B3D2D" stroke-width="10" fill="none"><path d="M-20 210 H420"/><path d="M200 -20 V420"/></g>
+            <circle cx="300" cy="300" r="46" fill="#5E6E4F" opacity=".7"/>
+            <circle cx="200" cy="176" r="12" fill="var(--accent)" stroke="#3A2317" stroke-width="4"/>
+          </svg>
+          <div class="pinlbl">Pawny Tail · Unit 103</div>
+          <small>Map illustration</small>
+        </div>
+        <p class="addr">60 Brian Harrison Way, Unit 103<br>Scarborough, ON M1P 5J5</p>
+        <p class="phone">(647) 296-8818</p>
+        <div class="acts">
+          <button class="btn btn-main" type="button" data-l24-contact="Call Pawny Tail to book">Call to book</button>
+          <button class="btn btn-line" type="button" data-l24-contact="Visit Pawny Tail">Get directions</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="end" id="end">
+    <div class="wrap">
+      <svg class="bowl" viewBox="0 0 120 70" aria-hidden="true" fill="none" stroke="#3A2317" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="44" cy="20" r="8" fill="#C98A5A"/><circle cx="60" cy="14" r="8" fill="#E8B98C"/><circle cx="76" cy="20" r="8" fill="#C98A5A"/><path d="M14 30h92l-10 30H24z" fill="var(--accent)"/><path d="M30 44h60" stroke-width="2.4"/></svg>
+      <div class="hand" style="font-size:30px;color:var(--sage-d)">the paw prints end here</div>
+      <h2 class="disp">Book a gentle groom.</h2>
+      <p>One call. Tell them about your pet, and they'll talk you through the rest.</p>
+      <div class="acts"><button class="btn btn-main" type="button" data-l24-contact="Call Pawny Tail to book">Call (647) 296-8818</button></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© Pawny Tail Pet Grooming &amp; More · 60 Brian Harrison Way Unit 103, Scarborough</span>
+    <span>Sample photos. We'll use yours.</span>
+  </div>
+</footer>
+
+<div class="mbar">
+  <span class="status" data-status><i></i><span>Checking hours…</span></span>
+  <button class="btn btn-main" type="button" data-l24-contact="Call Pawny Tail to book">Call to book</button>
+</div>
+
+<div id="trail" aria-hidden="true"></div>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- hours + open now (America/Toronto) ---------- */
+  var DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var H=[[10,19],null,[10,19],[10,19],[10,19],[10,19],[10,19]];
+  function fmt(h){h=h%24;var m=Math.round((h%1)*60),hr=Math.floor(h),ap=hr>=12?'PM':'AM',d=hr%12||12;return d+(m?':'+(m<10?'0':'')+m:'')+' '+ap}
+  function now(){
+    var p=new Intl.DateTimeFormat('en-US',{timeZone:'America/Toronto',weekday:'short',hour:'numeric',minute:'numeric',hourCycle:'h23'}).formatToParts(new Date()),o={};
+    p.forEach(function(x){o[x.type]=x.value});
+    return {d:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(o.weekday),h:(+o.hour%24)+(+o.minute)/60};
+  }
+  function status(){
+    var n=now(),t=H[n.d],y=H[(n.d+6)%7];
+    if(y&&y[1]>24&&n.h<y[1]-24) return {open:true,txt:'Open now · until '+fmt(y[1])};
+    if(t&&n.h>=t[0]&&n.h<t[1]) return {open:true,txt:'Open now · until '+fmt(t[1])};
+    if(t&&n.h<t[0]) return {open:false,txt:'Closed · opens today at '+fmt(t[0])};
+    for(var i=1;i<=7;i++){var k=(n.d+i)%7;if(H[k]) return {open:false,txt:'Closed · opens '+(i===1?'tomorrow':DAYS[k].slice(0,3))+' at '+fmt(H[k][0])}}
+    return {open:false,txt:'Closed'};
+  }
+  function paintStatus(){
+    var s=status();
+    [].forEach.call(document.querySelectorAll('[data-status]'),function(el){el.classList.toggle('open',s.open);el.querySelector('span').textContent=s.txt});
+    var n=now(),order=[1,2,3,4,5,6,0],tb=document.getElementById('hours');
+    tb.innerHTML=order.map(function(d){var h=H[d];return '<tr class="'+(d===n.d?'today ':'')+(h?'':'closed')+'"><td>'+DAYS[d]+'</td><td>'+(h?fmt(h[0])+' – '+fmt(h[1]):'Closed')+'</td></tr>'}).join('');
+  }
+  paintStatus();setInterval(paintStatus,60000);
+
+  /* ---------- header shadow ---------- */
+  var hd=document.getElementById('hd');
+  addEventListener('scroll',function(){hd.classList.toggle('sc',scrollY>8)},{passive:true});
+
+  /* ---------- every age ---------- */
+  var C={
+    puppy:{tag:'Puppy',kick:'little ones',title:'A gentle start.',
+      body:'Bringing a young dog? Call and ask how they handle an early groom. Owners say the team never forces it and keeps pets comfortable the whole way through.',
+      pts:['Never forced','Kept comfortable from start to finish','Gentle with you, too'],
+      q:'They never forced my dog and made sure he felt comfortable throughout the bath.',a:'Jiaoding N.',
+      n:['never forced','comfy the whole time']},
+    adult:{tag:'Adult',kick:'grown-ups',title:'Talked through first. No surprises.',
+      body:'Your dog is checked over before the groom starts, and you hear the plan for the cut before it happens. Matted coat? They\'ll tell you honestly what can be saved.',
+      pts:['Assessed before the appointment','The cut talked through first','They take their time'],
+      q:'They went through what can possibly be the case in terms of her haircut so I was aware before it all happened (no surprises), which I honestly appreciated.',a:'Ken A.',
+      n:['checked over first','the plan, before the cut']},
+    senior:{tag:'Senior',kick:'old friends',title:'Lifted with care.',
+      body:'Older dogs aren\'t always light, and some get anxious. The team lifts them onto the table carefully and stays gentle and understanding the whole time.',
+      pts:['Lifted onto the table carefully','Patient with anxious dogs','Nail trims for older dogs'],
+      q:'She’s not the lightest dog and they had to lift her up on the table all while she was having an anxiety attack. I recommend Pawny Tail Pet Grooming, they were gentle and understanding…',a:'Christine B.',
+      n:['lifted up with care','gentle + understanding']},
+    cat:{tag:'Cat',kick:'cats welcome',title:'Calm, patient, and in the know.',
+      body:'Cats get the same patience from the moment you walk in. The team knows about dander and shedding, and takes the time to explain what may be causing it.',
+      pts:['Kind and patient from the door','Real answers on dander and shedding','Home soft and clean'],
+      q:'The staff were incredibly kind, patient, and comforting with my cat from the moment we walked in… My cat came home looking amazing, feeling soft and clean after the visit.',a:'Tamia B.',
+      n:['kind + patient','soft & clean']}
+  };
+  var pet=document.getElementById('pet'),stage=document.getElementById('stage'),age=document.getElementById('age'),
+      copy=document.getElementById('copy'),slider=document.getElementById('slider'),lbl=document.getElementById('stageLbl'),
+      nA=document.querySelector('#noteA span'),nB=document.querySelector('#noteB span'),
+      stops=[].slice.call(document.querySelectorAll('.stops button')),sps=[].slice.call(document.querySelectorAll('.species button'));
+  var species='dog',cur='';
+  function esc(s){return s.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function zone(v){return v<34?'puppy':v<67?'adult':'senior'}
+  function setVars(v){
+    var t=v/100,pup=Math.max(0,1-t*2),sen=Math.max(0,t*2-1);
+    pet.style.setProperty('--pup',pup.toFixed(3));pet.style.setProperty('--sen',sen.toFixed(3));
+    pet.style.setProperty('--wag',(0.7+t*1.6).toFixed(2)+'s');
+    age.parentNode.style.setProperty('--pct',v+'%');
+  }
+  function show(key){
+    if(key===cur) return; cur=key; var c=C[key];
+    stage.dataset.s=key; lbl.textContent=c.tag;
+    document.getElementById('pet-t').textContent='Illustration of a '+(key==='cat'?'cat':key==='puppy'?'puppy':key==='senior'?'senior dog':'dog');
+    copy.innerHTML='<div class="fade"><div class="kick">'+c.kick+'</div><h3 class="disp">'+esc(c.title)+'</h3><p>'+esc(c.body)+'</p><ul>'+c.pts.map(function(p){return '<li>'+esc(p)+'</li>'}).join('')+'</ul><blockquote>“'+esc(c.q)+'”<cite>'+c.a+' · Google review</cite></blockquote></div>';
+    [nA,nB].forEach(function(el,i){var box=el.parentNode;box.classList.add('swap');setTimeout(function(){el.textContent=c.n[i];box.classList.remove('swap')},reduce?0:220)});
+    stops.forEach(function(b){b.setAttribute('aria-current',String(species==='dog'&&zone(+b.dataset.v)===key))});
+    age.setAttribute('aria-valuetext',species==='cat'?'Cat':c.tag);
+  }
+  function onAge(){setVars(+age.value);if(species==='dog')show(zone(+age.value))}
+  age.addEventListener('input',onAge);
+  var anim;
+  function glide(to){
+    cancelAnimationFrame(anim);var from=+age.value,t0=performance.now(),d=reduce?1:520;
+    (function step(t){var k=Math.min(1,(t-t0)/d),e=1-Math.pow(1-k,3);age.value=Math.round(from+(to-from)*e);onAge();if(k<1)anim=requestAnimationFrame(step)})(t0);
+  }
+  age.addEventListener('change',function(){var v=+age.value,s=v<34?0:v<67?50:100;if(s!==v)glide(s)});
+  stops.forEach(function(b){b.onclick=function(){if(species!=='dog')setSp('dog');glide(+b.dataset.v)}});
+  function setSp(s){
+    species=s;sps.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.sp===s))});
+    pet.classList.toggle('is-cat',s==='cat');slider.classList.toggle('off',s==='cat');
+    document.querySelector('.slider .lbl').textContent=s==='cat'?'Cats of every age get the same care':'How old is your dog?';
+    show(s==='cat'?'cat':zone(+age.value));
+  }
+  sps.forEach(function(b){b.onclick=function(){setSp(b.dataset.sp)}});
+  age.addEventListener('pointerdown',function(){if(species==='cat')setSp('dog')});
+  setVars(50);show('adult');
+
+  /* ---------- reveal (content is visible by default) ---------- */
+  if(!reduce&&'IntersectionObserver' in window&&Element.prototype.animate){
+    var els=[].slice.call(document.querySelectorAll('.sec h2,.sec .intro,.item,.pin,.jar,.shop-photos img,.svc-img,.big-q,.map,.end h2'));
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){io.unobserve(e.target);var r=e.target.getBoundingClientRect();if(r.top>innerHeight*0.6)e.target.animate([{opacity:0,translate:'0 26px'},{opacity:1,translate:'0 0'}],{duration:700,easing:'cubic-bezier(.2,.9,.2,1)',fill:'backwards',delay:(e.target.classList.contains('item')||e.target.classList.contains('pin')||e.target.classList.contains('jar'))?([].indexOf.call(e.target.parentNode.children,e.target)*70):0})}})},{rootMargin:'0px 0px 60px 0px'});
+    els.forEach(function(el){io.observe(el)});
+  }
+
+  /* ---------- paw-print trail that follows scroll ---------- */
+  var trail=document.getElementById('trail'),paws=[],PAW='<svg viewBox="0 0 24 24"><ellipse cx="12" cy="16" rx="5" ry="4"/><circle cx="5.8" cy="10" r="2.3"/><circle cx="18.2" cy="10" r="2.3"/><circle cx="9.2" cy="5.6" r="2.3"/><circle cx="14.8" cy="5.6" r="2.3"/></svg>';
+  function build(){
+    var end=document.getElementById('end'),W=document.documentElement.clientWidth,
+        stopY=end.getBoundingClientRect().top+scrollY+60,startY=innerHeight*0.85,
+        step=W<640?70:96,amp=W/2-(W<640?22:60),k=W<640?380:560;
+    trail.style.height=document.documentElement.scrollHeight+'px';
+    var html='',i=0,list=[];
+    for(var y=startY;y<stopY;y+=step,i++){
+      var x=W/2+amp*Math.sin(y/k),dx=(amp/k)*Math.cos(y/k)*step,ang=Math.atan2(step,dx)*180/Math.PI-90,
+          side=(i%2?1:-1)*(W<640?7:10),nx=Math.cos((ang)*Math.PI/180)*side,ny=Math.sin((ang)*Math.PI/180)*side;
+      list.push({x:x+nx,y:y+ny,a:ang});
+    }
+    // final approach: walk into the bowl
+    trail.innerHTML=list.map(function(p,j){return '<span class="paw" style="left:'+p.x.toFixed(1)+'px;top:'+p.y.toFixed(1)+'px;--rot:rotate('+p.a.toFixed(0)+'deg);transform:rotate('+p.a.toFixed(0)+'deg)" data-y="'+p.y.toFixed(0)+'">'+PAW+'</span>'}).join('');
+    paws=[].slice.call(trail.children);
+    [].forEach.call(trail.querySelectorAll('svg'),function(s){s.setAttribute('width','100%');s.setAttribute('height','100%');s.style.fill='inherit'});
+    tick();
+  }
+  function tick(){
+    var lim=scrollY+innerHeight*0.72;
+    for(var i=0;i<paws.length;i++){
+      var p=paws[i];if(p._on)continue;
+      if(+p.dataset.y<lim){p._on=1;p.classList.add('on');(function(p){setTimeout(function(){p.classList.remove('on');p.classList.add('old')},reduce?0:2600)})(p)}
+      else break;
+    }
+  }
+  var raf;addEventListener('scroll',function(){cancelAnimationFrame(raf);raf=requestAnimationFrame(tick)},{passive:true});
+  var rt;addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(build,200)});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(build);else addEventListener('load',build);
+  addEventListener('load',build);
+})();
+</script>
+
+<script>window.L24CFG={name:"Pawny Tail Pet Grooming & More",phone:"(647) 296-8818",tel:"+16472968818",address:"60 Brian Harrison Way Unit 103, Scarborough, ON M1P 5J5",maps:"https://maps.google.com/?cid=13541309801367662383",
+ noteOpen:"123 people gave you a perfect 5★",noteRest:"but when someone searches for a groomer near them, there's no website to find. I made this to show what yours could look like.",
+ checklist:["Designed for Pawny Tail","Your hours, address and reviews added","Works on every phone","An \"every age\" guide built from your own reviews"],
+ swatches:[{name:"Original",dot:"#F2A93B",vars:{"--accent":"#F2A93B"}},{name:"Sage",dot:"#8FAE86",vars:{"--accent":"#8FAE86","--sage":"#E9C77E"}},{name:"Berry",dot:"#E0849A",vars:{"--accent":"#E0849A"}},{name:"Sky",dot:"#86B2D6",vars:{"--accent":"#86B2D6"}}]};</script>
+<!-- ===== Launch24 preview layer (shared, do not edit). Needs window.L24CFG defined BEFORE this block. ===== -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Onest:wght@400;500;600&display=swap">
+<style>
+:root{--l24-h:44px}
+.l24,.l24 *{box-sizing:border-box}
+.l24{font-family:"Onest","Segoe UI",Arial,sans-serif;font-size:15px;line-height:1.5;color:#eef0f5;-webkit-font-smoothing:antialiased}
+.l24 button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.l24 :focus-visible{outline:3px solid #ffd60a;outline-offset:2px}
+.l24-bar{position:sticky;top:0;z-index:1000;height:var(--l24-h);background:#08090c;color:#eef0f5;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 max(14px,env(safe-area-inset-right,0px)) 0 max(14px,env(safe-area-inset-left,0px));font-family:"Onest","Segoe UI",Arial,sans-serif;font-size:13px;border-bottom:1px solid #1d2029}
+.l24-bar .l24-id{display:flex;align-items:center;gap:8px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.l24-logo{flex:none;display:inline-grid;place-items:center;width:22px;height:22px;border-radius:6px;background:#ffd60a;color:#000;font:800 10px "Bricolage Grotesque",sans-serif}
+.l24-bar b{font-weight:600}
+.l24-bar .l24-sub{color:#8f97a8}
+@media (max-width:620px){.l24-bar .l24-sub{display:none}}
+.l24-keep{flex:none;height:32px;padding:0 14px;border-radius:999px;border:0;background:#ffd60a;color:#000;font-weight:700!important}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:1001;background:#08090c}
+.l24-bar{top:env(safe-area-inset-top,0px)}
+.l24-note{position:fixed;z-index:1002;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(400px,calc(100vw - 32px));background:#08090c;border:1px solid #232733;border-radius:20px;padding:18px 18px 14px;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);transform:translateY(16px);opacity:0;transition:transform .7s cubic-bezier(.2,.9,.2,1),opacity .7s}
+.l24-note.in{transform:none;opacity:1}
+.l24-note[hidden]{display:none}
+.l24-note .l24-k{font:600 11px/1 "Onest",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#ffd60a}
+.l24-note p{margin:10px 0 0;font-size:14.5px}
+.l24-note p b{color:#fff}
+.l24-note .l24-s{color:#9aa1b1;font-size:13.5px}
+.l24-acts{display:flex;gap:8px;margin-top:14px}
+.l24-acts button{min-height:44px;padding:0 16px;border-radius:999px;border:1px solid #2c313d;background:transparent;color:#eef0f5;font-weight:600}
+.l24-acts .l24-y{background:#ffd60a;border-color:#ffd60a;color:#000}
+@media (max-width:560px){.l24-note .l24-s{display:none}}
+.l24-fab{position:fixed;z-index:999;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));display:inline-flex;align-items:center;gap:9px;height:50px;padding:0 18px;border-radius:999px;border:1px solid #232733;background:#08090c;color:#fff;font-weight:600;box-shadow:0 18px 40px -16px rgba(0,0,0,.6)}
+.l24-fab i{width:16px;height:16px;border-radius:50%;background:conic-gradient(#ffd60a 0 50%,var(--accent,#ffd60a) 0)}
+@media (max-width:760px){.l24-fab{bottom:calc(84px + env(safe-area-inset-bottom,0px))}}
+.l24-scrim{position:fixed;inset:0;z-index:1003;background:rgba(5,6,8,.55);opacity:0;pointer-events:none;transition:opacity .35s}
+.l24-scrim.open{opacity:1;pointer-events:auto}
+.l24-drawer{position:fixed;z-index:1004;top:0;right:0;bottom:0;width:min(410px,100vw);background:#101218;color:#eef0f5;border-left:1px solid #232733;transform:translateX(105%);transition:transform .5s cubic-bezier(.2,.9,.2,1);overflow-y:auto;padding:calc(22px + env(safe-area-inset-top,0px)) max(22px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) 22px}
+.l24-drawer.open{transform:none}
+.l24-x{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:14px;width:44px;height:44px;border-radius:50%;border:1px solid #2c313d;background:#161922;display:grid;place-items:center;padding:0}
+.l24-x svg{width:18px;height:18px;stroke:#eef0f5}
+.l24-h{font:700 30px/1.05 "Bricolage Grotesque",sans-serif;margin:8px 48px 0 0;letter-spacing:-.01em}
+.l24-p{color:#a3aab9;margin:10px 0 0}
+.l24-p b{color:#fff}
+.l24-lbl{display:block;font:600 11px/1 "Onest",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8f97a8;margin-top:22px}
+.l24-sw{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.l24-sw button{width:46px;height:46px;border-radius:50%;border:3px solid #101218;box-shadow:0 0 0 1.5px #2c313d;padding:0;transition:transform .2s}
+.l24-sw button[aria-pressed=true]{box-shadow:0 0 0 2.5px #ffd60a;transform:scale(1.06)}
+.l24-in{width:100%;min-height:48px;margin-top:8px;border-radius:12px;border:1.5px solid #2c313d;background:#08090c;color:#eef0f5;padding:0 12px;font:inherit;font-size:16px}
+.l24-in:focus{outline:none;border-color:#ffd60a}
+.l24-box{margin-top:24px;padding:20px;border-radius:18px;background:#08090c;border:1px solid #232733}
+.l24-box .l24-t{font:700 24px/1.1 "Bricolage Grotesque",sans-serif;color:#fff}
+.l24-done{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+.l24-done li{display:flex;gap:10px;align-items:flex-start}
+.l24-done li::before{content:"";flex:none;margin-top:2px;width:18px;height:18px;border-radius:50%;background:#25d366 url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'><path d='m6 12 4 4 8-8'/></svg>") center/11px no-repeat}
+.l24-price{font:700 40px/1 "Bricolage Grotesque",sans-serif;color:#fff;margin-top:14px}
+.l24-price span{font:400 15px "Onest",sans-serif;color:#9aa1b1}
+.l24-pay{display:flex;align-items:center;justify-content:center;text-decoration:none;width:100%;min-height:52px;margin-top:14px;border-radius:999px;border:0;background:#ffd60a;color:#000;font-weight:700!important;font-size:16px!important;animation:l24nudge 2.8s 1.4s ease-in-out infinite}
+@keyframes l24nudge{0%,86%,100%{transform:none}90%{transform:scale(1.03)}95%{transform:scale(.99)}}
+.l24-g{color:#9aa1b1;font-size:13.5px;margin:10px 0 0}
+.l24-wa{display:inline-flex;align-items:center;min-height:44px;color:#eef0f5;text-underline-offset:3px;font-size:14px}
+.l24-sheet{position:fixed;z-index:1004;left:50%;bottom:0;width:min(520px,100vw);max-height:88vh;overflow-y:auto;transform:translate(-50%,105%);transition:transform .5s cubic-bezier(.2,.9,.2,1);background:#101218;color:#eef0f5;border:1px solid #232733;border-radius:24px 24px 0 0;padding:14px max(20px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px))}
+.l24-sheet.open{transform:translate(-50%,0)}
+.l24-grab{width:44px;height:5px;border-radius:3px;background:#2c313d;margin:0 auto 16px}
+.l24-sheet .l24-x{top:14px}
+.l24-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 16px;border-radius:14px;background:#161922;margin-top:10px}
+.l24-row>div:first-child{min-width:0}
+.l24-row b{display:block}
+.l24-row span{color:#9aa1b1;font-size:13.5px}
+.l24-row .l24-num{color:#fff;font-size:16px;font-variant-numeric:tabular-nums;user-select:all}
+.l24-btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 16px;border-radius:999px;border:0;background:#ffd60a;color:#000!important;font-weight:700;text-decoration:none}
+.l24-btn.l24-gh{background:transparent;color:#eef0f5!important;box-shadow:inset 0 0 0 1.5px #2c313d}
+.l24-toast{position:fixed;z-index:1005;left:50%;top:calc(var(--l24-h) + 14px + env(safe-area-inset-top,0px));transform:translate(-50%,-14px);opacity:0;width:max-content;max-width:calc(100vw - 32px);text-align:center;background:#08090c;color:#fff;border:1px solid #232733;padding:11px 16px;border-radius:16px;font-size:14px;transition:opacity .3s,transform .3s;pointer-events:none}
+.l24-toast.show{opacity:1;transform:translate(-50%,0)}
+.l24-drawer,.l24-sheet{visibility:hidden}
+.l24-drawer.open,.l24-sheet.open{visibility:visible}
+@media (prefers-reduced-motion:reduce){.l24 *,.l24-pay{animation:none!important;transition:none!important}}
+</style>
+<div class="l24" id="l24"></div>
+<script>
+(function(){
+  var C=window.L24CFG||{}, root=document.getElementById('l24'), doc=document.documentElement;
+  var PAY='https://buy.stripe.com/9B65kC9zcfRMcqj7foe7m05?client_reference_id='+encodeURIComponent((C.name||'preview').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''));
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  var X='<svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  // bar goes first in <body>
+  var bar=document.createElement('div');bar.className='l24 l24-bar';
+  bar.innerHTML='<span class="l24-id"><span class="l24-logo">24</span><span><b>Preview made for '+esc(C.name)+'</b><span class="l24-sub"> by Launch24. Not live yet.</span></span></span><button class="l24-keep" type="button" data-l24-open>Make it yours</button>';
+  document.body.insertBefore(bar,document.body.firstChild);
+  var edits=[].slice.call(document.querySelectorAll('[data-l24-edit]'));
+  var sw=(C.swatches||[]);
+  root.innerHTML=
+   '<aside class="l24-note" id="l24-note" aria-label="Note from Launch24"><div class="l24-k">A note from Parth at Launch24</div><p>Hi! <b>'+esc(C.noteOpen)+'</b>, '+esc(C.noteRest)+'</p><p class="l24-s">It\'s built and ready. You\'re one click away from making it yours.</p><div class="l24-acts"><button class="l24-y" type="button" data-l24-open>Make it yours</button><button type="button" id="l24-look">Take a look</button></div></aside>'+
+   '<button class="l24-fab" type="button" data-l24-open><i aria-hidden="true"></i>Make it yours</button>'+
+   '<div class="l24-scrim" id="l24-scrim"></div>'+
+   '<aside class="l24-drawer" id="l24-drawer" aria-label="Make it yours" aria-hidden="true"><button class="l24-x" type="button" id="l24-dx" aria-label="Close">'+X+'</button>'+
+     '<span class="l24-lbl" style="margin-top:0;color:#ffd60a">Make it yours</span><h2 class="l24-h">Your website is ready.</h2>'+
+     '<p class="l24-p">We designed it, wrote it and added your hours, address and Google reviews. Try a colour or change the words if you like. Then you\'re <b>one click away</b> from making it yours.</p>'+
+     (sw.length?'<span class="l24-lbl">Colour</span><div class="l24-sw" id="l24-sw">'+sw.map(function(s,i){return '<button type="button" aria-pressed="'+(i===0)+'" aria-label="'+esc(s.name)+'" data-i="'+i+'" style="background:'+esc(s.dot)+'"></button>'}).join('')+'</div>':'')+
+     edits.map(function(el,i){var id='l24e'+i;return '<label class="l24-lbl" for="'+id+'">'+esc(el.getAttribute('data-l24-edit'))+'</label><input class="l24-in" id="'+id+'" data-i="'+i+'" value="'+esc(el.textContent.trim())+'">'}).join('')+
+     '<div class="l24-box"><div class="l24-t">You\'re one click away.</div><p class="l24-g" style="margin-top:6px">Already done for you:</p><ul class="l24-done">'+(C.checklist||[]).map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>'+
+     '<p class="l24-p" style="color:#eef0f5"><b>All that\'s left:</b> tap Pay. We add your real photos and details, and put it live on your own domain within 24 hours.</p>'+
+     '<div class="l24-price">$699 <span>one-time</span></div><a class="l24-pay" id="l24-pay" target="_blank" rel="noopener" href="'+esc(PAY)+'">Pay $699 and make it mine →</a><p class="l24-g" style="margin-top:8px">Secure checkout by Stripe.</p>'+
+     '<p class="l24-g">If we miss the 24 hours, you pay nothing. Your deposit is refunded in full.</p><a class="l24-wa" id="l24-wa" target="_blank" rel="noopener" href="#">Questions first? WhatsApp Parth</a></div></aside>'+
+   '<div class="l24-sheet" id="l24-sheet" role="dialog" aria-modal="true" aria-labelledby="l24-st" aria-hidden="true"><div class="l24-grab"></div><button class="l24-x" type="button" id="l24-sx" aria-label="Close">'+X+'</button><span class="l24-lbl" style="margin-top:0;color:#ffd60a" id="l24-se">Contact</span><h2 class="l24-h" id="l24-st" style="font-size:26px">How would you like to reach us?</h2>'+
+     (C.phone?'<div class="l24-row"><div><b>Call</b><span class="l24-num" id="l24-num">'+esc(C.phone)+'</span></div><div style="display:flex;gap:8px"><a class="l24-btn" href="tel:'+esc(C.tel)+'">Call</a><button class="l24-btn l24-gh" type="button" id="l24-copy">Copy</button></div></div>':'')+
+     (C.book?'<div class="l24-row"><div><b>Book online</b><span>Your existing '+esc(C.bookName||'booking')+' page</span></div><a class="l24-btn" href="'+esc(C.book)+'" target="_blank" rel="noopener">Open</a></div>':'')+
+     (C.instagram?'<div class="l24-row"><div><b>Instagram</b><span>Send a DM</span></div><a class="l24-btn l24-gh" href="'+esc(C.instagram)+'" target="_blank" rel="noopener">Open</a></div>':'')+
+     (C.address?'<div class="l24-row"><div><b>Visit</b><span>'+esc(C.address)+'</span></div><a class="l24-btn l24-gh" href="'+esc(C.maps)+'" target="_blank" rel="noopener">Directions</a></div>':'')+
+     '<p class="l24-g">On the live site these buttons call, book or open directions straight away.</p></div>'+
+   '<div class="l24-toast" id="l24-toast" role="status"></div>';
+  var $=function(id){return document.getElementById(id)};
+  var tt;function toast(m){var t=$('l24-toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('show')},3400)}
+  var note=$('l24-note');setTimeout(function(){note.classList.add('in')},700);
+  $('l24-look').onclick=function(){note.hidden=true};
+  var dr=$('l24-drawer'),sh=$('l24-sheet'),sc=$('l24-scrim');
+  function openD(){closeS();dr.classList.add('open');sc.classList.add('open');dr.setAttribute('aria-hidden','false');note.hidden=true;setTimeout(function(){$('l24-dx').focus()},200)}
+  function closeD(){dr.classList.remove('open');dr.setAttribute('aria-hidden','true');if(!sh.classList.contains('open'))sc.classList.remove('open')}
+  function openS(t){closeD();$('l24-st').textContent=t?t:'How would you like to reach us?';sh.classList.add('open');sc.classList.add('open');sh.setAttribute('aria-hidden','false');setTimeout(function(){$('l24-sx').focus()},200)}
+  function closeS(){sh.classList.remove('open');sh.setAttribute('aria-hidden','true');if(!dr.classList.contains('open'))sc.classList.remove('open')}
+  document.addEventListener('click',function(e){var o=e.target.closest('[data-l24-open]');if(o){e.preventDefault();openD();return}var c=e.target.closest('[data-l24-contact]');if(c){e.preventDefault();openS(c.getAttribute('data-l24-contact'))}});
+  $('l24-dx').onclick=closeD;$('l24-sx').onclick=closeS;sc.onclick=function(){closeD();closeS()};
+  addEventListener('keydown',function(e){if(e.key==='Escape'){closeD();closeS()}});
+  var cp=$('l24-copy');if(cp)cp.onclick=function(){var n=$('l24-num').textContent;try{navigator.clipboard.writeText(n).then(function(){toast('Number copied')},sel)}catch(_){sel()}function sel(){var r=document.createRange();r.selectNodeContents($('l24-num'));var s=getSelection();s.removeAllRanges();s.addRange(r);toast('Number selected')}};
+  var choice=sw[0]?sw[0].name:'Original';
+  [].forEach.call(document.querySelectorAll('#l24-sw button'),function(b){b.onclick=function(){var s=sw[+b.dataset.i];[].forEach.call(document.querySelectorAll('#l24-sw button'),function(x){x.setAttribute('aria-pressed',x===b)});Object.keys(s.vars||{}).forEach(function(k){doc.style.setProperty(k,s.vars[k])});choice=s.name;wa();if(matchMedia('(max-width: 767px)').matches){setTimeout(function(){closeD();toast(s.name+' it is. Tap Make it yours to try another.')},180)}else{toast(s.name+' it is')}}});
+  [].forEach.call(document.querySelectorAll('.l24-in'),function(inp){inp.oninput=function(){edits[+inp.dataset.i].textContent=inp.value;wa()}});
+  function wa(){var m='Hi Parth! I saw the website preview for '+C.name+" and I'd like to make it mine.\nColour: "+choice+edits.map(function(el){return '\n'+el.getAttribute('data-l24-edit')+': '+el.textContent.trim()}).join('');$('l24-wa').href='https://wa.me/14373652475?text='+encodeURIComponent(m)}
+  wa();
+  window.L24={toast:toast,contact:openS,open:openD};
+})();
+</script>
+<!-- ===== end Launch24 layer ===== -->
+<script>
+/* Launch24: count preview opens and clicks (first-party, /api/event). */
+(function(){
+  var vid='';try{vid=localStorage.getItem('l24_vid')||'';if(!vid){vid=Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem('l24_vid',vid)}}catch(_){}
+  var q=new URLSearchParams(location.search);
+  function send(name){try{var b=JSON.stringify({name:name,visitor_id:vid,path:location.pathname,utm_source:q.get('utm_source')||'',utm_medium:q.get('utm_medium')||'',utm_campaign:q.get('utm_campaign')||'',utm_content:q.get('utm_content')||''});
+    if(navigator.sendBeacon)navigator.sendBeacon('/api/event',new Blob([b],{type:'application/json'}));else fetch('/api/event',{method:'POST',headers:{'Content-Type':'application/json'},body:b,keepalive:true})}catch(_){}}
+  send('preview_view');
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('#l24-pay,#l24-wa');if(a)send(a.id==='l24-pay'?'preview_claim_click':'preview_changes_click')},true);
+})();
+</script>
+
+</html>
