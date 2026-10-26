@@ -1,0 +1,11 @@
+<script>
+/* Launch24: count preview opens and clicks (first-party, /api/event). */
+(function(){
+  var vid='';try{vid=localStorage.getItem('l24_vid')||'';if(!vid){vid=Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem('l24_vid',vid)}}catch(_){}
+  var q=new URLSearchParams(location.search);
+  function send(name){try{var b=JSON.stringify({name:name,visitor_id:vid,path:location.pathname,utm_source:q.get('utm_source')||'',utm_medium:q.get('utm_medium')||'',utm_campaign:q.get('utm_campaign')||'',utm_content:q.get('utm_content')||''});
+    if(navigator.sendBeacon)navigator.sendBeacon('/api/event',new Blob([b],{type:'application/json'}));else fetch('/api/event',{method:'POST',headers:{'Content-Type':'application/json'},body:b,keepalive:true})}catch(_){}}
+  send('preview_view');
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('#l24-pay,#l24-wa');if(a)send(a.id==='l24-pay'?'preview_claim_click':'preview_changes_click')},true);
+})();
+</script>

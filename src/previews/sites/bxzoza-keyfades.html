@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<title>KeyFades</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Instrument+Serif:ital@0;1&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600&display=swap">
+<style>
+:root{
+  color-scheme:dark;
+  --ink:#0b0b0c;--ink2:#141416;--bone:#ede8df;--mute:#a7a299;--rule:rgba(237,232,223,.18);
+  --accent:#4470ff;--on-accent:#ffffff;--pole2:#e5342f;
+  --gut:max(16px,env(safe-area-inset-left,0px));--gutr:max(16px,env(safe-area-inset-right,0px));
+  --d:"Big Shoulders Display",Impact,sans-serif;--s:"Instrument Serif",Georgia,serif;--b:"Barlow",system-ui,sans-serif;--c:"Barlow Condensed","Barlow",sans-serif;
+  --top:calc(var(--l24-h,44px) + env(safe-area-inset-top,0px));
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--bone);font:400 17px/1.55 var(--b);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1320px;margin:0 auto;padding-left:var(--gut);padding-right:var(--gutr)}
+.lbl{font:600 13px/1 var(--c);letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+.lbl b{color:var(--bone);font-weight:600}
+.it{font-family:var(--s);font-style:italic;font-weight:400}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border:1px solid var(--bone);background:transparent;color:var(--bone);font:600 15px/1 var(--c);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background .25s,color .25s,transform .2s cubic-bezier(.3,1.6,.5,1)}
+.btn:hover{background:var(--bone);color:var(--ink)}
+.btn:active{transform:scale(.96)}
+.btn.solid{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.solid:hover{background:var(--bone);border-color:var(--bone);color:var(--ink)}
+.btn svg{width:16px;height:16px;flex:none}
+
+/* masthead */
+.mast{position:sticky;top:var(--top);z-index:50;background:rgba(11,11,12,.92);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
+.mast .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
+.logo{display:flex;align-items:baseline;gap:10px;text-decoration:none}
+.logo b{font:900 28px/1 var(--d);letter-spacing:.01em}
+.logo b em{font-style:normal;color:var(--accent)}
+.logo span{font:400 17px/1 var(--s);font-style:italic;color:var(--mute)}
+.nav{display:none;gap:28px}
+.nav a{font:600 13px/1 var(--c);letter-spacing:.16em;text-transform:uppercase;text-decoration:none;color:var(--mute);padding:14px 0;transition:color .2s}
+.nav a:hover{color:var(--bone)}
+.pill{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border:1px solid var(--rule);font:600 13px/1 var(--c);letter-spacing:.12em;text-transform:uppercase;text-decoration:none;white-space:nowrap;cursor:pointer;background:none}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--mute);flex:none}
+.is-open .dot{background:#3ddc84;box-shadow:0 0 0 0 rgba(61,220,132,.6);animation:ping 2s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 8px rgba(61,220,132,0)}100%{box-shadow:0 0 0 0 rgba(61,220,132,0)}}
+@media(min-width:900px){.nav{display:flex}}
+
+/* hero */
+.hero{border-bottom:1px solid var(--rule)}
+.strip{display:flex;flex-wrap:wrap;gap:8px 22px;justify-content:space-between;padding:18px 0;border-bottom:1px solid var(--rule)}
+.hero-grid{display:grid;gap:28px;padding:28px 0 40px}
+.h1{font:800 clamp(64px,19vw,196px)/.84 var(--d);letter-spacing:-.01em;margin:0;filter:blur(calc((1 - var(--f,1)) * 7px));opacity:calc(.55 + var(--f,1) * .45);transition:filter .08s linear}
+.h1 .h1s{display:block}
+.lede{max-width:34ch;margin:22px 0 0;font-size:19px;color:var(--bone)}
+.lede-wrap{display:grid;gap:22px}
+.ctas{display:flex;flex-wrap:wrap;gap:10px}
+.hero-meta{display:flex;gap:18px;align-items:center;padding-top:22px;border-top:1px solid var(--rule)}
+.big9{font:900 64px/.8 var(--d)}
+.stars{color:var(--accent);letter-spacing:.1em;font-size:15px}
+
+/* fade photo */
+.fade{position:relative}
+.fp{position:relative;aspect-ratio:4/5;overflow:hidden;background:#000;user-select:none;-webkit-user-select:none}
+.fp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%;pointer-events:none}
+.fp .soft{filter:blur(16px) grayscale(1) brightness(.55);transform:scale(1.08)}
+.fp .sharp{-webkit-mask-image:linear-gradient(to top,#000 0,#000 calc(var(--f,1) * 100%),transparent calc(var(--f,1) * 100% + 16%));mask-image:linear-gradient(to top,#000 0,#000 calc(var(--f,1) * 100%),transparent calc(var(--f,1) * 100% + 16%))}
+.fline{position:absolute;left:0;right:0;bottom:calc(var(--f,1) * 100%);height:0;border-top:1px dashed rgba(237,232,223,.75);transform:translateY(1px);pointer-events:none}
+.fline{transition:opacity .3s}.fline.done{opacity:0}
+.fline span{position:absolute;right:10px;bottom:6px;font:600 12px/1 var(--c);letter-spacing:.16em;text-transform:uppercase;background:var(--ink);padding:6px 8px}
+.ftag{position:absolute;left:12px;top:12px;font:600 12px/1 var(--c);letter-spacing:.16em;text-transform:uppercase;background:rgba(11,11,12,.75);padding:7px 9px}
+.readout{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-top:16px}
+.readout .ro{font:800 44px/1 var(--d)}
+.readout .ro em{font-family:var(--s);font-style:italic;font-weight:400;color:var(--accent)}
+.range{position:relative;margin-top:10px}
+.range input{-webkit-appearance:none;appearance:none;width:100%;height:44px;background:transparent;margin:0;cursor:pointer}
+.range input::-webkit-slider-runnable-track{height:2px;background:linear-gradient(90deg,var(--rule),var(--bone))}
+.range input::-moz-range-track{height:2px;background:linear-gradient(90deg,var(--rule),var(--bone))}
+.range input::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;margin-top:-13px;border-radius:0;background:var(--accent);border:2px solid var(--ink);box-shadow:0 0 0 1px var(--accent);transition:transform .2s cubic-bezier(.3,1.6,.5,1)}
+.range input::-moz-range-thumb{width:26px;height:26px;border-radius:0;background:var(--accent);border:2px solid var(--ink)}
+.range input:active::-webkit-slider-thumb{transform:scale(1.2) rotate(45deg)}
+.ticks{display:flex;justify-content:space-between;font:600 12px/1 var(--c);letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.ticks span.on{color:var(--bone)}
+
+@media(min-width:900px){
+  .hero-grid{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:56px;padding:48px 0 56px;align-items:start}
+  .fp{aspect-ratio:1/1.08}
+  .h1{font-size:clamp(112px,10.4vw,168px)}
+  .lede-wrap{grid-template-columns:1fr auto;align-items:end}
+}
+
+/* ticker */
+.tick{overflow:hidden;border-bottom:1px solid var(--rule);white-space:nowrap}
+.tick div{display:inline-flex;gap:36px;padding:16px 0;animation:tk 38s linear infinite;font:800 26px/1 var(--d)}
+.tick i{font:400 24px/1 var(--s);font-style:italic;color:var(--accent)}
+@keyframes tk{to{transform:translateX(-50%)}}
+
+/* section heads */
+.sec{padding:72px 0;border-bottom:1px solid var(--rule)}
+.shead{display:grid;gap:14px;margin-bottom:36px}
+.h2{font:800 clamp(48px,11vw,112px)/.88 var(--d);margin:0}
+.h2 .it{font-size:.82em;color:var(--accent)}
+.sintro{max-width:46ch;color:var(--mute);margin:0}
+@media(min-width:900px){.shead{grid-template-columns:120px 1fr minmax(0,380px);align-items:end;gap:32px}.sec{padding:104px 0}}
+
+/* walk-in */
+.walk{display:grid;gap:32px}
+.wstat{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:stretch}
+.pole{width:30px;border-radius:15px;min-height:200px;border:1px solid var(--rule);background:repeating-linear-gradient(-45deg,var(--bone) 0 10px,var(--pole2) 10px 20px,var(--bone) 20px 30px,var(--accent) 30px 40px);background-size:100% 113.137px;animation:pole 2.4s linear infinite;animation-play-state:paused;position:relative;overflow:hidden}
+.pole::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.45),rgba(255,255,255,.15) 40%,rgba(0,0,0,.5))}
+.is-open .pole{animation-play-state:running}
+@keyframes pole{to{background-position:0 -113.137px}}
+.wnow{font:900 clamp(64px,17vw,168px)/.82 var(--d);margin:10px 0 14px}
+.wnow.closed{color:var(--mute)}
+.wsub{font-size:20px;margin:0}
+.wsub b{color:var(--accent);font-weight:600}
+.wq{margin:26px 0 0;padding-top:20px;border-top:1px solid var(--rule);font:400 24px/1.25 var(--s);font-style:italic;max-width:30ch}
+.wq cite{display:block;margin-top:10px;font:600 12px/1 var(--c);font-style:normal;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+.hours{list-style:none;margin:0;padding:0;border-top:1px solid var(--bone)}
+.hours li{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid var(--rule);font-size:17px}
+.hours li span:first-child{font:600 14px/1.6 var(--c);letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.hours li.today span{color:var(--bone)}
+.hours li.today{border-bottom-color:var(--accent)}
+.hours li.today span:first-child::before{content:"";display:inline-block;width:8px;height:8px;background:var(--accent);margin-right:10px;vertical-align:1px}
+@media(min-width:900px){.walk{grid-template-columns:1.3fr 1fr;gap:72px;align-items:end}.pole{width:38px}}
+
+/* cut picker */
+.cuts{display:grid;gap:28px}
+.ctabs{display:flex;flex-direction:column;border-top:1px solid var(--bone)}
+.ctab{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:8px;min-height:60px;padding:0;border:0;border-bottom:1px solid var(--rule);background:none;text-align:left;cursor:pointer;transition:padding .3s cubic-bezier(.2,.9,.2,1)}
+.ctab .n{font:600 13px/1 var(--c);letter-spacing:.12em;color:var(--mute)}
+.ctab .t{font:800 30px/1 var(--d);color:var(--mute);transition:color .2s}
+.ctab .ar{width:22px;height:2px;background:var(--rule);transition:width .3s,background .3s}
+.ctab:hover .t{color:var(--bone)}
+.ctab[aria-selected=true]{padding-left:8px}
+.ctab[aria-selected=true] .t{color:var(--bone)}
+.ctab[aria-selected=true] .n{color:var(--accent)}
+.ctab[aria-selected=true] .ar{width:44px;background:var(--accent)}
+.cstage{position:relative;min-height:380px;border:1px solid var(--rule);padding:24px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;background:
+  radial-gradient(120% 80% at 100% 0,color-mix(in srgb,var(--accent) 16%,transparent),transparent 60%),var(--ink2)}
+.cpanel[hidden]{display:none}
+.cbig{overflow:hidden;margin:0}
+.cbig span{display:block;font:900 clamp(72px,20vw,200px)/.85 var(--d)}
+.cpanel.anim .cbig span{animation:rise .7s cubic-bezier(.2,.9,.2,1) both}
+.cpanel.anim .cdesc,.cpanel.anim .cq{animation:fadein .6s .18s both}
+@keyframes rise{from{transform:translateY(100%)}to{transform:none}}
+@keyframes fadein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.cdesc{font:400 clamp(26px,5vw,38px)/1.15 var(--s);margin:18px 0 0;max-width:22ch}
+.cfoot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px;margin-top:28px;padding-top:18px;border-top:1px solid var(--rule)}
+.cq{margin:0;max-width:40ch;color:var(--mute);font-size:15px}
+.cq q{color:var(--bone)}
+.cq cite{font-style:normal;white-space:nowrap}
+.price{font:600 13px/1 var(--c);letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--rule);padding:10px 12px}
+.cnum{position:absolute;right:18px;top:12px;font:900 100px/1 var(--d);color:transparent;-webkit-text-stroke:1px var(--rule);pointer-events:none}
+@media(min-width:900px){.cuts{grid-template-columns:380px 1fr;gap:48px}.cstage{min-height:460px;padding:40px}.cnum{font-size:180px}}
+
+/* plates */
+.plates{display:grid;gap:12px;grid-template-columns:1fr 1fr;padding-top:12px}
+.plates figure{margin:0}
+.plates img{width:100%;aspect-ratio:3/4;object-fit:cover;filter:grayscale(.25) contrast(1.05)}
+.plates figure:first-child img{aspect-ratio:3/4.6}
+.plates figcaption{margin-top:8px}
+.plates .note{grid-column:1/-1}
+
+/* reviews */
+.revs{display:grid;gap:0}
+.rv-head{display:flex;align-items:end;gap:20px;padding-bottom:28px;border-bottom:1px solid var(--bone)}
+.rv-head .num{font:900 clamp(120px,32vw,260px)/.75 var(--d);letter-spacing:-.02em}
+.rv-head .num em{font-style:normal;color:var(--accent)}
+.pq{margin:0;padding:34px 0;border-bottom:1px solid var(--rule);display:grid;gap:16px}
+.pq p{margin:0;font:400 clamp(26px,6vw,46px)/1.12 var(--s)}
+.pq p .it{color:var(--accent)}
+.pq.lead p{font-size:clamp(32px,7.5vw,64px)}
+.pq cite{font:600 13px/1 var(--c);font-style:normal;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+.pq .mk{font:400 90px/.5 var(--s);color:var(--accent);height:34px}
+@media(min-width:900px){
+  .revs{grid-template-columns:1fr 1fr;column-gap:56px}
+  .rv-head,.pq.lead{grid-column:1/-1}
+  .pq.lead{grid-template-columns:120px 1fr;column-gap:32px}
+  .pq.lead cite{grid-column:2}
+}
+
+/* locations */
+.locs{list-style:none;margin:0;padding:0;border-top:1px solid var(--bone);counter-reset:l}
+.loc{display:grid;grid-template-columns:44px 1fr;gap:6px 12px;padding:24px 0;border-bottom:1px solid var(--rule);position:relative;transition:background .3s}
+.loc .ln{font:600 14px/1.9 var(--c);letter-spacing:.12em;color:var(--accent)}
+.loc h3{margin:0;font:800 clamp(40px,9vw,84px)/.9 var(--d);transition:transform .35s cubic-bezier(.2,.9,.2,1)}
+.loc:hover h3{transform:translateX(10px)}
+.loc .lwrap{grid-column:2}
+.loc .la{color:var(--bone);margin:6px 0 0}
+.loc .lm{color:var(--mute);font-size:15px;margin:0}
+.loc .lb{grid-column:2;margin-top:12px}
+.loc .tagm{display:inline-block;margin-left:10px;vertical-align:middle;font:600 12px/1 var(--c);letter-spacing:.14em;text-transform:uppercase;background:var(--accent);color:var(--on-accent);padding:6px 8px;position:relative;top:-8px}
+@media(min-width:900px){
+  .loc{grid-template-columns:80px minmax(0,1.3fr) minmax(0,1fr) 170px;align-items:center;gap:24px;padding:30px 0}
+  .loc .la,.loc .lm,.loc .lb,.loc .lwrap{grid-column:auto;margin:0}
+  .loc .lb{justify-self:end}
+}
+
+/* closer */
+.close{padding:88px 0 96px;text-align:left}
+.close .h2{font-size:clamp(64px,16vw,220px)}
+.close .row{display:grid;gap:24px;margin-top:32px;padding-top:24px;border-top:1px solid var(--rule)}
+@media(min-width:900px){.close .row{grid-template-columns:1fr auto;align-items:center}}
+.foot{border-top:1px solid var(--rule);padding:28px 0 calc(110px + env(safe-area-inset-bottom,0px));color:var(--mute);font-size:14px}
+.foot .wrap{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-between}
+
+/* mobile bar */
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:60;height:calc(64px + env(safe-area-inset-bottom,0px));padding:10px var(--gutr) calc(10px + env(safe-area-inset-bottom,0px)) var(--gut);background:var(--ink);border-top:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.mbar .ms{display:flex;align-items:center;gap:10px;font:600 14px/1.1 var(--c);letter-spacing:.1em;text-transform:uppercase;min-width:0}
+.mbar .btn{min-height:44px;padding:0 18px}
+@media(min-width:760px){.mbar{display:none}.foot{padding-bottom:40px}}
+
+/* reveal */
+.pre{opacity:0;transform:translateY(24px)}
+.rv{transition:opacity .8s cubic-bezier(.2,.9,.2,1),transform .8s cubic-bezier(.2,.9,.2,1)}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .pre{opacity:1;transform:none}
+}
+</style>
+
+<header class="mast">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="KeyFades home"><b>Key<em>Fades</em></b><span>Fresh Fades</span></a>
+    <nav class="nav" aria-label="Sections"><a href="#walk">Walk in</a><a href="#cuts">Cuts</a><a href="#reviews">Reviews</a><a href="#shops">Shops</a></nav>
+    <button class="pill js-status" type="button" data-l24-contact="Visit KeyFades"><span class="dot"></span><span class="js-pill">Hours</span></button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" id="heroF">
+    <div class="wrap">
+      <div class="strip">
+        <span class="lbl">Barbershop · <b>St Clair West, Toronto</b></span>
+        <span class="lbl"><b>4.9★</b> · 605 Google reviews</span>
+        <span class="lbl">Open <b>7 days</b> · Walk-ins</span>
+      </div>
+      <div class="hero-grid">
+        <div>
+          <h1 class="h1"><span class="h1s" data-l24-edit="Headline">Fresh fades. Walk right in.</span></h1>
+          <div class="lede-wrap">
+            <p class="lede" data-l24-edit="Tagline">Clean fades, sharp shape-ups and old-school classic cuts. No appointment needed. Walk in or call ahead, seven days a week.</p>
+          </div>
+          <div class="ctas" style="margin-top:26px">
+            <button class="btn solid" type="button" data-l24-contact="Walk in to KeyFades"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>Get directions</button>
+            <button class="btn" type="button" data-l24-contact="Call KeyFades">Call (416) 558-1523</button>
+          </div>
+          <div class="hero-meta" style="margin-top:30px">
+            <span class="big9">4.9</span>
+            <span><span class="stars" aria-hidden="true">★★★★★</span><br><span class="lbl">605 reviews on Google</span></span>
+          </div>
+        </div>
+
+        <div class="fade">
+          <div class="fp" id="fp" aria-hidden="true">
+            <img class="soft" src="/p/bxzoza-keyfades/img/barber1.jpg" alt="">
+            <img class="sharp" src="/p/bxzoza-keyfades/img/barber1.jpg" alt="">
+            <div class="fline"><span class="js-fl">Fresh</span></div>
+            <span class="ftag">Fig. 01 · The fade</span>
+          </div>
+          <div class="readout">
+            <span class="lbl">Drag to fade</span>
+            <span class="ro js-ro">Fresh<em>.</em></span>
+          </div>
+          <div class="range">
+            <input id="fr" type="range" min="0" max="100" value="100" aria-label="Fade level, from skin to fresh">
+            <div class="ticks" aria-hidden="true"><span>Skin</span><span>Low</span><span>Mid</span><span>High</span><span>Fresh</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="tick" aria-hidden="true"><div>
+    <span>Fades</span><i>skin to high</i><span>Classic cuts</span><i>old school</i><span>Shape-ups</span><i>sharp lines</i><span>Beard</span><i>trim and shape</i><span>Walk-ins welcome</span><i>seven days</i>
+    <span>Fades</span><i>skin to high</i><span>Classic cuts</span><i>old school</i><span>Shape-ups</span><i>sharp lines</i><span>Beard</span><i>trim and shape</i><span>Walk-ins welcome</span><i>seven days</i>
+  </div></div>
+
+  <section class="sec" id="walk">
+    <div class="wrap walk">
+      <div class="wstat rv">
+        <div class="pole" aria-hidden="true"></div>
+        <div>
+          <span class="lbl">Walk in now · St Clair West</span>
+          <p class="wnow js-now">Open</p>
+          <p class="wsub js-sub">No appointment needed.</p>
+          <blockquote class="wq">“walked in at 11 AM wednesday ...instant service, no appointment needed.”<cite>Bike G. · Google review</cite></blockquote>
+        </div>
+      </div>
+      <div class="rv">
+        <p class="lbl" style="margin:0 0 14px">Hours · Toronto time</p>
+        <ul class="hours js-hours"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="cuts">
+    <div class="wrap">
+      <div class="shead rv">
+        <span class="lbl">The chair</span>
+        <h2 class="h2">Pick your <span class="it">cut.</span></h2>
+        <p class="sintro">What you can walk in for. Tap one to see it. Ask about pricing in the shop or over the phone.</p>
+      </div>
+      <div class="cuts rv">
+        <div class="ctabs" role="tablist" aria-label="Cuts">
+          <button class="ctab" role="tab" id="t1" aria-controls="p1" aria-selected="true"><span class="n">01</span><span class="t">Fade</span><span class="ar"></span></button>
+          <button class="ctab" role="tab" id="t2" aria-controls="p2" aria-selected="false" tabindex="-1"><span class="n">02</span><span class="t">Classic cut</span><span class="ar"></span></button>
+          <button class="ctab" role="tab" id="t3" aria-controls="p3" aria-selected="false" tabindex="-1"><span class="n">03</span><span class="t">Shape-up</span><span class="ar"></span></button>
+          <button class="ctab" role="tab" id="t4" aria-controls="p4" aria-selected="false" tabindex="-1"><span class="n">04</span><span class="t">Beard</span><span class="ar"></span></button>
+          <button class="ctab" role="tab" id="t5" aria-controls="p5" aria-selected="false" tabindex="-1"><span class="n">05</span><span class="t">Your updated cut</span><span class="ar"></span></button>
+        </div>
+        <div class="cstage">
+          <span class="cnum js-cnum" aria-hidden="true">01</span>
+          <div class="cpanel" role="tabpanel" id="p1" aria-labelledby="t1">
+            <h3 class="cbig"><span>Fade.</span></h3>
+            <p class="cdesc">Skin, low, mid or high. Kept clean.</p>
+            <div class="cfoot"><p class="cq"><q>the cuts are consistently clean.</q> <cite>Adam H. · Google review</cite></p><span class="price">Ask about pricing</span></div>
+          </div>
+          <div class="cpanel" role="tabpanel" id="p2" aria-labelledby="t2" hidden>
+            <h3 class="cbig"><span>Classic.</span></h3>
+            <p class="cdesc">Even the old-school cuts most barbers can’t do.</p>
+            <div class="cfoot"><p class="cq"><q>not too many people know how to do this cut but key knows how to do this cut.</q> <cite>Marco · Google review</cite></p><span class="price">Ask about pricing</span></div>
+          </div>
+          <div class="cpanel" role="tabpanel" id="p3" aria-labelledby="t3" hidden>
+            <h3 class="cbig"><span>Shape-up.</span></h3>
+            <p class="cdesc">Sharp lines that finish the cut.</p>
+            <div class="cfoot"><p class="cq"><q>They really take their time and make sure you leave looking fresh.</q> <cite>Adam H. · Google review</cite></p><span class="price">Ask about pricing</span></div>
+          </div>
+          <div class="cpanel" role="tabpanel" id="p4" aria-labelledby="t4" hidden>
+            <h3 class="cbig"><span>Beard.</span></h3>
+            <p class="cdesc">Trim and shape, to go with the cut.</p>
+            <div class="cfoot"><p class="cq">Add it on when you sit down.</p><span class="price">Ask about pricing</span></div>
+          </div>
+          <div class="cpanel" role="tabpanel" id="p5" aria-labelledby="t5" hidden>
+            <h3 class="cbig"><span>Updated.</span></h3>
+            <p class="cdesc">Ask for a fresh take on what you always get.</p>
+            <div class="cfoot"><p class="cq"><q>He literally gave me my forever haircut.</q> <cite>Wayne T. · Google review</cite></p><span class="price">Ask about pricing</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="plates rv">
+        <figure><img src="/p/bxzoza-keyfades/img/barber2.jpg" alt="Barber lining up a fade with a straight razor" loading="lazy"><figcaption class="lbl">Fig. 02 · Lines</figcaption></figure>
+        <figure><img src="/p/bxzoza-keyfades/img/barber3.jpg" alt="Barber shaping a curly top with a comb" loading="lazy"><figcaption class="lbl">Fig. 03 · Shape</figcaption></figure>
+        <p class="lbl note">Sample photos. We’ll use yours.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="reviews">
+    <div class="wrap revs">
+      <div class="rv-head rv">
+        <span class="num">4.<em>9</em></span>
+        <span><span class="stars" aria-hidden="true">★★★★★</span><br><span class="lbl"><b>605</b> Google reviews</span></span>
+      </div>
+      <blockquote class="pq lead rv">
+        <span class="mk" aria-hidden="true">“</span>
+        <p>I was so used to cutting my hair the exact same way for more than a decade and he suggested a more “updated” version of my usual cut and I LOVED it. <span class="it">He literally gave me my forever haircut.</span></p>
+        <cite>Wayne T. · Google review</cite>
+      </blockquote>
+      <blockquote class="pq rv">
+        <p>“The best barber in town!!! It doesn’t matter what time it is, you don’t need an appointment just call him and <span class="it">he’ll fix you up.</span>”</p>
+        <cite>Marco · Google review</cite>
+      </blockquote>
+      <blockquote class="pq rv">
+        <p>“Clean shop, friendly staff, and the cuts are consistently clean. They really take their time and make sure you <span class="it">leave looking fresh.</span>”</p>
+        <cite>Adam H. · Google review</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="sec" id="shops">
+    <div class="wrap">
+      <div class="shead rv">
+        <span class="lbl">Index</span>
+        <h2 class="h2">Three <span class="it">shops.</span></h2>
+        <p class="sintro">Find KeyFades on St Clair, Spadina and Bloor.</p>
+      </div>
+      <ol class="locs">
+        <li class="loc rv">
+          <span class="ln">01</span>
+          <h3>St Clair W<span class="tagm">Main</span></h3>
+          <div class="lwrap"><p class="la">1217 St Clair Ave W #111, Toronto, ON M6E 1B5</p><p class="lm">(416) 558-1523 · <span class="js-locst">Open daily</span></p></div>
+          <div class="lb"><button class="btn solid" type="button" data-l24-contact="Visit KeyFades on St Clair">Directions</button></div>
+        </li>
+        <li class="loc rv">
+          <span class="ln">02</span>
+          <h3>Spadina</h3>
+          <div class="lwrap"><p class="la">222 Spadina Ave #203, Toronto</p><p class="lm">Call the main shop for hours.</p></div>
+          <div class="lb"><button class="btn" type="button" data-l24-contact="Ask KeyFades about Spadina">Ask</button></div>
+        </li>
+        <li class="loc rv">
+          <span class="ln">03</span>
+          <h3>Bloor W</h3>
+          <div class="lwrap"><p class="la">1425 Bloor St W, Toronto</p><p class="lm">Call the main shop for hours.</p></div>
+          <div class="lb"><button class="btn" type="button" data-l24-contact="Ask KeyFades about Bloor">Ask</button></div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="close">
+    <div class="wrap rv">
+      <span class="lbl">No appointment needed</span>
+      <h2 class="h2" style="margin-top:14px">Walk in.<br><span class="it">Leave fresh.</span></h2>
+      <div class="row">
+        <p class="wsub js-sub2" style="color:var(--mute)">1217 St Clair Ave W #111, Toronto</p>
+        <div class="ctas">
+          <button class="btn solid" type="button" data-l24-contact="Walk in to KeyFades">Call or get directions</button>
+          <a class="btn" href="https://www.instagram.com/keyfades/" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>KeyFades Fresh Fades · 1217 St Clair Ave W #111, Toronto · (416) 558-1523</span>
+    <span>Sample photos. We’ll use yours.</span>
+  </div>
+</footer>
+
+<div class="mbar js-status">
+  <span class="ms"><span class="dot"></span><span class="js-mb">Walk-ins welcome</span></span>
+  <button class="btn solid" type="button" data-l24-contact="Walk in to KeyFades">Call / visit</button>
+</div>
+
+<script>
+(function(){
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* ---------- fade interaction ---------- */
+  var hero=document.getElementById('heroF'),fr=document.getElementById('fr'),fp=document.getElementById('fp');
+  var ro=document.querySelector('.js-ro'),fl=document.querySelector('.js-fl'),ticks=document.querySelectorAll('.ticks span');
+  var names=['Skin','Low','Mid','High','Fresh'];
+  function setF(v){
+    v=Math.max(0,Math.min(100,v));var f=v/100;
+    hero.style.setProperty('--f',f.toFixed(3));
+    var i=f>=.95?4:f>=.7?3:f>=.45?2:f>=.2?1:0;
+    ro.innerHTML=i===4?'Fresh<em>.</em>':names[i]+' <em>fade</em>';
+    fl.textContent=names[i];fl.parentNode.classList.toggle('done',f>=.97);
+    for(var k=0;k<ticks.length;k++)ticks[k].classList.toggle('on',k===i);
+    if(+fr.value!==Math.round(v))fr.value=Math.round(v);
+  }
+  fr.addEventListener('input',function(){setF(+fr.value);stop=true});
+  var stop=false;
+  if(reduce){setF(100)}else{
+    setF(6);var t0=null;
+    function step(t){if(stop)return;if(!t0)t0=t;var p=Math.min(1,(t-t0-350)/2200);if(p<0)p=0;var e=1-Math.pow(1-p,3);setF(6+94*e);if(p<1)requestAnimationFrame(step)}
+    requestAnimationFrame(step);
+    setTimeout(function(){if(!stop&&+fr.value<100)setF(100)},4000);
+  }
+
+  /* ---------- hours / walk-in status ---------- */
+  var H=[["Sunday",[10,19]],["Monday",[11,19]],["Tuesday",[11,19]],["Wednesday",[11,19]],["Thursday",[11,19]],["Friday",[11,19]],["Saturday",[10,19]]];
+  function fmt(t){t=t%24;var h=Math.floor(t),m=Math.round((t-h)*60),ap=h<12?'AM':'PM',hh=h%12||12;return hh+(m?':'+(m<10?'0':'')+m:'')+' '+ap}
+  function now(){
+    var p=new Intl.DateTimeFormat('en-US',{timeZone:'America/Toronto',weekday:'short',hour:'numeric',minute:'numeric',hourCycle:'h23'}).formatToParts(new Date()),o={};
+    p.forEach(function(x){o[x.type]=x.value});
+    return{d:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(o.weekday),h:(+o.hour%24)+(+o.minute)/60};
+  }
+  function status(){
+    var n=now(),d=n.d,h=n.h,y=H[(d+6)%7][1],td=H[d][1];
+    if(y&&y[1]>24&&h<y[1]-24)return{open:true,close:y[1],d:d};
+    if(td&&h>=td[0]&&h<td[1])return{open:true,close:td[1],d:d};
+    if(td&&h<td[0])return{open:false,when:'today',at:td[0],d:d};
+    for(var i=1;i<=7;i++){var k=(d+i)%7;if(H[k][1])return{open:false,when:i===1?'tomorrow':H[k][0],at:H[k][1][0],d:d}}
+    return{open:false,d:d};
+  }
+  function render(){
+    var s=status(),soon=s.open&&(s.close-now().h)<=.75;
+    var big=document.querySelector('.js-now'),sub=document.querySelector('.js-sub');
+    document.querySelectorAll('.js-status').forEach(function(el){el.classList.toggle('is-open',s.open)});
+    document.getElementById('walk').classList.toggle('is-open',s.open);
+    if(s.open){
+      big.textContent=soon?'Closing soon':'Open now';big.classList.remove('closed');
+      sub.innerHTML='Walk in until <b>'+fmt(s.close)+'</b>. No appointment needed.';
+      document.querySelector('.js-pill').textContent='Open · till '+fmt(s.close);
+      document.querySelector('.js-mb').textContent='Open now · till '+fmt(s.close);
+      document.querySelector('.js-locst').textContent='Open now, till '+fmt(s.close);
+    }else{
+      var w=s.when==='today'?'today':s.when==='tomorrow'?'tomorrow':s.when;
+      big.textContent='Closed';big.classList.add('closed');
+      sub.innerHTML='Opens <b>'+fmt(s.at)+' '+w+'</b>. Walk-ins welcome.';
+      document.querySelector('.js-pill').textContent='Closed · opens '+fmt(s.at);
+      document.querySelector('.js-mb').textContent='Opens '+fmt(s.at)+' '+w;
+      document.querySelector('.js-locst').textContent='Opens '+fmt(s.at)+' '+w;
+    }
+    var ul=document.querySelector('.js-hours'),order=[1,2,3,4,5,6,0],html='';
+    order.forEach(function(k){var r=H[k][1];html+='<li class="'+(k===s.d?'today':'')+'"><span>'+H[k][0]+'</span><span>'+(r?fmt(r[0])+' – '+fmt(r[1]):'Closed')+'</span></li>'});
+    ul.innerHTML=html;
+  }
+  render();setInterval(render,60000);
+
+  /* ---------- cut picker ---------- */
+  var tabs=[].slice.call(document.querySelectorAll('.ctab')),cnum=document.querySelector('.js-cnum');
+  function pick(i,focus){
+    tabs.forEach(function(t,k){var on=k===i,p=document.getElementById(t.getAttribute('aria-controls'));
+      t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;p.hidden=!on;p.classList.remove('anim');
+      if(on){void p.offsetWidth;p.classList.add('anim')}});
+    cnum.textContent='0'+(i+1);if(focus)tabs[i].focus();
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){pick(i)});
+    t.addEventListener('keydown',function(e){var k=e.key;if(k==='ArrowDown'||k==='ArrowRight'){e.preventDefault();pick((i+1)%tabs.length,true)}if(k==='ArrowUp'||k==='ArrowLeft'){e.preventDefault();pick((i+tabs.length-1)%tabs.length,true)}});
+  });
+
+  /* ---------- reveals (start visible; only below-fold items animate) ---------- */
+  if(!reduce&&'IntersectionObserver' in window){
+    var els=[].slice.call(document.querySelectorAll('.rv')),vh=innerHeight;
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.remove('pre');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(el){if(el.getBoundingClientRect().top>vh){el.classList.add('pre');io.observe(el)}});
+    setTimeout(function(){els.forEach(function(el){el.classList.remove('pre')})},6000);
+  }
+})();
+</script>
+<script>window.L24CFG={name:"KeyFades Fresh Fades",phone:"(416) 558-1523",tel:"+14165581523",address:"1217 St Clair Ave W #111, Toronto, ON M6E 1B5",maps:"https://maps.google.com/?cid=3454702291621532174",instagram:"https://www.instagram.com/keyfades/",
+ noteOpen:"605 people gave you 4.9★",noteRest:"but when someone searches for a barber near them, they only find your Instagram. I made this to show what your own site could look like.",
+ checklist:["Designed for KeyFades","Your hours, address and reviews added","Works on every phone","All three shops listed: St Clair, Spadina and Bloor"],
+ swatches:[{name:"Original",dot:"#4470ff",vars:{"--accent":"#4470ff","--on-accent":"#ffffff","--pole2":"#e5342f"}},{name:"Barber red",dot:"#e5342f",vars:{"--accent":"#e5342f","--on-accent":"#ffffff","--pole2":"#4470ff"}},{name:"Brass",dot:"#c9a24b",vars:{"--accent":"#c9a24b","--on-accent":"#0b0b0c","--pole2":"#e5342f"}},{name:"Ice",dot:"#7fd1ff",vars:{"--accent":"#7fd1ff","--on-accent":"#0b0b0c","--pole2":"#e5342f"}}]};</script>
+<!-- ===== Launch24 preview layer (shared, do not edit). Needs window.L24CFG defined BEFORE this block. ===== -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Onest:wght@400;500;600&display=swap">
+<style>
+:root{--l24-h:44px}
+.l24,.l24 *{box-sizing:border-box}
+.l24{font-family:"Onest","Segoe UI",Arial,sans-serif;font-size:15px;line-height:1.5;color:#eef0f5;-webkit-font-smoothing:antialiased}
+.l24 button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.l24 :focus-visible{outline:3px solid #ffd60a;outline-offset:2px}
+.l24-bar{position:sticky;top:0;z-index:1000;height:var(--l24-h);background:#08090c;color:#eef0f5;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 max(14px,env(safe-area-inset-right,0px)) 0 max(14px,env(safe-area-inset-left,0px));font-family:"Onest","Segoe UI",Arial,sans-serif;font-size:13px;border-bottom:1px solid #1d2029}
+.l24-bar .l24-id{display:flex;align-items:center;gap:8px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.l24-logo{flex:none;display:inline-grid;place-items:center;width:22px;height:22px;border-radius:6px;background:#ffd60a;color:#000;font:800 10px "Bricolage Grotesque",sans-serif}
+.l24-bar b{font-weight:600}
+.l24-bar .l24-sub{color:#8f97a8}
+@media (max-width:620px){.l24-bar .l24-sub{display:none}}
+.l24-keep{flex:none;height:32px;padding:0 14px;border-radius:999px;border:0;background:#ffd60a;color:#000;font-weight:700!important}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:1001;background:#08090c}
+.l24-bar{top:env(safe-area-inset-top,0px)}
+.l24-note{position:fixed;z-index:1002;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(400px,calc(100vw - 32px));background:#08090c;border:1px solid #232733;border-radius:20px;padding:18px 18px 14px;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);transform:translateY(16px);opacity:0;transition:transform .7s cubic-bezier(.2,.9,.2,1),opacity .7s}
+.l24-note.in{transform:none;opacity:1}
+.l24-note[hidden]{display:none}
+.l24-note .l24-k{font:600 11px/1 "Onest",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#ffd60a}
+.l24-note p{margin:10px 0 0;font-size:14.5px}
+.l24-note p b{color:#fff}
+.l24-note .l24-s{color:#9aa1b1;font-size:13.5px}
+.l24-acts{display:flex;gap:8px;margin-top:14px}
+.l24-acts button{min-height:44px;padding:0 16px;border-radius:999px;border:1px solid #2c313d;background:transparent;color:#eef0f5;font-weight:600}
+.l24-acts .l24-y{background:#ffd60a;border-color:#ffd60a;color:#000}
+@media (max-width:560px){.l24-note .l24-s{display:none}}
+.l24-fab{position:fixed;z-index:999;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));display:inline-flex;align-items:center;gap:9px;height:50px;padding:0 18px;border-radius:999px;border:1px solid #232733;background:#08090c;color:#fff;font-weight:600;box-shadow:0 18px 40px -16px rgba(0,0,0,.6)}
+.l24-fab i{width:16px;height:16px;border-radius:50%;background:conic-gradient(#ffd60a 0 50%,var(--accent,#ffd60a) 0)}
+@media (max-width:760px){.l24-fab{bottom:calc(84px + env(safe-area-inset-bottom,0px))}}
+.l24-scrim{position:fixed;inset:0;z-index:1003;background:rgba(5,6,8,.55);opacity:0;pointer-events:none;transition:opacity .35s}
+.l24-scrim.open{opacity:1;pointer-events:auto}
+.l24-drawer{position:fixed;z-index:1004;top:0;right:0;bottom:0;width:min(410px,100vw);background:#101218;color:#eef0f5;border-left:1px solid #232733;transform:translateX(105%);transition:transform .5s cubic-bezier(.2,.9,.2,1);overflow-y:auto;padding:calc(22px + env(safe-area-inset-top,0px)) max(22px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) 22px}
+.l24-drawer.open{transform:none}
+.l24-x{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:14px;width:44px;height:44px;border-radius:50%;border:1px solid #2c313d;background:#161922;display:grid;place-items:center;padding:0}
+.l24-x svg{width:18px;height:18px;stroke:#eef0f5}
+.l24-h{font:700 30px/1.05 "Bricolage Grotesque",sans-serif;margin:8px 48px 0 0;letter-spacing:-.01em}
+.l24-p{color:#a3aab9;margin:10px 0 0}
+.l24-p b{color:#fff}
+.l24-lbl{display:block;font:600 11px/1 "Onest",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8f97a8;margin-top:22px}
+.l24-sw{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.l24-sw button{width:46px;height:46px;border-radius:50%;border:3px solid #101218;box-shadow:0 0 0 1.5px #2c313d;padding:0;transition:transform .2s}
+.l24-sw button[aria-pressed=true]{box-shadow:0 0 0 2.5px #ffd60a;transform:scale(1.06)}
+.l24-in{width:100%;min-height:48px;margin-top:8px;border-radius:12px;border:1.5px solid #2c313d;background:#08090c;color:#eef0f5;padding:0 12px;font:inherit;font-size:16px}
+.l24-in:focus{outline:none;border-color:#ffd60a}
+.l24-box{margin-top:24px;padding:20px;border-radius:18px;background:#08090c;border:1px solid #232733}
+.l24-box .l24-t{font:700 24px/1.1 "Bricolage Grotesque",sans-serif;color:#fff}
+.l24-done{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+.l24-done li{display:flex;gap:10px;align-items:flex-start}
+.l24-done li::before{content:"";flex:none;margin-top:2px;width:18px;height:18px;border-radius:50%;background:#25d366 url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'><path d='m6 12 4 4 8-8'/></svg>") center/11px no-repeat}
+.l24-price{font:700 40px/1 "Bricolage Grotesque",sans-serif;color:#fff;margin-top:14px}
+.l24-price span{font:400 15px "Onest",sans-serif;color:#9aa1b1}
+.l24-pay{display:flex;align-items:center;justify-content:center;text-decoration:none;width:100%;min-height:52px;margin-top:14px;border-radius:999px;border:0;background:#ffd60a;color:#000;font-weight:700!important;font-size:16px!important;animation:l24nudge 2.8s 1.4s ease-in-out infinite}
+@keyframes l24nudge{0%,86%,100%{transform:none}90%{transform:scale(1.03)}95%{transform:scale(.99)}}
+.l24-g{color:#9aa1b1;font-size:13.5px;margin:10px 0 0}
+.l24-wa{display:inline-flex;align-items:center;min-height:44px;color:#eef0f5;text-underline-offset:3px;font-size:14px}
+.l24-sheet{position:fixed;z-index:1004;left:50%;bottom:0;width:min(520px,100vw);max-height:88vh;overflow-y:auto;transform:translate(-50%,105%);transition:transform .5s cubic-bezier(.2,.9,.2,1);background:#101218;color:#eef0f5;border:1px solid #232733;border-radius:24px 24px 0 0;padding:14px max(20px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px))}
+.l24-sheet.open{transform:translate(-50%,0)}
+.l24-grab{width:44px;height:5px;border-radius:3px;background:#2c313d;margin:0 auto 16px}
+.l24-sheet .l24-x{top:14px}
+.l24-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 16px;border-radius:14px;background:#161922;margin-top:10px}
+.l24-row>div:first-child{min-width:0}
+.l24-row b{display:block}
+.l24-row span{color:#9aa1b1;font-size:13.5px}
+.l24-row .l24-num{color:#fff;font-size:16px;font-variant-numeric:tabular-nums;user-select:all}
+.l24-btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 16px;border-radius:999px;border:0;background:#ffd60a;color:#000!important;font-weight:700;text-decoration:none}
+.l24-btn.l24-gh{background:transparent;color:#eef0f5!important;box-shadow:inset 0 0 0 1.5px #2c313d}
+.l24-toast{position:fixed;z-index:1005;left:50%;top:calc(var(--l24-h) + 14px + env(safe-area-inset-top,0px));transform:translate(-50%,-14px);opacity:0;width:max-content;max-width:calc(100vw - 32px);text-align:center;background:#08090c;color:#fff;border:1px solid #232733;padding:11px 16px;border-radius:16px;font-size:14px;transition:opacity .3s,transform .3s;pointer-events:none}
+.l24-toast.show{opacity:1;transform:translate(-50%,0)}
+.l24-drawer,.l24-sheet{visibility:hidden}
+.l24-drawer.open,.l24-sheet.open{visibility:visible}
+@media (prefers-reduced-motion:reduce){.l24 *,.l24-pay{animation:none!important;transition:none!important}}
+</style>
+<div class="l24" id="l24"></div>
+<script>
+(function(){
+  var C=window.L24CFG||{}, root=document.getElementById('l24'), doc=document.documentElement;
+  var PAY='https://buy.stripe.com/9B65kC9zcfRMcqj7foe7m05?client_reference_id='+encodeURIComponent((C.name||'preview').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''));
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  var X='<svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  // bar goes first in <body>
+  var bar=document.createElement('div');bar.className='l24 l24-bar';
+  bar.innerHTML='<span class="l24-id"><span class="l24-logo">24</span><span><b>Preview made for '+esc(C.name)+'</b><span class="l24-sub"> by Launch24. Not live yet.</span></span></span><button class="l24-keep" type="button" data-l24-open>Make it yours</button>';
+  document.body.insertBefore(bar,document.body.firstChild);
+  var edits=[].slice.call(document.querySelectorAll('[data-l24-edit]'));
+  var sw=(C.swatches||[]);
+  root.innerHTML=
+   '<aside class="l24-note" id="l24-note" aria-label="Note from Launch24"><div class="l24-k">A note from Parth at Launch24</div><p>Hi! <b>'+esc(C.noteOpen)+'</b>, '+esc(C.noteRest)+'</p><p class="l24-s">It\'s built and ready. You\'re one click away from making it yours.</p><div class="l24-acts"><button class="l24-y" type="button" data-l24-open>Make it yours</button><button type="button" id="l24-look">Take a look</button></div></aside>'+
+   '<button class="l24-fab" type="button" data-l24-open><i aria-hidden="true"></i>Make it yours</button>'+
+   '<div class="l24-scrim" id="l24-scrim"></div>'+
+   '<aside class="l24-drawer" id="l24-drawer" aria-label="Make it yours" aria-hidden="true"><button class="l24-x" type="button" id="l24-dx" aria-label="Close">'+X+'</button>'+
+     '<span class="l24-lbl" style="margin-top:0;color:#ffd60a">Make it yours</span><h2 class="l24-h">Your website is ready.</h2>'+
+     '<p class="l24-p">We designed it, wrote it and added your hours, address and Google reviews. Try a colour or change the words if you like. Then you\'re <b>one click away</b> from making it yours.</p>'+
+     (sw.length?'<span class="l24-lbl">Colour</span><div class="l24-sw" id="l24-sw">'+sw.map(function(s,i){return '<button type="button" aria-pressed="'+(i===0)+'" aria-label="'+esc(s.name)+'" data-i="'+i+'" style="background:'+esc(s.dot)+'"></button>'}).join('')+'</div>':'')+
+     edits.map(function(el,i){var id='l24e'+i;return '<label class="l24-lbl" for="'+id+'">'+esc(el.getAttribute('data-l24-edit'))+'</label><input class="l24-in" id="'+id+'" data-i="'+i+'" value="'+esc(el.textContent.trim())+'">'}).join('')+
+     '<div class="l24-box"><div class="l24-t">You\'re one click away.</div><p class="l24-g" style="margin-top:6px">Already done for you:</p><ul class="l24-done">'+(C.checklist||[]).map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>'+
+     '<p class="l24-p" style="color:#eef0f5"><b>All that\'s left:</b> tap Pay. We add your real photos and details, and put it live on your own domain within 24 hours.</p>'+
+     '<div class="l24-price">$699 <span>one-time</span></div><a class="l24-pay" id="l24-pay" target="_blank" rel="noopener" href="'+esc(PAY)+'">Pay $699 and make it mine →</a><p class="l24-g" style="margin-top:8px">Secure checkout by Stripe.</p>'+
+     '<p class="l24-g">If we miss the 24 hours, you pay nothing. Your deposit is refunded in full.</p><a class="l24-wa" id="l24-wa" target="_blank" rel="noopener" href="#">Questions first? WhatsApp Parth</a></div></aside>'+
+   '<div class="l24-sheet" id="l24-sheet" role="dialog" aria-modal="true" aria-labelledby="l24-st" aria-hidden="true"><div class="l24-grab"></div><button class="l24-x" type="button" id="l24-sx" aria-label="Close">'+X+'</button><span class="l24-lbl" style="margin-top:0;color:#ffd60a" id="l24-se">Contact</span><h2 class="l24-h" id="l24-st" style="font-size:26px">How would you like to reach us?</h2>'+
+     (C.phone?'<div class="l24-row"><div><b>Call</b><span class="l24-num" id="l24-num">'+esc(C.phone)+'</span></div><div style="display:flex;gap:8px"><a class="l24-btn" href="tel:'+esc(C.tel)+'">Call</a><button class="l24-btn l24-gh" type="button" id="l24-copy">Copy</button></div></div>':'')+
+     (C.book?'<div class="l24-row"><div><b>Book online</b><span>Your existing '+esc(C.bookName||'booking')+' page</span></div><a class="l24-btn" href="'+esc(C.book)+'" target="_blank" rel="noopener">Open</a></div>':'')+
+     (C.instagram?'<div class="l24-row"><div><b>Instagram</b><span>Send a DM</span></div><a class="l24-btn l24-gh" href="'+esc(C.instagram)+'" target="_blank" rel="noopener">Open</a></div>':'')+
+     (C.address?'<div class="l24-row"><div><b>Visit</b><span>'+esc(C.address)+'</span></div><a class="l24-btn l24-gh" href="'+esc(C.maps)+'" target="_blank" rel="noopener">Directions</a></div>':'')+
+     '<p class="l24-g">On the live site these buttons call, book or open directions straight away.</p></div>'+
+   '<div class="l24-toast" id="l24-toast" role="status"></div>';
+  var $=function(id){return document.getElementById(id)};
+  var tt;function toast(m){var t=$('l24-toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('show')},3400)}
+  var note=$('l24-note');setTimeout(function(){note.classList.add('in')},700);
+  $('l24-look').onclick=function(){note.hidden=true};
+  var dr=$('l24-drawer'),sh=$('l24-sheet'),sc=$('l24-scrim');
+  function openD(){closeS();dr.classList.add('open');sc.classList.add('open');dr.setAttribute('aria-hidden','false');note.hidden=true;setTimeout(function(){$('l24-dx').focus()},200)}
+  function closeD(){dr.classList.remove('open');dr.setAttribute('aria-hidden','true');if(!sh.classList.contains('open'))sc.classList.remove('open')}
+  function openS(t){closeD();$('l24-st').textContent=t?t:'How would you like to reach us?';sh.classList.add('open');sc.classList.add('open');sh.setAttribute('aria-hidden','false');setTimeout(function(){$('l24-sx').focus()},200)}
+  function closeS(){sh.classList.remove('open');sh.setAttribute('aria-hidden','true');if(!dr.classList.contains('open'))sc.classList.remove('open')}
+  document.addEventListener('click',function(e){var o=e.target.closest('[data-l24-open]');if(o){e.preventDefault();openD();return}var c=e.target.closest('[data-l24-contact]');if(c){e.preventDefault();openS(c.getAttribute('data-l24-contact'))}});
+  $('l24-dx').onclick=closeD;$('l24-sx').onclick=closeS;sc.onclick=function(){closeD();closeS()};
+  addEventListener('keydown',function(e){if(e.key==='Escape'){closeD();closeS()}});
+  var cp=$('l24-copy');if(cp)cp.onclick=function(){var n=$('l24-num').textContent;try{navigator.clipboard.writeText(n).then(function(){toast('Number copied')},sel)}catch(_){sel()}function sel(){var r=document.createRange();r.selectNodeContents($('l24-num'));var s=getSelection();s.removeAllRanges();s.addRange(r);toast('Number selected')}};
+  var choice=sw[0]?sw[0].name:'Original';
+  [].forEach.call(document.querySelectorAll('#l24-sw button'),function(b){b.onclick=function(){var s=sw[+b.dataset.i];[].forEach.call(document.querySelectorAll('#l24-sw button'),function(x){x.setAttribute('aria-pressed',x===b)});Object.keys(s.vars||{}).forEach(function(k){doc.style.setProperty(k,s.vars[k])});choice=s.name;wa();if(matchMedia('(max-width: 767px)').matches){setTimeout(function(){closeD();toast(s.name+' it is. Tap Make it yours to try another.')},180)}else{toast(s.name+' it is')}}});
+  [].forEach.call(document.querySelectorAll('.l24-in'),function(inp){inp.oninput=function(){edits[+inp.dataset.i].textContent=inp.value;wa()}});
+  function wa(){var m='Hi Parth! I saw the website preview for '+C.name+" and I'd like to make it mine.\nColour: "+choice+edits.map(function(el){return '\n'+el.getAttribute('data-l24-edit')+': '+el.textContent.trim()}).join('');$('l24-wa').href='https://wa.me/14373652475?text='+encodeURIComponent(m)}
+  wa();
+  window.L24={toast:toast,contact:openS,open:openD};
+})();
+</script>
+<!-- ===== end Launch24 layer ===== -->
+<script>
+/* Launch24: count preview opens and clicks (first-party, /api/event). */
+(function(){
+  var vid='';try{vid=localStorage.getItem('l24_vid')||'';if(!vid){vid=Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem('l24_vid',vid)}}catch(_){}
+  var q=new URLSearchParams(location.search);
+  function send(name){try{var b=JSON.stringify({name:name,visitor_id:vid,path:location.pathname,utm_source:q.get('utm_source')||'',utm_medium:q.get('utm_medium')||'',utm_campaign:q.get('utm_campaign')||'',utm_content:q.get('utm_content')||''});
+    if(navigator.sendBeacon)navigator.sendBeacon('/api/event',new Blob([b],{type:'application/json'}));else fetch('/api/event',{method:'POST',headers:{'Content-Type':'application/json'},body:b,keepalive:true})}catch(_){}}
+  send('preview_view');
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('#l24-pay,#l24-wa');if(a)send(a.id==='l24-pay'?'preview_claim_click':'preview_changes_click')},true);
+})();
+</script>
+
+</html>

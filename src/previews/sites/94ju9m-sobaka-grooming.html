@@ -1,0 +1,850 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<title>SOBAKA Grooming</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Comfortaa:wght@700&family=Instrument+Sans:wght@400;500;600;700&family=DM+Mono:wght@500&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --lav:#DCD8FF;      /* lavender ground */
+  --peri:#A9B4FF;     /* periwinkle */
+  --accent:#2B45E0;   /* cobalt */
+  --butter:#FFE58F;   /* soft butter */
+  --ink:#15173F;      /* deep ink */
+  --paper:#F6F4FF;
+  --muted:#4A4C7A;
+  --gut:max(16px,env(safe-area-inset-left,0px));
+  --gutr:max(16px,env(safe-area-inset-right,0px));
+  --disp:"Bagel Fat One","Arial Rounded MT Bold",system-ui,sans-serif;
+  --body:"Instrument Sans",system-ui,sans-serif;
+  --mono:"DM Mono",ui-monospace,monospace;
+  --spring:cubic-bezier(.34,1.56,.64,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--lav);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3{font-family:var(--disp);font-weight:400;margin:0;line-height:.98;letter-spacing:-.005em;text-wrap:balance}
+p{margin:0}
+.w{max-width:1180px;margin:0 auto;padding-left:var(--gut);padding-right:var(--gutr)}
+.k{font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border-radius:999px;border:0;font:700 16px/1 var(--body);text-decoration:none;cursor:pointer;transition:transform .35s var(--spring),box-shadow .25s;-webkit-tap-highlight-color:transparent}
+.btn:hover{transform:translateY(-3px) rotate(-1.5deg)}
+.btn:active{transform:scale(.95)}
+.btn-c{background:var(--accent);color:#fff;box-shadow:0 5px 0 var(--ink)}
+.btn-c:hover{box-shadow:0 8px 0 var(--ink)}
+.btn-o{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2.5px var(--ink)}
+.btn-y{background:var(--butter);color:var(--ink);box-shadow:0 5px 0 var(--ink)}
+.btn svg{width:18px;height:18px;flex:none}
+
+/* header */
+.hd{position:sticky;top:calc(var(--l24-h) + env(safe-area-inset-top,0px));z-index:50;background:color-mix(in srgb,var(--lav) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:2px solid var(--ink)}
+.hd .w{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo b{font:400 24px/1 var(--disp);letter-spacing:.02em}
+.mark{width:38px;height:38px;flex:none}
+.nav{display:flex;gap:4px;align-items:center}
+.nav a{padding:10px 14px;border-radius:999px;text-decoration:none;font-weight:600;font-size:15px;transition:background .2s}
+.nav a:hover{background:#fff}
+.nav .btn{min-height:44px;padding:0 18px;margin-left:8px;font-size:15px;box-shadow:0 3px 0 var(--ink)}
+@media (max-width:820px){.nav a:not(.btn){display:none}}
+
+/* hero */
+.hero{padding:44px 0 64px;position:relative;overflow-x:clip}
+.hero .w{display:grid;gap:36px;align-items:center}
+@media (min-width:900px){.hero .w{grid-template-columns:1.08fr .92fr;gap:48px}.hero{padding:72px 0 96px}}
+.dict{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;padding:10px 16px;background:#fff;border:2px solid var(--ink);border-radius:14px;box-shadow:4px 4px 0 var(--ink);font-size:15px}
+.dict .word{font:400 20px/1 var(--disp)}
+.dict .ru{font:700 17px/1 "Comfortaa",sans-serif;color:var(--accent)}
+.dict i{color:var(--muted)}
+.hero h1{font-size:clamp(50px,11.5vw,104px);margin-top:22px}
+.hero h1 .hl{color:var(--accent)}
+.lede{margin-top:20px;font-size:clamp(18px,2.2vw,21px);max-width:34ch;color:var(--ink)}
+.cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.chip{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:0 14px;border-radius:999px;background:#fff;border:2px solid var(--ink);font-weight:600;font-size:14.5px}
+.chip .dot{width:10px;height:10px;border-radius:50%;background:#9aa0c4}
+.chip.open .dot{background:#18a35c;box-shadow:0 0 0 4px #18a35c33;animation:pulse 2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 7px #18a35c11}}
+.stars{color:var(--accent);letter-spacing:1px}
+
+/* hero art: geometric toy composition */
+.art{position:relative;aspect-ratio:1/1.02;width:100%;max-width:520px;justify-self:center}
+.art>*{position:absolute}
+.a-sun{inset:4% 0 auto auto;width:62%;aspect-ratio:1;border-radius:50%;background:var(--butter);border:2.5px solid var(--ink)}
+.a-arch{left:6%;bottom:0;width:62%;height:88%;border-radius:999px 999px 28px 28px;overflow:hidden;border:2.5px solid var(--ink);background:#fff;box-shadow:8px 8px 0 var(--ink)}
+.a-arch img{width:100%;height:100%;object-fit:cover;object-position:50% 46%;transform:scale(1.25)}
+.a-sq{right:6%;bottom:8%;width:30%;aspect-ratio:1;background:var(--accent);border:2.5px solid var(--ink);border-radius:18px;transform:rotate(12deg);display:grid;place-items:center;color:#fff;text-align:center;padding:8px}
+.a-sq b{font:400 clamp(26px,5vw,40px)/1 var(--disp)}
+.a-sq span{font:500 10.5px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;display:block;margin-top:4px}
+.a-tri{left:0;top:2%;width:16%;aspect-ratio:1;background:var(--peri);border:2.5px solid var(--ink);clip-path:polygon(50% 0,100% 100%,0 100%);border:0}
+.a-ring{right:0;top:0;width:34%;aspect-ratio:1;animation:spin 22s linear infinite}
+.a-ring text{font:500 10.6px var(--mono);letter-spacing:.2em;text-transform:uppercase;fill:var(--ink)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.a-bone{left:-2%;bottom:16%;width:22%;transform:rotate(-18deg)}
+
+/* marquee-ish label strip */
+.strip{background:var(--ink);color:var(--lav);border-block:2px solid var(--ink);overflow:hidden;white-space:nowrap}
+.strip div{display:inline-flex;gap:28px;padding:14px 0;animation:slide 30s linear infinite;font:400 22px/1 var(--disp)}
+.strip span{display:inline-flex;align-items:center;gap:28px}
+.strip span::after{content:"";width:12px;height:12px;background:var(--butter);border-radius:3px;transform:rotate(45deg)}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* sections */
+.sec{padding:76px 0}
+@media (min-width:900px){.sec{padding:112px 0}}
+.sec-h{display:grid;gap:14px;margin-bottom:34px;max-width:720px}
+.sec-h h2{font-size:clamp(38px,7vw,68px)}
+.sec-h p{color:var(--muted);font-size:18px;max-width:52ch}
+
+/* deshed */
+.deshed{background:var(--paper);border-block:2px solid var(--ink)}
+.dz{display:grid;gap:28px}
+@media (min-width:900px){.dz{grid-template-columns:1.35fr .65fr;align-items:stretch}}
+.stage{position:relative;background:var(--peri);border:2.5px solid var(--ink);border-radius:28px;box-shadow:8px 8px 0 var(--ink);overflow:hidden}
+.stage::before{content:"";position:absolute;inset:auto -10% -40% -10%;height:70%;background:var(--lav);border-radius:50% 50% 0 0;border-top:2.5px solid var(--ink)}
+#fur{position:relative;display:block;width:100%;aspect-ratio:600/420;touch-action:pan-y;cursor:none}
+.hint{position:absolute;left:16px;top:16px;display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:#fff;border:2px solid var(--ink);border-radius:999px;font-weight:600;font-size:14px;pointer-events:none;transition:opacity .4s,transform .4s var(--spring)}
+.hint.gone{opacity:0;transform:translateY(-8px) scale(.9)}
+.panel{display:flex;flex-direction:column;gap:18px;background:#fff;border:2.5px solid var(--ink);border-radius:28px;padding:24px}
+.meter{height:22px;border-radius:999px;border:2px solid var(--ink);background:var(--lav);overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:var(--accent);border-right:2px solid var(--ink);transition:width .25s}
+.mrow{display:flex;justify-content:space-between;align-items:baseline}
+.mrow b{font:400 40px/1 var(--disp);color:var(--accent);font-variant-numeric:tabular-nums}
+.panel .out{font:400 26px/1.05 var(--disp);min-height:2.1em}
+.panel q{display:block;font-size:15.5px;color:var(--muted);quotes:none;border-left:4px solid var(--butter);padding-left:12px}
+.panel cite{display:block;font:500 12px/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;font-style:normal;margin-top:8px;color:var(--ink)}
+.prow{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto}
+.prow .btn{min-height:46px;padding:0 18px;font-size:15px}
+
+/* services as toy blocks */
+.blocks{display:grid;gap:18px}
+@media (min-width:700px){.blocks{grid-template-columns:repeat(3,1fr)}}
+.blk{position:relative;border:2.5px solid var(--ink);padding:26px 22px 24px;min-height:250px;display:flex;flex-direction:column;gap:12px;transition:transform .45s var(--spring)}
+.blk:hover{transform:translateY(-6px) rotate(-1deg)}
+.blk:nth-child(1){background:var(--butter);border-radius:28px}
+.blk:nth-child(2){background:#fff;border-radius:140px 140px 28px 28px;padding-top:44px}
+.blk:nth-child(3){background:var(--accent);color:#fff;border-radius:28px 90px 28px 28px}
+.blk h3{font-size:30px}
+.blk p{font-size:16.5px}
+.blk .shape{width:54px;height:54px;margin-bottom:6px}
+.blk .k{margin-top:auto;opacity:.8}
+.note{margin-top:22px;color:var(--muted);font-size:15.5px}
+.note a{font-weight:700;color:var(--accent)}
+
+/* puppy */
+.pup{display:grid;gap:32px;align-items:center}
+@media (min-width:900px){.pup{grid-template-columns:.9fr 1.1fr;gap:64px}}
+.pframe{position:relative;max-width:460px;width:100%;justify-self:center}
+.pframe .ph{border:2.5px solid var(--ink);border-radius:50% 50% 30px 30px/38% 38% 30px 30px;overflow:hidden;background:#fff;box-shadow:-8px 8px 0 var(--accent);aspect-ratio:4/5}
+.pframe img{width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.tag{position:absolute;right:-4px;top:14%;background:var(--butter);border:2.5px solid var(--ink);border-radius:14px;padding:10px 14px;transform:rotate(8deg);font:400 20px/1 var(--disp);box-shadow:4px 4px 0 var(--ink)}
+.tag small{display:block;font:500 10.5px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
+.firsts{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:12px}
+.firsts li{display:flex;gap:14px;align-items:flex-start;background:#fff;border:2px solid var(--ink);border-radius:18px;padding:14px 16px;font-size:16.5px}
+.firsts li b{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--lav);border:2px solid var(--ink);font:400 16px/1 var(--disp)}
+.big-q{margin-top:26px;font:400 clamp(24px,3.4vw,32px)/1.12 var(--disp);color:var(--accent)}
+.big-q+cite{display:block;margin-top:10px;font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;font-style:normal}
+
+/* reviews */
+.rev{background:var(--accent);color:#fff;border-block:2px solid var(--ink)}
+.rev .sec-h p{color:#dfe3ff}
+.score{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.score b{font:400 clamp(72px,14vw,120px)/.9 var(--disp);color:var(--butter)}
+.score span{font-weight:600;font-size:17px;max-width:18ch}
+.cards{display:grid;gap:18px}
+@media (min-width:760px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1100px){.cards{grid-template-columns:repeat(4,1fr)}}
+.card{background:var(--paper);color:var(--ink);border:2.5px solid var(--ink);border-radius:24px;padding:22px;display:flex;flex-direction:column;gap:14px;box-shadow:6px 6px 0 var(--ink);transition:transform .45s var(--spring)}
+.card:nth-child(even){transform:rotate(1.2deg)}
+.card:nth-child(odd){transform:rotate(-1deg)}
+.card:hover{transform:rotate(0) translateY(-6px)}
+.card .stars{font-size:15px}
+.card p{font-size:16px}
+.card cite{margin-top:auto;font:500 12px/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;font-style:normal;color:var(--muted)}
+.card:nth-child(2){background:var(--butter)}
+.card:nth-child(3){background:#fff}
+.card:nth-child(4){background:var(--lav)}
+
+/* shop shelf */
+.shop{display:grid;gap:30px}
+@media (min-width:900px){.shop{grid-template-columns:.8fr 1.2fr;align-items:end;gap:56px}}
+.shelf{position:relative;background:#fff;border:2.5px solid var(--ink);border-radius:28px;padding:26px 18px 0;overflow:hidden}
+.row{display:flex;justify-content:space-around;align-items:flex-end;gap:8px;padding:0 6px;border-bottom:14px solid var(--ink);position:relative}
+.row+.row{margin-top:26px}
+.item{background:none;border:0;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;transform-origin:50% 100%;-webkit-tap-highlight-color:transparent;min-width:44px;min-height:44px;justify-content:flex-end}
+.item svg{display:block;height:auto;overflow:visible}
+.item:hover,.item.wob{animation:wob .7s var(--spring)}
+@keyframes wob{25%{transform:rotate(-8deg) translateY(-6px)}55%{transform:rotate(6deg)}80%{transform:rotate(-2deg)}}
+.labels{display:flex;justify-content:space-around;padding:12px 6px 16px}
+.labels span{font:500 12px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase}
+.shop-copy p{margin-top:16px;font-size:18px;color:var(--muted);max-width:38ch}
+.gift{margin-top:22px;display:flex;gap:14px;align-items:flex-start;background:var(--butter);border:2px solid var(--ink);border-radius:20px;padding:16px}
+.gift svg{width:42px;height:42px;flex:none}
+.gift p{margin:0;font-size:15.5px;color:var(--ink)}
+.gift cite{display:block;margin-top:6px;font:500 11.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;font-style:normal}
+
+/* visit */
+.visit{background:var(--paper);border-top:2px solid var(--ink)}
+.vz{display:grid;gap:22px}
+@media (min-width:900px){.vz{grid-template-columns:1.1fr .9fr;gap:28px}}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.day{display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;border:2.5px solid var(--ink);border-radius:999px;padding:16px 4px;min-height:190px;background:var(--butter);transition:transform .4s var(--spring)}
+.day.off{background:transparent;border-style:dashed;color:var(--muted)}
+.day.today{background:var(--accent);color:#fff;transform:translateY(-8px);box-shadow:0 8px 0 var(--ink)}
+.day b{font:400 20px/1 var(--disp)}
+.day span{writing-mode:vertical-rl;transform:rotate(180deg);font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+@media (max-width:420px){.day{min-height:170px}.day b{font-size:17px}}
+.hours-list{margin-top:18px;display:grid;gap:4px;font-size:15.5px}
+.hours-list div{display:flex;justify-content:space-between;padding:8px 2px;border-bottom:1.5px dashed #c9c6ea}
+.hours-list .t{font-weight:700;color:var(--accent)}
+.vcard{background:var(--ink);color:var(--lav);border-radius:28px;padding:28px 24px;display:flex;flex-direction:column;gap:18px}
+.vcard h3{font-size:34px;color:#fff}
+.vcard .addr{font-size:19px;color:#fff}
+.vcard .ph{font:500 16px/1 var(--mono);letter-spacing:.04em;user-select:all}
+.vcard .cta{margin-top:6px}
+.vcard .btn-o{color:#fff;box-shadow:inset 0 0 0 2.5px var(--lav)}
+#status-big{font:400 26px/1.1 var(--disp);color:var(--butter)}
+
+/* end */
+.end{background:var(--butter);border-top:2px solid var(--ink);overflow:hidden}
+.end .w{padding-top:84px;padding-bottom:84px;display:grid;gap:22px;justify-items:start;position:relative}
+.end h2{font-size:clamp(46px,10vw,112px);max-width:12ch}
+.end p{font-size:19px;max-width:40ch}
+.end .blob{position:absolute;right:-60px;bottom:-80px;width:min(46vw,380px);aspect-ratio:1;border-radius:50%;background:var(--peri);border:2.5px solid var(--ink);z-index:0}
+.end>.w>*:not(.blob){position:relative;z-index:1}
+footer{background:var(--ink);color:#b9bce0;font-size:14px;padding:26px 0 calc(110px + env(safe-area-inset-bottom,0px))}
+footer .w{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between}
+@media (min-width:761px){footer{padding-bottom:90px}}
+
+/* mobile bottom bar */
+.mbar{display:none}
+@media (max-width:760px){
+  .mbar{display:flex;gap:10px;position:fixed;z-index:60;left:0;right:0;bottom:0;padding:10px var(--gutr) calc(10px + env(safe-area-inset-bottom,0px)) var(--gut);background:var(--ink);border-top:2px solid var(--ink)}
+  .mbar .btn{flex:1;min-height:48px;box-shadow:none;font-size:15.5px}
+  .mbar .btn-o{color:#fff;box-shadow:inset 0 0 0 2px #fff}
+}
+
+/* reveal: content is always visible; JS only adds a small lift */
+.js .rv{transition:transform .8s var(--spring),opacity .8s}
+.js .rv:not(.in){transform:translateY(26px);opacity:.35}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .js .rv:not(.in){transform:none;opacity:1}
+}
+</style>
+
+<header class="hd">
+  <div class="w">
+    <a class="logo" href="#top" aria-label="SOBAKA home">
+      <svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><rect x="1.5" y="1.5" width="37" height="37" rx="11" fill="var(--accent)" stroke="var(--ink)" stroke-width="2.5"/><path d="M9 25c0-7 5-12 12-12 5 0 10 3 10 9 0 4-3 7-7 7H15c-3 0-6-1-6-4z" fill="#FFE58F" stroke="var(--ink)" stroke-width="2"/><path d="M12 15l-2-7 7 4" fill="#FFE58F" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/><circle cx="24" cy="20" r="1.8" fill="var(--ink)"/><circle cx="31" cy="22" r="2" fill="var(--ink)"/></svg>
+      <b>SOBAKA</b>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#deshed">Deshedding</a>
+      <a href="#puppy">Puppies</a>
+      <a href="#shop">Pet store</a>
+      <a href="#visit">Visit</a>
+      <a class="btn btn-c" href="https://grooming-salon-sobaka.easyweek.io/" target="_blank" rel="noopener">Book a groom</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="w">
+      <div>
+        <div class="dict rv"><span class="word">so·ba·ka</span><i>(n.)</i><span class="ru">собака</span><span>dog. Also a grooming salon and pet store on Yonge.</span></div>
+        <h1 class="rv"><span data-l24-edit="Headline">The groomer dogs run back to.</span></h1>
+        <p class="lede rv" data-l24-edit="Tagline">Full grooms, puppy first grooms and deshedding, done patiently and never rushed. Plus a little pet store at 3241 Yonge St.</p>
+        <div class="cta rv">
+          <a class="btn btn-c" href="https://grooming-salon-sobaka.easyweek.io/" target="_blank" rel="noopener">Book on EasyWeek
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          <button class="btn btn-o" type="button" data-l24-contact="Call or visit SOBAKA">Call or visit</button>
+        </div>
+        <div class="meta rv">
+          <span class="chip"><span class="stars" aria-hidden="true">★★★★★</span> 4.8 · 189 Google reviews</span>
+          <span class="chip" id="status-chip"><span class="dot"></span><span id="status-text">Open Wed to Sun, 9 to 6</span></span>
+        </div>
+      </div>
+
+      <div class="art rv" aria-hidden="true">
+        <div class="a-sun"></div>
+        <div class="a-tri"></div>
+        <svg class="a-ring" viewBox="0 0 120 120"><defs><path id="circ" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs><circle cx="60" cy="60" r="58" fill="#fff" stroke="#15173F" stroke-width="2.5"/><text><textPath href="#circ">Grooming · Pet store · Yonge St ·</textPath></text><circle cx="60" cy="60" r="10" fill="var(--accent)"/></svg>
+        <div class="a-arch"><img src="/p/94ju9m-sobaka-grooming/img/poodle.jpg" alt="" width="1100" height="1703"></div>
+        <div class="a-sq"><div><b>Wed–Sun</b><span>9 am to 6 pm</span></div></div>
+        <svg class="a-bone" viewBox="0 0 120 50"><path d="M22 8a12 12 0 0 1 12 12h52a12 12 0 1 1 12 12 12 12 0 1 1-12 12H34A12 12 0 1 1 22 32 12 12 0 1 1 22 8z" fill="#fff" stroke="#15173F" stroke-width="3" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="strip" aria-hidden="true"><div>
+    <span>Full grooms</span><span>Puppy first grooms</span><span>Deshedding</span><span>Pet store</span><span>Sobaka means dog</span>
+    <span>Full grooms</span><span>Puppy first grooms</span><span>Deshedding</span><span>Pet store</span><span>Sobaka means dog</span>
+  </div></div>
+
+  <section class="sec deshed" id="deshed">
+    <div class="w">
+      <div class="sec-h rv">
+        <span class="k">Try it · Deshedding</span>
+        <h2>Give him a brush.</h2>
+        <p>Drag the brush side to side across the dog. Every tuft you lift is fur that won't end up on your couch.</p>
+      </div>
+      <div class="dz">
+        <div class="stage rv">
+          <canvas id="fur" aria-label="Interactive drawing of a fluffy dog. Drag across it to brush off loose fur." role="img"></canvas>
+          <span class="hint" id="hint">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 12h16M15 7l5 5-5 5M9 7l-5 5 5 5"/></svg>
+            Drag to brush
+          </span>
+        </div>
+        <div class="panel rv">
+          <div>
+            <div class="mrow"><span class="k">Deshed meter</span><b id="pct">0%</b></div>
+            <div class="meter" role="progressbar" aria-label="Deshed progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="meter"><i id="bar"></i></div>
+          </div>
+          <p class="out" id="out" aria-live="polite">Lots of loose undercoat in there.</p>
+          <div>
+            <q>We brought our Labrador in for a deshedding treatment, and the results were amazing. His coat is incredibly soft, shiny, and healthy-looking, and there is noticeably less shedding around the house.</q>
+            <cite>Liza L. · Google review</cite>
+          </div>
+          <div class="prow">
+            <button class="btn btn-y" type="button" id="auto">Brush for me</button>
+            <button class="btn btn-o" type="button" id="reset">Fluff him up again</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="services">
+    <div class="w">
+      <div class="sec-h rv">
+        <span class="k">What we do</span>
+        <h2>Three ways to a happy dog.</h2>
+      </div>
+      <div class="blocks">
+        <article class="blk rv">
+          <svg class="shape" viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="24" fill="#fff" stroke="#15173F" stroke-width="3"/><path d="M15 30c4 6 20 6 24 0" fill="none" stroke="#15173F" stroke-width="3" stroke-linecap="round"/></svg>
+          <h3>Full groom</h3>
+          <p>A proper wash, brush and tidy. They take their time and never rush.</p>
+          <span class="k">Ask about pricing</span>
+        </article>
+        <article class="blk rv">
+          <svg class="shape" viewBox="0 0 54 54" aria-hidden="true"><path d="M5 50V27a22 22 0 0 1 44 0v23z" fill="var(--butter)" stroke="#15173F" stroke-width="3" stroke-linejoin="round"/><circle cx="20" cy="30" r="2.6" fill="#15173F"/><circle cx="34" cy="30" r="2.6" fill="#15173F"/></svg>
+          <h3>Puppy's first groom</h3>
+          <p>Patient and kind, so the very first visit goes well and the next one is easy.</p>
+          <span class="k">For new pups</span>
+        </article>
+        <article class="blk rv">
+          <svg class="shape" viewBox="0 0 54 54" aria-hidden="true"><rect x="4" y="16" width="46" height="22" rx="11" fill="var(--butter)" stroke="#fff" stroke-width="3"/><path d="M12 16V8M20 16V6M28 16V8M36 16V6M44 16V8" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>
+          <h3>Deshedding</h3>
+          <p>Out comes the loose undercoat. A softer, shinier coat and less fur at home.</p>
+          <span class="k">Less fur at home</span>
+        </article>
+      </div>
+      <p class="note rv">Times, services and prices are all on <a href="https://grooming-salon-sobaka.easyweek.io/" target="_blank" rel="noopener">SOBAKA's EasyWeek page</a>.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="puppy" style="padding-top:0">
+    <div class="w pup">
+      <div class="pframe rv">
+        <div class="ph"><img src="/p/94ju9m-sobaka-grooming/img/poodle.jpg" alt="A curly cream poodle puppy sitting and looking up" width="1100" height="1703" loading="lazy"></div>
+        <div class="tag">First groom<small>6 months old</small></div>
+      </div>
+      <div>
+        <div class="sec-h rv" style="margin-bottom:0">
+          <span class="k">Puppies</span>
+          <h2>Their first groom, done gently.</h2>
+          <p>The first visit sets the tone for every one after. So the team goes slow, keeps it calm, and makes sure your pup feels comfortable the whole time.</p>
+        </div>
+        <ul class="firsts rv">
+          <li><b>1</b>Book on EasyWeek, or call and ask about a puppy's first groom.</li>
+          <li><b>2</b>Kind, patient hands. Nobody rushes.</li>
+          <li><b>3</b>Pick up a fresh, fluffy, happy pup.</li>
+        </ul>
+        <p class="big-q rv">“She came home looking absolutely adorable!”</p>
+        <cite>Asc · Google review, about a 6-month-old toy poodle</cite>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec rev" id="reviews">
+    <div class="w">
+      <div class="sec-h rv" style="max-width:none">
+        <span class="k" style="color:var(--butter)">What owners say</span>
+        <div class="score"><b>4.8</b><span><span class="stars" style="color:var(--butter)">★★★★★</span><br>from 189 reviews on Google</span></div>
+      </div>
+      <div class="cards">
+        <figure class="card rv" style="margin:0"><span class="stars">★★★★★</span><p>“Chuck actually loves coming here, which says a lot. He always leaves looking fresh, gets a little gift, and happily runs back for his next appointment.”</p><cite>Людмила Ц. · Google review</cite></figure>
+        <figure class="card rv" style="margin:0"><span class="stars">★★★★★</span><p>“She runs in happily and greets everyone with so much enthusiasm… They always take their time and never rush anything, which really shows in the quality of care and attention she receives.”</p><cite>Baraneh · Google review</cite></figure>
+        <figure class="card rv" style="margin:0"><span class="stars">★★★★★</span><p>“The team was so kind, patient, and caring, making sure she felt comfortable throughout the whole experience.”</p><cite>Asc · Google review</cite></figure>
+        <figure class="card rv" style="margin:0"><span class="stars">★★★★★</span><p>“Most importantly, my dog came home happy, relaxed, and clearly well cared for.”</p><cite>Liza L. · Google review</cite></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="shop">
+    <div class="w shop">
+      <div class="shop-copy rv">
+        <span class="k">Also a pet store</span>
+        <h2 style="font-size:clamp(38px,7vw,68px);margin-top:14px">Grab the good stuff on the way out.</h2>
+        <p>SOBAKA is a pet store too. Pick up food, treats and supplies while you're here. Ask what's on the shelf today.</p>
+        <div class="gift">
+          <svg viewBox="0 0 42 42" aria-hidden="true"><rect x="5" y="16" width="32" height="22" rx="4" fill="var(--accent)" stroke="#15173F" stroke-width="2.5"/><rect x="3" y="11" width="36" height="8" rx="3" fill="#fff" stroke="#15173F" stroke-width="2.5"/><path d="M21 11v27" stroke="#15173F" stroke-width="2.5"/><path d="M21 11c-3-7-11-6-9-1 1 2 6 1 9 1 3 0 8 1 9-1 2-5-6-6-9 1z" fill="#fff" stroke="#15173F" stroke-width="2.5" stroke-linejoin="round"/></svg>
+          <p>“He always leaves looking fresh, gets a little gift…”<cite>Людмила Ц. · Google review</cite></p>
+        </div>
+      </div>
+      <div class="shelf rv" aria-label="Illustrated shelf: food, treats and supplies">
+        <div class="row">
+          <button class="item" type="button" aria-label="Food">
+            <svg width="96" viewBox="0 0 96 120" aria-hidden="true"><path d="M14 18h68l6 98H8z" fill="var(--accent)" stroke="#15173F" stroke-width="3" stroke-linejoin="round"/><path d="M14 18l6-12h56l6 12" fill="#fff" stroke="#15173F" stroke-width="3" stroke-linejoin="round"/><circle cx="48" cy="64" r="20" fill="var(--butter)" stroke="#15173F" stroke-width="3"/><path d="M40 62a3 3 0 1 0 0 .1M56 62a3 3 0 1 0 0 .1M42 72q6 5 12 0" stroke="#15173F" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+          </button>
+          <button class="item" type="button" aria-label="Treats">
+            <svg width="78" viewBox="0 0 78 100" aria-hidden="true"><rect x="10" y="4" width="58" height="16" rx="6" fill="var(--butter)" stroke="#15173F" stroke-width="3"/><rect x="6" y="20" width="66" height="76" rx="18" fill="#fff" stroke="#15173F" stroke-width="3"/><path d="M20 50a6 6 0 0 1 6 6h18a6 6 0 1 1 6 6 6 6 0 1 1-6 6H26a6 6 0 1 1-6-6 6 6 0 1 1 0-12z" fill="var(--peri)" stroke="#15173F" stroke-width="2.5"/><circle cx="54" cy="36" r="7" fill="var(--butter)" stroke="#15173F" stroke-width="2.5"/></svg>
+          </button>
+          <button class="item" type="button" aria-label="Supplies">
+            <svg width="64" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="28" fill="var(--butter)" stroke="#15173F" stroke-width="3"/><path d="M8 24q24 14 48 0M8 40q24-14 48 0" stroke="#15173F" stroke-width="3" fill="none"/></svg>
+          </button>
+        </div>
+        <div class="labels" aria-hidden="true"><span>Food</span><span>Treats</span><span>Supplies</span></div>
+        <div class="row">
+          <button class="item" type="button" aria-label="Supplies">
+            <svg width="92" viewBox="0 0 92 70" aria-hidden="true"><rect x="4" y="22" width="52" height="30" rx="12" fill="var(--accent)" stroke="#15173F" stroke-width="3"/><path d="M14 22V8M24 22V6M34 22V8M44 22V6" stroke="#15173F" stroke-width="3" stroke-linecap="round"/><rect x="54" y="32" width="34" height="12" rx="6" fill="#fff" stroke="#15173F" stroke-width="3"/></svg>
+          </button>
+          <button class="item" type="button" aria-label="Supplies">
+            <svg width="70" viewBox="0 0 70 90" aria-hidden="true"><path d="M35 86c-24 0-28-26-14-36s30-12 30-30S30 2 20 10" fill="none" stroke="var(--peri)" stroke-width="9" stroke-linecap="round"/><path d="M35 86c-24 0-28-26-14-36s30-12 30-30S30 2 20 10" fill="none" stroke="#15173F" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="1 9"/><rect x="12" y="4" width="16" height="12" rx="4" fill="var(--butter)" stroke="#15173F" stroke-width="3"/></svg>
+          </button>
+          <button class="item" type="button" aria-label="Treats">
+            <svg width="86" viewBox="0 0 86 50" aria-hidden="true"><path d="M16 6a10 10 0 0 1 10 10h34a10 10 0 1 1 10 10 10 10 0 1 1-10 10H26a10 10 0 1 1-10-10A10 10 0 1 1 16 6z" fill="#fff" stroke="#15173F" stroke-width="3" stroke-linejoin="round" transform="translate(0 6)"/></svg>
+          </button>
+        </div>
+        <div class="labels" aria-hidden="true"><span style="opacity:.7">Illustration. Ask what's in stock.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec visit" id="visit">
+    <div class="w">
+      <div class="sec-h rv">
+        <span class="k">Hours &amp; visit</span>
+        <h2>Five days a week on Yonge.</h2>
+        <p id="status-long">Open Wednesday to Sunday, 9 am to 6 pm. Closed Monday and Tuesday.</p>
+      </div>
+      <div class="vz">
+        <div class="rv">
+          <div class="week" id="week" aria-hidden="true"></div>
+          <div class="hours-list" id="hours"></div>
+        </div>
+        <div class="vcard rv">
+          <span class="k" style="color:var(--peri)">Find us</span>
+          <p id="status-big">Checking the hours…</p>
+          <h3>3241 Yonge St</h3>
+          <p class="addr">Toronto, ON M4N 2L5</p>
+          <p class="ph">(437) 733-8821</p>
+          <div class="cta">
+            <a class="btn btn-y" href="https://grooming-salon-sobaka.easyweek.io/" target="_blank" rel="noopener">Book a groom</a>
+            <button class="btn btn-o" type="button" data-l24-contact="Visit SOBAKA">Call or get directions</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="end">
+    <div class="w">
+      <span class="blob" aria-hidden="true"></span>
+      <span class="k">Sobaka (n.): dog. A happy one.</span>
+      <h2 class="rv">Book the next brush.</h2>
+      <p class="rv">Pick a time on EasyWeek in a minute. Your dog does the rest.</p>
+      <div class="cta rv" style="margin-top:6px">
+        <a class="btn btn-c" href="https://grooming-salon-sobaka.easyweek.io/" target="_blank" rel="noopener">Book on EasyWeek</a>
+        <button class="btn btn-o" type="button" data-l24-contact="Call SOBAKA">Call the salon</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="w">
+    <span>SOBAKA Grooming Salon &amp; pet store · 3241 Yonge St, Toronto</span>
+    <span>Sample photos. We'll use yours.</span>
+  </div>
+</footer>
+
+<div class="mbar">
+  <a class="btn btn-c" href="https://grooming-salon-sobaka.easyweek.io/" target="_blank" rel="noopener">Book</a>
+  <button class="btn btn-o" type="button" data-l24-contact="Call or visit SOBAKA">Call or visit</button>
+</div>
+
+<script>
+document.documentElement.classList.add('js');
+(function(){
+  /* ---------- hours (America/Toronto) ---------- */
+  var H=[["Sunday",[9,18]],["Monday",null],["Tuesday",null],["Wednesday",[9,18]],["Thursday",[9,18]],["Friday",[9,18]],["Saturday",[9,18]]];
+  function fmt(h){var hh=Math.floor(h)%24,m=Math.round((h%1)*60),ap=hh<12?'am':'pm',d=hh%12||12;return d+(m?':'+String(m).padStart(2,'0'):'')+' '+ap}
+  function now(){
+    var p=new Intl.DateTimeFormat('en-US',{timeZone:'America/Toronto',weekday:'short',hour:'numeric',minute:'numeric',hour12:false}).formatToParts(new Date());
+    var o={};p.forEach(function(x){o[x.type]=x.value});
+    var d=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(o.weekday);
+    return {d:d,h:(+o.hour%24)+(+o.minute)/60};
+  }
+  function status(){
+    var n=now(),d=n.d,h=n.h;
+    // today, or yesterday's after-midnight tail
+    var y=H[(d+6)%7][1];
+    if(y&&y[1]>24&&h<y[1]-24)return {open:true,txt:'Open now · until '+fmt(y[1])};
+    var t=H[d][1];
+    if(t&&h>=t[0]&&h<t[1])return {open:true,txt:'Open now · until '+fmt(t[1])};
+    if(t&&h<t[0])return {open:false,txt:'Closed · opens '+fmt(t[0])+' today'};
+    for(var i=1;i<=7;i++){var k=(d+i)%7,s=H[k][1];if(s)return {open:false,txt:'Closed · opens '+(i===1?'tomorrow':H[k][0])+' '+fmt(s[0])}}
+    return {open:false,txt:'Closed'};
+  }
+  var wk=document.getElementById('week'),hl=document.getElementById('hours');
+  function render(){
+    var s=status(),n=now();
+    document.getElementById('status-text').textContent=s.txt;
+    document.getElementById('status-chip').classList.toggle('open',s.open);
+    document.getElementById('status-big').textContent=s.txt;
+    var order=[1,2,3,4,5,6,0];
+    wk.innerHTML=order.map(function(i){var e=H[i],r=e[1];return '<div class="day'+(r?'':' off')+(i===n.d?' today':'')+'"><b>'+e[0].slice(0,2)+'</b><span>'+(r?fmt(r[0])+' – '+fmt(r[1]):'Closed')+'</span></div>'}).join('');
+    hl.innerHTML=order.map(function(i){var e=H[i],r=e[1];return '<div'+(i===n.d?' class="t"':'')+'><span>'+e[0]+(i===n.d?' · today':'')+'</span><span>'+(r?fmt(r[0])+' – '+fmt(r[1]):'Closed')+'</span></div>'}).join('');
+  }
+  render();setInterval(render,60000);
+
+  /* ---------- reveals ---------- */
+  var rv=[].slice.call(document.querySelectorAll('.rv'));
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
+    rv.forEach(function(el){var r=el.getBoundingClientRect();if(r.top<innerHeight)el.classList.add('in');else io.observe(el)});
+  }else rv.forEach(function(el){el.classList.add('in')});
+
+  /* ---------- shelf wobble on tap ---------- */
+  [].forEach.call(document.querySelectorAll('.item'),function(b){b.addEventListener('click',function(){b.classList.remove('wob');void b.offsetWidth;b.classList.add('wob')});b.addEventListener('animationend',function(){b.classList.remove('wob')})});
+
+  /* ---------- deshedding canvas ---------- */
+  var cv=document.getElementById('fur'),ctx=cv.getContext('2d');
+  var W=600,Hh=420,scale=1,dpr=1;
+  var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var ink='#15173F';
+  function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim()}
+  var body=new Path2D();
+  body.roundRect(135,180,315,128,64);
+  body.moveTo(538,158);body.arc(458,158,80,0,Math.PI*2);
+  body.roundRect(380,150,90,110,40); // neck
+  var legs=[[168,268,48,96],[240,278,46,86],[338,278,46,86],[400,268,48,96]];
+  var tufts=[],loose=[],N=300,removed=0,done=false;
+  var furCols=['#F2C46A','#E7B04F','#FFE7A8','#F7D486'];
+  function inFace(x,y){return Math.hypot(x-490,y-150)<46||Math.hypot(x-526,y-176)<34}
+  function seed(){
+    tufts=[];loose=[];removed=0;done=false;
+    var tries=0;
+    while(tufts.length<N&&tries<20000){tries++;
+      var x=120+Math.random()*440,y=70+Math.random()*250;
+      if(!ctx.isPointInPath(body,x,y)||inFace(x,y))continue;
+      tufts.push({x:x,y:y,a:Math.PI*.15+Math.random()*.9,l:11+Math.random()*9,c:furCols[(Math.random()*4)|0],p:Math.random()*6.28,on:true});
+    }
+    tufts.sort(function(a,b){return a.y-b.y});
+    update(0);
+  }
+  function size(){
+    dpr=Math.min(2,window.devicePixelRatio||1);
+    var w=cv.clientWidth||600;scale=w/W;
+    cv.width=Math.round(w*dpr);cv.height=Math.round(w*Hh/W*dpr);
+    ctx.setTransform(1,0,0,1,0,0);
+  }
+  function tuft(t,x,y,a,alpha){
+    ctx.save();ctx.translate(x,y);ctx.rotate(a);ctx.globalAlpha=alpha;
+    ctx.strokeStyle=t.c;ctx.lineWidth=3.6;ctx.lineCap='round';
+    ctx.beginPath();
+    ctx.moveTo(0,0);ctx.quadraticCurveTo(t.l*.5,-4,t.l,-1);
+    ctx.moveTo(-3,3);ctx.quadraticCurveTo(t.l*.4,1,t.l*.85,5);
+    ctx.moveTo(2,-4);ctx.quadraticCurveTo(t.l*.45,-8,t.l*.8,-7);
+    ctx.stroke();ctx.restore();
+  }
+  var brush={x:-200,y:-200,vx:0,show:false};
+  var prog=0;
+  function drawDog(time){
+    var acc=css('--accent')||'#2B45E0';
+    // tail
+    ctx.lineCap='round';ctx.strokeStyle=ink;ctx.lineWidth=34;
+    ctx.beginPath();ctx.moveTo(150,220);ctx.quadraticCurveTo(92,200,96,128+Math.sin(time/260)*6);ctx.stroke();
+    ctx.strokeStyle='#F2C46A';ctx.lineWidth=28;ctx.stroke();
+    // legs
+    legs.forEach(function(l){ctx.beginPath();ctx.roundRect(l[0],l[1],l[2],l[3],22);ctx.fillStyle='#F2C46A';ctx.fill();ctx.lineWidth=3;ctx.strokeStyle=ink;ctx.stroke()});
+    // body fill + outline
+    ctx.lineWidth=6;ctx.strokeStyle=ink;ctx.lineJoin='round';ctx.stroke(body);
+    ctx.fillStyle='#F2C46A';ctx.fill(body);
+    // shine grows with progress
+    if(prog>0.05){
+      ctx.save();ctx.clip(body);ctx.globalAlpha=Math.min(1,prog*1.1);
+      ctx.strokeStyle='#FFF6D8';ctx.lineWidth=7;ctx.lineCap='round';
+      ctx.beginPath();ctx.arc(290,300,110,Math.PI*1.18,Math.PI*1.5);ctx.stroke();
+      ctx.beginPath();ctx.arc(458,170,60,Math.PI*1.15,Math.PI*1.4);ctx.stroke();
+      ctx.restore();
+    }
+  }
+  function drawFace(){
+    var acc=css('--accent')||'#2B45E0';
+    // collar
+    ctx.save();ctx.translate(408,214);ctx.rotate(-.5);
+    ctx.beginPath();ctx.roundRect(-14,-56,28,112,12);ctx.fillStyle=acc;ctx.fill();ctx.lineWidth=3;ctx.strokeStyle=ink;ctx.stroke();
+    ctx.restore();
+    ctx.beginPath();ctx.arc(436,256,13,0,7);ctx.fillStyle='#FFE58F';ctx.fill();ctx.stroke();
+    // ear
+    ctx.save();ctx.translate(426,128);ctx.rotate(.45);
+    ctx.beginPath();ctx.ellipse(0,0,30,58,0,0,7);ctx.fillStyle='#D99A3A';ctx.fill();ctx.lineWidth=3;ctx.stroke();ctx.restore();
+    // snout
+    ctx.beginPath();ctx.ellipse(522,178,42,32,-.1,0,7);ctx.fillStyle='#FFE7A8';ctx.fill();ctx.lineWidth=3;ctx.stroke();
+    ctx.beginPath();ctx.arc(556,166,12,0,7);ctx.fillStyle=ink;ctx.fill();
+    ctx.beginPath();ctx.moveTo(530,196);ctx.quadraticCurveTo(520,210,506,200);ctx.lineWidth=3;ctx.strokeStyle=ink;ctx.stroke();
+    // eye: happier when brushed
+    if(prog>.6){ctx.beginPath();ctx.arc(484,134,9,Math.PI*1.1,Math.PI*1.9);ctx.lineWidth=4;ctx.stroke()}
+    else{ctx.beginPath();ctx.arc(484,136,8.5,0,7);ctx.fillStyle=ink;ctx.fill();ctx.beginPath();ctx.arc(487,133,2.6,0,7);ctx.fillStyle='#fff';ctx.fill()}
+    // cheek
+    ctx.beginPath();ctx.arc(498,170,9,0,7);ctx.fillStyle='rgba(255,140,170,'+(0.25+prog*.5)+')';ctx.fill();
+  }
+  function drawBrush(){
+    if(!brush.show)return;
+    var acc=css('--accent')||'#2B45E0';
+    ctx.save();ctx.translate(brush.x,brush.y);ctx.rotate(Math.max(-.4,Math.min(.4,brush.vx*.02)));
+    ctx.lineWidth=3;ctx.strokeStyle=ink;
+    ctx.beginPath();ctx.roundRect(-8,-74,16,46,8);ctx.fillStyle='#fff';ctx.fill();ctx.stroke();
+    ctx.beginPath();ctx.roundRect(-34,-32,68,26,10);ctx.fillStyle=acc;ctx.fill();ctx.stroke();
+    ctx.lineCap='round';for(var i=-26;i<=26;i+=8.6){ctx.beginPath();ctx.moveTo(i,-6);ctx.lineTo(i,6);ctx.stroke()}
+    ctx.restore();
+  }
+  var sparks=[];
+  function frame(time){
+    ctx.setTransform(dpr*scale,0,0,dpr*scale,0,0);
+    ctx.clearRect(0,0,W,Hh);
+    drawDog(time);
+    for(var i=0;i<tufts.length;i++){var t=tufts[i];if(t.on)tuft(t,t.x,t.y,t.a+(RM?0:Math.sin(time/700+t.p)*.08),1)}
+    drawFace();
+    for(i=loose.length-1;i>=0;i--){var f=loose[i];
+      f.vx+=.025+Math.sin(time/500+f.p)*.03;f.vy-=.018;f.vx*=.99;f.vy*=.99;f.x+=f.vx;f.y+=f.vy;f.a+=f.va;f.life-=.008;
+      if(f.life<=0||f.y<-40||f.x>W+40){loose.splice(i,1);continue}
+      tuft(f,f.x,f.y,f.a,Math.max(0,Math.min(1,f.life)));
+    }
+    for(i=sparks.length-1;i>=0;i--){var s=sparks[i];s.life-=.02;if(s.life<=0){sparks.splice(i,1);continue}
+      var r=6+(1-s.life)*10;ctx.save();ctx.translate(s.x,s.y);ctx.globalAlpha=s.life;ctx.fillStyle='#fff';ctx.strokeStyle=ink;ctx.lineWidth=2;
+      ctx.beginPath();for(var k=0;k<8;k++){var rr=k%2?r*.35:r,an=k*Math.PI/4;ctx.lineTo(Math.cos(an)*rr,Math.sin(an)*rr)}ctx.closePath();ctx.fill();ctx.stroke();ctx.restore()}
+    drawBrush();
+  }
+  var pct=document.getElementById('pct'),bar=document.getElementById('bar'),meter=document.getElementById('meter'),out=document.getElementById('out'),hint=document.getElementById('hint');
+  var lines=[[0,'Lots of loose undercoat in there.'],[.2,'Keep going. He is leaning into it.'],[.5,'Look at that shine coming through.'],[.8,'Nearly there. Softer already.'],[1,'All done. Softer, shinier, and less fur at home.']];
+  function update(){
+    prog=tufts.length?removed/tufts.length:0;
+    var p=Math.round(prog*100);pct.textContent=p+'%';bar.style.width=p+'%';meter.setAttribute('aria-valuenow',p);
+    var msg=lines[0][1];lines.forEach(function(l){if(prog>=l[0])msg=l[1]});
+    if(out.textContent!==msg)out.textContent=msg;
+  }
+  function brushAt(x,y,vx,vy){
+    var hit=0,R=34;
+    for(var i=0;i<tufts.length;i++){var t=tufts[i];if(!t.on)continue;
+      var dx=t.x-x,dy=t.y-(y-6);if(dx*dx+dy*dy<R*R){t.on=false;removed++;hit++;
+        loose.push({x:t.x,y:t.y,vx:vx*.35+(Math.random()-.5)*2.4,vy:vy*.2-1-Math.random()*1.6,a:t.a,va:(Math.random()-.5)*.12,l:t.l,c:t.c,p:Math.random()*6,life:RM?.2:1.3})}}
+    if(hit){update();if(!done&&prog>=.88)finish()}
+  }
+  function finish(){
+    done=true;
+    tufts.forEach(function(t){if(t.on){t.on=false;removed++;loose.push({x:t.x,y:t.y,vx:1+Math.random()*2,vy:-1-Math.random()*2,a:t.a,va:(Math.random()-.5)*.1,l:t.l,c:t.c,p:Math.random()*6,life:1.2})}});
+    for(var i=0;i<9;i++)sparks.push({x:170+Math.random()*360,y:110+Math.random()*170,life:1+Math.random()*.6});
+    update();
+  }
+  function pos(e){var r=cv.getBoundingClientRect();return {x:(e.clientX-r.left)/scale,y:(e.clientY-r.top)/scale}}
+  var down=false,last=null;
+  cv.addEventListener('pointerenter',function(e){brush.show=true;var p=pos(e);brush.x=p.x;brush.y=p.y});
+  cv.addEventListener('pointerleave',function(){brush.show=false;down=false});
+  cv.addEventListener('pointerdown',function(e){down=true;brush.show=true;last=pos(e);brush.x=last.x;brush.y=last.y;hint.classList.add('gone');brushAt(last.x,last.y,0,0)});
+  addEventListener('pointerup',function(){down=false});
+  cv.addEventListener('pointercancel',function(){down=false});
+  cv.addEventListener('pointermove',function(e){
+    var p=pos(e);brush.vx=p.x-brush.x;brush.x=p.x;brush.y=p.y;brush.show=true;
+    // mouse brushes on hover with a button down OR simple hover-drag; touch brushes while pressed
+    if(down||e.pointerType==='mouse'&&e.buttons){var steps=Math.ceil(Math.hypot(p.x-(last?last.x:p.x),p.y-(last?last.y:p.y))/12)||1;
+      for(var s=1;s<=steps;s++){var ix=last.x+(p.x-last.x)*s/steps,iy=last.y+(p.y-last.y)*s/steps;brushAt(ix,iy,p.x-last.x,p.y-last.y)}
+      hint.classList.add('gone')}
+    last=p;
+  });
+  // auto brush: sweeping rows
+  var autoT=null;
+  document.getElementById('auto').addEventListener('click',function(){
+    if(autoT)return;if(done)seed();hint.classList.add('gone');brush.show=true;
+    var rows=[100,140,190,230,270,300],ri=0,x=110,dir=1;
+    autoT=setInterval(function(){
+      x+=dir*22;var y=rows[ri]+Math.sin(x/30)*6;brush.vx=dir*22;brush.x=x;brush.y=y+10;brushAt(x,y+10,dir*22,0);
+      if(x>570||x<100){dir*=-1;ri++;if(ri>=rows.length||done){clearInterval(autoT);autoT=null;if(!done)finish();setTimeout(function(){brush.show=false},500)}}
+    },RM?10:28);
+  });
+  document.getElementById('reset').addEventListener('click',function(){if(autoT){clearInterval(autoT);autoT=null}seed();hint.classList.remove('gone')});
+
+  var running=false,visible=true;
+  function loop(t){if(!visible){running=false;return}frame(t||0);requestAnimationFrame(loop)}
+  function start(){if(!running){running=true;requestAnimationFrame(loop)}}
+  size();seed();frame(0);
+  if('IntersectionObserver' in window){new IntersectionObserver(function(es){visible=es[0].isIntersecting;if(visible)start()}).observe(cv)}
+  start();
+  var rt;addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){size();frame(performance.now())},120)});
+})();
+</script>
+
+<script>window.L24CFG={name:"SOBAKA Grooming Salon",phone:"(437) 733-8821",tel:"+14377338821",address:"3241 Yonge St, Toronto, ON M4N 2L5",maps:"https://maps.google.com/?cid=1393876493115420561",book:"https://grooming-salon-sobaka.easyweek.io/",bookName:"EasyWeek",
+ noteOpen:"189 people gave you 4.8★",noteRest:"but when someone Googles you, all they find is a booking page. I made this to show off your salon and your pet store. Every Book button still goes to your EasyWeek page, so nothing changes for you.",
+ checklist:["Designed for SOBAKA","Your hours, address and reviews added","Works on every phone","Every Book button goes to your EasyWeek page"],
+ swatches:[{name:"Cobalt",dot:"#2B45E0",vars:{"--accent":"#2B45E0","--lav":"#DCD8FF","--peri":"#A9B4FF"}},{name:"Berry",dot:"#C23A7A",vars:{"--accent":"#C23A7A","--lav":"#FBDDEB","--peri":"#F5A9C9"}},{name:"Fir",dot:"#1E7A58",vars:{"--accent":"#1E7A58","--lav":"#D6EEE2","--peri":"#9FD6BC"}},{name:"Tangerine",dot:"#E2591F",vars:{"--accent":"#E2591F","--lav":"#FFE3D2","--peri":"#FFB98F"}}]};</script>
+<!-- ===== Launch24 preview layer (shared, do not edit). Needs window.L24CFG defined BEFORE this block. ===== -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Onest:wght@400;500;600&display=swap">
+<style>
+:root{--l24-h:44px}
+.l24,.l24 *{box-sizing:border-box}
+.l24{font-family:"Onest","Segoe UI",Arial,sans-serif;font-size:15px;line-height:1.5;color:#eef0f5;-webkit-font-smoothing:antialiased}
+.l24 button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.l24 :focus-visible{outline:3px solid #ffd60a;outline-offset:2px}
+.l24-bar{position:sticky;top:0;z-index:1000;height:var(--l24-h);background:#08090c;color:#eef0f5;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 max(14px,env(safe-area-inset-right,0px)) 0 max(14px,env(safe-area-inset-left,0px));font-family:"Onest","Segoe UI",Arial,sans-serif;font-size:13px;border-bottom:1px solid #1d2029}
+.l24-bar .l24-id{display:flex;align-items:center;gap:8px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.l24-logo{flex:none;display:inline-grid;place-items:center;width:22px;height:22px;border-radius:6px;background:#ffd60a;color:#000;font:800 10px "Bricolage Grotesque",sans-serif}
+.l24-bar b{font-weight:600}
+.l24-bar .l24-sub{color:#8f97a8}
+@media (max-width:620px){.l24-bar .l24-sub{display:none}}
+.l24-keep{flex:none;height:32px;padding:0 14px;border-radius:999px;border:0;background:#ffd60a;color:#000;font-weight:700!important}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:1001;background:#08090c}
+.l24-bar{top:env(safe-area-inset-top,0px)}
+.l24-note{position:fixed;z-index:1002;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(400px,calc(100vw - 32px));background:#08090c;border:1px solid #232733;border-radius:20px;padding:18px 18px 14px;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);transform:translateY(16px);opacity:0;transition:transform .7s cubic-bezier(.2,.9,.2,1),opacity .7s}
+.l24-note.in{transform:none;opacity:1}
+.l24-note[hidden]{display:none}
+.l24-note .l24-k{font:600 11px/1 "Onest",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#ffd60a}
+.l24-note p{margin:10px 0 0;font-size:14.5px}
+.l24-note p b{color:#fff}
+.l24-note .l24-s{color:#9aa1b1;font-size:13.5px}
+.l24-acts{display:flex;gap:8px;margin-top:14px}
+.l24-acts button{min-height:44px;padding:0 16px;border-radius:999px;border:1px solid #2c313d;background:transparent;color:#eef0f5;font-weight:600}
+.l24-acts .l24-y{background:#ffd60a;border-color:#ffd60a;color:#000}
+@media (max-width:560px){.l24-note .l24-s{display:none}}
+.l24-fab{position:fixed;z-index:999;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));display:inline-flex;align-items:center;gap:9px;height:50px;padding:0 18px;border-radius:999px;border:1px solid #232733;background:#08090c;color:#fff;font-weight:600;box-shadow:0 18px 40px -16px rgba(0,0,0,.6)}
+.l24-fab i{width:16px;height:16px;border-radius:50%;background:conic-gradient(#ffd60a 0 50%,var(--accent,#ffd60a) 0)}
+@media (max-width:760px){.l24-fab{bottom:calc(84px + env(safe-area-inset-bottom,0px))}}
+.l24-scrim{position:fixed;inset:0;z-index:1003;background:rgba(5,6,8,.55);opacity:0;pointer-events:none;transition:opacity .35s}
+.l24-scrim.open{opacity:1;pointer-events:auto}
+.l24-drawer{position:fixed;z-index:1004;top:0;right:0;bottom:0;width:min(410px,100vw);background:#101218;color:#eef0f5;border-left:1px solid #232733;transform:translateX(105%);transition:transform .5s cubic-bezier(.2,.9,.2,1);overflow-y:auto;padding:calc(22px + env(safe-area-inset-top,0px)) max(22px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) 22px}
+.l24-drawer.open{transform:none}
+.l24-x{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:14px;width:44px;height:44px;border-radius:50%;border:1px solid #2c313d;background:#161922;display:grid;place-items:center;padding:0}
+.l24-x svg{width:18px;height:18px;stroke:#eef0f5}
+.l24-h{font:700 30px/1.05 "Bricolage Grotesque",sans-serif;margin:8px 48px 0 0;letter-spacing:-.01em}
+.l24-p{color:#a3aab9;margin:10px 0 0}
+.l24-p b{color:#fff}
+.l24-lbl{display:block;font:600 11px/1 "Onest",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8f97a8;margin-top:22px}
+.l24-sw{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.l24-sw button{width:46px;height:46px;border-radius:50%;border:3px solid #101218;box-shadow:0 0 0 1.5px #2c313d;padding:0;transition:transform .2s}
+.l24-sw button[aria-pressed=true]{box-shadow:0 0 0 2.5px #ffd60a;transform:scale(1.06)}
+.l24-in{width:100%;min-height:48px;margin-top:8px;border-radius:12px;border:1.5px solid #2c313d;background:#08090c;color:#eef0f5;padding:0 12px;font:inherit;font-size:16px}
+.l24-in:focus{outline:none;border-color:#ffd60a}
+.l24-box{margin-top:24px;padding:20px;border-radius:18px;background:#08090c;border:1px solid #232733}
+.l24-box .l24-t{font:700 24px/1.1 "Bricolage Grotesque",sans-serif;color:#fff}
+.l24-done{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+.l24-done li{display:flex;gap:10px;align-items:flex-start}
+.l24-done li::before{content:"";flex:none;margin-top:2px;width:18px;height:18px;border-radius:50%;background:#25d366 url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'><path d='m6 12 4 4 8-8'/></svg>") center/11px no-repeat}
+.l24-price{font:700 40px/1 "Bricolage Grotesque",sans-serif;color:#fff;margin-top:14px}
+.l24-price span{font:400 15px "Onest",sans-serif;color:#9aa1b1}
+.l24-pay{display:flex;align-items:center;justify-content:center;text-decoration:none;width:100%;min-height:52px;margin-top:14px;border-radius:999px;border:0;background:#ffd60a;color:#000;font-weight:700!important;font-size:16px!important;animation:l24nudge 2.8s 1.4s ease-in-out infinite}
+@keyframes l24nudge{0%,86%,100%{transform:none}90%{transform:scale(1.03)}95%{transform:scale(.99)}}
+.l24-g{color:#9aa1b1;font-size:13.5px;margin:10px 0 0}
+.l24-wa{display:inline-flex;align-items:center;min-height:44px;color:#eef0f5;text-underline-offset:3px;font-size:14px}
+.l24-sheet{position:fixed;z-index:1004;left:50%;bottom:0;width:min(520px,100vw);max-height:88vh;overflow-y:auto;transform:translate(-50%,105%);transition:transform .5s cubic-bezier(.2,.9,.2,1);background:#101218;color:#eef0f5;border:1px solid #232733;border-radius:24px 24px 0 0;padding:14px max(20px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px))}
+.l24-sheet.open{transform:translate(-50%,0)}
+.l24-grab{width:44px;height:5px;border-radius:3px;background:#2c313d;margin:0 auto 16px}
+.l24-sheet .l24-x{top:14px}
+.l24-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 16px;border-radius:14px;background:#161922;margin-top:10px}
+.l24-row>div:first-child{min-width:0}
+.l24-row b{display:block}
+.l24-row span{color:#9aa1b1;font-size:13.5px}
+.l24-row .l24-num{color:#fff;font-size:16px;font-variant-numeric:tabular-nums;user-select:all}
+.l24-btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 16px;border-radius:999px;border:0;background:#ffd60a;color:#000!important;font-weight:700;text-decoration:none}
+.l24-btn.l24-gh{background:transparent;color:#eef0f5!important;box-shadow:inset 0 0 0 1.5px #2c313d}
+.l24-toast{position:fixed;z-index:1005;left:50%;top:calc(var(--l24-h) + 14px + env(safe-area-inset-top,0px));transform:translate(-50%,-14px);opacity:0;width:max-content;max-width:calc(100vw - 32px);text-align:center;background:#08090c;color:#fff;border:1px solid #232733;padding:11px 16px;border-radius:16px;font-size:14px;transition:opacity .3s,transform .3s;pointer-events:none}
+.l24-toast.show{opacity:1;transform:translate(-50%,0)}
+.l24-drawer,.l24-sheet{visibility:hidden}
+.l24-drawer.open,.l24-sheet.open{visibility:visible}
+@media (prefers-reduced-motion:reduce){.l24 *,.l24-pay{animation:none!important;transition:none!important}}
+</style>
+<div class="l24" id="l24"></div>
+<script>
+(function(){
+  var C=window.L24CFG||{}, root=document.getElementById('l24'), doc=document.documentElement;
+  var PAY='https://buy.stripe.com/9B65kC9zcfRMcqj7foe7m05?client_reference_id='+encodeURIComponent((C.name||'preview').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''));
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  var X='<svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  // bar goes first in <body>
+  var bar=document.createElement('div');bar.className='l24 l24-bar';
+  bar.innerHTML='<span class="l24-id"><span class="l24-logo">24</span><span><b>Preview made for '+esc(C.name)+'</b><span class="l24-sub"> by Launch24. Not live yet.</span></span></span><button class="l24-keep" type="button" data-l24-open>Make it yours</button>';
+  document.body.insertBefore(bar,document.body.firstChild);
+  var edits=[].slice.call(document.querySelectorAll('[data-l24-edit]'));
+  var sw=(C.swatches||[]);
+  root.innerHTML=
+   '<aside class="l24-note" id="l24-note" aria-label="Note from Launch24"><div class="l24-k">A note from Parth at Launch24</div><p>Hi! <b>'+esc(C.noteOpen)+'</b>, '+esc(C.noteRest)+'</p><p class="l24-s">It\'s built and ready. You\'re one click away from making it yours.</p><div class="l24-acts"><button class="l24-y" type="button" data-l24-open>Make it yours</button><button type="button" id="l24-look">Take a look</button></div></aside>'+
+   '<button class="l24-fab" type="button" data-l24-open><i aria-hidden="true"></i>Make it yours</button>'+
+   '<div class="l24-scrim" id="l24-scrim"></div>'+
+   '<aside class="l24-drawer" id="l24-drawer" aria-label="Make it yours" aria-hidden="true"><button class="l24-x" type="button" id="l24-dx" aria-label="Close">'+X+'</button>'+
+     '<span class="l24-lbl" style="margin-top:0;color:#ffd60a">Make it yours</span><h2 class="l24-h">Your website is ready.</h2>'+
+     '<p class="l24-p">We designed it, wrote it and added your hours, address and Google reviews. Try a colour or change the words if you like. Then you\'re <b>one click away</b> from making it yours.</p>'+
+     (sw.length?'<span class="l24-lbl">Colour</span><div class="l24-sw" id="l24-sw">'+sw.map(function(s,i){return '<button type="button" aria-pressed="'+(i===0)+'" aria-label="'+esc(s.name)+'" data-i="'+i+'" style="background:'+esc(s.dot)+'"></button>'}).join('')+'</div>':'')+
+     edits.map(function(el,i){var id='l24e'+i;return '<label class="l24-lbl" for="'+id+'">'+esc(el.getAttribute('data-l24-edit'))+'</label><input class="l24-in" id="'+id+'" data-i="'+i+'" value="'+esc(el.textContent.trim())+'">'}).join('')+
+     '<div class="l24-box"><div class="l24-t">You\'re one click away.</div><p class="l24-g" style="margin-top:6px">Already done for you:</p><ul class="l24-done">'+(C.checklist||[]).map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>'+
+     '<p class="l24-p" style="color:#eef0f5"><b>All that\'s left:</b> tap Pay. We add your real photos and details, and put it live on your own domain within 24 hours.</p>'+
+     '<div class="l24-price">$699 <span>one-time</span></div><a class="l24-pay" id="l24-pay" target="_blank" rel="noopener" href="'+esc(PAY)+'">Pay $699 and make it mine →</a><p class="l24-g" style="margin-top:8px">Secure checkout by Stripe.</p>'+
+     '<p class="l24-g">If we miss the 24 hours, you pay nothing. Your deposit is refunded in full.</p><a class="l24-wa" id="l24-wa" target="_blank" rel="noopener" href="#">Questions first? WhatsApp Parth</a></div></aside>'+
+   '<div class="l24-sheet" id="l24-sheet" role="dialog" aria-modal="true" aria-labelledby="l24-st" aria-hidden="true"><div class="l24-grab"></div><button class="l24-x" type="button" id="l24-sx" aria-label="Close">'+X+'</button><span class="l24-lbl" style="margin-top:0;color:#ffd60a" id="l24-se">Contact</span><h2 class="l24-h" id="l24-st" style="font-size:26px">How would you like to reach us?</h2>'+
+     (C.phone?'<div class="l24-row"><div><b>Call</b><span class="l24-num" id="l24-num">'+esc(C.phone)+'</span></div><div style="display:flex;gap:8px"><a class="l24-btn" href="tel:'+esc(C.tel)+'">Call</a><button class="l24-btn l24-gh" type="button" id="l24-copy">Copy</button></div></div>':'')+
+     (C.book?'<div class="l24-row"><div><b>Book online</b><span>Your existing '+esc(C.bookName||'booking')+' page</span></div><a class="l24-btn" href="'+esc(C.book)+'" target="_blank" rel="noopener">Open</a></div>':'')+
+     (C.instagram?'<div class="l24-row"><div><b>Instagram</b><span>Send a DM</span></div><a class="l24-btn l24-gh" href="'+esc(C.instagram)+'" target="_blank" rel="noopener">Open</a></div>':'')+
+     (C.address?'<div class="l24-row"><div><b>Visit</b><span>'+esc(C.address)+'</span></div><a class="l24-btn l24-gh" href="'+esc(C.maps)+'" target="_blank" rel="noopener">Directions</a></div>':'')+
+     '<p class="l24-g">On the live site these buttons call, book or open directions straight away.</p></div>'+
+   '<div class="l24-toast" id="l24-toast" role="status"></div>';
+  var $=function(id){return document.getElementById(id)};
+  var tt;function toast(m){var t=$('l24-toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('show')},3400)}
+  var note=$('l24-note');setTimeout(function(){note.classList.add('in')},700);
+  $('l24-look').onclick=function(){note.hidden=true};
+  var dr=$('l24-drawer'),sh=$('l24-sheet'),sc=$('l24-scrim');
+  function openD(){closeS();dr.classList.add('open');sc.classList.add('open');dr.setAttribute('aria-hidden','false');note.hidden=true;setTimeout(function(){$('l24-dx').focus()},200)}
+  function closeD(){dr.classList.remove('open');dr.setAttribute('aria-hidden','true');if(!sh.classList.contains('open'))sc.classList.remove('open')}
+  function openS(t){closeD();$('l24-st').textContent=t?t:'How would you like to reach us?';sh.classList.add('open');sc.classList.add('open');sh.setAttribute('aria-hidden','false');setTimeout(function(){$('l24-sx').focus()},200)}
+  function closeS(){sh.classList.remove('open');sh.setAttribute('aria-hidden','true');if(!dr.classList.contains('open'))sc.classList.remove('open')}
+  document.addEventListener('click',function(e){var o=e.target.closest('[data-l24-open]');if(o){e.preventDefault();openD();return}var c=e.target.closest('[data-l24-contact]');if(c){e.preventDefault();openS(c.getAttribute('data-l24-contact'))}});
+  $('l24-dx').onclick=closeD;$('l24-sx').onclick=closeS;sc.onclick=function(){closeD();closeS()};
+  addEventListener('keydown',function(e){if(e.key==='Escape'){closeD();closeS()}});
+  var cp=$('l24-copy');if(cp)cp.onclick=function(){var n=$('l24-num').textContent;try{navigator.clipboard.writeText(n).then(function(){toast('Number copied')},sel)}catch(_){sel()}function sel(){var r=document.createRange();r.selectNodeContents($('l24-num'));var s=getSelection();s.removeAllRanges();s.addRange(r);toast('Number selected')}};
+  var choice=sw[0]?sw[0].name:'Original';
+  [].forEach.call(document.querySelectorAll('#l24-sw button'),function(b){b.onclick=function(){var s=sw[+b.dataset.i];[].forEach.call(document.querySelectorAll('#l24-sw button'),function(x){x.setAttribute('aria-pressed',x===b)});Object.keys(s.vars||{}).forEach(function(k){doc.style.setProperty(k,s.vars[k])});choice=s.name;wa();if(matchMedia('(max-width: 767px)').matches){setTimeout(function(){closeD();toast(s.name+' it is. Tap Make it yours to try another.')},180)}else{toast(s.name+' it is')}}});
+  [].forEach.call(document.querySelectorAll('.l24-in'),function(inp){inp.oninput=function(){edits[+inp.dataset.i].textContent=inp.value;wa()}});
+  function wa(){var m='Hi Parth! I saw the website preview for '+C.name+" and I'd like to make it mine.\nColour: "+choice+edits.map(function(el){return '\n'+el.getAttribute('data-l24-edit')+': '+el.textContent.trim()}).join('');$('l24-wa').href='https://wa.me/14373652475?text='+encodeURIComponent(m)}
+  wa();
+  window.L24={toast:toast,contact:openS,open:openD};
+})();
+</script>
+<!-- ===== end Launch24 layer ===== -->
+<script>
+/* Launch24: count preview opens and clicks (first-party, /api/event). */
+(function(){
+  var vid='';try{vid=localStorage.getItem('l24_vid')||'';if(!vid){vid=Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem('l24_vid',vid)}}catch(_){}
+  var q=new URLSearchParams(location.search);
+  function send(name){try{var b=JSON.stringify({name:name,visitor_id:vid,path:location.pathname,utm_source:q.get('utm_source')||'',utm_medium:q.get('utm_medium')||'',utm_campaign:q.get('utm_campaign')||'',utm_content:q.get('utm_content')||''});
+    if(navigator.sendBeacon)navigator.sendBeacon('/api/event',new Blob([b],{type:'application/json'}));else fetch('/api/event',{method:'POST',headers:{'Content-Type':'application/json'},body:b,keepalive:true})}catch(_){}}
+  send('preview_view');
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('#l24-pay,#l24-wa');if(a)send(a.id==='l24-pay'?'preview_claim_click':'preview_changes_click')},true);
+})();
+</script>
+
+</html>
