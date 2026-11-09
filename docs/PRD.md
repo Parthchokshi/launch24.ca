@@ -1,6 +1,6 @@
 # Launch24 — Product Requirements & Source of Truth
 
-> **Last updated:** 2026-10-26
+> **Last updated:** 2026-11-09
 > This is the single source of truth for what launch24.ca is, what it does today, and why.
 > **Claude Code must read this before working, and update it in the same commit as any
 > change that affects behavior, a decision, a setting, or a removed feature.**
@@ -76,6 +76,7 @@ The original lavender site: Hero, Process, Pricing, FAQ, GetStarted (call/WhatsA
 - **GA4:** loads only if `NEXT_PUBLIC_GA_MEASUREMENT_ID` is set; its automatic page_view is turned off (we send our own). Marking events as conversions must be done in the GA4 admin UI (not in code).
 - **Google Ads:** tag `AW-18341001020` loads on every page; the lead-form conversion fires on a successful submit (plus a backup pixel). Config in `src/lib/ads.ts`.
 - **Google Business Profile links** use `utm_source=google&utm_medium=organic&utm_campaign=gbp&utm_content=gbp_<placement>` (`gbp_website`, `gbp_booking`, `gbp_product`, `gbp_post_*`), so GBP visits show as their own rows in `/report` and on leads. No code change needed. Guide and upload-ready images (Night Shift style since 2026-10-23, rendered from `source/*.html` with the bundled fonts): `brand/google-business-profile/`.
+- **Social profile links** (LinkedIn, X, Instagram, Facebook, Reddit) use `utm_source=<linkedin|x|instagram|facebook|reddit>&utm_medium=social&utm_campaign=profile|post&utm_content=<li|x|ig|fb|rd>_profile|_bio|_page|_post_<topic>`, so each platform shows as its own row in `/report`. Setup guide, field-by-field copy and upload-ready images (Night Shift): `brand/social/`.
 - **Vercel Web Analytics:** `<Analytics />` in the root layout (page views/visitors only).
 - No cookie is set by us. Storage used: `l24_utm`, `l24_vid` (localStorage; UTMs also fall back to a cookie of the same name if storage is blocked).
 
@@ -161,6 +162,7 @@ Newest first. Superseded entries are kept.
 | Care plan prices (`careYearly`, `careMonthly`) | Removed with the old pricing config | Never shown on the site | Git history |
 
 ## 7. Open items
+- **Social pages (owner to do):** create LinkedIn, X, Instagram, Facebook and Reddit profiles with the handle `launch24ca` (check availability) and fill them in from `brand/social/README.md`; then add them to the Google Business Profile.
 - **10 previews live until 2026-11-09** (`src/previews/index.ts`); extend `expiresAt` if outreach starts later. Check the Stripe Payment Link is in CAD and collects name, phone and business name.
 - **Lead search needs a Google Places API key:** create one in Google Cloud (Places API (New) enabled, restricted to that API), add it to the Claude cloud environment as `GOOGLE_PLACES_API_KEY`.
 - **Send outreach email as hi@launch24.ca:** the connected Gmail is the owner's personal account. Add hi@launch24.ca under Gmail → Settings → Accounts → "Send mail as" (needs that mailbox's SMTP details) or connect a Google Workspace account for launch24.ca.
@@ -174,6 +176,7 @@ Newest first. Superseded entries are kept.
 - Confirm Resend sending domain `launch24.ca` is verified so lead emails deliver.
 
 ## 8. Change log
+- 2026-11-09 — Added `brand/social/`: logos, LinkedIn/X/Facebook/Reddit covers, three 4:5 launch posts, Instagram highlight covers, render script, and a fill-in guide for each platform with `utm_medium=social` links.
 - 2026-10-26 — Replaced the template previews with 10 bespoke preview sites served as HTML by `/p/[slug]` route handler (noindex headers, no-store, 14-day expiry, open/pay/WhatsApp events to D1); removed `PreviewSite`, `PreviewBanner`, niches, JSON data, `sample-home` and the preview CSS block.
 - 2026-10-23 — Added prospect previews: `/p/<slug>` route, one template for four niches, Launch24 banner with Make changes / Make it mine, 14-day expiry, noindex + robots disallow, three preview events, `docs/previews.md`, and a made-up `sample-home` demo. Removed an unused import in `tracking.ts`.
 - 2026-10-23 — `/terms` "The offer" now uses the exact guarantee sentence (from `src/lib/guarantee.ts`) instead of "If we miss that window, it's free: we refund your deposit and you pay nothing." (owner asked).
