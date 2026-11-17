@@ -7,7 +7,7 @@ export const siteConfig = {
   url: `https://${contact.domain}`,
   locale: "en_CA",
   language: "en-CA",
-  title: "Launch24: Website in 24 hours. Or it’s free.",
+  title: "Launch24: Website in 24 hours. Guaranteed or your money back.",
   description: `Custom-designed, mobile-ready websites for local businesses in 24 hours. ${guaranteeSentence}`,
   ogDescription:
     `Custom-designed, mobile-ready websites for local Ontario businesses. ${guaranteeSentence}`,

@@ -5,7 +5,7 @@ import { contact } from "@/lib/contact";
 import { guaranteeSentence } from "@/lib/guarantee";
 
 export const ogSize = { width: 1200, height: 630 };
-export const ogAlt = "Launch24: Website in 24 hours. Or it’s free.";
+export const ogAlt = "Launch24: Website in 24 hours. Guaranteed or your money back.";
 
 const asset = (name: string) => readFile(join(process.cwd(), "src/app/assets", name));
 
@@ -109,7 +109,7 @@ export async function renderOgImage() {
           >
             <span style={{ display: "flex" }}>Website in</span>
             <span style={{ display: "flex", color: GOLD }}>24 hours.</span>
-            <span style={{ display: "flex" }}>Or it’s free.</span>
+            <span style={{ display: "flex", fontSize: 62, letterSpacing: -1.5, marginTop: 8 }}>Guaranteed or your money back.</span>
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>

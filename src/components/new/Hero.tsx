@@ -1,9 +1,7 @@
 import { ActionButtons, VoiceNoteLink } from "@/components/new/ActionButtons";
 import { Dial } from "@/components/new/Dial";
 import { guaranteeSentence } from "@/lib/guarantee";
-import { heroCopy } from "@/lib/hero";
-
-type Query = Record<string, string | string[] | undefined>;
+import { HERO_H1, HERO_KICKER } from "@/lib/hero";
 
 const HIGHLIGHT = "24 hours.";
 
@@ -20,18 +18,16 @@ function Headline({ text }: { text: string }) {
   );
 }
 
-export function Hero({ query }: { query: Query }) {
-  const { kicker, h1 } = heroCopy(query);
-
+export function Hero() {
   return (
     <section aria-labelledby="hero-heading" className="hero wrap">
       <div className="hgrid">
         <div>
           <p className="tag in">
-            <b aria-hidden>●</b> {kicker}
+            <b aria-hidden>●</b> {HERO_KICKER}
           </p>
           <h1 id="hero-heading" className="in d1">
-            <Headline text={h1} />
+            <Headline text={HERO_H1} />
           </h1>
           <p className="sub in d2">Custom-designed. Mobile-ready. You own it.</p>
           <p className="guar in d2">{guaranteeSentence}</p>

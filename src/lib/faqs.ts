@@ -19,7 +19,7 @@ export const faqs = [
     a: "You get a free proposal first, so you see the exact price before paying anything. When you're ready, you pay a deposit (we'll confirm e-Transfer or card on the call) and we start. Nothing is charged before that.",
   },
   {
-    q: "What if you miss the 24 hours?",
+    q: "What is your money-back guarantee?",
     a: `${guaranteeSentence} The full rules are in the guarantee box above and in our Terms.`,
   },
   {

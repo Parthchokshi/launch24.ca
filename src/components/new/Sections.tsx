@@ -104,8 +104,8 @@ export function PricingAndGuarantee() {
         </div>
 
         <div id="guarantee" className="pcard" role="group" aria-labelledby="guarantee-heading">
-          <p className="tag">The guarantee</p>
-          <h3 id="guarantee-heading">24 hours. Or it&apos;s free.</h3>
+          <p className="tag">Money-back guarantee</p>
+          <h3 id="guarantee-heading">24 hours. Or your money back.</h3>
           <p className="lead">{guaranteeSentence}</p>
           <ul className="clock">
             <li>
