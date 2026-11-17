@@ -1,6 +1,6 @@
 # Launch24 — Product Requirements & Source of Truth
 
-> **Last updated:** 2026-11-09
+> **Last updated:** 2026-11-17
 > This is the single source of truth for what launch24.ca is, what it does today, and why.
 > **Claude Code must read this before working, and update it in the same commit as any
 > change that affects behavior, a decision, a setting, or a removed feature.**
@@ -23,10 +23,10 @@ Visitors mostly arrive by scanning a QR code on a lawn sign or a printed ad, on 
 
 **Offer:** Launch Package, **$699 CAD one-time**. Includes responsive design, contact form, basic SEO, homepage copy, one revision round. Free proposal first, deposit only when work starts, the client owns the site. Bigger projects → custom quote.
 
-**Guarantee (exact sentence, use verbatim wherever the guarantee is stated):**
-> "If we miss the 24 hours, you pay nothing. Your deposit is refunded in full."
+**Guarantee (exact sentence, use verbatim wherever the guarantee is stated; the words "money-back guarantee" are deliberate, owner's rule 2026-11-17):**
+> "Money-back guarantee: if we miss the 24 hours, your deposit is refunded in full."
 >
-> Source constant: `src/lib/guarantee.ts`. The headline "Website in 24 hours. Or it's free." may stay as a headline.
+> Source constant: `src/lib/guarantee.ts`. Headline: "Website live in 24 hours, money-back guarantee." (guarantee card heading: "24 hours. Or your money back.").
 
 **24-hour clock:** starts when deposit, intake, and content (or "we write it") are all in. It waits on client replies; domain/DNS delays and revision rounds don't count. Full rules: `/terms`.
 
@@ -42,7 +42,7 @@ Contact: phone 437-365-2475 (`tel:`, `sms:`, WhatsApp `wa.me/14373652475`), emai
 ## 3. Current state
 
 ### 3.1 One URL, one default design (old design parked)
-`/` renders the **NEW** yellow/black design (`src/components/new/`) for **everyone**. Canonical `https://launch24.ca/`. The page renders per request because it reads `searchParams` (UTM-aware hero copy and the `?design=` preview).
+`/` renders the **NEW** yellow/black design (`src/components/new/`) for **everyone**. Canonical `https://launch24.ca/`. The page renders per request because it reads `searchParams` (the `?design=` preview).
 - Switch: `NEW_DESIGN_MODE` in `src/lib/flags.ts` (`"everyone"` default, or `"off"` to show the OLD design to everyone). Logic: `resolveDesign()` in `src/lib/design.ts`; page: `src/app/page.tsx`. No cookie is involved in choosing a design.
 - `?design=old` / `?design=new` force a version for previewing.
 - The **OLD** (original lavender) design is **parked**: code kept in `src/components/old/`, loaded only when shown (dynamic import; its font loads only then). It does not appear on the live site.
@@ -51,8 +51,8 @@ Contact: phone 437-365-2475 (`tel:`, `sms:`, WhatsApp `wa.me/14373652475`), emai
 
 ### 3.2 NEW design: "Night Shift" (`src/components/new/`)
 Dark, premium look; styles are plain CSS classes scoped to `.design-new` in `src/app/globals.css` (Tailwind only for a few utilities in the form). Order: Top bar (logo + "Taking new projects") → Hero → business-type strip → **"One chat. One live site."** story → How it works (4 tiles) → Pricing + Guarantee (side by side on desktop) → "Rather we call you?" form → FAQ (6) → *[Our work — hidden, see §6]* → Final CTA → Footer. Sticky bottom bar (WhatsApp + Call) on phones (< 640px).
-- **Hero:** kicker (mono, with gold dot), H1 with "24 hours." in glowing gold, "Custom-designed. Mobile-ready. You own it.", the guarantee sentence (gold left rule), buttons in this order: **WhatsApp us** (green, primary, light sweep) / Call / Text us. **Phones (< 768px):** WhatsApp full width, then Call and Text side by side; the Call button reads "Call" (number in its `aria-label`, and printed under the final CTA). **From 768px:** one row `1fr 1.5fr 1fr`, Call reads "Call 437-365-2475" and never wraps. Then "Send a 30-second voice note" (scrolls to the form and focuses Record; does not auto-start the mic). Right column (below the buttons on phones): decorative 24-hour dial (`Dial.tsx`) whose hand sweeps and clock counts down from 24:00:00. The whole hero (through the voice-note link) fits above the sticky bar on a 375×667 phone, including the long v2b headline (verified 2026-10-23: link ends at 574px, bar starts at 592px).
-- **Hero variants** (`src/lib/hero.ts`, decided server-side): `utm_source=lawn_sign` → kicker "SAW OUR SIGN?" (default "LOCAL BUSINESS?"). `utm_content=v2b` → H1 "No website? We'll build it in 24 hours. Or it's free."; v2a/v2c/other → default H1 "Website in 24 hours. Or it's free." (sentence case since 2026-10-23).
+- **Hero:** kicker (mono, with gold dot), H1 "Website live in 24 hours, money-back guarantee." with "24 hours" in glowing gold, "Custom-designed. Mobile-ready. You own it.", the guarantee sentence (gold left rule), buttons in this order: **WhatsApp us** (green, primary, light sweep) / Call / Text us. **Phones (< 768px):** WhatsApp full width, then Call and Text side by side; the Call button reads "Call" (number in its `aria-label`, and printed under the final CTA). **From 768px:** one row `1fr 1.5fr 1fr`, Call reads "Call 437-365-2475" and never wraps. Then "Send a 30-second voice note" (scrolls to the form and focuses Record; does not auto-start the mic). Right column (below the buttons on phones): decorative 24-hour dial (`Dial.tsx`) whose hand sweeps and clock counts down from 24:00:00. The whole hero (through the voice-note link) fits above the sticky bar on a 375×667 phone (verified 2026-11-17 with the money-back headline: link ends at 509px, bar starts at 592px; the phone headline size is `clamp(34px, 8.6vw, 112px)`).
+- **Hero copy** (`src/lib/hero.ts`): one version for everyone: kicker "LOCAL BUSINESS?", the H1 above. Lawn-sign and v2b variants removed 2026-11-17 (§6). UTMs are still captured and attached to events and leads.
 - **Story** (`Story.tsx`): an **example** WhatsApp chat (a Brampton bakery asks for a site, sends photos and menu, is told the preview comes within 24 hours) → gold arrow → a phone showing a **sample** "Brampton Bakehouse" site, then a "Preview ready" badge. Plays once when scrolled into view (IntersectionObserver; without JS or with reduced motion it is simply shown), "Play again" button. Always labelled "Example chat and sample website, made up to show how it works. Not a real customer." Never present it as a real client.
 - **Form** (`LeadForm.tsx`, logic unchanged): fields NAME, PHONE (`type=tel`), BUSINESS NAME, each a real `<label>`+`<input>` with autocomplete `name` / `tel` / `organization`. Then a dropdown "How did you hear about us?" (optional in behavior, but the label deliberately does **not** say "optional"; it is never required) (`heard_from`: Lawn sign, Google, Friend or family, Facebook or Instagram, WhatsApp, Other; one shared list in `src/lib/heard-from.ts`, same dropdown on the CURRENT form; never preselected, so the answer is genuinely self-reported). Optional voice note: record in browser or upload audio (max 8 MB; recording max 2 min). Button text "Call me back" (gold), disabled while sending (also guarded against double-tap). Success: **"Got it. We'll call you back as soon as we can."** (never promise a specific time). Honeypot field `_hp`.
 - **Accessibility:** tap targets ≥ 48px, 4.5:1 contrast (muted text 6.8:1 on the background, 6.4:1 on cards), visible gold focus rings, skip link, `prefers-reduced-motion` turns all animation off.
@@ -90,7 +90,7 @@ The original lavender site: Hero, Process, Pricing, FAQ, GetStarted (call/WhatsA
 Private page (`/report?key=<REPORT_KEY>`, 404 without the right key; noindex; disallowed in robots, as are `/api/` and `/p/`). Table per `design_version` × `utm_content`: visitors (unique browsers loading `/`), call / text / WhatsApp clicks, form submissions. All time. Same data: `SELECT * FROM design_report;` in D1.
 
 ### 3.7 SEO and metadata
-Title "Launch24: Website in 24 hours. Or it's free." Meta and OG descriptions contain the guarantee sentence. Canonical `https://launch24.ca/` is set as an explicit `<link>` in `src/app/page.tsx` (Next trims the slash from metadata canonicals). OG/Twitter images (Night Shift: dark background, gold glow and dial arc, "24 hours." in gold, include the guarantee sentence; `src/lib/og.tsx`), favicon (`icon.svg` + `favicon.ico`: rounded gold square, black "24" as outlines), Apple icon (gold square, black "24"), Apple icon, manifest, sitemap, robots, JSON-LD (Organization, WebSite, ProfessionalService with offer, FAQPage). Terms and Privacy links in every footer.
+Title "Launch24: Website live in 24 hours, money-back guarantee." Meta and OG descriptions contain the guarantee sentence. Canonical `https://launch24.ca/` is set as an explicit `<link>` in `src/app/page.tsx` (Next trims the slash from metadata canonicals). OG/Twitter images (Night Shift: dark background, gold glow and dial arc, "24 hours." in gold, include the guarantee sentence; `src/lib/og.tsx`), favicon (`icon.svg` + `favicon.ico`: rounded gold square, black "24" as outlines), Apple icon (gold square, black "24"), Apple icon, manifest, sitemap, robots, JSON-LD (Organization, WebSite, ProfessionalService with offer, FAQPage). Terms and Privacy links in every footer.
 
 ## 4. Settings and where they live
 | Setting | Where | Notes |
@@ -100,7 +100,7 @@ Title "Launch24: Website in 24 hours. Or it's free." Meta and OG descriptions co
 | Contact details | `src/lib/contact.ts` (+ `NEXT_PUBLIC_PHONE`, `NEXT_PUBLIC_PHONE_DISPLAY`, `NEXT_PUBLIC_EMAIL`) | |
 | Pricing, package list | `src/lib/pricing.ts` (new) / `src/lib/old/pricing.ts` (current) | |
 | Guarantee sentence | `src/lib/guarantee.ts` | |
-| Hero copy rules | `src/lib/hero.ts` | |
+| Hero copy | `src/lib/hero.ts` | Single version, no UTM variants. |
 | Env (production): `RESEND_API_KEY`, `RESEND_FROM` | Vercel | Lead email |
 | Env (production): `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_D1_DATABASE_ID`, `CLOUDFLARE_API_TOKEN` | Vercel | D1 storage; token needs D1 Edit |
 | Env (production): `REPORT_KEY` | Vercel | Unlocks `/report` |
@@ -112,6 +112,9 @@ Title "Launch24: Website in 24 hours. Or it's free." Meta and OG descriptions co
 
 ## 5. Decisions
 Newest first. Superseded entries are kept.
+
+- **2026-11-17 — Headline reworded to "Website live in 24 hours, money-back guarantee." (owner, later same day; replaces the "Guaranteed or your money back." headline below).**
+- **2026-11-17 — Say "money-back guarantee" everywhere; headline says "Guaranteed or your money back."** Owner wants that word on the site. New sentence in §1 replaces "If we miss the 24 hours, you pay nothing. Your deposit is refunded in full." (SUPERSEDED, and the 2026-10-07 "or it's free stands alone only in headlines" rule is superseded too). The guarantee card tag/heading, FAQ question ("What is your money-back guarantee?"), page title, meta and share image follow. Same day: **lawn-sign/v2b hero variants removed** (owner: signs no longer used); one hero for everyone. Not changed: the parked old design and the already-built `/p/` previews (they still carry the old sentence; update `docs/previews-kit/l24-layer.html` and the HTML files if any are still live).
 
 - **2026-10-25 — Previews are bespoke designs, not one template.** The owner rejected the template previews ("literally the same template… I need each website studio quality and unique"). Each preview is now a hand-built HTML page with its own look and one interactive idea from the business's reviews, plus the shared Launch24 layer; hosted on launch24.ca/p/ (owner asked 2026-10-26). Replaces the one-template/four-niches part of the 2026-10-23 previews entry. Launch24 is described as Markham-based in outreach.
 
@@ -159,6 +162,7 @@ Newest first. Superseded entries are kept.
 | Yellow/black sign-style look of the NEW design (Anton/Archivo, flat blocks) | **Replaced** 2026-10-23 by Night Shift | Owner felt it looked like a taxi and too basic | Git history: `src/components/new/` and the NEW block of `src/app/globals.css` at commit `0853979` |
 | "(ref: <utm_source>/<utm_content>)" tag in prefilled WhatsApp/text messages | **Removed** 2026-10-23 | Owner didn't want it in customers' messages | Git history: `refTag`/`prefilled`/`smsHref`/`whatsappHref` in `src/lib/tracking.ts` at commit `4f1b7e1`, plus the click-time href rewrite in `ActionButtons.tsx`/`StickyBar.tsx` |
 | One-template previews (`PreviewSite`/`PreviewBanner`, four niches, JSON data, `sample-home` demo) | **Replaced** 2026-10-26 by bespoke HTML previews | Owner said they all looked the same and not studio quality | Git history: commit `e958030` |
+| Lawn-sign hero variants (`utm_source=lawn_sign` kicker "SAW OUR SIGN?", `utm_content=v2b` H1 "No website? We'll build it in 24 hours. Or it's free.") | **Removed** 2026-11-17 | Lawn signs not used anymore | Git history: `src/lib/hero.ts` before 2026-11-17 (`heroCopy(query)`) and `Hero`/`NewHome` taking `query` |
 | Care plan prices (`careYearly`, `careMonthly`) | Removed with the old pricing config | Never shown on the site | Git history |
 
 ## 7. Open items
@@ -176,6 +180,8 @@ Newest first. Superseded entries are kept.
 - Confirm Resend sending domain `launch24.ca` is verified so lead emails deliver.
 
 ## 8. Change log
+- 2026-11-17 — Headline simplified to "Website live in 24 hours, money-back guarantee." (owner wording); title, share image alt/image follow.
+- 2026-11-17 — "Money-back guarantee" wording everywhere (new guarantee sentence, headline "Website in 24 hours. Guaranteed or your money back.", guarantee card, FAQ question, title/meta/OG image); removed the lawn-sign/v2b hero variants (`hero.ts` now constants; `Hero`/`NewHome` no longer take `query`).
 - 2026-11-09 — Added `brand/social/`: logos, LinkedIn/X/Facebook/Reddit covers, three 4:5 launch posts, Instagram highlight covers, render script, and a fill-in guide for each platform with `utm_medium=social` links.
 - 2026-10-26 — Replaced the template previews with 10 bespoke preview sites served as HTML by `/p/[slug]` route handler (noindex headers, no-store, 14-day expiry, open/pay/WhatsApp events to D1); removed `PreviewSite`, `PreviewBanner`, niches, JSON data, `sample-home` and the preview CSS block.
 - 2026-10-23 — Added prospect previews: `/p/<slug>` route, one template for four niches, Launch24 banner with Make changes / Make it mine, 14-day expiry, noindex + robots disallow, three preview events, `docs/previews.md`, and a made-up `sample-home` demo. Removed an unused import in `tracking.ts`.

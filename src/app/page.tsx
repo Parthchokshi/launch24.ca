@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
 };
 
-// Reads searchParams (UTM-aware hero copy, ?design= preview), so the page
+// Reads searchParams (?design= preview), so the page
 // renders per request.
 export default async function HomePage({
   searchParams,
@@ -29,7 +29,7 @@ export default async function HomePage({
   const design = resolveDesign(query);
 
   // The old design is parked: its code is only loaded when it is actually shown.
-  let home = <NewHome query={query} />;
+  let home = <NewHome />;
   if (design === "old") {
     const { OldHome } = await import("@/components/old/OldHome");
     home = <OldHome />;

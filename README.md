@@ -81,8 +81,8 @@ the same URL and the canonical `https://launch24.ca/`. Code: current design in
 `src/components/old/`, new in `src/components/new/`, switch in `src/app/page.tsx`
 and `src/lib/design.ts`.
 
-New-design hero variants: `utm_source=lawn_sign` → kicker "SAW OUR SIGN?";
-`utm_content=v2b` → the "NO WEBSITE?" headline (`src/lib/hero.ts`).
+The new-design hero has one version for everyone (`src/lib/hero.ts`); the
+lawn-sign/v2b variants were removed 2026-11-17.
 
 ## Comparing the designs
 
