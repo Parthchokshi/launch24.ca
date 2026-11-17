@@ -3,7 +3,7 @@ import { Dial } from "@/components/new/Dial";
 import { guaranteeSentence } from "@/lib/guarantee";
 import { HERO_H1, HERO_KICKER } from "@/lib/hero";
 
-const HIGHLIGHT = "24 hours.";
+const HIGHLIGHT = "24 hours";
 
 /** Puts "24 hours." in gold wherever it appears in the headline. */
 function Headline({ text }: { text: string }) {
